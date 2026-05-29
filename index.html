@@ -1016,14 +1016,17 @@ function drawPoster(ctx, w, h) {
   // 从页面 CSS 实时读取等级颜色，与 end screen 完全同步
   const cs = window.getComputedStyle(rankEl);
   const rankFg = cs.color;
-  const bgGrad = cs.backgroundImage.match(/#[0-9a-fA-F]{6}/);
-  const bgSolid = cs.backgroundColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+  // 浏览器会把渐变中的 hex 转为 rgb()，所以同时匹配两种格式
+  const bgSrc = cs.backgroundImage + ' ' + cs.backgroundColor;
+  const bgMatch = bgSrc.match(/(?:#([0-9a-fA-F]{6})|rgba?\((\d+),\s*(\d+),\s*(\d+))/);
   let rankBg;
-  if (bgGrad) {
-    rankBg = bgGrad[0];
-  } else if (bgSolid) {
-    const r = +bgSolid[1], g = +bgSolid[2], b = +bgSolid[3];
-    rankBg = '#' + [r,g,b].map(v => v.toString(16).padStart(2,'0')).join('');
+  if (bgMatch) {
+    if (bgMatch[1]) {
+      rankBg = '#' + bgMatch[1];
+    } else {
+      const r = +bgMatch[2], g = +bgMatch[3], b = +bgMatch[4];
+      rankBg = '#' + [r,g,b].map(v => v.toString(16).padStart(2,'0')).join('');
+    }
   } else {
     rankBg = '#222222';
   }
