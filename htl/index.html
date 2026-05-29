@@ -499,6 +499,7 @@
             </div>
             <!-- TODO: 测试用，发版前删除 -->
             <button class="btn" style="background:#ff4444;font-size:12px;padding:6px 14px;min-height:30px;" onclick="testSkipToEnd()">⏭ 测试：跳到最后页</button>
+            <button class="btn" style="background:#8b0000;font-size:12px;padding:6px 14px;min-height:30px;" onclick="testAllToWorst()">⏭ 测试：全部分到拉完了</button>
         </div>
 
         <div id="capture-area">
@@ -709,6 +710,23 @@ const originalData = [
             loadNext();
         }
 
+        function testAllToWorst() {
+            // 全部放到「拉完了」那一行
+            var worstZone = document.querySelector('.tier-la .dropzone');
+            if (!worstZone) return;
+            document.querySelectorAll('.dropzone').forEach(function(z) { if (z !== worstZone) z.innerHTML = ''; });
+            while (currentIndex < shuffledList.length) {
+                var p = shuffledList[currentIndex];
+                var el = document.createElement('div');
+                el.className = 'player border-' + p.borderColor;
+                el.innerHTML = '<img src="' + p.img + '" crossorigin="anonymous" alt="' + p.name + '">';
+                bindUniversalEvents(el);
+                worstZone.appendChild(el);
+                currentIndex++;
+            }
+            loadNext();
+        }
+
         function bindUniversalEvents(el) {
             el.onclick = (e) => {
                 e.stopPropagation();
@@ -799,7 +817,7 @@ const originalData = [
         const TAG_ID = 147434;
         const TOPIC_NAME = '湿乎乎的话题';
         const TOPIC_ID = 177;
-        const POSTER_W = 500, POSTER_H = 680, POSTER_SCALE = 2;
+        const POSTER_W = 500, POSTER_SCALE = 2;
 
         // window.require shim（KaleidoOSS 依赖）
         window.require = window.require || function(name) {
@@ -914,14 +932,15 @@ const originalData = [
             ctx.font = '15px -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif';
             ctx.fillText('JRs 评级结果', w / 2, 52);
 
-            // ── 等级行（自适应高度） ──
+            // ── 等级行（仿结束页：一行5个头像，50px大小） ──
             var ROW_GAP = 8, ROW_R = 10;
             var LABEL_W = 50;
-            var PLAYER_R = 18;       // 头像半径
+            var PLAYER_R = 25;       // 头像半径 25 → 直径 50px（与结束页一致）
             var BORDER_W = 2;        // 队伍色边框宽
-            var AVATAR_GAP = 8;      // 头像间距
+            var AVATAR_GAP = 10;     // 头像间距（与结束页一致）
             var nameLineH = 0;
-            var ROW_PADDING = 14;    // 行内上下间距
+            var ROW_PADDING = 16;    // 行内上下间距
+            var PER_ROW = 6;         // 每行固定6个
 
             var currentY = 66;
 
@@ -929,12 +948,9 @@ const originalData = [
                 var cfg = TIER_ROW_CFG[tier.label] || TIER_ROW_CFG['NPC'];
                 var players = tier.players;
 
-                // 根据球员数量动态计算行高
-                var areaX = LABEL_W + 6;
-                var areaW = w - areaX - 6;
+                // 计算行高
                 var slotW = (PLAYER_R + BORDER_W) * 2 + AVATAR_GAP;
-                var perRow = Math.max(1, Math.floor((areaW + AVATAR_GAP) / slotW));
-                var rows = Math.max(1, Math.ceil(players.length / perRow));
+                var rows = Math.max(1, Math.ceil(players.length / PER_ROW));
                 var contentH = rows * (PLAYER_R + BORDER_W) * 2 + (rows - 1) * nameLineH;
                 if (players.length === 0) contentH = (PLAYER_R + BORDER_W) * 2;
                 var rowH = contentH + ROW_PADDING * 2;
@@ -962,16 +978,18 @@ const originalData = [
                 ctx.fillText(tier.label, LABEL_W / 2, y + rowH / 2);
 
                 if (players.length > 0) {
-                    // 水平居中玩家组
-                    var usedW = perRow * slotW - AVATAR_GAP;
+                    // 水平居中5个头像组
+                    var areaX = LABEL_W + 6;
+                    var usedW = PER_ROW * slotW - AVATAR_GAP;
+                    var areaW = w - areaX - 6;
                     var offsetX = areaX + (areaW - usedW) / 2;
 
                     // 垂直居中玩家区域
                     var playerTop = y + (rowH - contentH) / 2;
 
                     players.forEach(function(p, pi) {
-                        var rowIdx = Math.floor(pi / perRow);
-                        var colIdx = pi % perRow;
+                        var rowIdx = Math.floor(pi / PER_ROW);
+                        var colIdx = pi % PER_ROW;
                         var px = offsetX + colIdx * slotW + (PLAYER_R + BORDER_W);
                         var py = playerTop + rowIdx * ((PLAYER_R + BORDER_W) * 2 + nameLineH) + (PLAYER_R + BORDER_W);
 
@@ -1049,16 +1067,36 @@ const originalData = [
             return Promise.all(loadTasks);
         }
 
+        function calcPosterHeight(tiers) {
+            // 与 drawPoster 中的计算逻辑保持一致
+            var headH = 66;         // 标题+分隔线+副标题+间距
+            var footH = 24;         // 水印区域
+            var ROW_GAP = 8;
+            var PLAYER_R = 25, BORDER_W = 2, ROW_PADDING = 16, PER_ROW = 6;
+            var slotW = (PLAYER_R + BORDER_W) * 2 + 10;
+            var total = headH + footH;
+            tiers.forEach(function(tier) {
+                var players = tier.players;
+                var rows = Math.max(1, Math.ceil(players.length / PER_ROW));
+                var contentH = rows * (PLAYER_R + BORDER_W) * 2;
+                if (players.length === 0) contentH = (PLAYER_R + BORDER_W) * 2;
+                var rowH = contentH + ROW_PADDING * 2;
+                total += rowH + ROW_GAP;
+            });
+            return Math.max(400, total); // 最低 400px
+        }
+
         function createPosterCanvasAsync() {
             var tiers = getTierPlayers();
             return loadPosterImages(tiers).then(function() {
+                var posterH = calcPosterHeight(tiers);
                 var canvas = document.getElementById('posterCanvas');
                 canvas.width = POSTER_W * POSTER_SCALE;
-                canvas.height = POSTER_H * POSTER_SCALE;
+                canvas.height = posterH * POSTER_SCALE;
                 var ctx = canvas.getContext('2d');
                 ctx.scale(POSTER_SCALE, POSTER_SCALE);
-                drawPoster(ctx, POSTER_W, POSTER_H, tiers);
-                canvas._corsSafe = true; // 标记为 CORS 安全
+                drawPoster(ctx, POSTER_W, posterH, tiers);
+                canvas._corsSafe = true;
                 return canvas;
             });
         }
