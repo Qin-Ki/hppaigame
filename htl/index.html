@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>JRs雷霆vs马刺系列赛从夯到拉排行</title>
+    <script src="https://gosspublic.alicdn.com/aliyun-oss-sdk-6.17.1.min.js"></script>
+    <script src="https://activity-static.hoopchina.com.cn/colorbox-activities/js/kaleido-fed-sdk.js"></script>
+    <style>
+        :root {
+            --bg-color: #090909;
+            --panel-bg: rgba(20, 20, 22, 0.96);
+            --row-bg: rgba(255, 255, 255, 0.055);
+            --row-bg-hover: rgba(255, 255, 255, 0.085);
+            --text-main: #ffffff;
+            --text-muted: #a8a8a8;
+            --gold: #ffcc33;
+            --border-red: #CE1141;
+            --border-yellow: #FDB927;
+            --shadow-strong: 0 16px 40px rgba(0, 0, 0, 0.45);
+            --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.28);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 14px 10px 24px;
+            overflow-x: hidden;
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+            background:
+                radial-gradient(circle at 20% 0%, rgba(206, 17, 65, 0.28), transparent 30%),
+                radial-gradient(circle at 90% 15%, rgba(253, 185, 39, 0.20), transparent 28%),
+                linear-gradient(180deg, #141414 0%, var(--bg-color) 58%, #000 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #game-container {
+            width: 100%;
+            max-width: 640px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #header-area {
+            width: 100%;
+            padding: 6px 8px 10px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 10px 0 6px;
+            font-size: clamp(1.15rem, 4.6vw, 1.55rem);
+            line-height: 1.25;
+            letter-spacing: 0.02em;
+            color: var(--gold);
+            text-shadow: 0 3px 12px rgba(0, 0, 0, 0.65);
+        }
+
+        .description {
+            margin: 0 auto 12px;
+            padding: 8px 12px;
+            max-width: 560px;
+            color: var(--text-muted);
+            font-size: 12px;
+            line-height: 1.55;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+        }
+
+        #capture-area {
+            position: relative;
+            isolation: isolate;
+            width: 100%;
+            padding: 12px 8px;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            border-radius: 18px;
+            background:
+                linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015)),
+                #050505;
+            box-shadow: var(--shadow-strong), inset 0 0 0 1px rgba(255, 255, 255, 0.035);
+        }
+
+        /*
+            表格正中央图片层。
+            图片链接请在 JS 顶部的 CENTER_TABLE_IMAGE_URL 中填写。
+            层级设计：表格底色 < 中央图片 < 分区文字/头像；球员头像会压在该图片上方。
+        */
+        .center-table-image {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 1;
+            display: none;
+            width: min(46%, 260px);
+            max-height: 62%;
+            transform: translate(-50%, -50%);
+            object-fit: contain;
+            opacity: 0.24;
+            pointer-events: none;
+            user-select: none;
+            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.72));
+        }
+
+        .tier-row {
+            position: relative;
+            display: flex;
+            min-height: 92px;
+            margin-bottom: 6px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 13px;
+            background: var(--row-bg);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+            transition: background-color 0.16s ease, transform 0.16s ease, border-color 0.16s ease;
+        }
+
+        .tier-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .tier-row:hover {
+            background: var(--row-bg-hover);
+            border-color: rgba(255, 255, 255, 0.16);
+        }
+
+        .tier-label {
+            position: relative;
+            z-index: 3;
+            width: 68px;
+            min-width: 68px;
+            padding: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #080808;
+            font-size: 16px;
+            font-weight: 900;
+            line-height: 1.15;
+            text-align: center;
+            letter-spacing: 0.04em;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.18);
+        }
+
+        .dropzone {
+            position: relative;
+            z-index: 2;
+            min-width: 0;
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            align-content: flex-start;
+            gap: 10px;
+            padding: 11px;
+        }
+
+        .tier-hang .tier-label { background: linear-gradient(180deg, #ff3b3b 0%, #df0000 100%); }
+        .tier-top .tier-label { background: linear-gradient(180deg, #ffb347 0%, #ff8a00 100%); }
+        .tier-superior .tier-label { background: linear-gradient(180deg, #fff85d 0%, #ffd900 100%); }
+        .tier-npc .tier-label { background: linear-gradient(180deg, #fff6ef 0%, #ecd7c8 100%); }
+        .tier-la .tier-label { background: linear-gradient(180deg, #ffffff 0%, #e8e8e8 100%); }
+
+        #selection-zone {
+            width: 100%;
+            min-height: 152px;
+            margin: 16px 0 0;
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 18px;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.035)),
+                var(--panel-bg);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .status-info {
+            margin-bottom: 10px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        #active-player-wrapper {
+            height: 124px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #active-player-container {
+            width: 84px;
+            height: 84px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #selection-player-name {
+            min-height: 20px;
+            padding: 2px 10px;
+            color: #f5f5f5;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .player {
+            position: relative;
+            z-index: 4;
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            cursor: pointer;
+            border-radius: 50%;
+            background: #333;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.48);
+            transition: transform 0.14s ease, box-shadow 0.14s ease, outline-color 0.14s ease;
+        }
+
+        .player img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+            border-radius: 50%;
+        }
+
+        .border-red {
+            border: 3px solid var(--border-red);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.48), 0 0 0 2px rgba(206, 17, 65, 0.18);
+        }
+
+        .border-yellow {
+            border: 3px solid var(--border-yellow);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.48), 0 0 0 2px rgba(253, 185, 39, 0.20);
+        }
+
+        .player.border-orange {
+            border: 3px solid #F58426 !important;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.48), 0 0 0 2px rgba(245, 132, 38, 0.26), 0 0 16px rgba(245, 132, 38, 0.20) !important;
+        }
+
+        .player.border-blue {
+            border: 3px solid #006BB6 !important;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.48), 0 0 0 2px rgba(0, 107, 182, 0.28), 0 0 16px rgba(0, 107, 182, 0.20) !important;
+        }
+
+        .player.selected {
+            outline: 4px solid #32ff7e;
+            outline-offset: 2px;
+            transform: scale(1.06);
+        }
+
+        .player.dragging {
+            position: fixed;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.88;
+            transform: scale(1.10);
+        }
+
+        .dropzone .player {
+            width: 50px !important;
+            height: 50px !important;
+            min-width: 50px !important;
+            min-height: 50px !important;
+            max-width: 50px !important;
+            max-height: 50px !important;
+            flex: 0 0 50px !important;
+            position: relative !important;
+            margin: 0 !important;
+        }
+
+        .dropzone .player.dragging {
+            position: fixed !important;
+            z-index: 9999 !important;
+        }
+
+        .btn {
+            min-height: 42px;
+            padding: 11px 18px;
+            margin: 5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 999px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 800;
+            line-height: 1;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+            transition: transform 0.14s ease, filter 0.14s ease, box-shadow 0.14s ease;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+            filter: brightness(0.94);
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 420px) {
+            body {
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+
+            #capture-area {
+                padding: 9px 6px;
+                border-radius: 15px;
+            }
+
+            .tier-row {
+                min-height: 86px;
+                margin-bottom: 5px;
+                border-radius: 11px;
+            }
+
+            .tier-label {
+                width: 60px;
+                min-width: 60px;
+                font-size: 14px;
+            }
+
+            .dropzone {
+                gap: 8px;
+                padding: 9px;
+            }
+
+            .dropzone .player {
+                width: 46px !important;
+                height: 46px !important;
+                min-width: 46px !important;
+                min-height: 46px !important;
+                max-width: 46px !important;
+                max-height: 46px !important;
+                flex-basis: 46px !important;
+            }
+
+            .center-table-image {
+                width: min(54%, 220px);
+                opacity: 0.22;
+            }
+        }
+    
+        /* 尼克斯vs骑士头像框：仅修改外圈边框，不改变头像图片背景 */
+        .player.border-knicks {
+            border: 4px solid #006BB6 !important;
+            box-shadow:
+                0 8px 18px rgba(0, 0, 0, 0.52),
+                0 0 0 3px #F58426,
+                0 0 0 6px rgba(245, 132, 38, 0.38),
+                0 0 22px rgba(245, 132, 38, 0.28) !important;
+        }
+        .player.border-cavs {
+            border: 4px solid #111111 !important;
+            box-shadow:
+                0 8px 18px rgba(0, 0, 0, 0.52),
+                0 0 0 3px #FDBB30,
+                0 0 0 6px rgba(253, 187, 48, 0.42),
+                0 0 24px rgba(253, 187, 48, 0.32) !important;
+        }
+        .dropzone .player.border-knicks {
+            border: 3px solid #006BB6 !important;
+            box-shadow:
+                0 7px 15px rgba(0, 0, 0, 0.50),
+                0 0 0 2px #F58426,
+                0 0 0 4px rgba(245, 132, 38, 0.34) !important;
+        }
+        .dropzone .player.border-cavs {
+            border: 3px solid #111111 !important;
+            box-shadow:
+                0 7px 15px rgba(0, 0, 0, 0.50),
+                0 0 0 2px #FDBB30,
+                0 0 0 4px rgba(253, 187, 48, 0.38) !important;
+        }
+
+    
+        /* 雷霆vs马刺头像框：仅修改外圈边框，不改变头像图片背景 */
+        .player.border-thunder {
+            border: 4px solid #F58426 !important;
+            box-shadow:
+                0 8px 18px rgba(0, 0, 0, 0.52),
+                0 0 0 3px #007AC1,
+                0 0 0 6px rgba(0, 122, 193, 0.38),
+                0 0 22px rgba(0, 122, 193, 0.28) !important;
+        }
+        .player.border-spurs {
+            border: 4px solid #111111 !important;
+            box-shadow:
+                0 8px 18px rgba(0, 0, 0, 0.52),
+                0 0 0 3px #A5ACAF,
+                0 0 0 6px rgba(165, 172, 175, 0.38),
+                0 0 22px rgba(165, 172, 175, 0.26) !important;
+        }
+        .player.border-ref {
+            border: 4px solid #FFFFFF !important;
+            box-shadow:
+                0 8px 18px rgba(0, 0, 0, 0.52),
+                0 0 0 3px #111111,
+                0 0 0 6px rgba(17, 17, 17, 0.44),
+                0 0 22px rgba(255, 255, 255, 0.22) !important;
+        }
+        .dropzone .player.border-thunder {
+            border: 3px solid #F58426 !important;
+            box-shadow:
+                0 7px 15px rgba(0, 0, 0, 0.50),
+                0 0 0 2px #007AC1,
+                0 0 0 4px rgba(0, 122, 193, 0.34) !important;
+        }
+        .dropzone .player.border-spurs {
+            border: 3px solid #111111 !important;
+            box-shadow:
+                0 7px 15px rgba(0, 0, 0, 0.50),
+                0 0 0 2px #A5ACAF,
+                0 0 0 4px rgba(165, 172, 175, 0.34) !important;
+        }
+        .dropzone .player.border-ref {
+            border: 3px solid #FFFFFF !important;
+            box-shadow:
+                0 7px 15px rgba(0, 0, 0, 0.50),
+                0 0 0 2px #111111,
+                0 0 0 4px rgba(17, 17, 17, 0.42) !important;
+        }
+
+    /* ====== 海报弹窗样式 ====== */
+        #posterOverlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,.92);
+            z-index: 100; display: none; flex-direction: column;
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        #posterOverlay.active { display: flex; }
+        #posterOverlay img {
+            max-width: 100%; max-height: 75vh; border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+        }
+        .poster-actions {
+            display: flex; gap: 12px; margin-top: 20px;
+        }
+        .btn-poster {
+            background: linear-gradient(135deg,#7c3aed,#a855f7); color: #fff;
+            border-radius: 50px; border: none;
+        }
+        .btn-share {
+            min-height: 44px; padding: 12px 24px;
+            font-size: 15px; font-weight: 700;
+            cursor: pointer; display: inline-flex;
+            align-items: center; justify-content: center;
+            box-shadow: 0 8px 20px rgba(124,58,237,0.35);
+            transition: transform 0.14s ease, filter 0.14s ease;
+        }
+        .btn-share:active { transform: scale(0.97); filter: brightness(0.92); }
+        .btn-share:disabled { opacity: 0.6; pointer-events: none; }
+        .poster-close {
+            min-height: 44px; padding: 12px 24px;
+            border-radius: 50px; border: none;
+            font-size: 15px; font-weight: 700;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-container">
+        <div id="header-area">
+            <h1>JRs雷霆vs马刺系列赛从夯到拉排行</h1>
+            <div class="description">
+                1. <b>拖拽：</b>按住头像移动。 2. <b>点选：</b>点击头像选中，再点击等级行。
+            </div>
+            <!-- TODO: 测试用，发版前删除 -->
+            <button class="btn" style="background:#ff4444;font-size:12px;padding:6px 14px;min-height:30px;" onclick="testSkipToEnd()">⏭ 测试：跳到最后页</button>
+        </div>
+
+        <div id="capture-area">
+            <!-- 表格中央图片：链接请填写在下方 JS 的 CENTER_TABLE_IMAGE_URL 中 -->
+            <img id="center-table-image" class="center-table-image" alt="" aria-hidden="true">
+
+            <div class="tier-row tier-hang"><div class="tier-label">夯</div><div class="dropzone"></div></div>
+            <div class="tier-row tier-top"><div class="tier-label">顶级</div><div class="dropzone"></div></div>
+            <div class="tier-row tier-superior"><div class="tier-label">人上人</div><div class="dropzone"></div></div>
+            <div class="tier-row tier-npc"><div class="tier-label">NPC</div><div class="dropzone"></div></div>
+            <div class="tier-row tier-la"><div class="tier-label">拉完了</div><div class="dropzone"></div></div>
+        </div>
+
+        <div id="selection-zone">
+            <div class="status-info" id="progress-text">加载中...</div>
+            
+            <!-- 球员选择容器 -->
+            <div id="active-player-wrapper">
+                <div id="active-player-container"></div>
+                <div id="selection-player-name"></div>
+            </div>
+
+            <!-- 开始游戏时的查看排行按钮（选中第一个后隐藏） -->
+            <div id="start-extra-btn" style="margin-top: 5px;">
+                <button class="btn" style="background:#007bff" onclick="safeNavigate('huputiyu://bbs/topicTag?tagId=147434', '_self', 'click_view_ranking')">去查看其他JRs排行</button>
+            </div>
+
+            <!-- 评级完成后的按钮组（默认隐藏） -->
+            <div id="action-buttons" class="btn-group" style="display: none; margin-top: 10px;">
+                <button class="btn" style="background:#555" onclick="manualReset()">🔄 再来一次</button>
+                <button class="btn btn-poster" onclick="generatePoster()">🎨 生成海报</button>
+                <button class="btn" style="background:#c01d2f" onclick="safeNavigate('huputiyu://bbs/postImg?tagName=雷霆vs马刺系列赛从夯到拉排行&tagId=147434&topicName=湿乎乎的话题&topicId=177', '_self', 'click_post_community')">去社区发帖</button>
+                <button class="btn" style="background:#007bff" onclick="safeNavigate('huputiyu://bbs/topicTag?tagId=147434', '_self', 'click_view_ranking')">去查看其他JRs排行</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 海报生成 -->
+    <canvas id="posterCanvas" style="display:none"></canvas>
+    <div id="posterOverlay">
+        <img id="posterPreviewImg" alt="海报预览">
+        <div class="poster-actions">
+            <button class="btn btn-poster btn-share" onclick="sharePoster(this)">📤 一键发帖</button>
+            <button class="btn poster-close" style="background:#555" onclick="closePoster()">关闭</button>
+        </div>
+    </div>
+
+    <script>
+        // 在这里添加表格正中央图片链接。留空则不显示中央图片。
+        // 示例：const CENTER_TABLE_IMAGE_URL = "https://example.com/logo.png";
+        const CENTER_TABLE_IMAGE_URL = "https://i3.hoopchina.com.cn/newsPost/de00f9a83014c2b3196d831d4be1adb9_w_300_h_300_.png";
+
+const originalData = [
+    // --- 雷霆球员（内橙外蓝头像框） ---
+    { name: "亚历山大", borderColor: "thunder", img: "https://i5.hoopchina.com.cn/editor/a1a04f8498b86a7d565659fcbf872047_w_1040_h_760_.png" },
+    { name: "霍姆格伦", borderColor: "thunder", img: "https://i1.hoopchina.com.cn/editor/5a79e49b9d5dcada136c847d73d1a00d_w_1040_h_760_.png" },
+    { name: "多尔特", borderColor: "thunder", img: "https://i3.hoopchina.com.cn/editor/8c7f62c1876db85ec8f01b63b0ef7740_w_1040_h_760_.png" },
+    { name: "哈尔滕施泰因", borderColor: "thunder", img: "https://i10.hoopchina.com.cn/editor/deefaf1a0ce81542b38d71a6260bd010_w_1040_h_760_.png" },
+    { name: "卡鲁索", borderColor: "thunder", img: "https://i5.hoopchina.com.cn/editor/9ac3d032378e3cc8933c6fb4c5704992_w_1040_h_760_.png" },
+    { name: "麦凯恩", borderColor: "thunder", img: "https://i3.hoopchina.com.cn/editor/52af677dc84320b9d0cfd9f2bf1734c8_w_1040_h_760_.png" },
+    { name: "杰林-威廉姆斯", borderColor: "thunder", img: "https://i1.hoopchina.com.cn/editor/d2d9902db3d5a6f383319c13017ff273_w_1040_h_760_.png" },
+    { name: "卡森-华莱士", borderColor: "thunder", img: "https://i1.hoopchina.com.cn/editor/4c466f953832ab59f7f67fd9785b8abc_w_1040_h_760_.png" },
+    { name: "以赛亚-乔", borderColor: "thunder", img: "https://i3.hoopchina.com.cn/editor/46fbe3781a2b3ef92a7603f0b4b247bd_w_1040_h_760_.png" },
+    { name: "戴格诺特（主教练）", borderColor: "thunder", img: "https://i10.hoopchina.com.cn/editor/aa7863ce537d87d74b461f1b010de044_w_1040_h_760_.png" },
+
+    // --- 马刺球员（内黑外灰头像框） ---
+    { name: "文班亚马", borderColor: "spurs", img: "https://i5.hoopchina.com.cn/editor/355a40d5555305ab7e1a0aaf0583961e_w_1040_h_760_.png" },
+    { name: "福克斯", borderColor: "spurs", img: "https://i10.hoopchina.com.cn/editor/661e8730cc5a1beea210d25eb71380f3_w_1040_h_760_.png" },
+    { name: "卡斯尔", borderColor: "spurs", img: "https://i1.hoopchina.com.cn/editor/7f419a4d7849b37f8eb8b7eb3c653906_w_1040_h_760_.png" },
+    { name: "迪伦-哈珀", borderColor: "spurs", img: "https://i3.hoopchina.com.cn/editor/721fc439b7e0a43bf83828e329050e11_w_1040_h_760_.png" },
+    { name: "瓦塞尔", borderColor: "spurs", img: "https://i1.hoopchina.com.cn/editor/114c69dd19f6e253559beb25240b1c8f_w_1040_h_760_.png" },
+    { name: "凯尔登-约翰逊", borderColor: "spurs", img: "https://i1.hoopchina.com.cn/editor/5564c76d7da1614ccf593b6a58845b72_w_1040_h_760_.png" },
+    { name: "尚帕尼", borderColor: "spurs", img: "https://i10.hoopchina.com.cn/editor/e30bab97922440bbe3326b11f291a603_w_1040_h_760_.png" },
+    { name: "科内特", borderColor: "spurs", img: "https://i10.hoopchina.com.cn/editor/03ea010ecab9967b3473df0e6b7440fd_w_1040_h_760_.png" },
+    { name: "卡特-布莱恩特", borderColor: "spurs", img: "https://i1.hoopchina.com.cn/editor/1281e5e0e2164e8824747bfcfedbf368_w_1040_h_760_.png" },
+    { name: "哈里森-巴恩斯", borderColor: "spurs", img: "https://i5.hoopchina.com.cn/editor/b74a812dc230fc8d9f5a87d05b86b69e_w_1040_h_760_.png" },
+    { name: "米奇（主教练）", borderColor: "spurs", img: "https://i3.hoopchina.com.cn/newsPost/3775554e9947d94311c66735f8e062a5_w_982_h_704_.png" },
+
+    // --- 裁判球员池（内白外黑头像框） ---
+    { name: "“托尼兄弟”（裁判）", borderColor: "ref", img: "https://i1.hoopchina.com.cn/newsPost/5d3340f44cc0ce05d88997ecf2f121e9_w_582_h_508_.png" },
+    { name: "福斯特（裁判）", borderColor: "ref", img: "https://i5.hoopchina.com.cn/newsPost/7034145aed739c748ea780937e53fa33_w_282_h_285_.png" }
+];
+
+
+        const imagePreloadCache = new Map();
+
+        function preloadImage(url) {
+            if (!url) return Promise.resolve();
+            if (imagePreloadCache.has(url)) return imagePreloadCache.get(url);
+
+            const task = new Promise((resolve) => {
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                img.onload = () => {
+                    if (img.decode) {
+                        img.decode().catch(() => {}).finally(resolve);
+                    } else {
+                        resolve();
+                    }
+                };
+                img.onerror = function() {
+                    // CORS 失败时重试不带 crossOrigin
+                    var img2 = new Image();
+                    img2.onload = resolve;
+                    img2.onerror = resolve;
+                    img2.src = url;
+                };
+                img.src = url;
+            });
+
+            imagePreloadCache.set(url, task);
+            return task;
+        }
+
+        function preloadAllPlayerImages() {
+            return Promise.all([...originalData.map(player => preloadImage(player.img)), preloadImage(CENTER_TABLE_IMAGE_URL)]);
+        }
+
+
+        let shuffledList = [];
+        let currentIndex = 0;
+        let selectedEl = null;
+        let isDragging = false;
+
+        function applyCenterImage() {
+            const centerImage = document.getElementById('center-table-image');
+            const imageUrl = CENTER_TABLE_IMAGE_URL.trim();
+
+            if (imageUrl) {
+                centerImage.src = imageUrl;
+                centerImage.style.display = 'block';
+            } else {
+                centerImage.removeAttribute('src');
+                centerImage.style.display = 'none';
+            }
+        }
+
+        function shuffle(arr) {
+            let res = [...arr];
+            for (let i = res.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [res[i], res[j]] = [res[j], res[i]];
+            }
+            return res;
+        }
+
+        function manualReset() {
+            applyCenterImage();
+            document.querySelectorAll('.dropzone').forEach(zone => zone.innerHTML = '');
+            shuffledList = shuffle(originalData);
+            currentIndex = 0;
+            selectedEl = null;
+
+            document.getElementById('active-player-wrapper').style.display = 'none';
+            document.getElementById('action-buttons').style.display = 'none';
+            document.getElementById('start-extra-btn').style.display = 'block';
+            document.getElementById('progress-text').innerText = '头像预加载中...';
+
+            preloadAllPlayerImages().then(() => {
+                document.getElementById('active-player-wrapper').style.display = 'flex';
+                loadNext();
+                window.scrollTo(0, 0);
+            });
+        }
+
+        function loadNext() {
+            const container = document.getElementById('active-player-container');
+            const nameTipEl = document.getElementById('selection-player-name');
+            const progress = document.getElementById('progress-text');
+            const wrapper = document.getElementById('active-player-wrapper');
+            const actionBtns = document.getElementById('action-buttons');
+            
+            nameTipEl.innerText = "";
+
+            if (currentIndex < shuffledList.length) {
+                wrapper.style.display = 'flex';
+                actionBtns.style.display = 'none';
+
+                const p = shuffledList[currentIndex];
+                progress.innerText = `进度：${currentIndex + 1} / ${shuffledList.length}`;
+                const el = document.createElement('div');
+                el.className = `player border-${p.borderColor}`;
+                el.innerHTML = '<img src="' + p.img + '" loading="eager" decoding="async" crossorigin="anonymous" alt="' + p.name + '">';
+                bindUniversalEvents(el);
+                container.innerHTML = '';
+                container.appendChild(el);
+                nameTipEl.innerText = p.name;
+            } else {
+                progress.innerHTML = '<span style="color:#ffcc33; font-weight:bold; font-size:16px;">评级完成！请手机截图保存</span>';
+                wrapper.style.display = 'none';
+                actionBtns.style.display = 'flex';
+                document.getElementById('start-extra-btn').style.display = 'none'; 
+            }
+        }
+
+        function testSkipToEnd() {
+            var zones = document.querySelectorAll('.dropzone');
+            var tierCount = zones.length;
+            while (currentIndex < shuffledList.length) {
+                var p = shuffledList[currentIndex];
+                var el = document.createElement('div');
+                el.className = 'player border-' + p.borderColor;
+                el.innerHTML = '<img src="' + p.img + '" crossorigin="anonymous" alt="' + p.name + '">';
+                bindUniversalEvents(el);
+                zones[currentIndex % tierCount].appendChild(el);
+                currentIndex++;
+            }
+            loadNext();
+        }
+
+        function bindUniversalEvents(el) {
+            el.onclick = (e) => {
+                e.stopPropagation();
+                if (isDragging) return;
+                if (selectedEl) selectedEl.classList.remove('selected');
+                selectedEl = el;
+                el.classList.add('selected');
+            };
+            el.onmousedown = (e) => { if (e.button === 0) handleStart(el, e.clientX, e.clientY); };
+            el.ontouchstart = (e) => { if (e.touches.length === 1) handleStart(el, e.touches[0].clientX, e.touches[0].clientY); };
+        }
+
+        function handleStart(el, startX, startY) {
+            let moved = false;
+            const rect = el.getBoundingClientRect();
+            const offsetX = startX - rect.left;
+            const offsetY = startY - rect.top;
+
+            const onMove = (clientX, clientY) => {
+                if (!moved) {
+                    if (Math.abs(clientX - startX) < 5 && Math.abs(clientY - startY) < 5) return;
+                    moved = true; isDragging = true;
+                    if(selectedEl) selectedEl.classList.remove('selected');
+                    selectedEl = null;
+                    el.classList.add('dragging');
+                    el.style.width = rect.width + 'px';
+                    el.style.height = rect.height + 'px';
+                }
+                el.style.left = (clientX - offsetX) + 'px';
+                el.style.top = (clientY - offsetY) + 'px';
+            };
+
+            const onMouseMove = (e) => onMove(e.clientX, e.clientY);
+            const onTouchMove = (e) => { e.preventDefault(); onMove(e.touches[0].clientX, e.touches[0].clientY); };
+
+            const onEnd = (e) => {
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onEnd);
+                document.removeEventListener('touchmove', onTouchMove);
+                document.removeEventListener('touchend', onEnd);
+
+                if (moved) {
+                    el.classList.remove('dragging');
+                    const clientX = e.clientX || (e.changedTouches && e.changedTouches[0].clientX);
+                    const clientY = e.clientY || (e.changedTouches && e.changedTouches[0].clientY);
+                    el.style.visibility = 'hidden';
+                    const target = document.elementFromPoint(clientX, clientY);
+                    el.style.visibility = 'visible';
+                    const row = target ? target.closest('.tier-row') : null;
+                    if (row) placeInTable(el, row.querySelector('.dropzone'));
+                    else { el.style.position = ''; el.style.left = ''; el.style.top = ''; }
+                    setTimeout(() => isDragging = false, 50);
+                }
+            };
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onEnd);
+            document.addEventListener('touchmove', onTouchMove, { passive: false });
+            document.addEventListener('touchend', onEnd);
+        }
+
+        document.querySelectorAll('.tier-row').forEach(row => {
+            row.onclick = () => { if (selectedEl && !isDragging) { placeInTable(selectedEl, row.querySelector('.dropzone')); selectedEl = null; } };
+        });
+
+        function placeInTable(activeEl, zone) {
+            const isNewPlayer = activeEl.closest('#active-player-wrapper');
+
+            if (isNewPlayer) {
+                const newEl = activeEl.cloneNode(true);
+                newEl.classList.remove('selected', 'dragging');
+                newEl.style = ''; 
+                zone.appendChild(newEl);
+                bindUniversalEvents(newEl);
+                currentIndex++;
+                
+                document.getElementById('start-extra-btn').style.display = 'none';
+
+                loadNext();
+            } else {
+                activeEl.classList.remove('selected', 'dragging');
+                activeEl.style = ''; 
+                zone.appendChild(activeEl); 
+            }
+        }
+        
+        // ====== 海报生成 & 一键发帖 ======
+        const ACTIVITY_NAME = '雷霆vs马刺系列赛从夯到拉排行';
+        const TAG_ID = 147434;
+        const TOPIC_NAME = '湿乎乎的话题';
+        const TOPIC_ID = 177;
+        const POSTER_W = 500, POSTER_H = 680, POSTER_SCALE = 2;
+
+        // window.require shim（KaleidoOSS 依赖）
+        window.require = window.require || function(name) {
+            if (name === 'ali-oss') return window.OSS;
+            if (name === '@hupu/kaleido-fed-sdk') return window.KaleidoOSS;
+            return null;
+        };
+        window.webGuard = window.webGuard || window.WebGuard || { hupuLog: function() {} };
+
+        // ─── 直连 KaleidoOSS 客户端（独立运行时用） ───
+        var _ossClient = null;
+        function getOssClient() {
+            if (_ossClient) return _ossClient;
+            var K = window.KaleidoOSS || (typeof require === 'function' ? require('@hupu/kaleido-fed-sdk') : null);
+            if (K) {
+                _ossClient = new K({
+                    appId: 'b1AcxWKA1u0hyDYv5kXgImZBRSQ=',
+                    module: 'activity-screenshot-fed',
+                    path: '/screenshot/activity/fed',
+                    sk: 'HioGpkmGe9bsW0iqRLJEyGoLr4Q=',
+                    action: '1',
+                });
+                if (typeof _ossClient.start === 'function') _ossClient.start();
+            }
+            return _ossClient;
+        }
+
+        function roundRectC(ctx, x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.lineTo(x + w - r, y);
+            ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+            ctx.lineTo(x + w, y + h - r);
+            ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            ctx.lineTo(x + r, y + h);
+            ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+            ctx.lineTo(x, y + r);
+            ctx.quadraticCurveTo(x, y, x + r, y);
+            ctx.closePath();
+        }
+
+        // ─── 等级行绘制配置（与页面 CSS 一致） ───
+        var TIER_ROW_CFG = {
+            '夯': { bg1: '#ff3b3b', bg2: '#df0000' },
+            '顶级': { bg1: '#ffb347', bg2: '#ff8a00' },
+            '人上人': { bg1: '#fff85d', bg2: '#ffd900' },
+            'NPC': { bg1: '#fff6ef', bg2: '#ecd7c8' },
+            '拉完了': { bg1: '#ffffff', bg2: '#e8e8e8' }
+        };
+        var TEAM_RING = {
+            'thunder': '#F58426',
+            'spurs': '#A5ACAF',
+            'ref': '#FFFFFF'
+        };
+
+        function getTierPlayers() {
+            var tiers = [];
+            document.querySelectorAll('.tier-row').forEach(function(row) {
+                var label = row.querySelector('.tier-label').textContent.trim();
+                var players = [];
+                row.querySelectorAll('.dropzone .player').forEach(function(p) {
+                    var img = p.querySelector('img');
+                    var cls = p.className;
+                    var border = 'thunder';
+                    if (cls.indexOf('border-spurs') >= 0) border = 'spurs';
+                    else if (cls.indexOf('border-ref') >= 0) border = 'ref';
+                    players.push({
+                        name: img ? img.alt : '',
+                        imgSrc: img ? img.src : '',
+                        imgEl: img,
+                        borderColor: border
+                    });
+                });
+                tiers.push({ label: label, players: players });
+            });
+            return tiers;
+        }
+
+        function drawPoster(ctx, w, h, tiers) {
+            if (!tiers) tiers = getTierPlayers();
+
+            // ── 背景 ──
+            var grad = ctx.createLinearGradient(0, 0, 0, h);
+            grad.addColorStop(0, '#0e0e1e');
+            grad.addColorStop(0.5, '#16162a');
+            grad.addColorStop(1, '#0e0e1e');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, w, h);
+
+            // ── 标题 ──
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.fillStyle = '#ffcc33';
+            ctx.font = 'bold 22px -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif';
+            ctx.fillText(ACTIVITY_NAME, w / 2, 12);
+
+            // ── 分隔线 ──
+            var lineGrad = ctx.createLinearGradient(40, 0, w - 40, 0);
+            lineGrad.addColorStop(0, 'rgba(255,255,255,0)');
+            lineGrad.addColorStop(0.3, 'rgba(255,255,255,0.2)');
+            lineGrad.addColorStop(0.7, 'rgba(255,255,255,0.2)');
+            lineGrad.addColorStop(1, 'rgba(255,255,255,0)');
+            ctx.strokeStyle = lineGrad;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(40, 42);
+            ctx.lineTo(w - 40, 42);
+            ctx.stroke();
+
+            // ── 副标题 ──
+            ctx.fillStyle = '#aaa';
+            ctx.font = '15px -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif';
+            ctx.fillText('JRs 评级结果', w / 2, 52);
+
+            // ── 等级行（自适应高度） ──
+            var ROW_GAP = 8, ROW_R = 10;
+            var LABEL_W = 50;
+            var PLAYER_R = 18;       // 头像半径
+            var BORDER_W = 2;        // 队伍色边框宽
+            var AVATAR_GAP = 8;      // 头像间距
+            var nameLineH = 0;
+            var ROW_PADDING = 14;    // 行内上下间距
+
+            var currentY = 66;
+
+            tiers.forEach(function(tier, ti) {
+                var cfg = TIER_ROW_CFG[tier.label] || TIER_ROW_CFG['NPC'];
+                var players = tier.players;
+
+                // 根据球员数量动态计算行高
+                var areaX = LABEL_W + 6;
+                var areaW = w - areaX - 6;
+                var slotW = (PLAYER_R + BORDER_W) * 2 + AVATAR_GAP;
+                var perRow = Math.max(1, Math.floor((areaW + AVATAR_GAP) / slotW));
+                var rows = Math.max(1, Math.ceil(players.length / perRow));
+                var contentH = rows * (PLAYER_R + BORDER_W) * 2 + (rows - 1) * nameLineH;
+                if (players.length === 0) contentH = (PLAYER_R + BORDER_W) * 2;
+                var rowH = contentH + ROW_PADDING * 2;
+
+                var y = currentY;
+
+                // 行背景
+                ctx.fillStyle = 'rgba(255,255,255,0.045)';
+                roundRectC(ctx, 0, y, w, rowH, ROW_R);
+                ctx.fill();
+
+                // 等级标签（左侧）
+                var labelGrad = ctx.createLinearGradient(0, y, 0, y + rowH);
+                labelGrad.addColorStop(0, cfg.bg1);
+                labelGrad.addColorStop(1, cfg.bg2);
+                ctx.fillStyle = labelGrad;
+                roundRectC(ctx, 0, y, LABEL_W, rowH, ROW_R);
+                ctx.fillRect(LABEL_W - ROW_R, y, ROW_R, rowH);
+                ctx.fill();
+
+                ctx.fillStyle = '#080808';
+                ctx.font = 'bold 16px -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(tier.label, LABEL_W / 2, y + rowH / 2);
+
+                if (players.length > 0) {
+                    // 水平居中玩家组
+                    var usedW = perRow * slotW - AVATAR_GAP;
+                    var offsetX = areaX + (areaW - usedW) / 2;
+
+                    // 垂直居中玩家区域
+                    var playerTop = y + (rowH - contentH) / 2;
+
+                    players.forEach(function(p, pi) {
+                        var rowIdx = Math.floor(pi / perRow);
+                        var colIdx = pi % perRow;
+                        var px = offsetX + colIdx * slotW + (PLAYER_R + BORDER_W);
+                        var py = playerTop + rowIdx * ((PLAYER_R + BORDER_W) * 2 + nameLineH) + (PLAYER_R + BORDER_W);
+
+                        // 队伍色边框
+                        ctx.beginPath();
+                        ctx.arc(px, py, PLAYER_R + BORDER_W, 0, Math.PI * 2);
+                        ctx.closePath();
+                        ctx.fillStyle = TEAM_RING[p.borderColor] || '#888';
+                        ctx.fill();
+
+                        // 头像（圆形裁剪绘制）
+                        if (p.loadedImg) {
+                            drawCircularImage(ctx, p.loadedImg, px, py, PLAYER_R);
+                        } else {
+                            ctx.beginPath();
+                            ctx.arc(px, py, PLAYER_R, 0, Math.PI * 2);
+                            ctx.closePath();
+                            ctx.fillStyle = TEAM_RING[p.borderColor] || '#888';
+                            ctx.fill();
+                            ctx.fillStyle = '#fff';
+                            ctx.font = 'bold 14px -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            if (p.name) ctx.fillText(p.name.charAt(0), px, py);
+                        }
+                    });
+                }
+
+                currentY += rowH + ROW_GAP;
+            });
+
+            // ── 水印 ──
+            ctx.fillStyle = 'rgba(255,255,255,0.2)';
+            ctx.font = '13px -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+            ctx.fillText(ACTIVITY_NAME + ' · 虎扑JRs出品', w / 2, h - 12);
+        }
+
+        function drawCircularImage(ctx, img, cx, cy, radius) {
+            // object-fit: cover 等效 — 不压缩比例，居中裁剪，填满圆形
+            var iw = img.naturalWidth || img.width;
+            var ih = img.naturalHeight || img.height;
+            var target = radius * 2;
+            var scale = Math.max(target / iw, target / ih);
+            var dw = iw * scale;
+            var dh = ih * scale;
+            var dx = cx - dw / 2;
+            var dy = cy - dh / 2;
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.clip();
+            ctx.drawImage(img, dx, dy, dw, dh);
+            ctx.restore();
+        }
+
+        function loadPosterImages(tiers) {
+            // 收集所有球员头像 URL，创建带 CORS 的 Image 对象
+            var loadTasks = [];
+            tiers.forEach(function(tier) {
+                tier.players.forEach(function(p) {
+                    if (!p.imgSrc) return;
+                    var task = new Promise(function(resolve) {
+                        var img = new Image();
+                        img.crossOrigin = 'anonymous';
+                        img.onload = function() { p.loadedImg = img; resolve(); };
+                        img.onerror = function() { resolve(); }; // 不阻塞，后面会用 fallback
+                        img.src = p.imgSrc;
+                    });
+                    loadTasks.push(task);
+                });
+            });
+            return Promise.all(loadTasks);
+        }
+
+        function createPosterCanvasAsync() {
+            var tiers = getTierPlayers();
+            return loadPosterImages(tiers).then(function() {
+                var canvas = document.getElementById('posterCanvas');
+                canvas.width = POSTER_W * POSTER_SCALE;
+                canvas.height = POSTER_H * POSTER_SCALE;
+                var ctx = canvas.getContext('2d');
+                ctx.scale(POSTER_SCALE, POSTER_SCALE);
+                drawPoster(ctx, POSTER_W, POSTER_H, tiers);
+                canvas._corsSafe = true; // 标记为 CORS 安全
+                return canvas;
+            });
+        }
+
+        function generatePoster() {
+            createPosterCanvasAsync().then(function(canvas) {
+                var dataURL = canvas.toDataURL('image/png');
+                var img = document.getElementById('posterPreviewImg');
+                img.src = dataURL;
+                document.getElementById('posterOverlay').classList.add('active');
+            }).catch(function(err) {
+                console.error('Poster generation failed:', err);
+            });
+        }
+
+        function closePoster() {
+            document.getElementById('posterOverlay').classList.remove('active');
+        }
+
+        function dataURLToBlob(dataURL) {
+            var parts = dataURL.split(',');
+            var mime = parts[0].match(/:(.*?);/)[1];
+            var bytes = atob(parts[1]);
+            var ab = new ArrayBuffer(bytes.length);
+            var ia = new Uint8Array(ab);
+            for (var i = 0; i < bytes.length; i++) ia[i] = bytes.charCodeAt(i);
+            return new Blob([ab], { type: mime });
+        }
+
+        function uploadToOSS(file, filename) {
+            return new Promise(function(resolve, reject) {
+                // 方案1: ColorboxAI API — 传 { file, filename } 对象
+                if (window.ColorboxAI && window.ColorboxAI.oss && typeof window.ColorboxAI.oss.uploadFile === 'function') {
+                    window.ColorboxAI.oss.uploadFile({ file: file, filename: filename })
+                        .then(function(res) { resolve(res.downloadUrl || ''); })
+                        .catch(reject);
+                    return;
+                }
+                // 方案2: postMessage Bridge（作为 iframe 运行在 Colorbox Shell 中）
+                if (window.parent && window.parent !== window) {
+                    var callbackId = '_cb_up_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+                    var timer = setTimeout(function() { cleanup(); reject(new Error('上传超时')); }, 30000);
+                    var handler = function(e) {
+                        var d = e.data;
+                        if (d && d.protocol === 'colorbox-ai-bridge' && d.type === 'oss.upload.callback' && d.payload && d.payload.callbackId === callbackId) {
+                            clearTimeout(timer); cleanup();
+                            d.payload.error ? reject(new Error(d.payload.error)) : resolve(d.payload.downloadUrl || '');
+                        }
+                    };
+                    var cleanup = function() { window.removeEventListener('message', handler); };
+                    window.addEventListener('message', handler);
+                    window.parent.postMessage({
+                        protocol: 'colorbox-ai-bridge', version: 1, direction: 'frame-to-host',
+                        type: 'oss.upload',
+                        payload: { file: file, filename: filename, callbackId: callbackId }
+                    }, '*');
+                    return;
+                }
+                // 方案3: 直连 KaleidoOSS（独立运行时）
+                var client = getOssClient();
+                if (client) {
+                    var ext = filename.lastIndexOf('.') >= 0 ? filename.slice(filename.lastIndexOf('.')) : '.png';
+                    var now = new Date();
+                    var key = 'user-upload/' + (now.getFullYear() % 100) + (now.getMonth() + 1) + now.getDate() + '-' + Math.random().toString(36).slice(-6) + ext;
+                    client.multipartUpload(key, file, {})
+                        .then(function(res) { resolve(res.downloadUrl || 'https://activity-static.hoopchina.com.cn/' + res.name); })
+                        .catch(reject);
+                    return;
+                }
+                // 方案4: 没有任何上传能力
+                reject(new Error('No upload capability'));
+            });
+        }
+
+        function safeNavigate(url, target, eventName) {
+            // 跳转前埋点
+            if (window.ColorboxAI && typeof window.ColorboxAI.track === 'function') {
+                try {
+                    window.ColorboxAI.track({ event: eventName || 'navigate', url: url, target: target || '_blank' });
+                } catch(_) {}
+            }
+
+            // 优先使用 SDK 统一跳转 API
+            if (window.ColorboxAI && typeof window.ColorboxAI.navigateTo === 'function') {
+                try { window.ColorboxAI.navigateTo(url, target || '_blank'); return; } catch(e) {}
+            }
+            if (window.ColorboxAI && typeof window.ColorboxAI.openUrl === 'function') {
+                try { window.ColorboxAI.openUrl(url); return; } catch(e) {}
+            }
+            // 降级方案
+            try { window.open(url, target || '_blank'); } catch(e) {}
+        }
+
+        async function sharePoster(btn) {
+            var canvas = document.getElementById('posterCanvas');
+            if (!canvas.width || !canvas._corsSafe) {
+                // 如果 canvas 未初始化或未用 CORS 模式生成，重新生成
+                canvas = await createPosterCanvasAsync();
+            }
+            var dataURL = canvas.toDataURL('image/png');
+            var blob = dataURLToBlob(dataURL);
+            if (blob.size === 0) {
+                console.error('[OSS] Generated blob is empty, canvas may be blank');
+                throw new Error('海报图片为空');
+            }
+            var filename = 'poster_' + ACTIVITY_NAME + '_' + Date.now() + '.png';
+
+            // 显示 loading
+            var origText = btn.innerHTML;
+            btn.innerHTML = '⏳ 上传中...';
+            btn.disabled = true;
+
+            try {
+                var imageUrl = await uploadToOSS(blob, filename);
+                var initialValue = {
+                    syncPost: true,
+                    appJsonV3: {
+                        activeTab: 'thread',
+                        data: {
+                            title: '',
+                            imageList: imageUrl ? [imageUrl] : [],
+                            content: ''
+                        }
+                    }
+                };
+
+                var postUrl = 'huputiyu://bbs/postImg?tagName=' + encodeURIComponent(ACTIVITY_NAME) +
+                    '&tagId=' + TAG_ID +
+                    '&topicName=' + encodeURIComponent(TOPIC_NAME) +
+                    '&topicId=' + TOPIC_ID +
+                    '&initialValue=' + encodeURIComponent(JSON.stringify(initialValue));
+                safeNavigate(postUrl, '_self', 'poster_share');
+                closePoster();
+            } catch (e) {
+                // 降级：纯文字发帖
+                console.warn('Poster upload failed, fallback to text-only post', e);
+                var fallbackInitialValue = {
+                    syncPost: true,
+                    appJsonV3: {
+                        activeTab: 'thread',
+                        data: {
+                            title: '',
+                            imageList: [],
+                            content: ''
+                        }
+                    }
+                };
+                var fallbackUrl = 'huputiyu://bbs/postImg?tagName=' + encodeURIComponent(ACTIVITY_NAME) +
+                    '&tagId=' + TAG_ID +
+                    '&topicName=' + encodeURIComponent(TOPIC_NAME) +
+                    '&topicId=' + TOPIC_ID +
+                    '&initialValue=' + encodeURIComponent(JSON.stringify(fallbackInitialValue));
+                safeNavigate(fallbackUrl, '_self', 'poster_share_fallback');
+                closePoster();
+            } finally {
+                btn.innerHTML = origText;
+                btn.disabled = false;
+            }
+        }
+
+        function generateAndShare() {
+            generatePoster();
+        }
+
+        window.onload = function() { preloadAllPlayerImages().then(manualReset); };
+    </script>
+</body>
+</html>
