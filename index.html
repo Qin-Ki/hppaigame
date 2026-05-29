@@ -99,7 +99,7 @@ body{
 .btn-link.red{background:linear-gradient(135deg,#ef4444,#991b1b);}
 .end-btns{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;}
 .end-btns .btn-restart,.end-btns .btn-link,.end-btns .btn-poster{margin:0;}
-.btn-poster{width:min(82%,340px);padding:14px 20px;border:none;border-radius:50px;font-size:1em;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .2s,opacity .2s;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;}
+.btn-poster{width:min(82%,340px);padding:14px 20px;border:none;border-radius:50px;font-size:1em;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .2s,opacity .2s;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;}
 .btn-poster:hover{transform:scale(1.03);opacity:.9;}
 .btn-poster:active{transform:scale(0.95);}
 .btn-restart:active{transform:scale(0.95);}
@@ -173,9 +173,9 @@ body{
     </div>
     <canvas id="posterCanvas" style="display:none;"></canvas>
     <div class="end-btns">
-      <button class="btn-poster" onclick="generateAndShare()">📤 一键发帖</button>
+      <button class="btn-poster" onclick="generatePoster()">📷 生成海报</button>
       <button class="btn-restart" onclick="restartGame()">🔄 再来一局</button>
-      <button class="btn-link blue" onclick="safeNavigate('huputiyu://bbs/topicTag?tagId=147389')">查看其他JRs的审判</button>
+      <button class="btn-link blue" onclick="safeNavigate('huputiyu://bbs/topicTag?tagId=147389')">查看其他JRs的审判结果</button>
     </div>
     <!-- 海报预览弹窗 -->
     <div id="posterOverlay">
@@ -1164,6 +1164,19 @@ function dataURLToBlob(dataURL) {
   return new Blob([u8arr], { type: mime });
 }
 
+// ─── 创建高清海报 canvas（2x 分辨率） ───
+const POSTER_W = 500, POSTER_H = 680, POSTER_SCALE = 2;
+
+function createPosterCanvas() {
+  const canvas = document.getElementById('posterCanvas');
+  canvas.width = POSTER_W * POSTER_SCALE;
+  canvas.height = POSTER_H * POSTER_SCALE;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(POSTER_SCALE, POSTER_SCALE);
+  drawPoster(ctx, POSTER_W, POSTER_H);
+  return canvas;
+}
+
 // ─── 一键发帖：后台生成海报 → 上传OSS → 带图跳转发帖 ───
 let _posterUploadPromise = null;
 
@@ -1171,11 +1184,7 @@ function generateAndShare() {
   const btn = document.querySelector('.btn-poster');
   if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>生成中...'; }
 
-  const canvas = document.getElementById('posterCanvas');
-  const w = 500, h = 680;
-  canvas.width = w; canvas.height = h;
-  const ctx = canvas.getContext('2d');
-  drawPoster(ctx, w, h);
+  const canvas = createPosterCanvas();
 
   // 后台：转 dataURL → blob → 上传 OSS → 跳转
   _posterUploadPromise = (async () => {
@@ -1247,11 +1256,7 @@ function safeNavigate(url, target) {
 }
 
 function generatePoster() {
-  const canvas = document.getElementById('posterCanvas');
-  const w = 500, h = 680;
-  canvas.width = w; canvas.height = h;
-  const ctx = canvas.getContext('2d');
-  drawPoster(ctx, w, h);
+  const canvas = createPosterCanvas();
   const img = document.getElementById('posterPreviewImg');
   img.src = canvas.toDataURL('image/png');
   document.getElementById('posterOverlay').classList.add('active');
@@ -1264,7 +1269,7 @@ function closePoster() {
 function sharePoster(btn) {
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span>上传中...';
-  const canvas = document.getElementById('posterCanvas');
+  const canvas = createPosterCanvas();
   (async () => {
     try {
       const dataURL = canvas.toDataURL('image/png');
