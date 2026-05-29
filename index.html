@@ -98,13 +98,10 @@ body{
 .btn-link.blue{background:linear-gradient(135deg,#2563eb,#1d4ed8);}
 .btn-link.red{background:linear-gradient(135deg,#ef4444,#991b1b);}
 .end-btns{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;}
-.end-btns .btn-restart,.end-btns .btn-link,.end-btns .btn-poster,.end-btns .btn-save,.end-btns .btn-share{margin:0;}
-.btn-poster,.btn-save,.btn-share{width:min(82%,340px);padding:14px 20px;border:none;border-radius:50px;font-size:1em;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .2s,opacity .2s;}
-.btn-poster{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;}
-.btn-save{background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;}
-.btn-share{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;}
-.btn-poster:hover,.btn-save:hover,.btn-share:hover{transform:scale(1.03);opacity:.9;}
-.btn-poster:active,.btn-save:active,.btn-share:active{transform:scale(0.95);}
+.end-btns .btn-restart,.end-btns .btn-link,.end-btns .btn-poster{margin:0;}
+.btn-poster{width:min(82%,340px);padding:14px 20px;border:none;border-radius:50px;font-size:1em;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .2s,opacity .2s;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;}
+.btn-poster:hover{transform:scale(1.03);opacity:.9;}
+.btn-poster:active{transform:scale(0.95);}
 .btn-restart:active{transform:scale(0.95);}
 /* ─── 海报预览弹窗 ─── */
 #posterOverlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:100;display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px;}
@@ -112,6 +109,7 @@ body{
 #posterOverlay img{max-width:100%;max-height:75vh;border-radius:12px;box-shadow:0 0 40px rgba(124,58,237,.3);}
 #posterOverlay .poster-actions{display:flex;flex-direction:column;gap:10px;width:100%;max-width:340px;margin-top:20px;}
 #posterOverlay .poster-actions button{width:100%;padding:14px;border:none;border-radius:50px;font-size:1em;font-weight:700;cursor:pointer;font-family:inherit;}
+#posterOverlay .btn-share{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;}
 #posterOverlay .poster-close{background:rgba(255,255,255,.1);color:#888;margin-top:4px;}
 /* ─── 加载动画 ─── */
 .spinner{width:24px;height:24px;border:3px solid rgba(255,255,255,.2);border-top-color:#a855f7;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;vertical-align:middle;margin-right:8px;}
@@ -175,9 +173,7 @@ body{
     </div>
     <canvas id="posterCanvas" style="display:none;"></canvas>
     <div class="end-btns">
-      <button class="btn-poster" onclick="generatePoster()">📷 生成海报</button>
-      <button class="btn-save" id="btnSavePoster" onclick="savePoster()" style="display:none;">💾 保存海报</button>
-      <button class="btn-share" id="btnSharePoster" onclick="sharePoster(this)" style="display:none;">📤 发帖</button>
+      <button class="btn-poster" onclick="generateAndShare()">📤 一键发帖</button>
       <button class="btn-restart" onclick="restartGame()">🔄 再来一局</button>
       <button class="btn-link blue" onclick="safeNavigate('huputiyu://bbs/topicTag?tagId=147389')">查看其他JRs的审判</button>
     </div>
@@ -185,8 +181,7 @@ body{
     <div id="posterOverlay">
       <img id="posterPreviewImg" alt="海报预览">
       <div class="poster-actions">
-        <button class="btn-save" onclick="savePosterFromOverlay()">💾 保存海报</button>
-        <button class="btn-share" onclick="sharePoster(this)">📤 发帖</button>
+        <button class="btn-share" onclick="sharePoster(this)">📤 一键发帖</button>
         <button class="poster-close" onclick="closePoster()">关闭</button>
       </div>
     </div>
@@ -1014,7 +1009,6 @@ function endGame(){
 window.addEventListener('resize',()=>{if(document.getElementById('screen-fight').classList.contains('active'))resizeCanvas();});
 
 // ─── 海报生成 ───
-let posterBlob = null;
 
 function drawPoster(ctx, w, h) {
   const rankEl = document.getElementById('endRank');
@@ -1037,7 +1031,7 @@ function drawPoster(ctx, w, h) {
   }
   ctx.fillStyle = '#ff4444'; ctx.font = 'bold 34px "Noto Sans SC",sans-serif';
   ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-  ctx.fillText('⚖️ 西决裁判审判室', w / 2, 30);
+  ctx.fillText('西决裁判审判室', w / 2, 30);
   const gd = ctx.createLinearGradient(w * .15, 0, w * .85, 0);
   gd.addColorStop(0, 'transparent'); gd.addColorStop(.5, '#ff8800'); gd.addColorStop(1, 'transparent');
   ctx.strokeStyle = gd; ctx.lineWidth = 2;
@@ -1061,12 +1055,14 @@ function drawPoster(ctx, w, h) {
     roundRectC(ctx, w * .1, y, w * .8, ih, 10); ctx.fill();
     ctx.strokeStyle = 'rgba(255,255,255,.08)'; ctx.lineWidth = 1;
     roundRectC(ctx, w * .1, y, w * .8, ih, 10); ctx.stroke();
+    // 标签居中显示在左侧
     ctx.fillStyle = '#999'; ctx.font = '17px "Noto Sans SC",sans-serif';
-    ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
-    ctx.fillText(it.l, w * .16, y + ih / 2);
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(it.l, w * .35, y + ih / 2);
+    // 数值居中显示在右侧
     ctx.fillStyle = it.c; ctx.font = 'bold 26px "Noto Sans SC",sans-serif';
-    ctx.textAlign = 'right';
-    ctx.fillText(it.v, w * .84, y + ih / 2);
+    ctx.textAlign = 'center';
+    ctx.fillText(it.v, w * .65, y + ih / 2);
   });
   ctx.fillStyle = '#555';
   ctx.font = '13px "Noto Sans SC",sans-serif';
@@ -1085,8 +1081,6 @@ function roundRectC(ctx, x, y, w, h, r) {
   ctx.quadraticCurveTo(x, y, x + r, y);
   ctx.closePath();
 }
-
-let _posterUploadPromise = null;
 
 // ─── 全局 shim（KaleidoOSS 依赖） ───
 window.require = window.require || function(name) {
@@ -1159,6 +1153,76 @@ function uploadToOSS(file, filename) {
   });
 }
 
+// ─── 工具：dataURL → Blob ───
+function dataURLToBlob(dataURL) {
+  const parts = dataURL.split(',');
+  const mime = parts[0].match(/:(.*?);/)[1];
+  const bstr = atob(parts[1]);
+  const n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  for (let i = 0; i < n; i++) u8arr[i] = bstr.charCodeAt(i);
+  return new Blob([u8arr], { type: mime });
+}
+
+// ─── 一键发帖：后台生成海报 → 上传OSS → 带图跳转发帖 ───
+let _posterUploadPromise = null;
+
+function generateAndShare() {
+  const btn = document.querySelector('.btn-poster');
+  if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>生成中...'; }
+
+  const canvas = document.getElementById('posterCanvas');
+  const w = 500, h = 680;
+  canvas.width = w; canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  drawPoster(ctx, w, h);
+
+  // 后台：转 dataURL → blob → 上传 OSS → 跳转
+  _posterUploadPromise = (async () => {
+    try {
+      const dataURL = canvas.toDataURL('image/png');
+      const blob = dataURLToBlob(dataURL);
+      const url = await uploadToOSS(blob, `西决审判_${Date.now()}.png`);
+      const imageUrl = url || '';
+      const initialValue = {
+        syncPost: true,
+        appJsonV3: {
+          activeTab: 'thread',
+          data: {
+            title: '',
+            imageList: imageUrl ? [imageUrl] : [],
+            content: '',
+          },
+        },
+      };
+      const tagName = encodeURIComponent('西决裁判审判室');
+      const link = `huputiyu://bbs/postImg?tagName=${tagName}&tagId=147389&topicName=${encodeURIComponent('湿乎乎的话题')}&topicId=177&initialValue=${encodeURIComponent(JSON.stringify(initialValue))}`;
+      safeNavigate(link);
+      return url;
+    } catch (e) {
+      console.error('发帖失败', e);
+      // 降级：不带图纯文字发帖
+      const initialValue = {
+        syncPost: true,
+        appJsonV3: {
+          activeTab: 'thread',
+          data: {
+            title: '',
+            imageList: [],
+            content: '',
+          },
+        },
+      };
+      const tagName = encodeURIComponent('西决裁判审判室');
+      const link = `huputiyu://bbs/postImg?tagName=${tagName}&tagId=147389&topicName=${encodeURIComponent('湿乎乎的话题')}&topicId=177&initialValue=${encodeURIComponent(JSON.stringify(initialValue))}`;
+      safeNavigate(link);
+      return '';
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = '📤 一键发帖'; }
+    }
+  })();
+}
+
 /* ─── 统一跳转工具 ───
  * 优先使用 ColorboxAI SDK，自动完成埋点后跳转
  */
@@ -1191,83 +1255,44 @@ function generatePoster() {
   const img = document.getElementById('posterPreviewImg');
   img.src = canvas.toDataURL('image/png');
   document.getElementById('posterOverlay').classList.add('active');
-  document.getElementById('btnSavePoster').style.display = '';
-  const shareBtn = document.querySelector('#posterOverlay .btn-share');
-  shareBtn.disabled = true;
-  shareBtn.innerHTML = '<span class="spinner"></span>上传中...';
-  _posterUploadPromise = (async () => {
-    try {
-      const blob = await new Promise(r => canvas.toBlob(r, 'image/png'));
-      const url = await uploadToOSS(blob, `西决审判_${Date.now()}.png`);
-      return url;
-    } catch (e) {
-      console.error('upload failed', e);
-      return '';
-    }
-  })();
-  _posterUploadPromise.then(url => {
-    shareBtn.disabled = false;
-    shareBtn.textContent = url ? '📤 发帖' : '📤 发帖（图片上传失败）';
-  });
 }
 
 function closePoster() {
   document.getElementById('posterOverlay').classList.remove('active');
 }
 
-function savePoster() {
-  const canvas = document.getElementById('posterCanvas');
-  canvas.toBlob(blob => {
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.download = `西决审判_${Date.now()}.png`;
-    a.href = url;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => {
-      if (document.hidden) return;
-      if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-        window.open(url, '_blank');
-      }
-      URL.revokeObjectURL(url);
-    }, 800);
-  }, 'image/png');
-}
-function savePosterFromOverlay() {
-  savePoster();
-  closePoster();
-}
-
-async function sharePoster(btn) {
-  if (!btn) btn = document.querySelector('#posterOverlay .btn-share') || document.getElementById('btnSharePoster');
-  const origText = btn.textContent;
+function sharePoster(btn) {
   btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span>处理中...';
-  try {
-    const imageUrl = _posterUploadPromise ? await _posterUploadPromise : '';
-    const initialValue = {
-      syncPost: true,
-      appJsonV3: {
-        activeTab: 'thread',
-        data: {
-          title: '',
-          imageList: imageUrl ? [imageUrl] : [],
-          content: `我的审判结果！累计怒气${state.totalAnger}% | 击打${state.totalHits}次 | 最终得分${state.totalScore}`,
+  btn.innerHTML = '<span class="spinner"></span>上传中...';
+  const canvas = document.getElementById('posterCanvas');
+  (async () => {
+    try {
+      const dataURL = canvas.toDataURL('image/png');
+      const blob = dataURLToBlob(dataURL);
+      const url = await uploadToOSS(blob, `西决审判_${Date.now()}.png`);
+      const imageUrl = url || '';
+      const initialValue = {
+        syncPost: true,
+        appJsonV3: {
+          activeTab: 'thread',
+          data: {
+            title: '',
+            imageList: imageUrl ? [imageUrl] : [],
+            content: '',
+          },
         },
-      },
-    };
-    const tagName = encodeURIComponent('西决裁判审判室');
-    const link = `huputiyu://bbs/postImg?tagName=${tagName}&tagId=147389&topicName=${encodeURIComponent('湿乎乎的话题')}&topicId=177&initialValue=${encodeURIComponent(JSON.stringify(initialValue))}`;
-    safeNavigate(link);
-    closePoster();
-  } catch (e) {
-    alert('发帖失败，请手动截图发帖');
-    console.error(e);
-  } finally {
-    btn.disabled = false;
-    btn.textContent = origText;
-  }
+      };
+      const tagName = encodeURIComponent('西决裁判审判室');
+      const link = `huputiyu://bbs/postImg?tagName=${tagName}&tagId=147389&topicName=${encodeURIComponent('湿乎乎的话题')}&topicId=177&initialValue=${encodeURIComponent(JSON.stringify(initialValue))}`;
+      safeNavigate(link);
+      closePoster();
+    } catch (e) {
+      console.error('发帖失败', e);
+      btn.disabled = false;
+      btn.textContent = '📤 一键发帖';
+      alert('发帖失败，请重试');
+    }
+  })();
 }
 
 console.log('⚡ 裁判击打模拟器 v3 - 缓动关键帧动画');
