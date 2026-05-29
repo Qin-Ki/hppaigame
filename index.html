@@ -1013,27 +1013,29 @@ window.addEventListener('resize',()=>{if(document.getElementById('screen-fight')
 function drawPoster(ctx, w, h) {
   const rankEl = document.getElementById('endRank');
   const rankText = rankEl.textContent;
-  const cls = rankEl.className;
-  let rankBg, rankFg;
-  if (cls.includes('s')) { rankBg = '#ff4444'; rankFg = '#fff'; }
-  else if (cls.includes('a')) { rankBg = '#fbbf24'; rankFg = '#000'; }
-  else if (cls.includes('b')) { rankBg = '#4ade80'; rankFg = '#000'; }
-  else if (cls.includes('c')) { rankBg = '#666'; rankFg = '#fff'; }
-  else { rankBg = '#222'; rankFg = '#666'; }
+  // 从页面 CSS 实时读取等级颜色，与 end screen 完全同步
+  const cs = window.getComputedStyle(rankEl);
+  const rankFg = cs.color;
+  const bgGrad = cs.backgroundImage.match(/#[0-9a-fA-F]{6}/);
+  const bgSolid = cs.backgroundColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+  let rankBg;
+  if (bgGrad) {
+    rankBg = bgGrad[0];
+  } else if (bgSolid) {
+    const r = +bgSolid[1], g = +bgSolid[2], b = +bgSolid[3];
+    rankBg = '#' + [r,g,b].map(v => v.toString(16).padStart(2,'0')).join('');
+  } else {
+    rankBg = '#222222';
+  }
 
   const bg = ctx.createLinearGradient(0, 0, 0, h);
-  bg.addColorStop(0, '#0a0a1a'); bg.addColorStop(.5, '#1a0a20'); bg.addColorStop(1, '#0a0a1a');
+  bg.addColorStop(0, '#0e0e1e'); bg.addColorStop(.5, '#16162a'); bg.addColorStop(1, '#0e0e1e');
   ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
-  for (let i = 0; i < 3; i++) {
-    ctx.strokeStyle = `rgba(255,68,68,${.08 - i * .02})`;
-    ctx.lineWidth = 2; ctx.beginPath();
-    ctx.arc(w / 2, h * .38, w * (.38 + i * .06), 0, Math.PI * 2); ctx.stroke();
-  }
-  ctx.fillStyle = '#ff4444'; ctx.font = 'bold 34px "Noto Sans SC",sans-serif';
+  ctx.fillStyle = '#dddddd'; ctx.font = 'bold 34px "Noto Sans SC",sans-serif';
   ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-  ctx.fillText('西决裁判审判室', w / 2, 30);
+  ctx.fillText('我对西决裁判的审判结果', w / 2, 30);
   const gd = ctx.createLinearGradient(w * .15, 0, w * .85, 0);
-  gd.addColorStop(0, 'transparent'); gd.addColorStop(.5, '#ff8800'); gd.addColorStop(1, 'transparent');
+  gd.addColorStop(0, 'transparent'); gd.addColorStop(.5, '#666688'); gd.addColorStop(1, 'transparent');
   ctx.strokeStyle = gd; ctx.lineWidth = 2;
   ctx.beginPath(); ctx.moveTo(w * .15, 78); ctx.lineTo(w * .85, 78); ctx.stroke();
 
@@ -1263,7 +1265,13 @@ function generatePoster() {
 }
 
 function closePoster() {
+  resetShareBtn();
   document.getElementById('posterOverlay').classList.remove('active');
+}
+
+function resetShareBtn() {
+  const btn = document.querySelector('#posterOverlay .btn-share');
+  if (btn) { btn.disabled = false; btn.textContent = '📤 一键发帖'; }
 }
 
 function sharePoster(btn) {
@@ -1293,8 +1301,7 @@ function sharePoster(btn) {
       closePoster();
     } catch (e) {
       console.error('发帖失败', e);
-      btn.disabled = false;
-      btn.textContent = '📤 一键发帖';
+      resetShareBtn();
       alert('发帖失败，请重试');
     }
   })();
