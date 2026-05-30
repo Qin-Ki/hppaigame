@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>雷霆VS马刺西决神剧情</title>
+    <style>
+        body { 
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; 
+            background: #f4f7f9; 
+            color: #333; 
+            margin: 0; padding: 15px;
+            display: flex; flex-direction: column; align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container { 
+            width: 100%; max-width: 420px; 
+            background: #fff;
+            border-radius: 28px; padding: 35px 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            text-align: center;
+            position: relative;
+            margin-top: 5vh; 
+            transition: margin 0.3s ease;
+        }
+        
+        .container.show-result {
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .hupu-tag { position: absolute; top: 18px; left: 20px; font-size: 11px; color: #999; font-weight: bold; letter-spacing: 1px; }
+        .match-header { margin-bottom: 25px; }
+        .match-header h1 { font-size: 24px; margin: 0; font-weight: 900; color: #1a1a1a; }
+
+        .score-input-wrap { display: flex; justify-content: space-between; align-items: center; margin: 15px 0; }
+        .team-box { flex: 1; display: flex; flex-direction: column; align-items: center; }
+        .team-logo { width: 80px; height: 80px; margin-bottom: 6px; object-fit: contain; }
+        .team-name { font-size: 13px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; letter-spacing: 2px; }
+        
+        .score-input { 
+            width: 85px; height: 55px; background: #f8f9fa; border: 2px solid #eee; 
+            color: #1d428a; font-size: 28px; font-weight: 900; text-align: center; border-radius: 14px;
+            outline: none; transition: 0.3s; -webkit-appearance: none;
+        }
+        .score-input:focus { border-color: #1d428a; background: #fff; }
+        
+        .vs-container {
+            display: flex; flex-direction: column; align-items: center; min-width: 80px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .vs-container::before {
+            content: "";
+            display: block; 
+            width: 40px;
+            height: 40px;
+            margin-bottom: 5px; 
+            background-image: url('https://i3.hoopchina.com.cn/editor/f376bbe12b4a6986aba26c02edc2cd58_w_800_h_800_.png?x-oss-process=image/resize,w_800/format,webp');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 1; 
+            filter: none; 
+            z-index: auto; 
+        }
+        
+        .vs-text { font-size: 22px; font-weight: 900; color: #ddd; line-height: 1; }
+        .input-tip { font-size: 11px; color: #ff5000; margin-top: 8px; font-weight: bold; }
+
+        .btn-group { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
+        .btn { 
+            width: 100%; padding: 15px; border-radius: 16px; font-size: 18px; font-weight: bold; 
+            cursor: pointer; border: none; transition: 0.2s; text-decoration: none; display: flex; align-items: center; justify-content: center; box-sizing: border-box;
+        }
+        
+        .btn-submit { background: #ccc; color: #fff; cursor: not-allowed; pointer-events: none; }
+        .btn-submit.active { background: #1d428a; cursor: pointer; pointer-events: auto; box-shadow: 0 4px 15px rgba(29,66,138,0.2); }
+        
+        .btn-reset { background: #eee; color: #666; display: none; }
+        .btn-poster { background: linear-gradient(135deg,#7c3aed,#a855f7); color: #fff; display: none; box-shadow: 0 4px 15px rgba(124,58,237,0.2); }
+        .btn-poster:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        
+        .btn-view-others { background: #fff; color: #1d428a; border: 2px solid #1d428a; box-shadow: 0 4px 15px rgba(29,66,138,0.1); }
+        
+        .btn:active { transform: scale(0.97); opacity: 0.9; }
+
+        #result-area { margin-top: 25px; display: none; animation: slideUp 0.4s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .result-card { background: #f9f9f9; padding: 25px 20px; border-radius: 20px; border-left: 5px solid #1d428a; text-align: left; }
+        .result-title { color: #1d428a; font-size: 13px; margin-bottom: 8px; font-weight: bold; letter-spacing: 1px; }
+        .result-text { font-size: 17px; line-height: 1.6; color: #333; font-weight: 500; }
+        .screenshot-tip { font-size: 12px; color: #ff5000; margin-top: 15px; display: block; font-weight: bold; }
+        
+        #posterOverlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,.92);
+            z-index: 100; display: none; flex-direction: column;
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        #posterOverlay.active { display: flex; }
+        #posterOverlay img { max-width: 100%; max-height: 75vh; width: auto; height: auto; object-fit: contain; border-radius: 12px; box-shadow: 0 0 40px rgba(124,58,237,.3); }
+        #posterOverlay .poster-actions { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 340px; margin-top: 20px; }
+        #posterOverlay .poster-actions button {
+            width: 100%; padding: 14px; border: none; border-radius: 50px;
+            font-size: 1em; font-weight: 700; cursor: pointer; font-family: inherit;
+        }
+        #posterOverlay .btn-share { background: linear-gradient(135deg,#ef4444,#dc2626); color: #fff; touch-action: manipulation; }
+        #posterOverlay .btn-share:disabled { opacity: 0.6; cursor: not-allowed; }
+        #posterOverlay .poster-close { touch-action: manipulation; }
+        #posterOverlay .poster-close { background: rgba(255,255,255,.1); color: #888; margin-top: 4px; }
+        
+        .spinner {
+            width: 24px; height: 24px; border: 3px solid rgba(255,255,255,.2);
+            border-top-color: #a855f7; border-radius: 50%;
+            animation: spin .8s linear infinite; display: inline-block;
+            vertical-align: middle; margin-right: 8px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        /* ─── 加载动画覆盖层 ─── */
+        #loadingOverlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,.85);
+            z-index: 200; display: none; flex-direction: column;
+            align-items: center; justify-content: center;
+            backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+            animation: fadeIn .25s ease-out;
+        }
+        #loadingOverlay.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .loading-ring {
+            width: 64px; height: 64px;
+            border: 4px solid rgba(255,255,255,.1);
+            border-top-color: #a855f7;
+            border-bottom-color: #7c3aed;
+            border-radius: 50%;
+            animation: loadSpin 1s cubic-bezier(.4,0,.2,1) infinite;
+        }
+        @keyframes loadSpin { to { transform: rotate(360deg); } }
+        
+        .loading-ring.spurs-ring {
+            border-top-color: #1d428a;
+            border-bottom-color: #c8102e;
+        }
+        
+        .loading-text {
+            color: #ccc; font-size: 15px; margin-top: 20px;
+            font-weight: 500; letter-spacing: 1px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse { 0%,100% { opacity: .4; } 50% { opacity: 1; } }
+        
+    </style>
+<script src="https://gosspublic.alicdn.com/aliyun-oss-sdk-6.17.1.min.js"></script>
+<script src="https://activity-static.hoopchina.com.cn/colorbox-activities/js/kaleido-fed-sdk.js"></script>
+</head>
+<body>
+
+<div class="container" id="main-container">
+    <div class="hupu-tag">虎扑JRs预测</div>
+    <div class="match-header">
+        <h1>雷霆VS马刺G7神剧情</h1>
+    </div>
+
+    <div class="score-input-wrap">
+        <div class="team-box">
+            <img src="https://i1.hoopchina.com.cn/colorbox/c99c9a5e9beb9b2d5a7ff7e305464070.png?x-oss-process=image/resize,w_800/format,webp" class="team-logo" alt="雷霆">
+            <div class="team-name">雷霆</div>
+            <input type="number" id="thunder-score" class="score-input" oninput="checkInputs()">
+        </div>
+        
+        <div class="vs-container">
+            <div class="vs-text">VS</div>
+            <div class="input-tip" id="input-tip-text">请填写比分</div>
+        </div>
+        
+        <div class="team-box">
+            <img src="https://i11.hoopchina.com.cn/colorbox/6f1c59e68ec719f9e6d0c6764187c1c6.png?x-oss-process=image/resize,w_800/format,webp" class="team-logo" alt="马刺">
+            <div class="team-name">马刺</div>
+            <input type="number" id="spurs-score" class="score-input" oninput="checkInputs()">
+        </div>
+    </div>
+
+    <div id="result-area">
+        <div class="result-card">
+            <div class="result-title">西决时刻·剧情回顾</div>
+            <div class="result-text" id="res-desc"></div>
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn btn-submit" id="submit-btn" onclick="predict()">生成G7神剧情</button>
+        <button class="btn btn-reset" id="reset-btn" onclick="resetGame()">再玩一次</button>
+        <button class="btn btn-poster" id="poster-btn" onclick="generatePoster()">📷 生成海报</button>
+        <button class="btn btn-view-others" onclick="safeNavigate('huputiyu://bbs/topicTag?tagId=147647')">查看其他JRs预测</button>
+    </div>
+    
+    <!-- ─── 加载动画覆盖层 ─── -->
+    <div id="loadingOverlay">
+        <div class="loading-ring spurs-ring"></div>
+        <div class="loading-text">加载中...</div>
+    </div>
+
+    <canvas id="posterCanvas" style="display:none"></canvas>
+    <div id="posterOverlay">
+        <img id="posterPreviewImg" alt="海报预览">
+        <div class="poster-actions">
+            <button class="btn-share" onclick="sharePoster(this)">📤 一键发帖</button>
+            <button class="poster-close" onclick="closePoster()">关闭</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// 马刺 & 雷霆 西决剧本 — 每个分差区间3条文案，结合最新阵容（文班亚马、SGA、切特、杰伦威等）
+const scripts = {
+    spurs: [    // 马刺赢球剧本
+        { min: 1, max: 5, texts: [
+            "G7决胜时刻，文班亚马禁区转身隔扣切特完成准绝杀，SGA最后一攻突破遭文班钉板封盖，雷霆主场遗憾落败，马刺拿下抢七挺进总决赛。",
+            "福克斯极限负角度漂移两分压哨命中，帮助马刺取得领先，霍姆格伦绝平三分弹框而出，马刺在雷霆主场的叹息声中，成为新的西部冠军。",
+            "关键时刻，裁判响哨，凯尔登-约翰逊突破造成多尔特犯规，两罚全中稳住局势，亚历山大最后一攻又倒地失误，马刺客场险胜。"
+        ] },
+        { min: 6, max: 10, texts: [
+            "文班亚马最后5分钟又一次展示了“攻防一体”，连续4个回合送出大帽，凭一己之力掐断雷霆反扑势头，同时在进攻端多次造成雷霆犯规，马刺打出12-2攻势拉开分差，稳稳收下G7，昂首晋级总决赛。",
+            "卡斯尔下半场盘活全队，接连送出精妙传球，马刺多点开花拉开差距，戴格诺特屡次暂停调整但收效甚微，雷霆无力逆转，只能看着马刺在自己主场疯狂庆祝。",
+            "第四节尚帕尼突施冷箭连中两记三分，瞬间改写局势拉开8分分差，雷霆进攻突然断电，马刺顺利拿下G7，登顶西部。赛后，尚帕尼表示：“G7连进关键三分没什么难的。投就完事了。”"
+        ] },
+        { min: 11, max: 15, texts: [
+            "文班亚马全面压制内线，哈珀与队友轮番冲击篮筐，分差逐步拉开至10+，雷霆双塔攻防两端全部落于下风。赛后，切特8+8的数据又一次在社媒被疯狂讨论——在中文论坛上，甚至流传出“新八贤王”的故事。",
+            "马刺全队三分火力全开，末节轰进7记三分一举把比分拉开，亚历山大孤军奋战难救主，只能目送对手拿下西部冠军。赛后，亚历山大表示：“没办法，他们确实投得太准了。”",
+            "哈珀全场攻防拉满，屡次表演快攻反击一条龙，全场爆砍35分5抢断，雷霆末节频频打铁+失误连连。赛后，戴格诺特找到当值裁判，质疑为什么哈珀的有些动作没有被吹犯规。"
+        ] },
+        { min: 16, max: 20, texts: [
+            "文班亚马砍下39分12篮板统治内线，第三节连续强攻把分差扩大到18分。文班本场累计获得12次罚球，而对此，雷霆戴格诺特表示：“球队犯规太多是因为确实防不住对手”。",
+            "马刺团队配合行云流水，单节净胜19分建立巨大优势，雷霆主场安静得如同图书馆，坐在替补席的亚历山大表情阴沉，没有了此前的笑容。",
+            "瓦塞尔全场手感火热砍下29分，第三节里突外投以一己之力帮助马刺拉开15+分差，亚历山大20投仅6中。眼看翻盘无望，直接撤下主力，以一场主场惨败结束了今年季后赛的征程。"
+        ] },
+        { min: 21, max: 30, texts: [
+            "马刺三节便锁定胜局，全队多点爆发一度拉开29分分差，SGA35分难救主，卡斯尔暂停期间直接对着身后的观众挥手告别，赛后又对着全场大声表示：“这里可真tm安静啊！”并且比出了经典的“聆听”手势。",
+            "卡斯尔全场16次助攻串联全队，马刺8人得分上双分差直接冲破30分，雷霆攻防体系彻底崩塌，主场观众提前离场。而在垃圾时间期间，随队征战客场的马刺球迷们高声喊起“Flopper（假摔者）”，戴格诺特脸色铁青，甚至据传双方球迷在观众席产生了肢体冲突。",
+            "文班亚马半场便拿下22分，攻防两端完爆霍姆格伦，半场领先21分。最终马刺不费吹灰之力轻松拿下G7，拿下西部冠军奖杯。文班赛后直言“没打过瘾。”"
+        ] },
+        { min: 31, max: 40, texts: [
+            "马刺全员状态拉满，进攻火力势不可挡，分差一度来到35分，G7彻底沦为表演局，雷霆主场惨败。赛后，亚历山大恭喜马刺晋级总决赛，但强调失利的部分在于“全队在进攻端没有侵略性”，而自己下赛季将继续提升自己在进攻端的“杀伤力”。",
+            "马刺替补席集体发力掀起得分狂潮，卡特-布莱恩特成为本场的奇兵，单节狂轰16分+3三分+4抢断助队拉开30+分差，攻防两端的表现真的就像是“卡特+布莱恩特一起打球”。雷霆早早换下主力认输，接受G7失利。赛后，布莱恩特眼含热泪，赛后发言一直在感激米奇教练的指导。",
+            "文班亚马又一次展示了“外星人”和“地球人”的差距，全场砍下46分13篮板。在罚球时俄城主场高呼“MVP”，且在赛后俄城市长表示希望未来与法国的勒谢奈市，也是文班的家乡，建立篮球相关的合作关系。"
+        ] },
+        { min: 41, max: 57, texts: [
+            "马刺打出碾压级表现，全队命中率超八成，分差一度达到58。转播商连麦直接连线克里斯-保罗分析比赛。不过，在雷霆第三阵容将分差追进50分后，保罗切断了连麦。",
+            "马刺外线三分近乎弹无虚发，全场三分44中37，G7比赛早早失去悬念。赛后雷霆更衣室大门紧闭，甚至传出物件被砸坏以及大声争吵的声音。工作人员表示，从更衣室传出来的部分对话属于“少儿不宜”。",
+            "首发五人全部得分上20，并且由于过长的垃圾时间，连奥里尼克都得到了15分。最终，52分分差定格全场，奥里尼克和比永博累得直不起腰。"
+        ] },
+        { min: 58, max: 200, texts: [
+            "G7上演一边倒战局，马刺全场压制狂胜58+。转播商连麦直接连线克里斯-保罗分析比赛，而保罗热情洋溢地分析着比赛的每一个细节。甚至不准转播商进入广告时间。",
+            "全场分差创造西决抢七历史最大净胜分。第四节开始马刺的首发们甚至已经沐浴更衣完毕。大家说说笑笑，马刺的替补席充满了快活的空气，而在场地的另一端，则是不一样的故事了。",
+            "文班第一节就拿到20+10，全场拿下25+13，但俄城观众的反应像是他拿了52+31。亚历山大全场0罚球，雷霆主场堪比恐怖片，场面太惨以至于转播商决定掐掉直播源转而播放WNBA。"
+        ] }
+    ],
+    thunder: [  // 雷霆赢球剧本
+        { min: 1, max: 5, texts: [
+            "G7依旧双加时！文班和SGA互相飙分到精疲力竭。第二个加时最后0.5秒，卡鲁索底角接球三分出手，全场屏住呼吸——球进，雷霆1分险胜！卡鲁索赛后说：“他们漏了我，可能是因为我的发型太低调了，我决定不换。",
+            "SGA最后7秒从LOGO位置开始单打，连续变向晃得卡斯尔差点劈叉，急停中距离迎着文班指尖出手——球进，雷霆反超1分！马刺暂停后哈珀发边线球直接被杰伦威抢断，哈珀当场跪地。全场比赛结束，俄城球迷冲进球场把SGA举过头顶，SGA在空中对着镜头淡定挑眉：“知道MVP什么标准了吧。”",
+            "SGA突破造犯规两罚全中，雷霆领先2分。马刺最后3秒，文班超远三分出手，球在空中划出一道弧线，全场安静——球进了，但是慢镜头回放显示文班脚尖踩线0.5厘米！雷霆主场从窒息变为狂欢，文班直接瘫坐在地上。SGA走过去拉他起来：“哥们，下次穿小半码的鞋。”"
+        ] },
+        { min: 6, max: 10, texts: [
+            "末节马刺领先12分，距离总决赛一步之遥。霍姆格伦突然连中三记三分加一记隔扣文班，单节18分带队反超。米奇把战术板摔成两半都挡不住。切特末节打到眼眶发红：“我当时想的是，如果输了我一整个夏天都睡不着。”",
+            "雷霆末节疯狂提速，杰伦威和维金斯轮流推快攻，马刺双塔跑断腿。文班弯腰喘气被换下那刻，雷霆主场噪音达到分贝峰值。分差从平局拉到10分。",
+            "SGA只打30分钟，因为末节开局雷霆已领先15分。他坐替补席用毛巾捂着脸，队友以为他在祷告，结果毛巾拿下来发现他在笑。"
+        ] },
+        { min: 11, max: 15, texts: [
+            "霍姆格伦抢七送出6记大帽，其中4个给文班。文班下半场仅得6分。终场哨响，切特没有庆祝，而是走向文班两人拥抱良久。赛后他说：“我们可能在季后赛打十次，但抢七赢他的感觉永远不会再有第二次。”",
+            "阿龙-维金斯16中11轰28分，抢七替补登场连得12分打崩马刺。球迷高喊“维神”喊到嗓子哑。赛后他挠头：“昨晚紧张到失眠，早上吃不下饭。队友说别担心，上场就没事了。他们说得对。”",
+            "多尔特末节连造马刺3次进攻犯规，被撞飞滚三圈每次爬起来鼓掌。赛后他脱下球衣露出满身淤青：“这是我穿过的最好的球衣。每一块淤青都是抢七的勋章。”"
+        ] },
+        { min: 16, max: 20, texts: [
+            "SGA抢七全场43分，用瓦塞尔、卡斯尔、凯尔登的三套防守全部被打穿。终场前他被换下时全场起立鼓掌。赛后他说：“四场带走尼克斯。”",
+            "霍姆格伦命中6记三分创个人季后赛新高，其中3记在文班头顶干拔。每次命中面无表情回防，但终场哨响他第一个跪在地上哭了。他说：“一整年的训练就为这一场。我要把比赛用球放在床头柜上。”",
+            "雷霆全队15抢断，马刺22次失误，快攻得分净胜24分。戴格诺特赛后说：“我们等了整整一年才再次回到这个舞台。这次我们不会把它让给任何人。”"
+        ] },
+        { min: 21, max: 30, texts: [
+            "SGA首节20分比马刺全队多2分。半场31分，球迷触球就喊MVP喊到声带撕裂。赛后他说：“抢七第一节就要把态度打出来。我告诉队友：别留遗憾，一分都不要留。”",
+            "多尔特+卡鲁索把瓦塞尔防到14中2仅5分，第三节末瓦塞尔推人恶犯驱逐。雷霆三节打卡赢27分。多尔特赛后说：“抢七就是这样——要么你把对手吃了，要么被吃。我选择前者。”",
+            "杰伦威三节打卡24+8+6，全场最大分差31分。赛后他发了一张图：上次比赛失利后他坐在更衣室的背影，和今天球员通道里和SGA切特击掌的背影，配文：“一年。”"
+        ] },
+        { min: 31, max: 40, texts: [
+            "SGA三节40分打卡，末节骑动感单车保持热度。解说员调侃：“这是季后赛史上最贵的动感单车广告。”分差一度达到40+，抢七末节变成雷霆主场万人KTV。SGA赛后说：“去年西决出局后我在这个球馆坐了一整夜。今晚，我为那一夜画上了句号。”",
+            "雷霆逼出马刺27次失误，SGA多次抢断劈扣。赛后他更新社媒：“俄城，我们回来了。”配图是终场后他站在西决冠军奖杯旁。波波维奇赛后给米奇发了一条短信，内容据说是：“记住这个夜晚。”",
+            "切特+哈滕轮番消耗文班，SGA轻松38分。戴格诺特赛后说：“我们为这场抢七准备了一整年。每个加练的清晨，每次看录像看到深夜——都是为了今晚。”"
+        ] },
+        { min: 41, max: 57, texts: [
+            "SGA+华莱士轮番挡拆小打大，文班下半场体能崩溃被晃倒3次。分差一度50分，文班末节毛巾盖头。保罗场边缓缓鼓掌。切特赛后说：“我们不是针对文班。我们只是想让所有人看到，雷霆的抢七是什么样。”",
+            "SGA半场33分比马刺全队多1分，切特半场6帽。马刺全队正负值全-40以下。米奇赛后沉默十秒：“这就是抢七的代价。我们的年轻人为经验付出了学费。”",
+            "雷霆19次抢断队史纪录，马刺29次失误同样创纪录。华莱士赛后说：“上场失利后我们更衣室一片死寂。今年，我们终于可以笑了。”"
+        ] },
+        { min: 58, max: 200, texts: [
+            "这场抢七的惨烈程度将被载入西决史册。SGA三节56分打卡，雷霆全队62%命中率。最终分差令人咂舌，雷霆替补席最后时刻已开始喷香槟——苹果汁版。SGA搂着切特和杰威：“新时代有我们三个的名字。”",
+            "SGA、卡鲁索和切特合砍125分，马刺全队98分——三个人比一支队多27分。主场大屏幕赛后打出：“SORRY FOR THE WAIT. GAME 7 WAS PERSONAL.”随后SGA捧起西决MVP奖杯",
+            "半场即将结束的时候，导播镜头发现克里斯-保罗出现在了场边，镜头狂追他的微表情。卡鲁索三双，全队正负值全+40以上。俄城媒体头版：“58 - A Legacy Continued. Sorry Chris.”保罗赛后发推：“我什么也没说。”配图是他在场边苦笑。"
+        ] }
+    ]
+};
+
+function validateScoreInput(inputElement) {
+    let rawVal = inputElement.value;
+    if (rawVal === "") return;
+    let numVal = Number(rawVal);
+    if (numVal === 64 || numVal === 89) {
+        alert("输入比分无效");
+        inputElement.value = "";
+        checkInputs();
+        return;
+    }
+}
+
+const spursScoreInput = document.getElementById('spurs-score');
+const thunderScoreInput = document.getElementById('thunder-score');
+
+function attachInvalidListeners() {
+    spursScoreInput.addEventListener('input', function(e) {
+        validateScoreInput(e.target);
+    });
+    thunderScoreInput.addEventListener('input', function(e) {
+        validateScoreInput(e.target);
+    });
+    spursScoreInput.addEventListener('change', function(e) {
+        validateScoreInput(e.target);
+    });
+    thunderScoreInput.addEventListener('change', function(e) {
+        validateScoreInput(e.target);
+    });
+}
+attachInvalidListeners();
+
+function checkInputs() {
+    const thunderVal = document.getElementById('thunder-score').value;
+    const spursVal = document.getElementById('spurs-score').value;
+    const submitBtn = document.getElementById('submit-btn');
+    if (thunderVal !== "" && spursVal !== "") {
+        submitBtn.classList.add('active');
+    } else {
+        submitBtn.classList.remove('active');
+    }
+}
+
+function predict() {
+    const thunderVal = document.getElementById('thunder-score').value;
+    const spursVal = document.getElementById('spurs-score').value;
+    
+    if (thunderVal === "" || spursVal === "") {
+        alert("请填写双方完整比分！");
+        return;
+    }
+    
+    const thunderScore = parseInt(thunderVal);
+    const spursScore = parseInt(spursVal);
+    
+    if (isNaN(thunderScore) || isNaN(spursScore) || thunderScore < 50 || thunderScore > 150 || spursScore < 50 || spursScore > 150) {
+        alert("请填写50-150之间的有效比分。");
+        return;
+    }
+    
+    if (thunderScore === 64 || thunderScore === 89 || spursScore === 64 || spursScore === 89) {
+        alert("输入比分无效");
+        if (thunderScore === 64 || thunderScore === 89) document.getElementById('thunder-score').value = "";
+        if (spursScore === 64 || spursScore === 89) document.getElementById('spurs-score').value = "";
+        checkInputs();
+        return;
+    }
+    
+    if (thunderScore === spursScore) {
+        alert("西部决赛必须分出胜负！请修改比分。");
+        return;
+    }
+    
+    const diff = Math.abs(thunderScore - spursScore);
+    const winner = spursScore > thunderScore ? 'spurs' : 'thunder';
+    const list = scripts[winner];
+    let content = "";
+    
+    for (let item of list) {
+        if (diff >= item.min && diff <= item.max) {
+            const randomIndex = Math.floor(Math.random() * item.texts.length);
+            content = item.texts[randomIndex];
+            break;
+        }
+    }
+    
+    if (!content) {
+        content = winner === 'spurs' ? "文班亚马天神下凡，用不可思议的方式带走胜利！西决剧情由你定义。" : "亚历山大超神表演，雷霆青年军掀翻马刺，这就是青春风暴！";
+    }
+    
+    document.getElementById('main-container').classList.add('show-result');
+    document.getElementById('res-desc').innerText = content;
+    document.getElementById('result-area').style.display = 'block';
+    document.getElementById('input-tip-text').style.display = 'none';
+    document.getElementById('submit-btn').style.display = 'none';
+    document.getElementById('reset-btn').style.display = 'flex';
+    document.getElementById('poster-btn').style.display = 'flex';
+    
+    setTimeout(() => {
+        window.scrollTo({ top: 100, behavior: 'smooth' });
+    }, 100);
+}
+
+function resetGame() {
+    document.getElementById('spurs-score').value = "";
+    document.getElementById('thunder-score').value = "";
+    document.getElementById('main-container').classList.remove('show-result');
+    document.getElementById('result-area').style.display = 'none';
+    document.getElementById('input-tip-text').style.display = 'block';
+    document.getElementById('submit-btn').style.display = 'flex';
+    document.getElementById('reset-btn').style.display = 'none';
+    document.getElementById('poster-btn').style.display = 'none';
+    closePoster();
+    hideLoading();
+    const submitBtn = document.getElementById('submit-btn');
+    submitBtn.classList.remove('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+spursScoreInput.addEventListener('input', enforceNumberOnly);
+thunderScoreInput.addEventListener('input', enforceNumberOnly);
+
+function enforceNumberOnly(e) {
+    let val = e.target.value;
+    if (val === "") return;
+    let newVal = val.replace(/[^0-9]/g, '');
+    if (newVal !== val) {
+        e.target.value = newVal;
+    }
+}
+
+// ─── 队徽图片 URL ───
+const LOGO_URLS = {
+  thunder: 'https://i1.hoopchina.com.cn/colorbox/c99c9a5e9beb9b2d5a7ff7e305464070.png?x-oss-process=image/resize,w_800/format,webp',
+  spurs: 'https://i11.hoopchina.com.cn/colorbox/6f1c59e68ec719f9e6d0c6764187c1c6.png?x-oss-process=image/resize,w_800/format,webp',
+};
+let LOGO_IMAGES = {};
+
+// 带缓存破坏的 CORS 图片加载（确保不走非CORS缓存）
+function loadCORSImage(url) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = url + (url.includes('?') ? '&' : '?') + '_cb=' + Date.now();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error('图片加载失败'));
+  });
+}
+
+// 加载所有队徽
+async function loadAllLogos() {
+  try {
+    const [thunder, spurs] = await Promise.all([
+      loadCORSImage(LOGO_URLS.thunder),
+      loadCORSImage(LOGO_URLS.spurs),
+    ]);
+    LOGO_IMAGES = { thunder, spurs };
+  } catch (e) {
+    console.warn('队徽加载失败，海报不显示队徽', e);
+    LOGO_IMAGES = {};
+  }
+}
+
+// ═══════════════════════════════════════════════
+// 海报生成 + 一键发帖（虎扑内容开发师链路）
+// ═══════════════════════════════════════════════
+
+// ─── 全局 Shim ───
+window.require = window.require || function(name) {
+  if (name === 'ali-oss') return window.OSS;
+  if (name === '@hupu/kaleido-fed-sdk') return window.KaleidoOSS;
+  return null;
+};
+
+// ─── 辅助：圆角矩形 ───
+function roundRectC(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+// ─── 绘制海报（3:4比例，紧凑布局，字体+2号） ───
+function drawPoster(ctx, w) {
+  const thunderScore = parseInt(document.getElementById('thunder-score').value) || 0;
+  const spursScore = parseInt(document.getElementById('spurs-score').value) || 0;
+  const resultText = document.getElementById('res-desc').innerText || '';
+  const H = Math.round(w * 4 / 3);
+  const pad = 20;
+
+  // 白色背景
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, w, H);
+
+  // ─── 虎扑标签 ───
+  ctx.fillStyle = '#999';
+  ctx.font = 'bold 13px "PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+  ctx.fillText('虎扑JRs预测', pad, 12);
+
+  // ─── 标题 ───
+  ctx.fillStyle = '#1a1a1a';
+  ctx.font = 'bold 26px "PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  ctx.fillText('雷霆VS马刺G7神剧情', w / 2, 38);
+
+  // ─── 比分区域 ───
+  const logoSize = 64;
+  const scoreTop = 78;
+  const logoCY = scoreTop + logoSize / 2;
+  const leftCX = w * 0.22;
+  const rightCX = w * 0.78;
+  const vsX = w / 2;
+
+  // 队徽
+  [LOGO_IMAGES.thunder, LOGO_IMAGES.spurs].forEach((logo, idx) => {
+    const cx = idx === 0 ? leftCX : rightCX;
+    if (logo && logo.complete && logo.naturalWidth > 0) {
+      ctx.save(); ctx.beginPath(); ctx.arc(cx, logoCY, logoSize/2, 0, Math.PI*2); ctx.clip();
+      ctx.drawImage(logo, cx - logoSize/2, logoCY - logoSize/2, logoSize, logoSize);
+      ctx.restore();
+    } else {
+      ctx.fillStyle = '#f0f0f0'; ctx.beginPath();
+      ctx.arc(cx, logoCY, logoSize/2, 0, Math.PI*2); ctx.fill();
+    }
+  });
+
+  // 队名
+  ctx.fillStyle = '#1a1a1a';
+  ctx.font = 'bold 15px "PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  const nameY = scoreTop + logoSize + 4;
+  ctx.fillText('雷霆', leftCX, nameY);
+  ctx.fillText('马刺', rightCX, nameY);
+
+  // VS
+  ctx.fillStyle = '#ddd';
+  ctx.font = 'bold 20px "PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('VS', vsX, logoCY - 14);
+
+  // 输入框
+  const iw = 85, ih = 55;
+  const iy = nameY + 15 + 22;
+  [leftCX, rightCX].forEach(cx => {
+    const ix = cx - iw / 2;
+    ctx.fillStyle = '#f8f9fa';
+    roundRectC(ctx, ix, iy, iw, ih, 14); ctx.fill();
+    ctx.strokeStyle = '#eee';
+    ctx.lineWidth = 2;
+    roundRectC(ctx, ix, iy, iw, ih, 14); ctx.stroke();
+  });
+
+  // 比分数字
+  ctx.fillStyle = '#1d428a';
+  ctx.font = 'bold 30px "PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(String(thunderScore), leftCX, iy + ih / 2);
+  ctx.fillText(String(spursScore), rightCX, iy + ih / 2);
+
+  // ─── 剧情回顾卡片 ───
+  const cardTop = iy + ih + 28;
+  const cp = 16, bw = 5;
+  const cw = w - cp * 2;
+  const cl = cp;
+  const textMaxW = cw - cp * 2 - bw;
+  const lh = 26;
+
+  ctx.font = '17px "PingFang SC","Microsoft YaHei",sans-serif';
+  let lines = [], cur = '';
+  for (const ch of resultText) {
+    const test = cur + ch;
+    if (ctx.measureText(test).width > textMaxW && cur) {
+      lines.push(cur); cur = ch;
+    } else { cur = test; }
+  }
+  if (cur) lines.push(cur);
+  if (lines.length === 0 && resultText.length > 0) lines = [resultText];
+
+  const th = 22, tg = 8;
+  const txth = lines.length * lh;
+  const chh = cp * 2 + th + tg + txth;
+  const cb = cardTop + chh;
+
+  ctx.fillStyle = '#f9f9f9';
+  roundRectC(ctx, cl, cardTop, cw, chh, 20); ctx.fill();
+  ctx.fillStyle = '#1d428a';
+  roundRectC(ctx, cl, cardTop, bw, chh, 3); ctx.fill();
+
+  ctx.fillStyle = '#1d428a';
+  ctx.font = 'bold 15px "PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+  ctx.fillText('西决时刻·剧情回顾', cl + cp + 8, cardTop + cp);
+
+  ctx.fillStyle = '#333';
+  ctx.font = '17px "PingFang SC","Microsoft YaHei",sans-serif';
+  const tx = cl + cp + 8;
+  const ts = cardTop + cp + th + tg;
+  lines.forEach((l, i) => { ctx.fillText(l, tx, ts + i * lh); });
+}
+
+// ─── 创建高清海报 canvas（2x） ───
+const POSTER_W = 420, POSTER_SCALE = 2;
+
+function createPosterCanvas() {
+  const canvas = document.getElementById('posterCanvas');
+  const H = Math.round(POSTER_W * 4 / 3);
+  canvas.width = POSTER_W * POSTER_SCALE;
+  canvas.height = H * POSTER_SCALE;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(POSTER_SCALE, POSTER_SCALE);
+  ctx.clearRect(0, 0, POSTER_W, H);
+  drawPoster(ctx, POSTER_W);
+  return canvas;
+}
+
+// ─── 生成海报（预览） ───
+function showLoading(text) {
+  const el = document.getElementById('loadingOverlay');
+  const txt = el.querySelector('.loading-text');
+  txt.textContent = text || '加载中';
+  el.classList.add('active');
+}
+
+function hideLoading() {
+  document.getElementById('loadingOverlay').classList.remove('active');
+}
+
+async function generatePoster() {
+  showLoading('正在生成海报...');
+  const btn = document.getElementById('poster-btn');
+  if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>生成中...'; }
+  
+  // 强制超时保护
+  const safetyTimer = setTimeout(() => {
+    hideLoading();
+    if (btn) { btn.disabled = false; btn.textContent = '📷 生成海报'; }
+  }, 15000);
+  
+  try {
+    // 确保队徽已通过 CORS 加载（缓存破坏确保不走非CORS缓存）
+    if (!LOGO_IMAGES.thunder || !LOGO_IMAGES.spurs) {
+      await loadAllLogos();
+    }
+    
+    const canvas = createPosterCanvas();
+    const img = document.getElementById('posterPreviewImg');
+    const dataURL = canvas.toDataURL('image/png');
+    _cachedPosterDataURL = dataURL;
+    _cachedPosterUploadUrl = null;
+    img.src = dataURL;
+    clearTimeout(safetyTimer);
+    hideLoading();
+    document.getElementById('posterOverlay').classList.add('active');
+    if (btn) { btn.disabled = false; btn.textContent = '📷 生成海报'; }
+    _uploadPromise = preUploadPoster(dataURL);
+  } catch (e) {
+    console.error('海报生成失败', e);
+    clearTimeout(safetyTimer);
+    hideLoading();
+    if (btn) { btn.disabled = false; btn.textContent = '📷 生成海报'; }
+    alert('海报生成失败，请重试');
+  }
+}
+
+// 缓存海报 dataURL + 预上传 URL
+let _cachedPosterDataURL = null;
+let _cachedPosterUploadUrl = null;
+let _uploadPromise = null;
+
+// 后台预上传海报到 OSS
+async function preUploadPoster(dataURL) {
+  try {
+    const blob = dataURLToBlob(dataURL);
+    const url = await uploadToOSS(blob, `马刺雷霆G7预测_${Date.now()}.png`);
+    _cachedPosterUploadUrl = url;
+    return url;
+  } catch (e) {
+    console.warn('[preUpload] 预上传失败，发帖时将重新上传', e);
+    _cachedPosterUploadUrl = null;
+    return null;
+  }
+}
+
+function closePoster() {
+  resetShareBtn();
+  _cachedPosterDataURL = null;
+  _cachedPosterUploadUrl = null;
+  _uploadPromise = null;
+  document.getElementById('posterOverlay').classList.remove('active');
+}
+
+function resetShareBtn() {
+  const btn = document.querySelector('#posterOverlay .btn-share');
+  if (btn) { btn.disabled = false; btn.textContent = '📤 一键发帖'; }
+}
+
+// ─── dataURL → Blob ───
+function dataURLToBlob(dataURL) {
+  const parts = dataURL.split(',');
+  const mime = parts[0].match(/:(.*?);/)[1];
+  const bstr = atob(parts[1]);
+  const n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  for (let i = 0; i < n; i++) u8arr[i] = bstr.charCodeAt(i);
+  return new Blob([u8arr], { type: mime });
+}
+
+// ─── OSS 客户端 ───
+let _ossClient = null;
+function getOssClient() {
+  if (_ossClient) return _ossClient;
+  const K = window.KaleidoOSS || (typeof require === 'function' ? require('@hupu/kaleido-fed-sdk') : null);
+  if (K) {
+    _ossClient = new K({
+      appId: 'b1AcxWKA1u0hyDYv5kXgImZBRSQ=',
+      module: 'activity-screenshot-fed',
+      path: '/screenshot/activity/fed',
+      sk: 'HioGpkmGe9bsW0iqRLJEyGoLr4Q=',
+      action: '1',
+    });
+    if (typeof _ossClient.start === 'function') _ossClient.start();
+  }
+  return _ossClient;
+}
+
+// ─── 上传到 OSS（4级降级） ───
+function uploadToOSS(file, filename) {
+  return new Promise((resolve, reject) => {
+    // 1) ColorboxAI API
+    if (window.ColorboxAI && window.ColorboxAI.oss && typeof window.ColorboxAI.oss.uploadFile === 'function') {
+      window.ColorboxAI.oss.uploadFile({ file, filename })
+        .then(res => resolve(res.downloadUrl || ''))
+        .catch(reject);
+      return;
+    }
+    // 2) postMessage Bridge（iframe）
+    if (window.parent && window.parent !== window) {
+      const callbackId = '_cb_up_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+      const timer = setTimeout(() => { cleanup(); reject(new Error('上传超时')); }, 30000);
+      const handler = e => {
+        const d = e.data;
+        if (d && d.protocol === 'colorbox-ai-bridge' && d.type === 'oss.upload.callback' && d.payload && d.payload.callbackId === callbackId) {
+          clearTimeout(timer); cleanup();
+          d.payload.error ? reject(new Error(d.payload.error)) : resolve(d.payload.downloadUrl || '');
+        }
+      };
+      const cleanup = () => window.removeEventListener('message', handler);
+      window.addEventListener('message', handler);
+      window.parent.postMessage({
+        protocol: 'colorbox-ai-bridge', version: 1, direction: 'frame-to-host',
+        type: 'oss.upload',
+        payload: { file, filename, callbackId }
+      }, '*');
+      return;
+    }
+    // 3) KaleidoOSS 直连
+    const client = getOssClient();
+    if (client) {
+      const ext = filename.lastIndexOf('.') >= 0 ? filename.slice(filename.lastIndexOf('.')) : '.png';
+      const now = new Date();
+      const key = `user-upload/${(now.getFullYear() % 100)}${now.getMonth() + 1}${now.getDate()}-${Math.random().toString(36).slice(-6)}${ext}`;
+      client.multipartUpload(key, file, {})
+        .then(res => resolve(res.downloadUrl || `https://activity-static.hoopchina.com.cn/${res.name}`))
+        .catch(reject);
+      return;
+    }
+    // 4) 无上传能力
+    reject(new Error('No upload capability'));
+  });
+}
+
+// ─── 安全跳转（统一走 ColorboxAI SDK，严禁 window.open/location.href） ───
+function safeNavigate(url, target) {
+  // 跳转前先埋点
+  if (window.ColorboxAI && typeof window.ColorboxAI.track === 'function') {
+    try { window.ColorboxAI.track({ event: 'navigate', url: url, target: target || '_blank' }); } catch (_) {}
+  }
+  // 优先使用 SDK 统一跳转 API
+  if (window.ColorboxAI && typeof window.ColorboxAI.navigateTo === 'function') {
+    return window.ColorboxAI.navigateTo(url, target || '_blank');
+  }
+  if (window.ColorboxAI && typeof window.ColorboxAI.openUrl === 'function') {
+    return window.ColorboxAI.openUrl(url);
+  }
+  // 没有任何可用跳转能力时，仅打印警告，绝不自行 window.open/location.href
+  console.warn('[safeNavigate] ColorboxAI navigateTo/openUrl 不可用，无法跳转:', url);
+}
+
+// ─── 一键发帖（从预览弹窗） ───
+function sharePoster(btn) {
+  // 如果预上传已完成，直接跳转，无感发帖
+  if (_cachedPosterUploadUrl) {
+    navigateWithImage(_cachedPosterUploadUrl);
+    return;
+  }
+  
+  // 需要等待上传，显示加载动画
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>上传中...';
+  
+  (async () => {
+    try {
+      let imageUrl;
+      
+      // 预上传还在进行中，等待它完成
+      if (_uploadPromise) {
+        showLoading('正在上传海报...');
+        imageUrl = await _uploadPromise;
+        hideLoading();
+      }
+      
+      // 预上传失败或没有预上传，走传统链路
+      if (!imageUrl) {
+        const dataURL = _cachedPosterDataURL;
+        if (!dataURL) {
+          btn.disabled = false;
+          btn.textContent = '📤 一键发帖';
+          return;
+        }
+        showLoading('正在上传海报...');
+        const blob = dataURLToBlob(dataURL);
+        imageUrl = await uploadToOSS(blob, `马刺雷霆G7预测_${Date.now()}.png`);
+        hideLoading();
+      }
+      
+      imageUrl = imageUrl || '';
+      const initialValue = {
+        syncPost: true,
+        appJsonV3: {
+          activeTab: 'thread',
+          data: {
+            title: '',
+            imageList: imageUrl ? [imageUrl] : [],
+            content: '',
+          },
+        },
+      };
+      const tagName = encodeURIComponent('雷霆-马刺G7神预测');
+      const link = `huputiyu://bbs/postImg?tagName=${tagName}&tagId=147647&topicName=${encodeURIComponent('湿乎乎的话题')}&topicId=177&initialValue=${encodeURIComponent(JSON.stringify(initialValue))}`;
+      safeNavigate(link);
+      closePoster();
+    } catch (e) {
+      console.error('发帖失败', e);
+      hideLoading();
+      btn.disabled = false;
+      btn.textContent = '📤 一键发帖';
+      alert('发帖失败，请重试');
+    }
+  })();
+}
+
+// 用已上传的图片 URL 直接跳转（无感发帖）
+function navigateWithImage(imageUrl) {
+  const initialValue = {
+    syncPost: true,
+    appJsonV3: {
+      activeTab: 'thread',
+      data: {
+        title: '',
+        imageList: imageUrl ? [imageUrl] : [],
+        content: '',
+      },
+    },
+  };
+  const tagName = encodeURIComponent('雷霆-马刺G7神预测');
+  const link = `huputiyu://bbs/postImg?tagName=${tagName}&tagId=147647&topicName=${encodeURIComponent('湿乎乎的话题')}&topicId=177&initialValue=${encodeURIComponent(JSON.stringify(initialValue))}`;
+  safeNavigate(link);
+  closePoster();
+}
+</script>
+</body>
+</html>
