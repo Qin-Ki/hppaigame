@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>雷霆VS马刺西决神剧情</title>
+    <title>雷霆VS马刺西决神剧情预测</title>
     <style>
         body { 
             font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; 
@@ -162,7 +162,7 @@
 <div class="container" id="main-container">
     <div class="hupu-tag">虎扑JRs预测</div>
     <div class="match-header">
-        <h1>雷霆VS马刺G7神剧情</h1>
+        <h1>雷霆VS马刺抢七神剧情预测</h1>
     </div>
 
     <div class="score-input-wrap">
@@ -192,10 +192,10 @@
     </div>
 
     <div class="btn-group">
-        <button class="btn btn-submit" id="submit-btn" onclick="predict()">生成G7神剧情</button>
+        <button class="btn btn-submit" id="submit-btn" onclick="predict()">生成我的抢七神剧情</button>
         <button class="btn btn-reset" id="reset-btn" onclick="resetGame()">再玩一次</button>
         <button class="btn btn-poster" id="poster-btn" onclick="generatePoster()">📷 生成海报</button>
-        <button class="btn btn-view-others" onclick="safeNavigate('huputiyu://bbs/topicTag?tagId=147647')">查看其他JRs预测</button>
+        <button class="btn btn-view-others" onclick="safeNavigate('huputiyu://bbs/topicTag?tagId=147647')">查看其他JRs的预测</button>
     </div>
     
     <!-- ─── 加载动画覆盖层 ─── -->
@@ -263,7 +263,7 @@ const scripts = {
         { min: 1, max: 5, texts: [
             "G7依旧双加时！文班和SGA互相飙分到精疲力竭。第二个加时最后0.5秒，卡鲁索底角接球三分出手，全场屏住呼吸——球进，雷霆1分险胜！卡鲁索赛后说：“他们漏了我，可能是因为我的发型太低调了，我决定不换。",
             "SGA最后7秒从LOGO位置开始单打，连续变向晃得卡斯尔差点劈叉，急停中距离迎着文班指尖出手——球进，雷霆反超1分！马刺暂停后哈珀发边线球直接被杰伦威抢断，哈珀当场跪地。全场比赛结束，俄城球迷冲进球场把SGA举过头顶，SGA在空中对着镜头淡定挑眉：“知道MVP什么标准了吧。”",
-            "SGA突破造犯规两罚全中，雷霆领先2分。马刺最后3秒，文班超远三分出手，球在空中划出一道弧线，全场安静——球进了，但是慢镜头回放显示文班脚尖踩线0.5厘米！雷霆主场从窒息变为狂欢，文班直接瘫坐在地上。SGA走过去拉他起来：“哥们，下次穿小半码的鞋。”"
+            "SGA突破造犯规两罚全中，雷霆领先。马刺最后一攻，文班超远三分出手，球在空中划出一道弧线，全场安静——球进了，但是慢镜头回放显示文班脚尖踩线0.5厘米！雷霆主场从窒息变为狂欢，文班直接瘫坐在地上。SGA走过去拉他起来：“哥们，下次穿小半码的鞋。”"
         ] },
         { min: 6, max: 10, texts: [
             "末节马刺领先12分，距离总决赛一步之遥。霍姆格伦突然连中三记三分加一记隔扣文班，单节18分带队反超。米奇把战术板摔成两半都挡不住。切特末节打到眼眶发红：“我当时想的是，如果输了我一整个夏天都睡不着。”",
@@ -399,6 +399,7 @@ function predict() {
     document.getElementById('submit-btn').style.display = 'none';
     document.getElementById('reset-btn').style.display = 'flex';
     document.getElementById('poster-btn').style.display = 'flex';
+    document.querySelector('.match-header h1').textContent = '我的雷霆vs马刺抢七神剧情';
     
     setTimeout(() => {
         window.scrollTo({ top: 100, behavior: 'smooth' });
@@ -416,6 +417,7 @@ function resetGame() {
     document.getElementById('poster-btn').style.display = 'none';
     closePoster();
     hideLoading();
+    document.querySelector('.match-header h1').textContent = '雷霆VS马刺抢七神剧情预测';
     const submitBtn = document.getElementById('submit-btn');
     submitBtn.classList.remove('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -512,7 +514,7 @@ function drawPoster(ctx, w) {
   ctx.fillStyle = '#1a1a1a';
   ctx.font = 'bold 26px "PingFang SC","Microsoft YaHei",sans-serif';
   ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-  ctx.fillText('雷霆VS马刺G7神剧情', w / 2, 38);
+  ctx.fillText('我的雷霆VS马刺G7神剧情', w / 2, 38);
 
   // ─── 比分区域 ───
   const logoSize = 64;

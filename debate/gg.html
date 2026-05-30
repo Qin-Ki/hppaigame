@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=430,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>超级巨星的最高境界，在于"完美融入任何体系"还是"自身就是一个体系"？</title>
+<title>社交媒体对于运动员的正面影响更大还是负面影响更大？</title>
 <link rel="preconnect" href="https://activity-static.hoopchina.com.cn/" crossorigin="">
 <link rel="dns-prefetch" href="https://activity-static.hoopchina.com.cn/">
 <link rel="icon" type="image/png" sizes="32x32" href="https://activity-static.hoopchina.com.cn/images/22818-b1k52arc-upload-1660808654276-2.png">
@@ -35,15 +35,17 @@ html, body {
 .banner-img {
   width: 100%;
   aspect-ratio: 1500 / 630;
-  background: #f5f5f5 url('https://i5.hoopchina.com.cn/newsPost/e0bdca731452c04acd3e722ffd21c1ae_w_1500_h_630_.png') center/cover no-repeat;
+  background: #f5f5f5 url('https://i1.hoopchina.com.cn/newsPost/454744e29dd77f0798f39f16e00f2326_w_1500_h_630_.png') center/cover no-repeat;
 }
 .debate-img {
   width: 100%;
   aspect-ratio: 1500 / 840;
-  background: #f5f5f5 url('https://i3.hoopchina.com.cn/newsPost/3c1c4138b48bf0f1c02f058eb1dcf488_w_1500_h_840_.png') center/cover no-repeat;
+  background: #f5f5f5 url('https://i3.hoopchina.com.cn/newsPost/12ebdd9481b8645dfe96a56e9c91be57_w_1500_h_840_.png') center/cover no-repeat;
   position: relative;
+  overflow: hidden;
 }
-.debate-img a {
+.debate-img a,
+.debate-img .hot-zone {
   position: absolute;
   display: block;
   cursor: pointer;
@@ -57,8 +59,9 @@ html, body {
   top: 5.59%; left: 53.6%;
 }
 .debate-img .hot-bottom {
-  width: 54%; height: 31.75%;
+  width: 54%; height: 25%;
   top: 74.9%; left: 22.13%;
+  z-index: 1;
 }
 .thread-section {
   padding: 20px 12px 24px;
@@ -211,22 +214,126 @@ html, body {
   width: 100%;
   padding: 14px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #ee0a26 0%, #ff4d6a 100%);
-  color: #fff;
+  background: #fff;
+  color: #333;
   font-size: 14px;
   font-weight: 700;
   text-decoration: none;
   cursor: pointer;
-  border: none;
-  transition: opacity .25s;
-  box-shadow: 0 4px 12px rgba(238,10,38,.3);
+  border: 1px solid #e0e0e0;
+  transition: all .2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
 }
 .post-prompt-btn:active {
-  opacity: .8;
+  background: #f5f5f5;
 }
 .post-prompt-btn .icon {
   font-size: 18px;
   line-height: 1;
+}
+/* ---- 正反方选择弹窗 ---- */
+.faction-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,.55);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+.faction-overlay.active {
+  display: flex;
+}
+.faction-modal {
+  background: #fff;
+  border-radius: 18px;
+  width: 320px;
+  max-width: 88%;
+  padding: 28px 20px 22px;
+  text-align: center;
+  animation: factionIn .25s ease-out;
+}
+@keyframes factionIn {
+  from { transform: scale(.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.faction-modal-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #222;
+  margin: 0 0 6px;
+}
+.faction-modal-sub {
+  font-size: 13px;
+  color: #888;
+  margin: 0 0 18px;
+  font-weight: 600;
+}
+.faction-options {
+  display: flex;
+  gap: 14px;
+}
+.faction-option {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 10px 16px;
+  border-radius: 14px;
+  border: 2px solid #eee;
+  background: #fafafa;
+  cursor: pointer;
+  transition: all .2s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.faction-option:active {
+  transform: scale(.95);
+}
+.faction-option.pro {
+  border-color: #ee0a26;
+  background: #fff5f5;
+}
+.faction-option.pro:active {
+  background: #ffe8e8;
+}
+.faction-option.con {
+  border-color: #1a7afb;
+  background: #f5f8ff;
+}
+.faction-option.con:active {
+  background: #e8f0ff;
+}
+.faction-option-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid rgba(0,0,0,.06);
+}
+.faction-option-label {
+  font-size: 15px;
+  font-weight: 800;
+}
+.faction-option.pro .faction-option-label { color: #c9102a; }
+.faction-option.con .faction-option-label { color: #1a6cfb; }
+.faction-modal-close {
+  margin-top: 16px;
+  display: inline-block;
+  padding: 6px 20px;
+  font-size: 13px;
+  color: #bbb;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 99px;
+  transition: color .2s;
+  border: none;
+  background: none;
+}
+.faction-modal-close:active {
+  color: #888;
 }
 </style>
 </head>
@@ -238,9 +345,9 @@ html, body {
 
   <!-- 正反方图 -->
   <div class="debate-img">
-    <a class="hot-left" href="huputiyu://bbs/postImg?tagName=%E8%B6%85%E7%BA%A7%E5%B7%A8%E6%98%9F%E7%9A%84%E6%9C%80%E9%AB%98%E5%A2%83%E7%95%8C%EF%BC%8C%E5%9C%A8%E4%BA%8E%22%E5%AE%8C%E7%BE%8E%E8%9E%8D%E5%85%A5%E4%BB%BB%E4%BD%95%E4%BD%93%E7%B3%BB%22%E8%BF%98%E6%98%AF%22%E8%87%AA%E8%BA%AB%E5%B0%B1%E6%98%AF%E4%B8%80%E4%B8%AA%E4%BD%93%E7%B3%BB%22%EF%BC%9F&amp;tagId=147355&amp;topicName=%E6%B9%BF%E4%B9%8E%E4%B9%8E%E7%9A%84%E8%AF%9D%E9%A2%98&amp;topicId=177&amp;initialValue=%7B%22syncPost%22%3Atrue%2C%22appJsonV3%22%3A%7B%22activeTab%22%3A%22thread%22%2C%22data%22%3A%7B%22title%22%3A%22%22%2C%22imageList%22%3A%5B%22https%3A%2F%2Fi5.hoopchina.com.cn%2FnewsPost%2F1b5ea8a6e19a64ae9f429e0497976a99_w_600_h_600_.png%22%5D%2C%22content%22%3A%22%22%7D%7D%7D" target="_blank" onclick="window.ColorboxAI.track({act:'click',blk:'BMC098',pos:'TC1'});"></a>
-    <a class="hot-right" href="huputiyu://bbs/postImg?tagName=%E8%B6%85%E7%BA%A7%E5%B7%A8%E6%98%9F%E7%9A%84%E6%9C%80%E9%AB%98%E5%A2%83%E7%95%8C%EF%BC%8C%E5%9C%A8%E4%BA%8E%22%E5%AE%8C%E7%BE%8E%E8%9E%8D%E5%85%A5%E4%BB%BB%E4%BD%95%E4%BD%93%E7%B3%BB%22%E8%BF%98%E6%98%AF%22%E8%87%AA%E8%BA%AB%E5%B0%B1%E6%98%AF%E4%B8%80%E4%B8%AA%E4%BD%93%E7%B3%BB%22%EF%BC%9F&amp;tagId=147355&amp;topicName=%E6%B9%BF%E4%B9%8E%E4%B9%8E%E7%9A%84%E8%AF%9D%E9%A2%98&amp;topicId=177&amp;initialValue=%7B%22syncPost%22%3Atrue%2C%22appJsonV3%22%3A%7B%22activeTab%22%3A%22thread%22%2C%22data%22%3A%7B%22title%22%3A%22%22%2C%22imageList%22%3A%5B%22https%3A%2F%2Fi5.hoopchina.com.cn%2FnewsPost%2Fbb00e0f0dbda86bf98f0127ed622add1_w_600_h_600_.png%22%5D%2C%22content%22%3A%22%22%7D%7D%7D" target="_blank" onclick="window.ColorboxAI.track({act:'click',blk:'BMC098',pos:'TC2'});"></a>
-    <a class="hot-bottom" href="huputiyu://bbs/topicTag?tagId=147355" target="_blank" onclick="window.ColorboxAI.track({act:'click',blk:'BMC098',pos:'TC3'});"></a>
+    <a class="hot-left" href="#" onclick="window.ColorboxAI.track({act:'click',blk:'BMC098',pos:'TC1'}); window.ColorboxAI.navigateTo('huputiyu://bbs/postImg?tagName=%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E5%AF%B9%E4%BA%8E%E8%BF%90%E5%8A%A8%E5%91%98%E7%9A%84%E6%AD%A3%E9%9D%A2%E5%BD%B1%E5%93%8D%E6%9B%B4%E5%A4%A7%E8%BF%98%E6%98%AF%E8%B4%9F%E9%9D%A2%E5%BD%B1%E5%93%8D%E6%9B%B4%E5%A4%A7%EF%BC%9F&amp;tagId=147646&amp;topicName=%E6%B9%BF%E4%B9%8E%E4%B9%8E%E7%9A%84%E8%AF%9D%E9%A2%98&amp;topicId=177&amp;initialValue=%7B%22syncPost%22%3Atrue%2C%22appJsonV3%22%3A%7B%22activeTab%22%3A%22thread%22%2C%22data%22%3A%7B%22title%22%3A%22%22%2C%22imageList%22%3A%5B%22https%3A%2F%2Fi3.hoopchina.com.cn%2FnewsPost%2F246f015be0ed7d32c7e8c3092cb2662d_w_600_h_600_.png%22%5D%2C%22content%22%3A%22%22%7D%7D%7D'); return false;"></a>
+    <a class="hot-right" href="#" onclick="window.ColorboxAI.track({act:'click',blk:'BMC098',pos:'TC2'}); window.ColorboxAI.navigateTo('huputiyu://bbs/postImg?tagName=%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E5%AF%B9%E4%BA%8E%E8%BF%90%E5%8A%A8%E5%91%98%E7%9A%84%E6%AD%A3%E9%9D%A2%E5%BD%B1%E5%93%8D%E6%9B%B4%E5%A4%A7%E8%BF%98%E6%98%AF%E8%B4%9F%E9%9D%A2%E5%BD%B1%E5%93%8D%E6%9B%B4%E5%A4%A7%EF%BC%9F&amp;tagId=147646&amp;topicName=%E6%B9%BF%E4%B9%8E%E4%B9%8E%E7%9A%84%E8%AF%9D%E9%A2%98&amp;topicId=177&amp;initialValue=%7B%22syncPost%22%3Atrue%2C%22appJsonV3%22%3A%7B%22activeTab%22%3A%22thread%22%2C%22data%22%3A%7B%22title%22%3A%22%22%2C%22imageList%22%3A%5B%22https%3A%2F%2Fi3.hoopchina.com.cn%2FnewsPost%2Fcf76c648ffdb6124d2bc5cad564cc482_w_600_h_600_.png%22%5D%2C%22content%22%3A%22%22%7D%7D%7D'); return false;"></a>
+    <div class="hot-bottom hot-zone"></div>
   </div>
 
   <!-- 话题讨论区（学习.html 风格） -->
@@ -249,6 +356,25 @@ html, body {
     <div class="thread-list" id="threadList"></div>
     <div class="list-status" id="listStatus">JR们的内容正在路上...</div>
     <button class="load-more-btn" id="loadMoreBtn">加载更多讨论</button>
+  </div>
+</div>
+
+<!-- 正反方选择弹窗 -->
+<div class="faction-overlay" id="factionOverlay">
+  <div class="faction-modal">
+    <div class="faction-modal-title">选择你的立场</div>
+    <div class="faction-modal-sub">参与讨论前请先选边站队</div>
+    <div class="faction-options">
+      <div class="faction-option pro" data-side="pro">
+        <img class="faction-option-img" src="https://i3.hoopchina.com.cn/newsPost/246f015be0ed7d32c7e8c3092cb2662d_w_600_h_600_.png" alt="正方" loading="lazy">
+        <span class="faction-option-label">正方</span>
+      </div>
+      <div class="faction-option con" data-side="con">
+        <img class="faction-option-img" src="https://i3.hoopchina.com.cn/newsPost/cf76c648ffdb6124d2bc5cad564cc482_w_600_h_600_.png" alt="反方" loading="lazy">
+        <span class="faction-option-label">反方</span>
+      </div>
+    </div>
+    <button class="faction-modal-close" id="factionModalClose">取消</button>
   </div>
 </div>
 
@@ -289,7 +415,7 @@ html, body {
 
 <script>
 /* ---- 动态抓取讨论区（newtodo 方式） ---- */
-var topicConfig = { tagId: "147355", tabType: "1", maxPages: 5 };
+var topicConfig = { tagId: "147646", tabType: "1", maxPages: 5 };
 var currentPage = 1, currentCursor = "", isRequesting = false;
 var threadListEl = document.getElementById("threadList");
 var listStatusEl = document.getElementById("listStatus");
@@ -332,10 +458,14 @@ async function fetchTopicThreads() {
   } finally { isRequesting = false; }
 }
 
+/* ---- 等差数列发帖按钮计数器 ---- */
+var totalPostCount = 0;    // 全局已渲染帖子总数
+var nextPromptAt = 5;      // 下一次出现按钮的位置
+var promptGap = 5;         // 当前间隔（每次+5）
+
 function renderThreads(list) {
   var fragment = document.createDocumentFragment();
   var posIndex = 1;
-  var PROMPT_INTERVAL = 3; // 每隔 N 个帖子插入发帖提示
   list.forEach(function(item) {
     var title = item.title || "无标题";
     var userName = item.userName || "虎扑JR";
@@ -344,10 +474,9 @@ function renderThreads(list) {
     var threadId = item.tid || item.threadId || item.id;
     var fallbackUrl = threadId ? "huputiyu://bbs/topic/" + threadId + "?entrance=7" : "#";
 
-    var card = document.createElement("a");
+    var card = document.createElement("div");
     card.className = "thread-card";
-    card.href = fallbackUrl;
-    card.target = "_blank";
+    card.style.cursor = "pointer";
 
     var coverImgUrl = "";
     if (item.picList && item.picList.length > 0) {
@@ -356,17 +485,28 @@ function renderThreads(list) {
     }
     var coverImgHtml = coverImgUrl ? '<img class="thread-card-cover" src="' + coverImgUrl + '" alt="cover" loading="lazy">' : '';
 
-    // 判断阵营（优先取 API 返回的 tagName/side，否则按奇偶模拟）
+    // 判断阵营：API 数据 > 封面图颜色分析 > 奇偶模拟
     var side = item.tagName || item.side || '';
-    if (!side) {
+    var useColorDetect = false;
+    if (!side && coverImgUrl) {
+      useColorDetect = true;
+      // 先用空标签，分析完成后更新
+    } else if (!side) {
       side = (posIndex % 2 === 1) ? '正方' : '反方';
     }
-    var factionClass = (side === '正方' || side === 'pro') ? 'pro' : 'con';
-    var factionLabel = (side === 'pro') ? '正方' : (side === 'con') ? '反方' : side;
+    // 生成阵营标签 HTML（颜色分析时先隐藏）
+    var factionBadgeHtml = '';
+    if (useColorDetect) {
+      factionBadgeHtml = '<span class="thread-card-faction" style="display:none"></span>';
+    } else if (side) {
+      var fc = (side === '正方' || side === 'pro') ? 'pro' : 'con';
+      var fl = (side === 'pro') ? '正方' : (side === 'con') ? '反方' : side;
+      factionBadgeHtml = '<span class="thread-card-faction ' + fc + '">' + fl + '</span>';
+    }
 
     card.innerHTML = '<div class="thread-card-header">'
       + '<div class="thread-card-author">'
-      + '<span class="thread-card-faction ' + factionClass + '">' + factionLabel + '</span>'
+      + factionBadgeHtml
       + '<img class="thread-card-avatar" src="' + userHeader + '" alt="avatar">'
       + '<span class="thread-card-name">' + userName + '</span>'
       + '</div>'
@@ -382,6 +522,7 @@ function renderThreads(list) {
     var pid = threadId || "";
     card.addEventListener("click", function(e) {
       try { window.ColorboxAI.track({act:'click', blk:'BMC099', pos:pos, label:pid}); } catch(ex) {}
+      if (fallbackUrl && fallbackUrl !== '#') window.ColorboxAI.navigateTo(fallbackUrl);
     });
     // 曝光埋点
     card.dataset.pos = pos;
@@ -389,12 +530,57 @@ function renderThreads(list) {
 
     fragment.appendChild(card);
 
-    // 每隔 PROMPT_INTERVAL 个帖子插入一个"去发帖"提示按钮
-    if (posIndex % PROMPT_INTERVAL === 0) {
+    // 封面图颜色分析识别阵营
+    if (useColorDetect && coverImgUrl) {
+      (function(cardEl, imgUrl) {
+        var img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = function() {
+          var cvs = document.createElement('canvas');
+          cvs.width = cvs.height = 40;
+          var ctx = cvs.getContext('2d');
+          ctx.drawImage(img, 0, 0, 40, 40);
+          try {
+            var d = ctx.getImageData(0, 0, 40, 40).data;
+            var red = 0, blue = 0;
+            for (var i = 0; i < d.length; i += 4) {
+              var r = d[i], g = d[i+1], b = d[i+2];
+              if (r > b + 30 && r > g + 15) red++;
+              if (b > r + 30 && b > g + 15) blue++;
+            }
+            var result = red >= blue ? '正方' : '反方';
+            var badge = cardEl.querySelector('.thread-card-faction');
+            if (badge) {
+              var cls = (result === '正方') ? 'pro' : 'con';
+              badge.textContent = result;
+              badge.className = 'thread-card-faction ' + cls;
+              badge.style.display = '';
+            }
+          } catch(e) {
+            // CORS 受限，忽略
+          }
+        };
+        img.onerror = function() {};
+        img.src = imgUrl;
+      })(card, coverImgUrl);
+    }
+
+    // 等差数列插入"我也来发帖"按钮：第一次在第5个后，第二次隔10个，以5递增
+    totalPostCount++;
+    console.log('[DEBUG] post #' + totalPostCount + ' nextPromptAt=' + nextPromptAt + ' promptGap=' + promptGap);
+    if (totalPostCount === nextPromptAt) {
+      console.log('[DEBUG] >>> 插入按钮，totalPostCount=' + totalPostCount);
       var promptWrap = document.createElement('div');
       promptWrap.className = 'post-prompt-wrap';
-      promptWrap.innerHTML = '<a class="post-prompt-btn" href="huputiyu://bbs/postImg?tagName=%E8%B6%85%E7%BA%A7%E5%B7%A8%E6%98%9F%E7%9A%84%E6%9C%80%E9%AB%98%E5%A2%83%E7%95%8C%EF%BC%8C%E5%9C%A8%E4%BA%8E%22%E5%AE%8C%E7%BE%8E%E8%9E%8D%E5%85%A5%E4%BB%BB%E4%BD%95%E4%BD%93%E7%B3%BB%22%E8%BF%98%E6%98%AF%22%E8%87%AA%E8%BA%AB%E5%B0%B1%E6%98%AF%E4%B8%80%E4%B8%AA%E4%BD%93%E7%B3%BB%22%EF%BC%9F&amp;tagId=147355&amp;topicName=%E6%B9%BF%E4%B9%8E%E4%B9%8E%E7%9A%84%E8%AF%9D%E9%A2%98&amp;topicId=177" target="_blank"><span class="icon">✏️</span> 我也来参与讨论</a>';
+      var promptBtn = document.createElement('button');
+      promptBtn.className = 'post-prompt-btn';
+      promptBtn.innerHTML = '<span class="icon">✏️</span> 聊聊我的看法';
+      promptBtn.addEventListener('click', function() { showFactionModal(); });
+      promptWrap.appendChild(promptBtn);
       fragment.appendChild(promptWrap);
+      promptGap += 5;
+      nextPromptAt += promptGap;
+      console.log('[DEBUG] >>> 更新后 nextPromptAt=' + nextPromptAt + ' promptGap=' + promptGap);
     }
 
     posIndex++;
@@ -428,6 +614,59 @@ loadMoreBtnEl.addEventListener("click", function() {
 
 if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fetchTopicThreads);
 else fetchTopicThreads();
+
+/* ---- hot-bottom 跳转（URL 由常量配置，先埋点再跳转） ---- */
+(function() {
+  var HOT_BOTTOM_URL = 'huputiyu://bbs/topicTag?tagId=147646';
+  var el = document.querySelector('.hot-bottom');
+  el.addEventListener('click', function(e) {
+    e.preventDefault();
+    try { window.ColorboxAI.track({act:'click', blk:'BMC098', pos:'TC3'}); } catch(ex) {}
+    try { window.ColorboxAI.navigateTo(HOT_BOTTOM_URL, '_self'); } catch(ex) {}
+  });
+})();
+
+/* ---- 正反方选择弹窗 ---- */
+var factionOverlay = document.getElementById('factionOverlay');
+var factionOptions = document.querySelectorAll('.faction-option');
+var factionCloseBtn = document.getElementById('factionModalClose');
+
+// 正方 / 反方发帖链接（取自 debate-img）
+var POST_URLS = {};
+(function() {
+  var base = 'huputiyu://bbs/postImg?tagName=' + encodeURIComponent('社交媒体对于运动员的正面影响更大还是负面影响更大？') + '&tagId=147646&topicName=' + encodeURIComponent('湿乎乎的话题') + '&topicId=177&';
+  var proImg = 'https://i3.hoopchina.com.cn/newsPost/246f015be0ed7d32c7e8c3092cb2662d_w_600_h_600_.png';
+  var conImg = 'https://i3.hoopchina.com.cn/newsPost/cf76c648ffdb6124d2bc5cad564cc482_w_600_h_600_.png';
+  POST_URLS.pro = base + 'initialValue=' + encodeURIComponent(JSON.stringify({syncPost:true,appJsonV3:{activeTab:'thread',data:{title:'',imageList:[proImg],content:''}}}));
+  POST_URLS.con = base + 'initialValue=' + encodeURIComponent(JSON.stringify({syncPost:true,appJsonV3:{activeTab:'thread',data:{title:'',imageList:[conImg],content:''}}}));
+})();
+
+function showFactionModal() {
+  factionOverlay.classList.add('active');
+}
+
+function hideFactionModal() {
+  factionOverlay.classList.remove('active');
+}
+
+// 选择阵营后跳转
+factionOptions.forEach(function(opt) {
+  opt.addEventListener('click', function() {
+    var side = opt.getAttribute('data-side');
+    var url = POST_URLS[side];
+    if (url) {
+      hideFactionModal();
+      window.ColorboxAI.track({act:'click', blk:'BMC099', pos:'postBtn', label:side});
+      window.ColorboxAI.navigateTo(url);
+    }
+  });
+});
+
+// 关闭弹窗
+factionCloseBtn.addEventListener('click', hideFactionModal);
+factionOverlay.addEventListener('click', function(e) {
+  if (e.target === factionOverlay) hideFactionModal();
+});
 </script>
 
 </body>

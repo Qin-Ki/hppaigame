@@ -1003,7 +1003,7 @@ function endGame(){
   else if(state.totalScore>=300){r.className='end-rank a';r.textContent='A 大展拳脚 🔥';}
   else if(state.totalScore>=150){r.className='end-rank b';r.textContent='B 略微出手 🥊';}
   else if(state.totalScore>=50){r.className='end-rank c';r.textContent='C 点到为止 👊';}
-  else{r.className='end-rank f';r.textContent='F 佛系观众 🙏';}
+  else{r.className='end-rank f';r.textContent=' F 佛系观众 🙏';}
 }
 
 window.addEventListener('resize',()=>{if(document.getElementById('screen-fight').classList.contains('active'))resizeCanvas();});
@@ -1034,16 +1034,14 @@ function drawPoster(ctx, w, h) {
   const bg = ctx.createLinearGradient(0, 0, 0, h);
   bg.addColorStop(0, '#0e0e1e'); bg.addColorStop(.5, '#16162a'); bg.addColorStop(1, '#0e0e1e');
   ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
+  // Y轴居中偏移量
+  const offY = 100;
   ctx.fillStyle = '#dddddd'; ctx.font = 'bold 34px "Noto Sans SC",sans-serif';
   ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-  ctx.fillText('我对西决裁判的审判结果', w / 2, 30);
-  const gd = ctx.createLinearGradient(w * .15, 0, w * .85, 0);
-  gd.addColorStop(0, 'transparent'); gd.addColorStop(.5, '#666688'); gd.addColorStop(1, 'transparent');
-  ctx.strokeStyle = gd; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.moveTo(w * .15, 78); ctx.lineTo(w * .85, 78); ctx.stroke();
+  ctx.fillText('我对西决裁判的审判结果', w / 2, 30 + offY);
 
-  const rw = 280, rh = 72, rx = (w - rw) / 2, ry = 100;
-  ctx.fillStyle = rankBg; roundRectC(ctx, rx, ry, rw, rh, 14); ctx.fill();
+  const rw = 320, rh = 88, rx = (w - rw) / 2, ry = 100 + offY;
+  ctx.fillStyle = rankBg; roundRectC(ctx, rx, ry, rw, rh, 16); ctx.fill();
   ctx.fillStyle = rankFg; ctx.font = 'bold 44px "Noto Sans SC",sans-serif';
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
   ctx.fillText(rankText, w / 2, ry + rh / 2);
@@ -1053,7 +1051,7 @@ function drawPoster(ctx, w, h) {
     { l: '击打次数', v: String(state.totalHits), c: '#4ade80' },
     { l: '最终得分', v: String(state.totalScore), c: '#fbbf24' },
   ];
-  const sy = 210, ih = 50, gap = 10;
+  const sy = 210 + offY, ih = 54, gap = 12;
   items.forEach((it, i) => {
     const y = sy + i * (ih + gap);
     ctx.fillStyle = 'rgba(255,255,255,.06)';

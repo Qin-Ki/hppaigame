@@ -497,9 +497,6 @@
             <div class="description">
                 1. <b>拖拽：</b>按住头像移动。 2. <b>点选：</b>点击头像选中，再点击等级行。
             </div>
-            <!-- TODO: 测试用，发版前删除 -->
-            <button class="btn" style="background:#ff4444;font-size:12px;padding:6px 14px;min-height:30px;" onclick="testSkipToEnd()">⏭ 测试：跳到最后页</button>
-            <button class="btn" style="background:#8b0000;font-size:12px;padding:6px 14px;min-height:30px;" onclick="testAllToWorst()">⏭ 测试：全部分到拉完了</button>
         </div>
 
         <div id="capture-area">
@@ -693,38 +690,6 @@ const originalData = [
                 actionBtns.style.display = 'flex';
                 document.getElementById('start-extra-btn').style.display = 'none'; 
             }
-        }
-
-        function testSkipToEnd() {
-            var zones = document.querySelectorAll('.dropzone');
-            var tierCount = zones.length;
-            while (currentIndex < shuffledList.length) {
-                var p = shuffledList[currentIndex];
-                var el = document.createElement('div');
-                el.className = 'player border-' + p.borderColor;
-                el.innerHTML = '<img src="' + p.img + '" crossorigin="anonymous" alt="' + p.name + '">';
-                bindUniversalEvents(el);
-                zones[currentIndex % tierCount].appendChild(el);
-                currentIndex++;
-            }
-            loadNext();
-        }
-
-        function testAllToWorst() {
-            // 全部放到「拉完了」那一行
-            var worstZone = document.querySelector('.tier-la .dropzone');
-            if (!worstZone) return;
-            document.querySelectorAll('.dropzone').forEach(function(z) { if (z !== worstZone) z.innerHTML = ''; });
-            while (currentIndex < shuffledList.length) {
-                var p = shuffledList[currentIndex];
-                var el = document.createElement('div');
-                el.className = 'player border-' + p.borderColor;
-                el.innerHTML = '<img src="' + p.img + '" crossorigin="anonymous" alt="' + p.name + '">';
-                bindUniversalEvents(el);
-                worstZone.appendChild(el);
-                currentIndex++;
-            }
-            loadNext();
         }
 
         function bindUniversalEvents(el) {
