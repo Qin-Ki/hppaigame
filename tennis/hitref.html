@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>⚖️西决裁判审判室</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Noto Sans SC',sans-serif;
+  background:#0a0a1a;color:#fff;
+  overflow:hidden;height:100vh;width:100vw;
+  user-select:none;-webkit-user-select:none;
+}
+#app{position:relative;width:100%;height:100%;max-width:500px;margin:0 auto;overflow:hidden;}
+.screen{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px;}
+.screen.active{display:flex;}
+#screen-start{background:linear-gradient(135deg,#0a0a1a 0%,#1a0a0a 50%,#0a0a1a 100%);gap:20px;}
+#screen-start h1{
+  font-size:2.4em;font-weight:900;text-align:center;
+  background:linear-gradient(135deg,#ff4444,#ff8800);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  line-height:1.3;
+}
+#screen-start .subtitle{color:#888;font-size:0.9em;text-align:center;line-height:1.6;}
+.btn-start{
+  width:min(82%,340px);padding:14px 20px;font-size:1.2em;font-weight:700;border:none;border-radius:50px;
+  background:linear-gradient(135deg,#ff4444,#ff8800);color:#fff;cursor:pointer;
+  transition:transform .2s,box-shadow .2s;margin-top:20px;font-family:inherit;
+}
+.btn-start:hover{transform:scale(1.05);box-shadow:0 0 30px rgba(255,68,68,.5);}
+.btn-start:active{transform:scale(0.95);}
+#screen-judge{background:linear-gradient(135deg,#0a0a1a 0%,#1a0a20 50%,#0a0a1a 100%);gap:12px;justify-content:flex-start;padding-top:30px;}
+.judge-round{font-size:0.85em;color:#ff8800;font-weight:700;letter-spacing:2px;}
+.judge-image-wrap{
+  width:100%;max-width:440px;height:260px;background:#111;border-radius:12px;overflow:hidden;
+  border:2px solid #333;display:flex;align-items:center;justify-content:center;position:relative;
+}
+.judge-image-wrap img{width:100%;height:100%;object-fit:cover;}
+.judge-image-placeholder{color:#555;font-size:0.8em;text-align:center;}
+.judge-victim{font-size:1em;color:#ffaa44;font-weight:700;}
+.judge-desc{font-size:0.85em;color:#aaa;text-align:center;line-height:1.5;margin-bottom:6px;}
+.judge-anger-bar{width:100%;max-width:400px;display:flex;align-items:center;gap:10px;font-size:0.8em;color:#888;}
+.judge-anger-bar .bar-track{flex:1;height:8px;background:#222;border-radius:4px;overflow:hidden;}
+.judge-anger-bar .bar-fill{height:100%;background:linear-gradient(90deg,#ff8800,#ff4444);border-radius:4px;transition:width .5s;width:0%;}
+.verdict-grid{display:flex;flex-direction:column;gap:6px;width:100%;max-width:400px;flex:1;justify-content:center;}
+.verdict-btn{padding:10px 10px;border:2px solid #333;border-radius:12px;background:rgba(255,255,255,.05);color:#fff;cursor:pointer;font-size:0.9em;font-family:inherit;transition:all .2s;text-align:center;line-height:1.3;flex:1;display:flex;flex-direction:column;justify-content:center;}
+.verdict-btn .label{font-weight:700;font-size:1.1em;}
+.verdict-btn .sub{display:block;font-size:0.75em;color:#888;margin-top:2px;}
+.verdict-btn:hover{border-color:#ff8800;background:rgba(255,136,0,.1);}
+.verdict-btn:active{transform:scale(0.95);}
+.verdict-btn .anger-info{display:block;font-size:0.7em;margin-top:4px;font-weight:700;}
+.verdict-btn .anger-info.a{color:#666;}
+.verdict-btn .anger-info.b{color:#4ade80;}
+.verdict-btn .anger-info.c{color:#fbbf24;}
+.verdict-btn .anger-info.d{color:#f87171;}
+#screen-verdict{background:rgba(0,0,0,.95);gap:16px;z-index:10;}
+#screen-verdict h2{font-size:1.6em;}
+#screen-verdict .anger-added{font-size:1.2em;font-weight:700;}
+#screen-verdict .anger-detail{color:#888;font-size:0.9em;}
+#screen-verdict .go-fight{padding:14px 40px;border:none;border-radius:50px;background:linear-gradient(135deg,#ff4444,#ff8800);color:#fff;font-size:1.1em;font-weight:700;cursor:pointer;font-family:inherit;margin-top:10px;}
+#screen-fight{background:#0a0a1a;padding:0;justify-content:flex-start;}
+.fight-hud{display:flex;justify-content:space-between;align-items:center;width:100%;padding:8px 15px;background:rgba(0,0,0,.6);font-size:0.8em;z-index:2;flex-shrink:0;}
+.fight-hud .hud-item{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.fight-hud .hud-value{font-weight:700;font-size:1.2em;}
+.fight-hud .hud-label{color:#888;font-size:0.75em;}
+.fight-hud .hud-timer .hud-value{color:#ff4444;}
+#canvas-wrap{flex:1;width:100%;position:relative;overflow:hidden;min-height:0;}
+#fightCanvas{width:100%;height:100%;display:block;}
+.attack-panel{width:100%;background:rgba(0,0,0,.85);padding:8px 10px;flex-shrink:0;border-top:1px solid #222;}
+.attack-row{display:flex;gap:6px;margin-bottom:4px;}
+.attack-row:last-child{margin-bottom:0;}
+.attack-row-header{display:none;}
+.attack-btn{flex:1;padding:8px 4px;border:1px solid #333;border-radius:8px;background:rgba(255,255,255,.05);color:#fff;font-size:0.75em;font-family:inherit;cursor:pointer;transition:all .15s;text-align:center;position:relative;overflow:hidden;min-height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.attack-btn .move-name{font-weight:700;}
+.attack-btn .move-info{font-size:0.7em;color:#888;}
+.attack-btn:active:not(:disabled){transform:scale(0.92);}
+.attack-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.attack-btn.locked{opacity:.2;cursor:not-allowed;background:transparent;border-color:#222;}
+.attack-btn.l1{border-color:rgba(74,222,128,.3);}.attack-btn.l1 .move-name{color:#4ade80;}
+.attack-btn.l2{border-color:rgba(251,191,36,.3);}.attack-btn.l2 .move-name{color:#fbbf24;}
+.attack-btn.l3{border-color:rgba(248,113,113,.3);}.attack-btn.l3 .move-name{color:#f87171;}
+#screen-end{background:linear-gradient(135deg,#0a0a1a 0%,#1a0a0a 50%,#0a0a1a 100%);gap:16px;text-align:center;}
+#screen-end h1{font-size:1.8em;font-weight:900;background:linear-gradient(135deg,#ff4444,#ff8800);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.end-stats{display:flex;flex-direction:column;gap:12px;width:100%;max-width:320px;}
+.end-stat{display:flex;justify-content:space-between;padding:14px 18px;background:rgba(255,255,255,.05);border-radius:12px;border:1px solid #222;align-items:center;}
+.end-stat .stat-label{color:#888;font-size:0.9em;}
+.end-stat .stat-value{font-size:1.4em;font-weight:900;}
+.end-stat .stat-value.gold{color:#fbbf24;}.end-stat .stat-value.red{color:#ff4444;}.end-stat .stat-value.green{color:#4ade80;}
+.end-rank{font-size:1.3em;font-weight:700;padding:12px 24px;border-radius:12px;margin-top:4px;width:100%;max-width:320px;}
+.end-rank.s{background:linear-gradient(135deg,#ff4444,#ff8800);color:#fff;}
+.end-rank.a{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#000;}
+.end-rank.b{background:linear-gradient(135deg,#4ade80,#22c55e);color:#000;}
+.end-rank.c{background:linear-gradient(135deg,#888,#666);color:#fff;}
+.end-rank.f{background:#222;color:#666;}
+.btn-restart{width:min(82%,340px);padding:14px 20px;border:none;border-radius:50px;background:linear-gradient(135deg,#ff4444,#ff8800);color:#fff;font-size:1.1em;font-weight:700;cursor:pointer;font-family:inherit;margin-top:10px;}
+.btn-link{display:block;text-decoration:none;text-align:center;width:min(82%,340px);padding:14px 20px;border-radius:50px;font-size:0.95em;font-weight:700;font-family:inherit;cursor:pointer;color:#fff;border:none;}
+.btn-link.blue{background:linear-gradient(135deg,#2563eb,#1d4ed8);}
+.btn-link.red{background:linear-gradient(135deg,#ef4444,#991b1b);}
+.end-btns{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;}
+.end-btns .btn-restart,.end-btns .btn-link,.end-btns .btn-poster{margin:0;}
+.btn-poster{width:min(82%,340px);padding:14px 20px;border:none;border-radius:50px;font-size:1em;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .2s,opacity .2s;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;}
+.btn-poster:hover{transform:scale(1.03);opacity:.9;}
+.btn-poster:active{transform:scale(0.95);}
+.btn-restart:active{transform:scale(0.95);}
+/* ─── 海报预览弹窗 ─── */
+#posterOverlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:100;display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px;}
+#posterOverlay.active{display:flex;}
+#posterOverlay img{max-width:100%;max-height:75vh;border-radius:12px;box-shadow:0 0 40px rgba(124,58,237,.3);}
+#posterOverlay .poster-actions{display:flex;flex-direction:column;gap:10px;width:100%;max-width:340px;margin-top:20px;}
+#posterOverlay .poster-actions button{width:100%;padding:14px;border:none;border-radius:50px;font-size:1em;font-weight:700;cursor:pointer;font-family:inherit;}
+#posterOverlay .btn-share{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;}
+#posterOverlay .poster-close{background:rgba(255,255,255,.1);color:#888;margin-top:4px;}
+/* ─── 加载动画 ─── */
+.spinner{width:24px;height:24px;border:3px solid rgba(255,255,255,.2);border-top-color:#a855f7;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;vertical-align:middle;margin-right:8px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.score-popup{position:absolute;pointer-events:none;font-weight:900;font-size:1.5em;color:#fbbf24;text-shadow:0 0 10px rgba(251,191,36,.5);animation:popFloat .8s ease-out forwards;z-index:5;}
+@keyframes popFloat{0%{opacity:1;transform:translateY(0) scale(1);}100%{opacity:0;transform:translateY(-60px) scale(1.3);}}
+@media(max-width:400px){#screen-start h1{font-size:1.8em;}.verdict-btn{padding:10px 8px;font-size:0.75em;}.attack-btn{font-size:0.65em;min-height:38px;padding:5px 3px;}.attack-row-header{width:40px;font-size:0.5em;}}
+@media(min-height:800px){.judge-image-wrap{height:300px;}}
+</style>
+<script src="https://gosspublic.alicdn.com/aliyun-oss-sdk-6.17.1.min.js"></script>
+<script src="https://activity-static.hoopchina.com.cn/colorbox-activities/js/kaleido-fed-sdk.js"></script>
+</head>
+<body>
+<div id="app">
+  <div id="screen-start" class="screen active">
+    <h1><span style="-webkit-text-fill-color:#fff">⚖️</span>西决裁判审判室</h1>
+    <p class="subtitle">西决争议判罚太多令你无法忍受?<br>亲自上场，替天行道！</p>
+    <div style="font-size:0.75em;color:#555;text-align:center;line-height:1.6;">争议判罚场景重现 → 选择你的态度 →<br>积攒怒气 → 解锁招式 → 击打裁判！<br></div>
+    <button class="btn-start" onclick="startGame()">开始审判</button>
+    <button class="btn-link blue" onclick="safeNavigate('huputiyu://bbs/topicTag?tagId=147389')">查看其他JRs的审判结果</button>
+  </div>
+  <div id="screen-judge" class="screen">
+    <div class="judge-round" id="judgeRound">第 1 / 5 轮</div>
+    <div class="judge-image-wrap" id="judgeImageWrap">
+      <div class="judge-image-placeholder" id="judgePlaceholder">[ 争议判罚图片 ]<br>替换 imageUrl 即可</div>
+      <img id="judgeImage" style="display:none" onerror="this.style.display='none';document.getElementById('judgePlaceholder').style.display='block'" onload="this.style.display='block';document.getElementById('judgePlaceholder').style.display='none'">
+    </div>
+    <div class="judge-desc" id="judgeDesc">——</div>
+    <div class="judge-anger-bar"><span>怒气</span><div class="bar-track"><div class="bar-fill" id="angerBarFill"></div></div><span id="angerDisplay">0%</span></div>
+    <div class="verdict-grid" id="verdictGrid">
+      <button class="verdict-btn" data-anger="0" onclick="chooseVerdict(0)"><span class="label">A · 完美的判罚</span><span class="sub">裁判没毛病</span><span class="anger-info a">+0% 怒气</span></button>
+      <button class="verdict-btn" data-anger="5" onclick="chooseVerdict(5)"><span class="label">B · 有点奇怪</span><span class="sub">emmm 不太对吧</span><span class="anger-info b">+5% 怒气</span></button>
+      <button class="verdict-btn" data-anger="12" onclick="chooseVerdict(12)"><span class="label">C · 问题很大</span><span class="sub">这都不吹？</span><span class="anger-info c">+12% 怒气</span></button>
+      <button class="verdict-btn" data-anger="20" onclick="chooseVerdict(20)"><span class="label">D · 太xx逆天了</span><span class="sub">黑哨！黑哨！</span><span class="anger-info d">+20% 怒气</span></button>
+    </div>
+  </div>
+  <div id="screen-verdict" class="screen">
+    <h2 id="verdictTitle">你的裁决</h2>
+    <div class="anger-added" id="verdictAngerAdded"></div>
+    <div class="anger-detail" id="verdictAngerDetail"></div>
+    <button class="go-fight" onclick="startFightPhase()">进入击打环节 →</button>
+  </div>
+  <div id="screen-fight" class="screen">
+    <div class="fight-hud">
+      <div class="hud-item"><span class="hud-value" id="fightRound">R1</span><span class="hud-label">回合</span></div>
+      <div class="hud-item"><span class="hud-value" id="fightScore">0</span><span class="hud-label">得分</span></div>
+      <div class="hud-item"><span class="hud-value" id="fightHits">0</span><span class="hud-label">击打</span></div>
+      <div class="hud-item"><span class="hud-value" id="fightCombo">x0</span><span class="hud-label">连击</span></div>
+      <div class="hud-item hud-timer"><span class="hud-value" id="fightTimer">0</span><span class="hud-label">余次</span></div>
+    </div>
+    <div id="canvas-wrap"><canvas id="fightCanvas"></canvas></div>
+    <div class="attack-panel" id="attackPanel"></div>
+  </div>
+  <div id="screen-end" class="screen">
+    <h1><span style="-webkit-text-fill-color:#fff">⚖️</span>审判完毕</h1>
+    <div class="end-rank" id="endRank">S 血海深仇 ⚔</div>
+    <div class="end-stats">
+      <div class="end-stat"><span class="stat-label">累计怒气</span><span class="stat-value red" id="endAnger">0s</span></div>
+      <div class="end-stat"><span class="stat-label">击打次数</span><span class="stat-value green" id="endHits">0</span></div>
+      <div class="end-stat"><span class="stat-label">最终得分</span><span class="stat-value gold" id="endScore">0</span></div>
+    </div>
+    <canvas id="posterCanvas" style="display:none;"></canvas>
+    <div class="end-btns">
+      <button class="btn-poster" onclick="generatePoster()">📷 生成海报</button>
+      <button class="btn-restart" onclick="restartGame()">🔄 再来一局</button>
+      <button class="btn-link blue" onclick="safeNavigate('huputiyu://bbs/topicTag?tagId=147389')">查看其他JRs的审判结果</button>
+    </div>
+    <!-- 海报预览弹窗 -->
+    <div id="posterOverlay">
+      <img id="posterPreviewImg" alt="海报预览">
+      <div class="poster-actions">
+        <button class="btn-share" onclick="sharePoster(this)">📤 一键发帖</button>
+        <button class="poster-close" onclick="closePoster()">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+ *  裁判击打模拟器 v3
+ *  平滑全身骨骼动画 - 缓动曲线 + 关键帧插值
+ * ============================================================ */
+
+// ─── 配置 ───
+const CFG = {
+  refereeFaceUrl:'',  // ← 你的脸
+  refereeSkin:'#d4a574',
+};
+
+// ─── 换头管理 ───
+// ─── 换头配置：在这里粘贴每个人的头像图床链接 ───
+// attacker 的脸自动取该轮受害者的 faceKey（见 ALL_ROUNDS[].faceKey）
+const FACES = {
+  referee: 'https://i1.hoopchina.com.cn/newsPost/22c11f455acd75637f99c4b083fd1146_w_181_h_175_.png',   // 裁判
+  v0: 'https://i3.hoopchina.com.cn/newsPost/7f549618a4976c91799c7eb2e013b1ad_w_205_h_204_.png',        // 受害者：米奇（马刺教练）
+  v1: 'https://i1.hoopchina.com.cn/editor/7f419a4d7849b37f8eb8b7eb3c653906_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',        // 受害者：卡斯尔
+  v2: 'https://i10.hoopchina.com.cn/editor/03ea010ecab9967b3473df0e6b7440fd_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',        // 受害者：科内特
+  v3: 'https://i10.hoopchina.com.cn/editor/661e8730cc5a1beea210d25eb71380f3_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',        // 受害者：福克斯
+  v4: 'https://i10.hoopchina.com.cn/editor/e30bab97922440bbe3326b11f291a603_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',        // 受害者：尚帕尼
+  v5: 'https://i5.hoopchina.com.cn/editor/b74a812dc230fc8d9f5a87d05b86b69e_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',        // 受害者：巴恩斯
+  v6: 'https://i1.hoopchina.com.cn/editor/7f419a4d7849b37f8eb8b7eb3c653906_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',        // 受害者：防守球员
+  v7: 'https://i5.hoopchina.com.cn/editor/355a40d5555305ab7e1a0aaf0583961e_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',        // 受害者：文班亚马
+  v8: 'https://i5.hoopchina.com.cn/editor/a1a04f8498b86a7d565659fcbf872047_w_1040_h_760_.png',  // ← 请上传 SGA 头像链接
+  v9: 'https://i3.hoopchina.com.cn/editor/8c7f62c1876db85ec8f01b63b0ef7740_w_1040_h_760_.png ',  // ← 请上传受害者头像链接（约翰逊背后推人）
+  v10: 'https://i1.hoopchina.com.cn/editor/5a79e49b9d5dcada136c847d73d1a00d_w_1040_h_760_.png', // ← 请上传切特头像链接
+  v11: 'https://i11.hoopchina.com.cn/editor/e1ca4b187297395359fec8c17e683ff1_w_1040_h_760_.png', // ← 请上传杰威头像链接
+};
+
+// 加载头像图片
+let faceImages = {};
+(function(){
+  for(const k in FACES){
+    if(FACES[k]){const img=new Image();img.crossOrigin='anonymous';img.src=FACES[k];faceImages[k]=img;}
+  }
+  if(faceImages.referee)faceImage=faceImages.referee;
+})();
+
+const ALL_ROUNDS = [
+  { faceKey:'v0', num:0, imageUrl:'https://i5.hoopchina.com.cn/newsPost/9d4c29192e272d9fc0bd48256d50e8a3_w_514_h_358_.png',desc:'切特将球踢出界裁判判给雷霆球权，米奇要求回放裁判毫不理会，反手给其一个技犯',victim:'米奇(马刺教练)',shirt:'#C4CED4',hair:'#555',skin:'#e8c39e' },
+  { faceKey:'v1', num:5, imageUrl:'https://i5.hoopchina.com.cn/news-editor/30691ec2f9aadd72b585be8069856c77_w_1112_h_719_.png?x-oss-process=image/resize,w_800/format,webp',desc:'哈滕拉拽卡斯尔头发，裁判未吹罚',victim:'卡斯尔',shirt:'#C4CED4',hair:'#333',skin:'#d4a574' },
+  { faceKey:'v2', num:7, imageUrl:'https://i3.hoopchina.com.cn/newsPost/903f2c8ccf0c21dfcddfd2daf8d8b617_w_637_h_316_.png',desc:'以赛亚-乔在篮筐正上方盖掉科内特补篮，裁判未作吹罚',victim:'科内特',shirt:'#C4CED4',hair:'#8B4513',skin:'#ffd5a0' },
+  { faceKey:'v3', num:4, imageUrl:'https://i3.hoopchina.com.cn/news-editor/be4327374c4ae76eb183c2ad13449598_w_644_h_357_.png?x-oss-process=image/resize,w_800/format,webp',desc:'亚历山大面对福克斯干拔跳投，后者被吹罚防守犯规',victim:'福克斯',shirt:'#C4CED4',hair:'#222',skin:'#c68642' },
+  { faceKey:'v4', num:30, imageUrl:'https://i10.hoopchina.com.cn/news-editor/ff171b6408c2a418e4c4ad74b1fa28bc_w_611_h_408_.png?x-oss-process=image/resize,w_800/format,webp',desc:'切特将尚帕尼推到多尔特身上，裁判吹罚尚帕尼掩护犯规',victim:'尚帕尼',shirt:'#C4CED4',hair:'#444',skin:'#ffd5a0' },
+  { faceKey:'v5', num:40, imageUrl:'https://i1.hoopchina.com.cn/editor/7c2e880a19b0ea071d004e9edf451392_w_896_h_557_.png',desc:'巴恩斯未动情况下“撞飞”对手，被吹罚进攻犯规',victim:'巴恩斯',shirt:'#C4CED4',hair:'#333',skin:'#d4a574' },
+  { faceKey:'v6', num:0, imageUrl:'https://i1.hoopchina.com.cn/editor/19e7d6383c0b7e36c76a958c008fab8e_w_714_h_456_.png',desc:'亚历山大夹臂进攻，裁判无吹罚',victim:'防守球员',shirt:'#C4CED4',hair:'#222',skin:'#c68642' },
+  { faceKey:'v7', num:1, imageUrl:'https://i3.hoopchina.com.cn/editor/6376cf01d850d94885c777656530a147_w_917_h_1014_.jpeg?x-oss-process=image/resize,w_800/format,webp',desc:'文班屡次被哈滕拉拽胳膊，裁判无吹罚',victim:'文班亚马',shirt:'#C4CED4',hair:'#333',skin:'#d4a574' },
+  // ─── 新增 马刺 回合（雷霆受害） ───
+  { faceKey:'v8', num:2,  imageUrl:'https://i1.hoopchina.com.cn/news-editor/0a067a4cdc02136421a20d66fca29fde_w_706_h_380_.png?x-oss-process=image/resize,w_800/format,webp',desc:'卡特-布莱恩特抢篮板时撞倒SGA，裁判回看后没有升级恶犯',victim:'SGA (雷霆)',shirt:'#0077C0',hair:'#222',skin:'#c68642' },
+  { faceKey:'v9', num:5,  imageUrl:'https://i5.hoopchina.com.cn/newsPost/d4e697a20e5515bde1f789eadd2ff2f9_w_916_h_615_.png',desc:'凯尔登从背后擒拿多尔特，裁判无吹罚',victim:'多尔特 (雷霆)',shirt:'#0077C0',hair:'#333',skin:'#d4a574' },
+  { faceKey:'v10',num:7,  imageUrl:'https://i1.hoopchina.com.cn/news-editor/34f4b78a244d2809dd304c7791d4a312_w_717_h_466_.png',desc:'福克斯犯规后推飞切特，裁判未升级',victim:'切特 (雷霆)',shirt:'#0077C0',hair:'#444',skin:'#ffd5a0' },
+  { faceKey:'v11',num:8,  imageUrl:'https://i5.hoopchina.com.cn/newsPost/8728202b9f9155f4eefb57e325230405_w_1165_h_763_.png',desc:'卡斯尔身后推飞杰威，裁判未吹罚',victim:'杰威 (雷霆)',shirt:'#0077C0',hair:'#333',skin:'#d4a574' },
+];
+let gameRounds = [];
+
+const ATTACKS = [
+  { id:'punch',name:'拳打',  lv:1, cd:800, score:10, color:'#4ade80', dur:400 },
+  { id:'slap', name:'掌掴',  lv:1, cd:1000,score:12, color:'#4ade80', dur:500 },
+  { id:'kick', name:'脚踢',  lv:1, cd:1200,score:15, color:'#4ade80', dur:500 },
+  { id:'elbow',name:'肘击',  lv:2, cd:1800,score:25, color:'#fbbf24', dur:500 },
+  { id:'flyingKnee',name:'飞膝',  lv:2, cd:2200,score:30, color:'#fbbf24', dur:600 },
+  { id:'flyingKick',name:'飞踹',  lv:2, cd:2600,score:35, color:'#fbbf24', dur:650 },
+  { id:'bombThrow',name:'💥炸弹摔',lv:3, cd:3500,score:50, color:'#f87171', dur:1200 },
+  { id:'chokeSlam',name:'🔒锁喉抛摔',lv:3, cd:4000,score:60, color:'#f87171', dur:1100 },
+  { id:'rko',name:'🔥RKO',lv:3, cd:4500,score:80, color:'#f87171', dur:1200 },
+];
+
+// ─── 缓动函数 ───
+// easeOut: 慢→快（蓄力、收招）
+// easeIn: 快→慢（出击、命中）
+// easeInOut: 两端慢中间快（过渡）
+
+function ease(t,type){
+  if(type==='out') return t*(2-t);
+  if(type==='in') return t*t;
+  if(type==='io') return t<.5?2*t*t:-1+(4-2*t)*t;
+  return t;
+}
+
+// 关键帧插值: [[t,val,ease], ...]
+// 在 0≤t≤1 范围插值，返回当前值
+function keyLerp(keys,t){
+  if(!keys||keys.length<2) return 0;
+  if(t<=keys[0][0]) return keys[0][1];
+  if(t>=keys[keys.length-1][0]) return keys[keys.length-1][1];
+  for(let i=0;i<keys.length-1;i++){
+    if(t>=keys[i][0]&&t<=keys[i+1][0]){
+      const p=(t-keys[i][0])/(keys[i+1][0]-keys[i][0]);
+      const e=ease(p,keys[i][2]||'');
+      return keys[i][1]+(keys[i+1][1]-keys[i][1])*e;
+    }
+  }
+  return keys[keys.length-1][1];
+}
+
+// 便捷对象插值: keys:{k:[...],k2:[...]} → 对所有k执行keyLerp,写入C
+function anim(t,map){
+  for(const k in map) C[k]=keyLerp(map[k],t);
+}
+
+// ─── 逆运动学 (IK): 给定肩部和手的位置,计算上臂+前臂角度 ───
+// 让手走直线路径而非弧线,实现"拳拳到肉"的真实感
+function ik2D(sx,sy,hx,hy,l1,l2){
+  const dx=hx-sx,dy=hy-sy;
+  let D=Math.sqrt(dx*dx+dy*dy);
+  D=Math.max(Math.abs(l1-l2),Math.min(D,l1+l2));
+  const cg=(l1*l1+l2*l2-D*D)/(2*l1*l2);
+  const g=Math.acos(Math.max(-1,Math.min(1,cg)));
+  const ca=(l1*l1+D*D-l2*l2)/(2*l1*D);
+  const a=Math.acos(Math.max(-1,Math.min(1,ca)));
+  const t2=Math.atan2(dx,dy);
+  const u=t2+a;
+  const f=g-Math.PI;
+  return {u:u*180/Math.PI,f:f*180/Math.PI};
+}
+// 肩部位置（相对于身体中心）
+const RSX=16,RSY=-20,LSX=-16,LSY=-20;
+
+// IK动画插值: 手位置→角度. 支持 rhx/rhy(右手) lhx/lhy(左手)
+function animIK(t,map){
+  for(const k in map){
+    if(k==='rhx'||k==='rhy'||k==='lhx'||k==='lhy') continue;
+    C[k]=keyLerp(map[k],t);
+  }
+  if(map.rhx&&map.rhy){
+    const ix=ik2D(RSX,RSY,keyLerp(map.rhx,t),keyLerp(map.rhy,t),B.uA,B.fA);
+    C.aRU=ix.u;C.aRF=ix.f;
+  }
+  if(map.lhx&&map.lhy){
+    const ix=ik2D(LSX,LSY,keyLerp(map.lhx,t),keyLerp(map.lhy,t),B.uA,B.fA);
+    C.aLU=ix.u;C.aLF=ix.f;
+  }
+}
+
+// ─── 身体尺寸 ───
+const B = { uA:25, fA:22, hR:5, uL:28, lL:26, fW:10, fH:6, hR2:27, tW:32, tH:44 };
+
+// ─── 游戏状态 ───
+const state = {
+  round:0, jersey:1, totalAnger:0, totalScore:0, totalHits:0,
+  verdicts:[], fightActive:false, remainAtk:0, pendingEnd:false,
+  combo:0, maxCombo:0, lastHitTime:0, comboWindow:2000, scorePopups:[],
+};
+
+const canvas = document.getElementById('fightCanvas'), ctx = canvas.getContext('2d');
+
+// ─── 全身骨骼状态（角度制） ───
+// 命名: 攻击者=a 裁判=r | 右=R 左=L | 上臂=U 前臂=F | 大腿=UL 小腿=LL
+// 0°=垂直向下, 顺时针为正
+// 前臂/小腿角度 = 相对于上臂/大腿的偏转角
+const C = {
+  // 位置
+  ax:.4, ay:0, aBody:0, aHead:0,
+  // 攻击者手臂
+  aRU:15, aRF:5, aLU:-15, aLF:-5,
+  // 攻击者腿
+  aRUL:8, aRLL:0, aLUL:-8, aLLL:0,
+  aScale:1,
+  // 裁判位置（更近）
+  rx:.58, ry:0, rBody:0, rHead:0,
+  rRU:5, rRF:2, rLU:-5, rLF:-2,
+  rRUL:8, rRLL:0, rLUL:-8, rLLL:0,
+  rScale:1,
+  shakeX:0, shakeY:0, shakeIntensity:0,
+};
+
+let currentAnim = null;
+// faceImage 已在换头配置段声明（186行），这里只赋值
+if(CFG.refereeFaceUrl){faceImage=new Image();faceImage.crossOrigin='anonymous';faceImage.src=CFG.refereeFaceUrl;}
+
+// ─── 绘图辅助 ───
+function jt(x,y,deg,len){
+  const r=deg*Math.PI/180;
+  return {x:x+Math.sin(r)*len,y:y+Math.cos(r)*len};
+}
+function drawSeg(ctx,x1,y1,deg,len,w,c,cap){
+  const e=jt(x1,y1,deg,len);
+  ctx.save();ctx.strokeStyle=c;ctx.lineWidth=w;ctx.lineCap=cap||'round';
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(e.x,e.y);ctx.stroke();ctx.restore();
+  return e;
+}
+function drawFist(ctx,x,y,r,skin,angle){
+  ctx.save();ctx.translate(x,y);
+  ctx.fillStyle=skin;ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);ctx.fill();
+  ctx.restore();
+}
+function drawFoot(ctx,x,y,deg,skin){
+  const e=jt(x,y,deg,B.fW);
+  ctx.save();ctx.translate(e.x,e.y);ctx.rotate(deg*Math.PI/180);
+  ctx.fillStyle='#444';ctx.beginPath();ctx.ellipse(0,0,B.fW/2,B.fH/2,0,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle=skin;ctx.beginPath();ctx.ellipse(0,1,B.fW/3,B.fH/3,0,0,Math.PI*2);ctx.fill();
+  ctx.restore();
+}
+
+// ─── 画攻击者 ───
+function drawAttacker(W,baseY,scale){
+  const skin=state.fSkin||'#ffd5a0',shirt=state.fShirt||'#e74c3c',hair=state.fHair||'#333';
+  const x=W*C.ax,y=baseY+C.ay*100,s=C.aScale*scale;
+  ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.rotate(C.aBody);
+  const hipY=10;
+  let K=drawSeg(ctx,-10,hipY,C.aLUL,B.uL,8,'#222');
+  let F=drawSeg(ctx,K.x,K.y,C.aLUL+C.aLLL,B.lL,7,'#222');
+  drawFoot(ctx,F.x,F.y,C.aLUL+C.aLLL,skin);
+  ctx.fillStyle='rgba(0,0,0,0.2)';ctx.beginPath();ctx.arc(K.x,K.y,4,0,Math.PI*2);ctx.fill();
+  K=drawSeg(ctx,10,hipY,C.aRUL,B.uL,8,'#222');
+  F=drawSeg(ctx,K.x,K.y,C.aRUL+C.aRLL,B.lL,7,'#222');
+  drawFoot(ctx,F.x,F.y,C.aRUL+C.aRLL,skin);
+  ctx.fillStyle='rgba(0,0,0,0.2)';ctx.beginPath();ctx.arc(K.x,K.y,4,0,Math.PI*2);ctx.fill();
+  // 球衣（根据 shirt 配色：马刺白 / 雷霆蓝）
+  const isDark = shirt === '#0077C0';
+  ctx.fillStyle = shirt; roundRectR(ctx,-B.tW/2,-B.tH/2+5,B.tW,B.tH,5);ctx.fill();
+  // 侧边条纹
+  ctx.fillStyle = isDark ? '#FFFFFF' : '#222';
+  ctx.fillRect(-B.tW/2, -B.tH/2+5, 4, B.tH);ctx.fillRect(B.tW/2-4, -B.tH/2+5, 4, B.tH);
+  // 领口弧线
+  ctx.strokeStyle = isDark ? '#FFFFFF' : '#222'; ctx.lineWidth=2.5;
+  ctx.beginPath();ctx.arc(0,-B.tH/2+3,8,0.15,Math.PI-0.15);ctx.stroke();
+  // 球衣边框
+  ctx.strokeStyle = isDark ? '#0055A0' : '#ddd'; ctx.lineWidth=1; roundRectR(ctx,-B.tW/2,-B.tH/2+5,B.tW,B.tH,5);ctx.stroke();
+  // 号码
+  ctx.fillStyle = isDark ? '#FFFFFF' : '#111';
+  ctx.font='bold 16px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(state.jersey,0,2);
+  const shY=-B.tH/2+2;
+  let EL=drawSeg(ctx,-B.tW/2,shY,C.aLU,B.uA,7,skin);
+  let HA=drawSeg(ctx,EL.x,EL.y,C.aLU+C.aLF,B.fA,6,skin);
+  drawFist(ctx,HA.x,HA.y,B.hR,skin,C.aLU+C.aLF);
+  ctx.fillStyle='rgba(0,0,0,0.2)';ctx.beginPath();ctx.arc(EL.x,EL.y,4,0,Math.PI*2);ctx.fill();
+  EL=drawSeg(ctx,B.tW/2,shY,C.aRU,B.uA,7,skin);
+  HA=drawSeg(ctx,EL.x,EL.y,C.aRU+C.aRF,B.fA,6,skin);
+  drawFist(ctx,HA.x,HA.y,B.hR,skin,C.aRU+C.aRF);
+  ctx.fillStyle='rgba(0,0,0,0.2)';ctx.beginPath();ctx.arc(EL.x,EL.y,4,0,Math.PI*2);ctx.fill();
+  ctx.save();ctx.translate(0,-B.tH/2-5);ctx.rotate(C.aHead);
+  const af=faceImages[state.currentFaceKey];
+  if(af&&af.complete&&af.naturalWidth>0){
+    ctx.beginPath();ctx.arc(0,-9,B.hR2-1,0,Math.PI*2);ctx.clip();
+    ctx.drawImage(af,-B.hR2,-B.hR2-9,B.hR2*2,B.hR2*2);
+  }else{
+    const hr=B.hR2-5; // 默认头小10px
+    ctx.beginPath();ctx.arc(0,-9,hr,0,Math.PI*2);ctx.clip();
+    ctx.fillStyle=hair;ctx.beginPath();ctx.arc(0,-4,hr+1,Math.PI,0);ctx.fill();
+    ctx.fillStyle=skin;ctx.fillRect(-hr-1,-hr-1-9,(hr+1)*2,(hr+1)*2);
+    ctx.fillStyle='#222';ctx.fillRect(-7,-1,4,3);ctx.fillRect(3,-1,4,3);
+    ctx.strokeStyle='#222';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(-10,-4);ctx.lineTo(-4,-2);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(10,-4);ctx.lineTo(4,-2);ctx.stroke();
+    ctx.fillStyle='#c0392b';ctx.beginPath();ctx.arc(0,6,3,0,Math.PI);ctx.fill();
+  }
+  ctx.restore();ctx.restore();
+}
+
+// ─── 画裁判 ───
+function drawReferee(W,baseY,scale){
+  const skin=CFG.refereeSkin;
+  const x=W*C.rx,y=baseY+C.ry*100,s=C.rScale*scale;
+  ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.rotate(C.rBody);
+  let K=drawSeg(ctx,-12,10,C.rLUL,B.uL,8,'#222');
+  let F=drawSeg(ctx,K.x,K.y,C.rLUL+C.rLLL,B.lL,7,'#222');
+  drawFoot(ctx,F.x,F.y,C.rLUL+C.rLLL,skin);
+  ctx.fillStyle='rgba(0,0,0,0.2)';ctx.beginPath();ctx.arc(K.x,K.y,4,0,Math.PI*2);ctx.fill();
+  K=drawSeg(ctx,12,10,C.rRUL,B.uL,8,'#222');
+  F=drawSeg(ctx,K.x,K.y,C.rRUL+C.rRLL,B.lL,7,'#222');
+  drawFoot(ctx,F.x,F.y,C.rRUL+C.rRLL,skin);
+  ctx.fillStyle='rgba(0,0,0,0.2)';ctx.beginPath();ctx.arc(K.x,K.y,4,0,Math.PI*2);ctx.fill();
+  // 裁判黑白条纹球衣（NBA裁判风格）
+  ctx.save();roundRectR(ctx,-B.tW/2,-B.tH/2+5,B.tW,B.tH,5);ctx.clip();
+  for(let i=-B.tW/2;i<B.tW/2;i+=4){ctx.fillStyle=(Math.floor((i+B.tW/2)/4)%2===0)?'#fff':'#222';ctx.fillRect(i,-B.tH/2+5,4,B.tH);}
+  ctx.restore();
+  ctx.strokeStyle='#222';ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(0,-B.tH/2+3,8,0.15,Math.PI-0.15);ctx.stroke();
+  ctx.strokeStyle='#ccc';ctx.lineWidth=1;roundRectR(ctx,-B.tW/2,-B.tH/2+5,B.tW,B.tH,5);ctx.stroke();
+  // 裁判徽章
+  ctx.fillStyle='#f1c40f';ctx.beginPath();ctx.arc(16,-8,5,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#999';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(13,-12);ctx.lineTo(19,-12);ctx.stroke();
+  const shY=-B.tH/2+2;
+  let EL=drawSeg(ctx,-B.tW/2,shY,C.rLU,B.uA,7,skin);
+  let HA=drawSeg(ctx,EL.x,EL.y,C.rLU+C.rLF,B.fA,6,skin);
+  drawFist(ctx,HA.x,HA.y,B.hR,skin,C.rLU+C.rLF);
+  ctx.fillStyle='rgba(0,0,0,0.2)';ctx.beginPath();ctx.arc(EL.x,EL.y,4,0,Math.PI*2);ctx.fill();
+  EL=drawSeg(ctx,B.tW/2,shY,C.rRU,B.uA,7,skin);
+  HA=drawSeg(ctx,EL.x,EL.y,C.rRU+C.rRF,B.fA,6,skin);
+  drawFist(ctx,HA.x,HA.y,B.hR,skin,C.rRU+C.rRF);
+  ctx.fillStyle='rgba(0,0,0,0.2)';ctx.beginPath();ctx.arc(EL.x,EL.y,4,0,Math.PI*2);ctx.fill();
+  ctx.save();ctx.translate(0,-B.tH/2-5);ctx.rotate(C.rHead);
+  const rf=faceImages.referee;
+  if((faceImage&&faceImage.complete&&faceImage.naturalWidth>0)||(rf&&rf.complete&&rf.naturalWidth>0)){
+    ctx.beginPath();ctx.arc(0,-8,B.hR2-1,0,Math.PI*2);ctx.clip();
+    const fi=faceImage&&faceImage.complete&&faceImage.naturalWidth>0?faceImage:rf;ctx.drawImage(fi,-B.hR2,-B.hR2-8,B.hR2*2,B.hR2*2);}
+  else{
+    const hr=B.hR2-5;
+    ctx.beginPath();ctx.arc(0,-8,hr,0,Math.PI*2);ctx.clip();
+    ctx.fillStyle='#222';ctx.beginPath();ctx.arc(0,-5,hr+1,Math.PI*1.1,Math.PI*1.9);ctx.fill();
+    ctx.fillStyle='#111';ctx.beginPath();ctx.moveTo(10,-8);ctx.lineTo(24,-6);ctx.lineTo(22,-2);ctx.lineTo(10,-4);ctx.fill();
+    ctx.fillStyle=skin;ctx.fillRect(-hr-1,-hr-1-8,(hr+1)*2,(hr+1)*2);
+    ctx.fillStyle='#222';ctx.fillRect(-9,-1,6,4);ctx.fillRect(3,-1,6,4);
+    ctx.strokeStyle='#c0392b';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-3,7);ctx.lineTo(3,7);ctx.stroke();}
+  ctx.restore();ctx.restore();
+}
+function roundRectR(ctx,x,y,w,h,r){
+  ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);
+  ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);
+  ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);
+  ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
+}
+
+// ─── 屏幕 ───
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function startGame(){
+  state.round=0;state.totalAnger=0;state.totalScore=0;state.totalHits=0;
+  state.verdicts=[];state.combo=0;state.maxCombo=0;state.scorePopups=[];
+  state.cooldowns={};currentAnim=null;
+  // 顺序：1雷霆 → 2马刺 → 3雷霆 → 4马刺 → 5拽头发（卡斯尔）
+  const thunderKeys = ['v0','v2','v3','v4','v5','v6','v7'];
+  const spursKeys   = ['v8','v9','v10','v11'];
+  const thunderPool = ALL_ROUNDS.filter(r => thunderKeys.includes(r.faceKey)).sort(() => Math.random()-.5);
+  const spursPool   = ALL_ROUNDS.filter(r => spursKeys.includes(r.faceKey)).sort(() => Math.random()-.5);
+  const castle      = ALL_ROUNDS.find(r => r.faceKey === "v1");
+  gameRounds = [thunderPool[0], spursPool[0], thunderPool[1], spursPool[1], castle];
+  show('screen-judge');loadRound();
+}
+function restartGame(){startGame();}
+function loadRound(){
+  const rd=gameRounds[state.round];
+  state.jersey=rd.num;
+  document.getElementById('judgeRound').textContent=`第 ${state.round+1} / ${gameRounds.length} 轮`;
+  document.getElementById('judgeDesc').textContent=rd.desc;
+  const img=document.getElementById('judgeImage'),ph=document.getElementById('judgePlaceholder');
+  if(rd.imageUrl){img.src=rd.imageUrl;img.style.display='none';ph.style.display='block';ph.textContent='[ 加载中... ]';}
+  else{img.style.display='none';ph.style.display='block';ph.textContent=`[ 争议判罚 #${state.round+1} ]\n替换 rounds[${state.round}].imageUrl`;}
+  updateAngerBar();
+}
+function updateAngerBar(){
+  const p=Math.min(state.totalAnger,100);
+  document.getElementById('angerBarFill').style.width=p+'%';
+  document.getElementById('angerDisplay').textContent=state.totalAnger+'%';
+}
+function chooseVerdict(anger){
+  state.totalAnger+=anger;state.verdicts.push(anger);updateAngerBar();
+  const labels=['完美的判罚','有点奇怪','问题很大','太xx逆天了'];
+  const vals=[0,5,12,20];
+  document.getElementById('verdictTitle').textContent=`你选择了：${labels[vals.indexOf(anger)]}`;
+  document.getElementById('verdictAngerAdded').textContent=anger>0?`怒气 +${anger}% 🔥`:'怒气 +0% （冷静派）';
+  document.getElementById('verdictAngerDetail').textContent=`当前累计怒气：${state.totalAnger}%`;
+  document.querySelector('.go-fight').textContent=anger<=0?'进入下一轮 →':'进入击打环节 →';
+  show('screen-verdict');
+}
+function getUL(){const v=state.verdicts[state.verdicts.length-1]||0;if(v>=20)return 3;if(v>=12)return 2;if(v>=5)return 1;return 0;}
+
+function startFightPhase(){
+  const ft=state.verdicts[state.verdicts.length-1]||0;
+  if(ft<=0){state.fightActive=false;nextRound();return;}
+  show('screen-fight');state.remainAtk={0:0,5:1,12:2,20:3}[ft]||0;state.fightActive=true;state.pendingEnd=false;currentAnim=null;
+  state.cooldowns={};state.scorePopups=[];
+  const rd=gameRounds[state.round];state.fShirt=rd.shirt;state.fHair=rd.hair;state.fSkin=rd.skin;
+  state.currentFaceKey=rd.faceKey; // 换头：该轮攻击者用受害者的脸
+  resetPose();buildAtk();updateHUD();resizeCanvas();
+  if(!window._lp){window._lp=true;loop();}
+}
+function resetPose(){
+  C.ax=.4;C.ay=0;C.aBody=0;C.aHead=0;
+  C.aRU=15;C.aRF=5;C.aLU=-15;C.aLF=-5;
+  C.aRUL=8;C.aRLL=0;C.aLUL=-8;C.aLLL=0;C.aScale=1;
+  C.rx=.58;C.ry=0;C.rBody=0;C.rHead=0;
+  C.rRU=5;C.rRF=2;C.rLU=-5;C.rLF=-2;
+  C.rRUL=8;C.rRLL=0;C.rLUL=-8;C.rLLL=0;C.rScale=1;
+}
+function buildAtk(){
+  const p=document.getElementById('attackPanel');p.innerHTML='';
+  const ul=getUL(),lvls=[
+    {lv:1,label:'一档',atks:ATTACKS.filter(a=>a.lv===1)},
+    {lv:2,label:'二档',atks:ATTACKS.filter(a=>a.lv===2)},
+    {lv:3,label:'三档',atks:ATTACKS.filter(a=>a.lv===3)},
+  ];
+  lvls.forEach(lv=>{
+    const row=document.createElement('div');row.className='attack-row';
+    const hdr=document.createElement('div');hdr.className='attack-row-header';hdr.textContent=lv.label;
+    row.appendChild(hdr);
+    if(ul<lv.lv){
+      const b=document.createElement('div');
+      b.style.cssText='flex:1;padding:12px;border:1px solid #222;border-radius:8px;color:#444;font-size:0.7em;text-align:center;';
+      b.textContent='🔒 还不够生气！';row.appendChild(b);
+    }else lv.atks.forEach(a=>{
+      const b=document.createElement('button');
+      b.className=`attack-btn l${a.lv}`;b.dataset.id=a.id;
+      b.innerHTML=`<span class="move-name">${a.name}</span>`;
+      b.addEventListener('click',()=>useAtk(a.id));row.appendChild(b);
+    });
+    p.appendChild(row);
+  });
+}
+function updateHUD(){
+  document.getElementById('fightRound').textContent=`R${state.round+1}`;
+  document.getElementById('fightScore').textContent=state.totalScore;
+  document.getElementById('fightHits').textContent=state.totalHits;
+  document.getElementById('fightCombo').textContent=`x${state.combo}`;
+  document.getElementById('fightTimer').textContent=state.remainAtk;
+}
+function useAtk(id){
+  if(!state.fightActive||state.remainAtk<=0)return;
+  if(currentAnim)return;
+  const a=ATTACKS.find(x=>x.id===id);if(!a||a.lv>getUL())return;
+  // 如果裁判在地上（三档击倒后），先爬起来再出招
+  if(Math.abs(C.rBody)>0.5||C.ry>0.1){
+    C.rx=.58;C.ry=0;C.rBody=0;C.rScale=1;
+    C.rRU=5;C.rRF=2;C.rLU=-5;C.rLF=-2;
+    C.rRUL=8;C.rRLL=0;C.rLUL=-8;C.rLLL=0;
+    C.rHead=0;C.aHead=0;
+  }
+  state.totalScore+=a.score;state.totalHits++;
+  const n=Date.now();
+  if(n-state.lastHitTime<state.comboWindow){state.combo++;if(state.combo>state.maxCombo)state.maxCombo=state.combo;if(state.combo>=3)state.totalScore+=Math.floor(a.score*0.2);}
+  else state.combo=1;
+  state.remainAtk--;if(state.remainAtk<=0){state.pendingEnd=true;document.querySelectorAll(".attack-btn").forEach(b=>b.disabled=true);}
+  state.lastHitTime=n;currentAnim={startTime:performance.now(),dur:a.dur,id:a.id,lv:a.lv};
+  const w=document.getElementById('canvas-wrap');
+  const p=document.createElement('div');p.className='score-popup';
+  p.style.left=(30+Math.random()*40)+'%';p.style.top=(20+Math.random()*30)+'%';
+  let t=`+${a.score}`;if(state.combo>=3)t+=` 🔥x${state.combo}`;if(state.combo>=5)t+=' COMBO!';
+  p.textContent=t;if(a.lv===3)p.style.fontSize='2em';
+  w.appendChild(p);setTimeout(()=>p.remove(),800);
+  C.shakeIntensity=a.lv*3;updateHUD();
+}
+
+const ANGER_THRESHOLDS = [
+  { min:0,label:'无法还手',unlock:0 },
+  { min:10,label:'一档解锁',unlock:1 },
+  { min:25,label:'二档解锁',unlock:2 },
+  { min:50,label:'三档解锁！',unlock:3 },
+];
+
+// ============================================================
+// 全身关键帧动画 - 每一招都是独立定义的肢体路径
+// 每个属性 = [[t, val, ease], ...] 数组
+// t: 0~1 | val: 目标值 | ease: 'out'/'in'/'io'/''(线性)
+// ============================================================
+
+function updateAnimation(now){
+  if(!currentAnim) return;
+  const t=Math.min((now-currentAnim.startTime)/currentAnim.dur,1);
+  const id=currentAnim.id;
+  const SX=.4,SRX=.58;
+
+  switch(id){
+    // ═══ 左直拳: 前手直线打出 ═══
+    case 'punch': animIK(t,{
+      lhx:[[0,-30,'out'],[.08,18,'out'],[.35,65,'in'],[.5,65],[1,-30,'out']],
+      lhy:[[0,25,'out'],[.08,2,'out'],[.35,-6,'in'],[.5,-6],[1,25,'out']],
+      rhx:[[0,30,'out'],[.08,40,'out'],[.35,22],[.5,22],[1,30,'out']],
+      rhy:[[0,25,'out'],[.08,8,'out'],[.35,32],[.5,32],[1,25,'out']],
+      aRUL:[[0,8],[.08,14],[.35,3],[.5,3],[1,8,'out']],aRLL:[[0,0],[.08,-8],[.35,4],[.5,4],[1,0,'out']],
+      aLUL:[[0,-8,'out'],[.08,-18,'out'],[.35,14,'in'],[.5,14],[1,-8,'out']],aLLL:[[0,0],[.08,14],[.35,-8],[.5,-8],[1,0,'out']],
+      aBody:[[0,0,'out'],[.08,-.03,'out'],[.35,.04,'in'],[.5,.04],[1,0,'out']],
+      ax:[[0,SX,'out'],[.08,SX-.01,'out'],[.35,SX+.05,'in'],[.5,SX+.05],[1,SX,'out']],
+      rx:[[0,SRX],[.35,SRX],[.5,SRX+.06,'io'],[1,SRX,'out']],rBody:[[0,0]],
+      rRU:[[0,150],[.35,150],[.5,190,'io'],[1,150,'out']],rRF:[[0,0],[.35,0],[.5,-35,'io'],[1,0,'out']],
+      rLU:[[0,-150],[.35,-150],[.5,-190,'io'],[1,-150,'out']],rLF:[[0,0],[.35,0],[.5,35,'io'],[1,0,'out']],
+    }); break;
+
+    // ═══ 掌掴: 右上→左下斜砍 ═══
+    case 'slap': animIK(t,{
+      rhx:[[0,30,'out'],[.18,-50,'out'],[.42,65,'in'],[.58,65],[1,30,'out']],
+      rhy:[[0,25,'out'],[.18,-30,'out'],[.42,12,'in'],[.58,12],[1,25,'out']],
+      lhx:[[0,-30],[.18,-8,'out'],[.42,-45,'io'],[.58,-45],[1,-30,'out']],
+      lhy:[[0,25],[.18,38,'out'],[.42,10,'io'],[.58,10],[1,25,'out']],
+      aBody:[[0,0,'out'],[.18,-.13,'out'],[.42,.13,'in'],[.58,.10],[1,0,'out']],
+      ax:[[0,SX,'out'],[.18,SX-.03,'out'],[.42,SX+.04,'in'],[.58,SX+.04],[1,SX,'out']],
+      aRUL:[[0,8,'out'],[.18,-18,'out'],[.42,26,'in'],[.58,26],[1,8,'out']],aRLL:[[0,0],[.18,15],[.42,-10],[.58,-10],[1,0,'out']],
+      aLUL:[[0,-8,'out'],[.18,-26,'out'],[.42,0],[.58,0],[1,-8,'out']],aLLL:[[0,0],[.18,10],[.42,-5],[.58,-5],[1,0,'out']],
+      rx:[[0,SRX],[.42,SRX],[.58,SRX-.09,'io'],[1,SRX,'out']],rBody:[[0,0]],
+      rRU:[[0,150],[.42,150],[.58,200,'io'],[1,150,'out']],rRF:[[0,0],[.42,0],[.58,-45,'io'],[1,0,'out']],
+      rLU:[[0,-150],[.42,-150],[.58,-200,'io'],[1,-150,'out']],rLF:[[0,0],[.42,0],[.58,45,'io'],[1,0,'out']],
+    }); break;
+
+    // ═══ 正蹬: 收膝→蹬出, 双臂大展平衡 ═══
+    case 'kick': animIK(t,{
+      rhx:[[0,30,'out'],[.12,60,'out'],[.38,-30,'in'],[.52,-30],[1,30,'out']],
+      rhy:[[0,25,'out'],[.12,-8,'out'],[.38,15,'in'],[.52,15],[1,25,'out']],
+      lhx:[[0,-30,'out'],[.12,-55,'out'],[.38,35,'in'],[.52,35],[1,-30,'out']],
+      lhy:[[0,25,'out'],[.12,22,'out'],[.38,2,'in'],[.52,2],[1,25,'out']],
+      aRUL:[[0,8,'out'],[.12,-38,'out'],[.38,65,'in'],[.52,65],[1,8,'out']],aRLL:[[0,0,'out'],[.12,-70,'out'],[.38,0,'in'],[.52,0],[1,0,'out']],
+      aLUL:[[0,-8,'out'],[.12,-20,'out'],[.38,-10],[.52,-10],[1,-8,'out']],aLLL:[[0,0],[.12,10],[.38,5],[.52,5],[1,0,'out']],
+      aBody:[[0,0,'out'],[.12,-.05,'out'],[.38,.08,'in'],[.52,.06],[1,0,'out']],
+      ax:[[0,SX,'out'],[.12,SX-.025,'out'],[.38,SX+.05,'in'],[.52,SX+.05],[1,SX,'out']],
+      rx:[[0,SRX],[.38,SRX],[.52,SRX+.09,'io'],[1,SRX,'out']],rBody:[[0,0]],
+      rScale:[[0,1],[.38,1],[.52,.82,'io'],[1,1,'out']],
+    }); break;
+
+    // ═══ 肘击: 跨步转腰横摆 ═══
+    case 'elbow': animIK(t,{
+      rhx:[[0,30,'out'],[.1,-12,'out'],[.35,48,'in'],[.5,48],[1,30,'out']],
+      rhy:[[0,25,'out'],[.1,-3,'out'],[.35,10,'in'],[.5,10],[1,25,'out']],
+      lhx:[[0,-30,'out'],[.1,-18,'out'],[.35,-42],[.5,-42],[1,-30,'out']],
+      lhy:[[0,25,'out'],[.1,38,'out'],[.35,6],[.5,6],[1,25,'out']],
+      aBody:[[0,0,'out'],[.1,.18,'out'],[.35,-.12,'in'],[.5,-.10],[1,0,'out']],
+      ax:[[0,SX,'out'],[.1,SX+.05,'out'],[.35,SX+.08,'in'],[.5,SX+.08],[1,SX,'out']],
+      aRUL:[[0,8,'out'],[.1,30,'out'],[.35,8],[.5,8],[1,8,'out']],aRLL:[[0,0],[.1,-12],[.35,5],[.5,5],[1,0,'out']],
+      aLUL:[[0,-8,'out'],[.1,-32,'out'],[.35,-18],[.5,-18],[1,-8,'out']],aLLL:[[0,0],[.1,14],[.35,5],[.5,5],[1,0,'out']],
+      rx:[[0,SRX],[.35,SRX],[.5,SRX+.13,'io'],[1,SRX,'out']],rBody:[[0,0]],
+    }); break;
+
+    // ═══ 飞膝: 单脚起跳→右膝顶 ═══
+    case 'flyingKnee': animIK(t,{
+      rhx:[[0,30,'out'],[.15,28,'out'],[.38,-8,'in'],[.52,-8],[1,30,'out']],
+      rhy:[[0,25,'out'],[.15,22,'out'],[.38,-18,'in'],[.52,-10],[1,25,'out']],
+      lhx:[[0,-30,'out'],[.15,-28,'out'],[.38,8,'in'],[.52,8],[1,-30,'out']],
+      lhy:[[0,25,'out'],[.15,22,'out'],[.38,-18,'in'],[.52,-10],[1,25,'out']],
+      aRUL:[[0,8,'out'],[.15,-32,'out'],[.38,88,'in'],[.52,88],[1,5,'out']],aRLL:[[0,0,'out'],[.15,-72,'out'],[.38,-38,'in'],[.52,-38],[1,0,'out']],
+      aLUL:[[0,-8,'out'],[.15,-40,'out'],[.38,48,'in'],[.52,48],[1,-8,'out']],aLLL:[[0,0,'out'],[.15,-62,'out'],[.38,-18,'in'],[.52,-18],[1,0,'out']],
+      aScale:[[0,1,'out'],[.15,.75,'out'],[.38,1.18,'in'],[.52,1.05],[1,1,'out']],aBody:[[0,0,'out'],[.15,-.08,'out'],[.38,.10,'in'],[.52,.05],[1,0,'out']],
+      ax:[[0,SX,'out'],[.15,SX],[.38,SX+.08,'in'],[.52,SX+.08],[1,SX,'out']],ay:[[0,0],[.15,.05,'out'],[.38,-.15,'in'],[.52,-.02],[1,0,'out']],
+      rx:[[0,SRX],[.38,SRX],[.52,SRX+.12,'io'],[1,SRX,'out']],rBody:[[0,0]],rScale:[[0,1],[.38,1],[.52,.75,'io'],[1,1,'out']],
+      rRU:[[0,150],[.38,150],[.52,-180,'io'],[1,150,'out']],rRF:[[0,0],[.38,0],[.52,38,'io'],[1,0,'out']],
+      rLU:[[0,-150],[.38,-150],[.52,180,'io'],[1,-150,'out']],rLF:[[0,0],[.38,0],[.52,-38,'io'],[1,0,'out']],
+    }); break;
+
+    // ═══ 飞踹: 腾空→脚伸直踹 ═══
+    case 'flyingKick': animIK(t,{
+      rhx:[[0,30,'out'],[.1,58,'out'],[.4,-25,'in'],[.58,-25],[1,30,'out']],
+      rhy:[[0,25,'out'],[.1,3,'out'],[.4,2,'in'],[.58,2],[1,25,'out']],
+      lhx:[[0,-30,'out'],[.1,-58,'out'],[.4,25,'in'],[.58,25],[1,-30,'out']],
+      lhy:[[0,25,'out'],[.1,3,'out'],[.4,2,'in'],[.58,2],[1,25,'out']],
+      aRUL:[[0,8,'out'],[.1,-48,'out'],[.4,95,'in'],[.58,95],[1,5,'out']],aRLL:[[0,0,'out'],[.1,-80,'out'],[.4,12,'in'],[.58,12],[1,0,'out']],
+      aLUL:[[0,-8,'out'],[.1,-48,'out'],[.4,65,'in'],[.58,65],[1,-8,'out']],aLLL:[[0,0,'out'],[.1,-72,'out'],[.4,-18,'in'],[.58,-18],[1,0,'out']],
+      aScale:[[0,1,'out'],[.1,.70,'out'],[.4,1.22,'in'],[.58,1.05],[1,1,'out']],aBody:[[0,0,'out'],[.1,-.14,'out'],[.4,.20,'in'],[.58,.14],[1,0,'out']],
+      ax:[[0,SX,'out'],[.1,SX],[.4,SX+.20,'in'],[.58,SX+.20],[1,SX,'out']],ay:[[0,0],[.1,.06,'out'],[.4,-.15,'in'],[.58,-.02],[1,0,'out']],
+      rx:[[0,SRX],[.4,SRX],[.58,SRX+.26,'io'],[1,SRX,'out']],rBody:[[0,0]],rScale:[[0,1],[.4,1],[.58,.65,'io'],[1,1,'out']],
+      rRU:[[0,150],[.4,150],[.58,-180,'io'],[1,150,'out']],rRF:[[0,0],[.4,0],[.58,48,'io'],[1,0,'out']],
+      rLU:[[0,-150],[.4,-150],[.58,180,'io'],[1,-150,'out']],rLF:[[0,0],[.4,0],[.58,-48,'io'],[1,0,'out']],
+    }); break;
+
+    // ═══ 炸弹摔(巴蒂斯塔): 深蹲→扛起→砸下 ═══
+    case 'bombThrow': animIK(t,{
+      rhx:[[0,30,'out'],[.18,-2,'out'],[.35,5,'io'],[.50,5],[.55,8],[.75,25,'in'],[1,30,'out']],
+      rhy:[[0,25,'out'],[.18,18,'out'],[.35,-25,'io'],[.50,-25],[.55,-22],[.75,35,'in'],[1,25,'out']],
+      lhx:[[0,-30,'out'],[.18,2,'out'],[.35,-5,'io'],[.50,-5],[.55,-8],[.75,-25,'in'],[1,-30,'out']],
+      lhy:[[0,25,'out'],[.18,18,'out'],[.35,-25,'io'],[.50,-25],[.55,-22],[.75,35,'in'],[1,25,'out']],
+      aRUL:[[0,8,'out'],[.18,-38,'out'],[.35,-25,'io'],[.50,-25],[.55,-22],[.75,18,'in'],[1,8,'out']],
+      aRLL:[[0,0,'out'],[.18,-55,'out'],[.35,-40,'io'],[.50,-40],[.55,-36],[.75,-8,'in'],[1,0,'out']],
+      aLUL:[[0,-8,'out'],[.18,-38,'out'],[.35,-25,'io'],[.50,-25],[.55,-22],[.75,18,'in'],[1,-8,'out']],
+      aLLL:[[0,0,'out'],[.18,-55,'out'],[.35,-40,'io'],[.50,-40],[.55,-36],[.75,-8,'in'],[1,0,'out']],
+      aBody:[[0,0,'out'],[.18,.26,'out'],[.35,-.04,'io'],[.50,-.04],[.55,-.06],[.75,-.10],[1,0,'out']],
+      ax:[[0,SX,'out'],[.18,SX+.16,'out'],[.35,SX+.16],[.50,SX+.16],[.55,SX+.16],[.75,SX+.04],[1,SX,'out']],
+      // 裁判：被举起→砸向地面→倒地不起
+      rx:[[0,SRX,'out'],[.18,SRX-.16,'out'],[.35,SRX-.08,'io'],[.50,SRX-.08],[.55,SRX-.06],[.72,SRX+.02,'io'],[.85,.54,'io'],[1,.52,'out']],
+      ry:[[0,0],[.18,0,'out'],[.35,-.32,'io'],[.50,-.32],[.55,-.28],[.72,-.06,'io'],[.85,.18,'io'],[1,.25,'out']],
+      rBody:[[0,0],[.50,0,'out'],[.72,.35,'io'],[.85,1.0,'io'],[1,1.57,'out']],
+      rScale:[[0,1],[.18,.82],[.35,.58,'io'],[.50,.58],[.55,.62],[.72,.72,'io'],[.85,.50,'io'],[1,.45,'out']],
+      // 裁判手臂摊开
+      rRU:[[0,5,'out'],[.50,5,'out'],[.72,22,'io'],[.85,45,'io'],[1,60,'out']],
+      rRF:[[0,2,'out'],[.50,2,'out'],[.72,30,'io'],[.85,65,'io'],[1,90,'out']],
+      rLU:[[0,-5,'out'],[.50,-5,'out'],[.72,-18,'io'],[.85,-38,'io'],[1,-50,'out']],
+      rLF:[[0,-2,'out'],[.50,-2,'out'],[.72,-28,'io'],[.85,-60,'io'],[1,-80,'out']],
+      // 裁判腿部摊开
+      rRUL:[[0,8,'out'],[.50,8,'out'],[.72,-12,'io'],[.85,-35,'io'],[1,-50,'out']],
+      rRLL:[[0,0,'out'],[.50,0,'out'],[.72,10,'io'],[.85,28,'io'],[1,40,'out']],
+      rLUL:[[0,-8,'out'],[.50,-8,'out'],[.72,15,'io'],[.85,38,'io'],[1,50,'out']],
+      rLLL:[[0,0,'out'],[.50,0,'out'],[.72,-8,'io'],[.85,-22,'io'],[1,-30,'out']],
+      // 裁判头部后仰
+      rHead:[[0,0,'out'],[.50,0,'out'],[.72,-.1,'io'],[.85,-.22,'io'],[1,-.3,'out']],
+    }); break;
+
+    // ═══ 锁喉抛摔(Big Show): 锁喉→提起→横摔 ═══
+    case 'chokeSlam': animIK(t,{
+      rhx:[[0,30,'out'],[.14,4,'out'],[.40,8,'io'],[.55,8],[.70,42,'in'],[1,30,'out']],
+      rhy:[[0,25,'out'],[.14,-28,'out'],[.40,-48,'io'],[.55,-48],[.70,18,'in'],[1,25,'out']],
+      lhx:[[0,-30,'out'],[.14,-18,'out'],[.40,-14,'io'],[.55,-14],[.70,-32],[1,-30,'out']],
+      lhy:[[0,25,'out'],[.14,14,'out'],[.40,8,'io'],[.55,8],[.70,4],[1,25,'out']],
+      aRUL:[[0,8,'out'],[.14,-18,'out'],[.40,-10,'io'],[.55,-10],[.70,22,'in'],[1,8,'out']],aRLL:[[0,0],[.14,-30],[.40,-18],[.55,-18],[.70,-8],[1,0,'out']],
+      aLUL:[[0,-8,'out'],[.14,-22,'out'],[.40,-12,'io'],[.55,-12],[.70,-18],[1,-8,'out']],aLLL:[[0,0],[.14,-24],[.40,-12],[.55,-12],[.70,8],[1,0,'out']],
+      aBody:[[0,0,'out'],[.14,.08,'out'],[.40,-.04,'io'],[.55,-.04],[.70,-.10],[1,0,'out']],
+      ax:[[0,SX,'out'],[.14,SX+.09,'out'],[.40,SX+.09],[.70,SX+.02],[1,SX,'out']],
+      // 裁判：锁喉提起→横摔在地→倒地不起
+      rx:[[0,SRX,'out'],[.14,SRX-.09,'out'],[.40,SRX-.04,'io'],[.55,SRX-.04],[.70,SRX+.06,'io'],[.82,.54,'io'],[1,.52,'out']],
+      ry:[[0,0],[.14,0,'out'],[.40,-.36,'io'],[.55,-.36],[.70,-.08,'io'],[.82,.16,'io'],[1,.25,'out']],
+      rBody:[[0,0],[.50,0,'out'],[.70,.25,'io'],[.82,.85,'io'],[1,1.57,'out']],
+      rScale:[[0,1],[.14,.82],[.40,.62,'io'],[.55,.62],[.70,.75,'io'],[.82,.52,'io'],[1,.45,'out']],
+      // 裁判手臂摊开
+      rRU:[[0,5,'out'],[.50,5,'out'],[.70,18,'io'],[.82,42,'io'],[1,60,'out']],
+      rRF:[[0,2,'out'],[.50,2,'out'],[.70,25,'io'],[.82,60,'io'],[1,90,'out']],
+      rLU:[[0,-5,'out'],[.50,-5,'out'],[.70,-15,'io'],[.82,-35,'io'],[1,-50,'out']],
+      rLF:[[0,-2,'out'],[.50,-2,'out'],[.70,-22,'io'],[.82,-55,'io'],[1,-80,'out']],
+      // 裁判腿部摊开
+      rRUL:[[0,8,'out'],[.50,8,'out'],[.70,-8,'io'],[.82,-32,'io'],[1,-50,'out']],
+      rRLL:[[0,0,'out'],[.50,0,'out'],[.70,8,'io'],[.82,25,'io'],[1,40,'out']],
+      rLUL:[[0,-8,'out'],[.50,-8,'out'],[.70,12,'io'],[.82,35,'io'],[1,50,'out']],
+      rLLL:[[0,0,'out'],[.50,0,'out'],[.70,-6,'io'],[.82,-20,'io'],[1,-30,'out']],
+      // 裁判头部后仰
+      rHead:[[0,0,'out'],[.50,0,'out'],[.70,-.08,'io'],[.82,-.2,'io'],[1,-.3,'out']],
+    }); break;
+
+    // ═══ RKO(兰迪奥顿): 锁头→后仰跳拽→双坠 ═══
+    case 'rko': animIK(t,{
+      rhx:[[0,30,'out'],[.16,-2,'out'],[.42,3,'io'],[.55,3],[.65,22,'in'],[1,30,'out']],
+      rhy:[[0,25,'out'],[.16,-25,'out'],[.42,-30,'io'],[.55,-30],[.65,22,'in'],[1,25,'out']],
+      lhx:[[0,-30,'out'],[.16,2,'out'],[.42,-3,'io'],[.55,-3],[.65,-22,'in'],[1,-30,'out']],
+      lhy:[[0,25,'out'],[.16,-25,'out'],[.42,-30,'io'],[.55,-30],[.65,22,'in'],[1,25,'out']],
+      aRUL:[[0,8,'out'],[.16,-28,'out'],[.42,45,'io'],[.55,45],[.65,18,'in'],[1,8,'out']],aRLL:[[0,0,'out'],[.16,-45,'out'],[.42,-18,'io'],[.55,-18],[.65,8,'in'],[1,0,'out']],
+      aLUL:[[0,-8,'out'],[.16,-28,'out'],[.42,45,'io'],[.55,45],[.65,18,'in'],[1,-8,'out']],aLLL:[[0,0,'out'],[.16,-45,'out'],[.42,-18,'io'],[.55,-18],[.65,8,'in'],[1,0,'out']],
+      aBody:[[0,0,'out'],[.16,.18,'out'],[.42,-.24,'io'],[.55,-.24],[.65,-.08],[1,0,'out']],
+      ax:[[0,SX,'out'],[.16,SX+.12,'out'],[.42,SX-.04,'io'],[.55,SX-.04],[.65,SX],[1,SX,'out']],
+      ay:[[0,0],[.16,0],[.42,-.26,'io'],[.55,-.26],[.65,0,'in'],[1,0,'out']],
+      // 裁判：锁头跳拽→双坠砸地→倒地不起
+      rx:[[0,SRX,'out'],[.16,SRX-.12,'out'],[.42,SRX-.32,'io'],[.55,SRX-.32],[.65,SRX-.02,'io'],[.78,.54,'io'],[1,.52,'out']],
+      ry:[[0,0],[.16,0,'out'],[.42,-.18,'io'],[.55,-.18],[.65,.02,'io'],[.78,.18,'io'],[1,.25,'out']],
+      rBody:[[0,0],[.50,0,'out'],[.65,.2,'io'],[.78,.8,'io'],[1,1.57,'out']],
+      rScale:[[0,1],[.16,.78],[.42,.68,'io'],[.55,.68],[.65,.82,'io'],[.78,.52,'io'],[1,.45,'out']],
+      // 裁判手臂摊开
+      rRU:[[0,5,'out'],[.50,5,'out'],[.65,15,'io'],[.78,40,'io'],[1,60,'out']],
+      rRF:[[0,2,'out'],[.50,2,'out'],[.65,20,'io'],[.78,58,'io'],[1,90,'out']],
+      rLU:[[0,-5,'out'],[.50,-5,'out'],[.65,-12,'io'],[.78,-32,'io'],[1,-50,'out']],
+      rLF:[[0,-2,'out'],[.50,-2,'out'],[.65,-18,'io'],[.78,-52,'io'],[1,-80,'out']],
+      // 裁判腿部摊开
+      rRUL:[[0,8,'out'],[.50,8,'out'],[.65,-5,'io'],[.78,-28,'io'],[1,-50,'out']],
+      rRLL:[[0,0,'out'],[.50,0,'out'],[.65,5,'io'],[.78,22,'io'],[1,40,'out']],
+      rLUL:[[0,-8,'out'],[.50,-8,'out'],[.65,8,'io'],[.78,32,'io'],[1,50,'out']],
+      rLLL:[[0,0,'out'],[.50,0,'out'],[.65,-4,'io'],[.78,-18,'io'],[1,-30,'out']],
+      // 裁判头部后仰
+      rHead:[[0,0,'out'],[.50,0,'out'],[.65,-.06,'io'],[.78,-.18,'io'],[1,-.3,'out']],
+    }); break;
+  }
+  // 受击反应：头后仰 + 身体后倾
+  const isL3=id==='bombThrow'||id==='chokeSlam'||id==='rko';
+  if(t>=.3&&t<.55&&!isL3){
+    const phase=(t-.3)/.25;
+    const snap=Math.sin(phase*Math.PI)*.6;
+    C.rHead=-snap*.35;
+    C.rBody=-snap*.08;
+    C.aHead=snap*.04;
+  }
+  if(t>=1){
+    currentAnim=null;
+    if(isL3){
+      // 三档必杀：裁判被砸倒在地，保持倒地姿态不再起来
+      C.shakeIntensity=20;
+      C.aRU=15;C.aRF=5;
+      // 裁判保持倒地，等下次攻击按钮触发时再爬起来
+    }else{
+      C.rRU=5;C.rRF=2;C.rLU=-5;C.rLF=-2;
+      C.rBody=0;C.rHead=0;C.aHead=0;
+    }
+    if(state.pendingEnd){state.pendingEnd=false;setTimeout(endFight,600);}
+  }
+}
+
+// ===== 循环 & 渲染 =====
+let lastF=0;
+function loop(time){
+  const now=performance.now();
+  const dt=lastF?(now-lastF)/1000:1/60;lastF=now;
+  if(state.fightActive){
+    updateHUD();
+  }
+  updateAnimation(now);
+  if(C.shakeIntensity>0){
+    C.shakeX=(Math.random()-.5)*C.shakeIntensity;
+    C.shakeY=(Math.random()-.5)*C.shakeIntensity;
+    C.shakeIntensity*=.85;
+    if(C.shakeIntensity<.5){C.shakeIntensity=0;C.shakeX=0;C.shakeY=0;}
+  }
+  render();
+  requestAnimationFrame(loop);
+}
+
+function resizeCanvas(){
+  const w=document.getElementById('canvas-wrap'),r=w.getBoundingClientRect();
+  const d=Math.min(window.devicePixelRatio||1,2);
+  canvas.width=r.width*d;canvas.height=r.height*d;
+  canvas.style.width=r.width+'px';canvas.style.height=r.height+'px';
+  ctx.setTransform(1,0,0,1,0,0);ctx.scale(d,d);
+  canvas._w=r.width;canvas._h=r.height;
+}
+function render(){
+  const W=canvas._w||canvas.width,H=canvas._h||canvas.height;
+  ctx.clearRect(0,0,W,H);ctx.save();ctx.translate(C.shakeX,C.shakeY);
+
+  // ─── 亮色擂台场景 ───
+  const ringL=W*.08,ringR=W*.92,ringT=H*.46,ringB=H*.74;
+  // 背景聚光
+  const spot=ctx.createRadialGradient(W/2,0,0,W/2,0,H*1.2);
+  spot.addColorStop(0,'#2a1a5e');spot.addColorStop(.4,'#1e1e4a');spot.addColorStop(.8,'#12122e');spot.addColorStop(1,'#0a0a1a');
+  ctx.fillStyle=spot;ctx.fillRect(0,0,W,H);
+
+  // 顶部追光
+  const follow=ctx.createRadialGradient(W/2,H*.15,0,W/2,H*.15,H*.45);
+  follow.addColorStop(0,'rgba(255,200,150,.06)');follow.addColorStop(1,'rgba(255,200,150,0)');
+  ctx.fillStyle=follow;ctx.fillRect(0,0,W,ringT);
+
+  // 擂台地面
+  // 地面（擂台下方）
+  const floorG=ctx.createLinearGradient(0,ringB,0,H);
+  floorG.addColorStop(0,'#3a2a4a');floorG.addColorStop(1,'#1a1a2a');
+  ctx.fillStyle=floorG;ctx.fillRect(0,ringB,W,H-ringB);
+  ctx.strokeStyle='#5a4a6a';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,ringB);ctx.lineTo(W,ringB);ctx.stroke();
+  // 台面阴影
+  ctx.fillStyle='rgba(0,0,0,.3)';ctx.beginPath();ctx.ellipse(W/2,ringB+6,ringR/2.1,10,0,0,Math.PI*2);ctx.fill();
+  // 台面侧边（厚度）
+  ctx.fillStyle='#cc8844';ctx.fillRect(ringL-4,ringB-4,ringR-ringL+8,12);
+  ctx.fillStyle='#eebb66';ctx.fillRect(ringL-2,ringB-2,ringR-ringL+4,8);
+  // 台面帆布
+  const mat=ctx.createLinearGradient(0,ringT,0,ringB);
+  mat.addColorStop(0,'#4488cc');mat.addColorStop(.3,'#3377bb');mat.addColorStop(1,'#2255aa');
+  ctx.fillStyle=mat;ctx.fillRect(ringL,ringT,ringR-ringL,ringB-ringT);
+  ctx.strokeStyle='#66aaff';ctx.lineWidth=2;ctx.strokeRect(ringL,ringT,ringR-ringL,ringB-ringT);
+  // 台面十字线
+  ctx.strokeStyle='rgba(255,255,255,.12)';ctx.lineWidth=1;ctx.setLineDash([6,8]);
+  ctx.beginPath();ctx.moveTo(W/2,ringT);ctx.lineTo(W/2,ringB);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(ringL,ringT+(ringB-ringT)/2);ctx.lineTo(ringR,ringT+(ringB-ringT)/2);ctx.stroke();
+  ctx.setLineDash([]);
+
+  // 擂台角柱
+  const posts=[ringL-4,ringR+4];
+  for(const px of posts){
+    ctx.fillStyle='#dd9955';ctx.fillRect(px-6,ringT-8,12,ringB-ringT+12);
+    ctx.fillStyle='#ffcc77';ctx.fillRect(px-3,ringT-5,6,ringB-ringT+6);
+    // 角柱顶球
+    ctx.fillStyle='#ffdd88';ctx.beginPath();ctx.arc(px,ringT-8,8,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#ffeecc';ctx.beginPath();ctx.arc(px,ringT-8,4,0,Math.PI*2);ctx.fill();
+  }
+
+  // 围绳（3条，带辉光）
+  const ropeColors=['#ff4466','#ffffff','#ff4466'];
+  for(let i=0;i<3;i++){
+    const y=ringT+20+i*38;
+    ctx.shadowColor=ropeColors[i];ctx.shadowBlur=12;
+    ctx.strokeStyle=ropeColors[i];ctx.lineWidth=4;
+    ctx.beginPath();ctx.moveTo(ringL-2,y);ctx.lineTo(ringR+2,y);ctx.stroke();
+    ctx.shadowBlur=6;
+    ctx.strokeStyle='rgba(255,255,255,.4)';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(ringL-2,y);ctx.lineTo(ringR+2,y);ctx.stroke();
+  }
+  ctx.shadowBlur=0;
+
+  // 人物（放大）
+  const bY=ringB-18,sc=W/380;
+  drawReferee(W,bY,sc);drawAttacker(W,bY,sc);
+
+  // 命中特效
+  if(currentAnim&&currentAnim.id){
+    const a=ATTACKS.find(x=>x.id===currentAnim.id);
+    const isL3=a&&(a.id==='bombThrow'||a.id==='chokeSlam'||a.id==='rko');
+    const et=(performance.now()-currentAnim.startTime)/(a?a.dur:500);
+    if(et>.35&&et<.55){
+      const alp=1-Math.abs((et-.35)/.15-.5)*2;
+      if(alp>0){
+      let cx=W*.55,cy=bY-60,rad=15,c2='#ffcc00';
+      switch(currentAnim.id){
+        case'punch':cy=bY-80;c2='#ff8800';break;
+        case'slap':cy=bY-75;c2='#ff4444';break;
+        case'kick':cy=bY-35;c2='#44ff44';break;
+        case'elbow':cx=W*.58;cy=bY-55;c2='#ff8800';break;
+        case'flyingKnee':cy=bY-60;c2='#ff4400';break;
+        case'flyingKick':cx=W*.61;cy=bY-55;c2='#ff4400';break;
+        case'bombThrow':cy=bY+5;c2='#ff2200';break;
+        case'chokeSlam':cy=bY+5;c2='#cc2200';break;
+        case'rko':cy=bY+5;c2='#ff0000';break;
+      }
+      rad+=15*(1-alp);
+      ctx.fillStyle=`rgba(255,255,200,${alp*.25})`;
+      ctx.beginPath();ctx.arc(cx,cy,rad,0,Math.PI*2);ctx.fill();
+      ctx.strokeStyle=c2;ctx.lineWidth=2;
+      const nr=isL3?20:8;
+      ctx.globalAlpha=alp*.8;
+      for(let i=0;i<nr;i++){
+        const ang=i*Math.PI*2/nr+(et-.45)*10,len=rad*(.4+alp*.9);
+        ctx.beginPath();ctx.moveTo(cx+Math.cos(ang)*6,cy+Math.sin(ang)*6);
+        ctx.lineTo(cx+Math.cos(ang)*len,cy+Math.sin(ang)*len);ctx.stroke();
+      }
+      // 三档炸裂特效：冲击波 + 地面裂纹 + 碎片
+      if(isL3&&alp>.3){
+        // 冲击波环
+        ctx.globalAlpha=alp*.3;ctx.strokeStyle='#fff';ctx.lineWidth=3;
+        ctx.beginPath();ctx.arc(cx,cy,rad*1.8,0,Math.PI*2);ctx.stroke();
+        ctx.strokeStyle=c2;ctx.lineWidth=2;
+        ctx.beginPath();ctx.arc(cx,cy,rad*2.2,0,Math.PI*2);ctx.stroke();
+        // 爆裂碎片
+        for(let j=0;j<6;j++){const a2=j*Math.PI/3+(et-.45)*8,d=rad*(1+alp*2);
+          ctx.fillStyle=`rgba(255,200,50,${alp*.6})`;ctx.beginPath();
+          ctx.arc(cx+Math.cos(a2)*d,cy+Math.sin(a2)*d,3+alp*4,0,Math.PI*2);ctx.fill();}
+        // 地面震波（环状扩散）
+        ctx.globalAlpha=alp*.15;ctx.strokeStyle='#ff8800';ctx.lineWidth=2;
+        for(let k=1;k<=3;k++){ctx.beginPath();ctx.ellipse(cx,cy+15,rad*1.5*k,(4+k*3),0,0,Math.PI*2);ctx.stroke();}
+      }
+      if(currentAnim.id==='slap'){
+        ctx.globalAlpha=alp*.35;ctx.strokeStyle='#ff8800';ctx.lineWidth=4;
+        ctx.beginPath();ctx.arc(W*.35,bY-40,W*.22,-.8,.3+(et-.45)*10);ctx.stroke();
+      }
+      if(currentAnim.id==='flyingKnee'){
+        ctx.globalAlpha=alp*.3;ctx.strokeStyle='#ffcc00';ctx.lineWidth=3;
+        for(let j=0;j<3;j++){ctx.beginPath();ctx.moveTo(cx-10+j*10,cy+25);
+        ctx.quadraticCurveTo(cx-10+j*15,cy-10,cx-10+j*20,cy-25);ctx.stroke();}
+      }
+      if(currentAnim.id==='rko'){
+        for(let ri=1;ri<=2;ri++){ctx.globalAlpha=alp*.2/ri;ctx.strokeStyle=c2;ctx.lineWidth=1;
+        ctx.beginPath();ctx.arc(cx,cy,rad*.5+(et-.35)*50*ri,0,Math.PI*2);ctx.stroke();}
+      }
+      ctx.globalAlpha=1;
+      }
+    }
+  }
+  ctx.restore();
+}
+
+function nextRound(){state.round++;if(state.round>=gameRounds.length)endGame();else setTimeout(()=>{show('screen-judge');loadRound();},500);}
+function endFight(){state.fightActive=false;nextRound();}
+function endGame(){
+  show('screen-end');
+  document.getElementById('endAnger').textContent=state.totalAnger+'%';
+  document.getElementById('endHits').textContent=state.totalHits;
+  document.getElementById('endScore').textContent=state.totalScore;
+  const r=document.getElementById('endRank');
+  if(state.totalScore>=500){r.className='end-rank s';r.textContent='S 血海深仇 ⚔';}
+  else if(state.totalScore>=300){r.className='end-rank a';r.textContent='A 大展拳脚 🔥';}
+  else if(state.totalScore>=150){r.className='end-rank b';r.textContent='B 略微出手 🥊';}
+  else if(state.totalScore>=50){r.className='end-rank c';r.textContent='C 点到为止 👊';}
+  else{r.className='end-rank f';r.textContent=' F 佛系观众 🙏';}
+}
+
+window.addEventListener('resize',()=>{if(document.getElementById('screen-fight').classList.contains('active'))resizeCanvas();});
+
+// ─── 海报生成 ───
+
+function drawPoster(ctx, w, h) {
+  const rankEl = document.getElementById('endRank');
+  const rankText = rankEl.textContent;
+  // 从页面 CSS 实时读取等级颜色，与 end screen 完全同步
+  const cs = window.getComputedStyle(rankEl);
+  const rankFg = cs.color;
+  // 浏览器会把渐变中的 hex 转为 rgb()，所以同时匹配两种格式
+  const bgSrc = cs.backgroundImage + ' ' + cs.backgroundColor;
+  const bgMatch = bgSrc.match(/(?:#([0-9a-fA-F]{6})|rgba?\((\d+),\s*(\d+),\s*(\d+))/);
+  let rankBg;
+  if (bgMatch) {
+    if (bgMatch[1]) {
+      rankBg = '#' + bgMatch[1];
+    } else {
+      const r = +bgMatch[2], g = +bgMatch[3], b = +bgMatch[4];
+      rankBg = '#' + [r,g,b].map(v => v.toString(16).padStart(2,'0')).join('');
+    }
+  } else {
+    rankBg = '#222222';
+  }
+
+  const bg = ctx.createLinearGradient(0, 0, 0, h);
+  bg.addColorStop(0, '#0e0e1e'); bg.addColorStop(.5, '#16162a'); bg.addColorStop(1, '#0e0e1e');
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
+  // Y轴居中偏移量
+  const offY = 100;
+  ctx.fillStyle = '#dddddd'; ctx.font = 'bold 34px "Noto Sans SC",sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  ctx.fillText('我对西决裁判的审判结果', w / 2, 30 + offY);
+
+  const rw = 320, rh = 88, rx = (w - rw) / 2, ry = 100 + offY;
+  ctx.fillStyle = rankBg; roundRectC(ctx, rx, ry, rw, rh, 16); ctx.fill();
+  ctx.fillStyle = rankFg; ctx.font = 'bold 44px "Noto Sans SC",sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(rankText, w / 2, ry + rh / 2);
+
+  const items = [
+    { l: '累计怒气', v: state.totalAnger + '%', c: '#ff4444' },
+    { l: '击打次数', v: String(state.totalHits), c: '#4ade80' },
+    { l: '最终得分', v: String(state.totalScore), c: '#fbbf24' },
+  ];
+  const sy = 210 + offY, ih = 54, gap = 12;
+  items.forEach((it, i) => {
+    const y = sy + i * (ih + gap);
+    ctx.fillStyle = 'rgba(255,255,255,.06)';
+    roundRectC(ctx, w * .1, y, w * .8, ih, 10); ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,.08)'; ctx.lineWidth = 1;
+    roundRectC(ctx, w * .1, y, w * .8, ih, 10); ctx.stroke();
+    // 标签居中显示在左侧
+    ctx.fillStyle = '#999'; ctx.font = '17px "Noto Sans SC",sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(it.l, w * .35, y + ih / 2);
+    // 数值居中显示在右侧
+    ctx.fillStyle = it.c; ctx.font = 'bold 26px "Noto Sans SC",sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(it.v, w * .65, y + ih / 2);
+  });
+  ctx.fillStyle = '#555';
+  ctx.font = '13px "Noto Sans SC",sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+  ctx.fillText('西决裁判审判室 · 虎扑JRs出品', w / 2, h - 16);
+}
+function roundRectC(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+// ─── 全局 shim（KaleidoOSS 依赖） ───
+window.require = window.require || function(name) {
+  if (name === 'ali-oss') return window.OSS;
+  if (name === '@hupu/kaleido-fed-sdk') return window.KaleidoOSS;
+  return null;
+};
+window.webGuard = window.webGuard || window.WebGuard || { hupuLog: function() {} };
+
+// ─── 通过 Colorbox Bridge / 直连 OSS 上传 ───
+let _ossClient = null;
+function getOssClient() {
+  if (_ossClient) return _ossClient;
+  const K = window.KaleidoOSS || (typeof require === 'function' ? require('@hupu/kaleido-fed-sdk') : null);
+  if (K) {
+    _ossClient = new K({
+      appId: 'b1AcxWKA1u0hyDYv5kXgImZBRSQ=',
+      module: 'activity-screenshot-fed',
+      path: '/screenshot/activity/fed',
+      sk: 'HioGpkmGe9bsW0iqRLJEyGoLr4Q=',
+      action: '1',
+    });
+    if (typeof _ossClient.start === 'function') _ossClient.start();
+  }
+  return _ossClient;
+}
+
+function uploadToOSS(file, filename) {
+  return new Promise((resolve, reject) => {
+    // 1) ColorboxAI API
+    if (window.ColorboxAI && window.ColorboxAI.oss && typeof window.ColorboxAI.oss.uploadFile === 'function') {
+      window.ColorboxAI.oss.uploadFile({ file, filename })
+        .then(res => resolve(res.downloadUrl || ''))
+        .catch(reject);
+      return;
+    }
+    // 2) postMessage Bridge（作为 iframe 运行在 Colorbox Shell 中）
+    if (window.parent && window.parent !== window) {
+      const callbackId = '_cb_up_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+      const timer = setTimeout(() => { cleanup(); reject(new Error('上传超时')); }, 30000);
+      const handler = e => {
+        const d = e.data;
+        if (d && d.protocol === 'colorbox-ai-bridge' && d.type === 'oss.upload.callback' && d.payload && d.payload.callbackId === callbackId) {
+          clearTimeout(timer); cleanup();
+          d.payload.error ? reject(new Error(d.payload.error)) : resolve(d.payload.downloadUrl || '');
+        }
+      };
+      const cleanup = () => window.removeEventListener('message', handler);
+      window.addEventListener('message', handler);
+      window.parent.postMessage({
+        protocol: 'colorbox-ai-bridge', version: 1, direction: 'frame-to-host',
+        type: 'oss.upload',
+        payload: { file, filename, callbackId }
+      }, '*');
+      return;
+    }
+    // 3) 直连 KaleidoOSS（独立运行时）
+    const client = getOssClient();
+    if (client) {
+      const ext = filename.lastIndexOf('.') >= 0 ? filename.slice(filename.lastIndexOf('.')) : '.png';
+      const now = new Date();
+      const key = `user-upload/${(now.getFullYear() % 100)}${now.getMonth() + 1}${now.getDate()}-${Math.random().toString(36).slice(-6)}${ext}`;
+      client.multipartUpload(key, file, {})
+        .then(res => resolve(res.downloadUrl || `https://activity-static.hoopchina.com.cn/${res.name}`))
+        .catch(reject);
+      return;
+    }
+    // 4) 没有任何上传能力
+    reject(new Error('No upload capability'));
+  });
+}
+
+// ─── 工具：dataURL → Blob ───
+function dataURLToBlob(dataURL) {
+  const parts = dataURL.split(',');
+  const mime = parts[0].match(/:(.*?);/)[1];
+  const bstr = atob(parts[1]);
+  const n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  for (let i = 0; i < n; i++) u8arr[i] = bstr.charCodeAt(i);
+  return new Blob([u8arr], { type: mime });
+}
+
+// ─── 创建高清海报 canvas（2x 分辨率） ───
+const POSTER_W = 500, POSTER_H = 680, POSTER_SCALE = 2;
+
+function createPosterCanvas() {
+  const canvas = document.getElementById('posterCanvas');
+  canvas.width = POSTER_W * POSTER_SCALE;
+  canvas.height = POSTER_H * POSTER_SCALE;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(POSTER_SCALE, POSTER_SCALE);
+  drawPoster(ctx, POSTER_W, POSTER_H);
+  return canvas;
+}
+
+// ─── 一键发帖：后台生成海报 → 上传OSS → 带图跳转发帖 ───
+let _posterUploadPromise = null;
+
+function generateAndShare() {
+  const btn = document.querySelector('.btn-poster');
+  if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>生成中...'; }
+
+  const canvas = createPosterCanvas();
+
+  // 后台：转 dataURL → blob → 上传 OSS → 跳转
+  _posterUploadPromise = (async () => {
+    try {
+      const dataURL = canvas.toDataURL('image/png');
+      const blob = dataURLToBlob(dataURL);
+      const url = await uploadToOSS(blob, `西决审判_${Date.now()}.png`);
+      const imageUrl = url || '';
+      const initialValue = {
+        syncPost: true,
+        appJsonV3: {
+          activeTab: 'thread',
+          data: {
+            title: '',
+            imageList: imageUrl ? [imageUrl] : [],
+            content: '',
+          },
+        },
+      };
+      const tagName = encodeURIComponent('西决裁判审判室');
+      const link = `huputiyu://bbs/postImg?tagName=${tagName}&tagId=147389&topicName=${encodeURIComponent('湿乎乎的话题')}&topicId=177&initialValue=${encodeURIComponent(JSON.stringify(initialValue))}`;
+      safeNavigate(link);
+      return url;
+    } catch (e) {
+      console.error('发帖失败', e);
+      // 降级：不带图纯文字发帖
+      const initialValue = {
+        syncPost: true,
+        appJsonV3: {
+          activeTab: 'thread',
+          data: {
+            title: '',
+            imageList: [],
+            content: '',
+          },
+        },
+      };
+      const tagName = encodeURIComponent('西决裁判审判室');
+      const link = `huputiyu://bbs/postImg?tagName=${tagName}&tagId=147389&topicName=${encodeURIComponent('湿乎乎的话题')}&topicId=177&initialValue=${encodeURIComponent(JSON.stringify(initialValue))}`;
+      safeNavigate(link);
+      return '';
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = '📤 一键发帖'; }
+    }
+  })();
+}
+
+/* ─── 统一跳转工具 ───
+ * 优先使用 ColorboxAI SDK，自动完成埋点后跳转
+ */
+const NAV_TARGET = { SELF: '_self', BLANK: '_blank' };
+
+function safeNavigate(url, target) {
+  // 跳转前埋点
+  if (window.ColorboxAI && typeof window.ColorboxAI.track === 'function') {
+    try {
+      window.ColorboxAI.track({ event: 'navigate', url: url, target: target || '_blank' });
+    } catch (_) { /* 埋点失败不影响跳转 */ }
+  }
+  // 优先使用 SDK 统一跳转 API
+  if (window.ColorboxAI && typeof window.ColorboxAI.navigateTo === 'function') {
+    return window.ColorboxAI.navigateTo(url, target || '_blank');
+  }
+  if (window.ColorboxAI && typeof window.ColorboxAI.openUrl === 'function') {
+    return window.ColorboxAI.openUrl(url);
+  }
+  // 降级方案
+  window.open(url, target || '_blank');
+}
+
+function generatePoster() {
+  const canvas = createPosterCanvas();
+  const img = document.getElementById('posterPreviewImg');
+  img.src = canvas.toDataURL('image/png');
+  document.getElementById('posterOverlay').classList.add('active');
+}
+
+function closePoster() {
+  resetShareBtn();
+  document.getElementById('posterOverlay').classList.remove('active');
+}
+
+function resetShareBtn() {
+  const btn = document.querySelector('#posterOverlay .btn-share');
+  if (btn) { btn.disabled = false; btn.textContent = '📤 一键发帖'; }
+}
+
+function sharePoster(btn) {
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>上传中...';
+  const canvas = createPosterCanvas();
+  (async () => {
+    try {
+      const dataURL = canvas.toDataURL('image/png');
+      const blob = dataURLToBlob(dataURL);
+      const url = await uploadToOSS(blob, `西决审判_${Date.now()}.png`);
+      const imageUrl = url || '';
+      const initialValue = {
+        syncPost: true,
+        appJsonV3: {
+          activeTab: 'thread',
+          data: {
+            title: '',
+            imageList: imageUrl ? [imageUrl] : [],
+            content: '',
+          },
+        },
+      };
+      const tagName = encodeURIComponent('西决裁判审判室');
+      const link = `huputiyu://bbs/postImg?tagName=${tagName}&tagId=147389&topicName=${encodeURIComponent('湿乎乎的话题')}&topicId=177&initialValue=${encodeURIComponent(JSON.stringify(initialValue))}`;
+      safeNavigate(link);
+      closePoster();
+    } catch (e) {
+      console.error('发帖失败', e);
+      resetShareBtn();
+      alert('发帖失败，请重试');
+    }
+  })();
+}
+
+console.log('⚡ 裁判击打模拟器 v3 - 缓动关键帧动画');
+console.log('📸 裁判脸部：CFG.refereeFaceUrl');
+console.log('🎨 配色配置：gameRounds[].skin + CFG.refereeSkin');
+</script>
+</body>
+</html>

@@ -306,6 +306,12 @@ const scripts = {
 function validateScoreInput(inputElement) {
     let rawVal = inputElement.value;
     if (rawVal === "") return;
+    if (rawVal.length >= 4) {
+        alert("输入比分无效（不能超过3位数）");
+        inputElement.value = "";
+        checkInputs();
+        return;
+    }
     let numVal = Number(rawVal);
     if (numVal === 64 || numVal === 89) {
         alert("输入比分无效");

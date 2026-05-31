@@ -1,0 +1,10 @@
+{
+  "name": "nba-trade-simulator",
+  "version": "1.0.0",
+  "description": "NBA 交易模拟器 — 核心验证引擎",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node tests/test-suite.js"
+  }
+}

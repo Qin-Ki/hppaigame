@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NBA Trade Simulator — 2026-27 CBA</title>
+<style>
+  /* ============================================================
+     Global Reset & Theme
+     ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0a0a0f;
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  /* ============================================================
+     Main Container
+     ============================================================ */
+  #app {
+    width: 100%;
+    max-width: 1400px;
+    background: #121212;
+    border-radius: 24px;
+    padding: 32px 40px 40px;
+    box-shadow:
+      0 0 60px rgba(0, 242, 255, 0.06),
+      0 0 120px rgba(0, 242, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ============================================================
+     Header
+     ============================================================ */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00f2ff, #ff0055);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 1px;
+  }
+
+  .header .subtitle {
+    font-size: 12px;
+    color: #666;
+    -webkit-text-fill-color: #666;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ============================================================
+     Status Bar
+     ============================================================ */
+  #status-bar {
+    margin-bottom: 24px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    transition: all 0.4s ease;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: #888;
+  }
+
+  #status-bar.success {
+    background: rgba(0, 242, 255, 0.08);
+    border-color: rgba(0, 242, 255, 0.25);
+    color: #00f2ff;
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.05);
+  }
+
+  #status-bar.failure {
+    background: rgba(255, 0, 85, 0.08);
+    border-color: rgba(255, 0, 85, 0.25);
+    color: #ff6b6b;
+    box-shadow: 0 0 30px rgba(255, 0, 85, 0.05);
+  }
+
+  #status-bar .status-icon {
+    font-size: 20px;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  #status-bar .status-errors {
+    list-style: none;
+    padding: 0;
+    margin: 4px 0 0;
+  }
+
+  #status-bar .status-errors {
+    list-style: none;
+    padding: 0;
+    margin: 4px 0 0;
+  }
+
+  #status-bar .status-errors li {
+    position: relative;
+    padding-left: 16px;
+    margin-bottom: 2px;
+    font-size: 13px;
+    color: #ff6b6b;
+  }
+
+  #status-bar .status-errors li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: #ff0055;
+  }
+
+  #status-bar strong {
+    color: #eee;
+  }
+
+  #status-bar .status-errors + div small,
+  #status-bar .status-errors ~ div small {
+    color: #ccc;
+  }
+
+  /* ============================================================
+     Teams Layout
+     ============================================================ */
+  .teams-container {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  /* ============================================================
+     Team Selector Dropdown
+     ============================================================ */
+  .team-select-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .team-select {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 6px 10px;
+    color: #eee;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    max-width: 200px;
+  }
+
+  .team-select:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  .team-select:focus {
+    border-color: #00f2ff;
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.15);
+  }
+
+  .team-b .team-select:focus {
+    border-color: #ff0055;
+    box-shadow: 0 0 10px rgba(255, 0, 85, 0.15);
+  }
+
+  .team-select option {
+    background: #1a1a2a;
+    color: #eee;
+    padding: 4px;
+  }
+
+  /* ============================================================
+     Team Card / Container
+     ============================================================ */
+  .team-container {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
+    transition: box-shadow 0.5s ease, border-color 0.5s ease;
+  }
+
+  .team-container::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 17px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+
+  .team-container.team-a::before {
+    background: linear-gradient(135deg, rgba(0, 242, 255, 0.12), transparent 60%);
+  }
+
+  .team-container.team-b::before {
+    background: linear-gradient(225deg, rgba(255, 0, 85, 0.12), transparent 60%);
+  }
+
+  .team-container:hover::before {
+    opacity: 1;
+  }
+
+  .team-container:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .team-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .team-name {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .team-a .team-name { color: #00f2ff; }
+  .team-b .team-name { color: #ff0055; }
+
+  .team-info {
+    text-align: right;
+    font-size: 12px;
+    color: #666;
+  }
+
+  .team-info .apron-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-left: 6px;
+    text-transform: uppercase;
+  }
+
+  .apron-badge.below  { background: rgba(0, 200, 83, 0.15); color: #00c853; }
+  .apron-badge.first  { background: rgba(255, 193, 7, 0.15); color: #ffc107; }
+  .apron-badge.second { background: rgba(255, 0, 85, 0.15); color: #ff0055; }
+
+  .team-payroll {
+    font-size: 13px;
+    margin-top: 2px;
+  }
+
+  /* ============================================================
+     Player Cards
+     ============================================================ */
+  .player-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .player-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    user-select: none;
+    position: relative;
+  }
+
+  .player-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateX(3px);
+  }
+
+  .player-card.selected {
+    border-color: #00f2ff;
+    box-shadow:
+      0 0 12px rgba(0, 242, 255, 0.2),
+      inset 0 0 20px rgba(0, 242, 255, 0.03);
+    background: rgba(0, 242, 255, 0.06);
+  }
+
+  .team-b .player-card.selected {
+    border-color: #ff0055;
+    box-shadow:
+      0 0 12px rgba(255, 0, 85, 0.2),
+      inset 0 0 20px rgba(255, 0, 85, 0.03);
+    background: rgba(255, 0, 85, 0.06);
+  }
+
+  .player-card.frozen {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .player-card.frozen:hover {
+    transform: none;
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+
+  .player-card .player-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .player-card .player-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.06);
+    color: #888;
+    flex-shrink: 0;
+  }
+
+  .player-card.selected .player-avatar {
+    background: rgba(0, 242, 255, 0.15);
+    color: #00f2ff;
+  }
+
+  .team-b .player-card.selected .player-avatar {
+    background: rgba(255, 0, 85, 0.15);
+    color: #ff0055;
+  }
+
+  .player-card .player-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #eee;
+  }
+
+  .player-card .player-salary {
+    font-size: 13px;
+    font-weight: 500;
+    color: #aaa;
+  }
+
+  .player-card .player-status-tag {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+  }
+
+  .player-card .player-status-tag.frozen-tag {
+    background: rgba(255, 0, 85, 0.15);
+    color: #ff0055;
+  }
+
+  .player-card .selection-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+  }
+
+  .player-card.selected .selection-indicator {
+    background: #00f2ff;
+    border-color: #00f2ff;
+    box-shadow: 0 0 8px rgba(0, 242, 255, 0.5);
+  }
+
+  .team-b .player-card.selected .selection-indicator {
+    background: #ff0055;
+    border-color: #ff0055;
+    box-shadow: 0 0 8px rgba(255, 0, 85, 0.5);
+  }
+
+  /* ============================================================
+     Center Column (VS + Trade Button)
+     ============================================================ */
+  .center-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 0;
+  }
+
+  .vs-badge {
+    font-size: 28px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #00f2ff, #ff0055);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0.5;
+    letter-spacing: 2px;
+  }
+
+  #trade-btn {
+    padding: 14px 36px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #00f2ff, #00c8d4);
+    color: #0a0a0f;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #trade-btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 8px 30px rgba(0, 242, 255, 0.25),
+      0 0 60px rgba(0, 242, 255, 0.1);
+  }
+
+  #trade-btn:active {
+    transform: translateY(0);
+  }
+
+  #trade-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* ============================================================
+     Selection Summary
+     ============================================================ */
+  .selection-summary {
+    margin-top: 20px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: #666;
+    position: relative;
+    z-index: 1;
+  }
+
+  .selection-summary .summary-salaries {
+    display: flex;
+    gap: 24px;
+  }
+
+  .selection-summary .salary-figure {
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .selection-summary .salary-figure.team-a-color { color: #00f2ff; }
+  .selection-summary .salary-figure.team-b-color { color: #ff0055; }
+
+  /* ============================================================
+     Responsive
+     ============================================================ */
+  @media (max-width: 900px) {
+    #app { padding: 20px; }
+    .teams-container {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .center-col {
+      flex-direction: row;
+      padding: 8px 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <h1>🏀 NBA TRADE SIMULATOR</h1>
+      <div class="subtitle">2026-27 CBA Collective Bargaining Agreement</div>
+    </div>
+  </div>
+
+  <!-- Status Bar -->
+  <div id="status-bar">
+    <span class="status-icon">⚡</span>
+    <span id="status-text">Click players to select them, then execute a trade.</span>
+  </div>
+
+  <!-- Teams -->
+  <div class="teams-container" id="teams-container">
+    <!-- Team A -->
+    <div class="team-container team-a" id="team-a-container">
+      <div class="team-header">
+        <div class="team-select-wrap">
+          <select class="team-select" id="team-a-select"></select>
+        </div>
+        <div class="team-info">
+          <span id="team-a-apron"></span>
+          <div class="team-payroll" id="team-a-payroll"></div>
+        </div>
+      </div>
+      <div class="player-grid" id="team-a-players"></div>
+      <div id="team-a-tpe"></div>
+      <div id="team-a-picks"></div>
+    </div>
+
+    <!-- Center: VS + Button -->
+    <div class="center-col">
+      <div class="vs-badge">⚡ VS ⚡</div>
+      <button id="trade-btn" disabled>Execute Trade</button>
+    </div>
+
+    <!-- Team B -->
+    <div class="team-container team-b" id="team-b-container">
+      <div class="team-header">
+        <div class="team-select-wrap">
+          <select class="team-select" id="team-b-select"></select>
+        </div>
+        <div class="team-info">
+          <span id="team-b-apron"></span>
+          <div class="team-payroll" id="team-b-payroll"></div>
+        </div>
+      </div>
+      <div class="player-grid" id="team-b-players"></div>
+      <div id="team-b-tpe"></div>
+      <div id="team-b-picks"></div>
+    </div>
+  </div>
+
+  <!-- TPE Controls (collapsed between teams) -->
+  <div style="display:flex; gap:12px; margin-top:12px; justify-content:center; align-items:center; font-size:12px;">
+    <div>
+      <label style="color:#00f2ff; opacity:0.7;">TPE A: $</label>
+      <input id="tpe-input-a" type="number" min="0" step="100000" value="0"
+        style="width:100px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 8px;color:#eee;font-size:12px;">
+      <small style="color:#666;">M</small>
+    </div>
+    <div style="color:#444;">⟷</div>
+    <div>
+      <label style="color:#ff0055; opacity:0.7;">TPE B: $</label>
+      <input id="tpe-input-b" type="number" min="0" step="100000" value="0"
+        style="width:100px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 8px;color:#eee;font-size:12px;">
+      <small style="color:#666;">M</small>
+    </div>
+  </div>
+
+  <!-- Selection Summary -->
+  <div class="selection-summary">
+    <div>📦 Selected Players</div>
+    <div class="summary-salaries">
+      <span id="summary-a">Team A: 0 players — $0</span>
+      <span id="summary-b">Team B: 0 players — $0</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// NBA Trade Simulator — Complete Application
+// ============================================================
+
+/* ------------------------------------------------------------
+   Data Schema (mirrors src/core/schema.js)
+   ------------------------------------------------------------ */
+function createPlayer(id, name, salary, tradeStatus = 'TRADABLE') {
+  return { id, name, salary, tradeStatus };
+}
+
+function createTradeException(amount, expiry, description) {
+  return { amount, expiry, description };
+}
+
+function createTeam(id, name, payroll, apronStatus, roster = [], tradeExceptions = [], draftPicks = []) {
+  return { id, name, payroll, apronStatus, roster, tradeExceptions, draftPicks };
+}
+
+/* ------------------------------------------------------------
+   TradeValidator (mirrors src/core/TradeValidator.js)
+   ------------------------------------------------------------ */
+function totalSalary(players) {
+  return players.reduce((sum, p) => sum + p.salary, 0);
+}
+
+function getSalaryMatchRatio(apronStatus) {
+  switch (apronStatus) {
+    case 'SECOND_APRON': return 1.00;
+    case 'FIRST_APRON':  return 1.10;
+    default:             return 1.25;
+  }
+}
+
+function getSalaryCushion(apronStatus) {
+  return apronStatus === 'SECOND_APRON' ? 0 : 100_000;
+}
+
+class TradeValidator {
+  validateTrade(teamA, teamB, tradePackageA, tradePackageB, options = {}) {
+    const errors = [];
+    const salaryOutA = totalSalary(tradePackageA);
+    const salaryOutB = totalSalary(tradePackageB);
+    const tpeUsedA = options.tpeUsedA || 0;
+    const tpeUsedB = options.tpeUsedB || 0;
+
+    this._checkPlayerRestrictions(tradePackageA, teamA, errors);
+    this._checkPlayerRestrictions(tradePackageB, teamB, errors);
+
+    const effOutA = salaryOutA + tpeUsedA;
+    const effOutB = salaryOutB + tpeUsedB;
+    this._checkSalaryMatching(teamA, teamB, effOutA, effOutB, salaryOutA, salaryOutB, errors);
+
+    this._checkAggregationRestriction(teamA, tradePackageA, tradePackageB, errors);
+    this._checkAggregationRestriction(teamB, tradePackageB, tradePackageA, errors);
+
+    this._checkStepienRule(teamA, options.draftPicksA || [], errors);
+    this._checkStepienRule(teamB, options.draftPicksB || [], errors);
+
+    this._applyTradeException(teamA, salaryOutA, salaryOutB, tpeUsedA, errors);
+    this._applyTradeException(teamB, salaryOutB, salaryOutA, tpeUsedB, errors);
+
+    const newSalaryA = teamA.payroll - salaryOutA + salaryOutB;
+    const newSalaryB = teamB.payroll - salaryOutB + salaryOutA;
+
+    return { success: errors.length === 0, errors, newSalaryA, newSalaryB };
+  }
+
+  /* ---- Player Restrictions ---- */
+  _checkPlayerRestrictions(players, team, errors) {
+    for (const p of players) {
+      if (p.tradeStatus === 'FROZEN') {
+        errors.push(`球队 ${team.name} 的球员 ${p.name} 正处于交易冻结期（FROZEN），不可交易。`);
+      }
+    }
+  }
+
+  /* ---- Salary Matching ---- */
+  _checkSalaryMatching(teamA, teamB, effOutA, effOutB, actualOutA, actualOutB, errors) {
+    this._validateSalarySide(teamA, effOutA, effOutB, actualOutA, errors);
+    this._validateSalarySide(teamB, effOutB, effOutA, actualOutB, errors);
+  }
+
+  _validateSalarySide(team, effOutgoing, incoming, actualOutgoing, errors) {
+    const ratio = getSalaryMatchRatio(team.apronStatus);
+    const cushion = getSalaryCushion(team.apronStatus);
+    const maxAllowed = Math.floor(effOutgoing * ratio) + cushion;
+
+    if (incoming > maxAllowed) {
+      const label = team.apronStatus === 'SECOND_APRON' ? '二层围裙 (100% Rule)'
+        : team.apronStatus === 'FIRST_APRON' ? '一层围裙 (110% Rule)'
+        : '非围裙球队 (125% Rule)';
+      let msg = `球队 ${team.name} 薪资未配平（${label}）：送出 $${(actualOutgoing / 1_000_000).toFixed(1)}M`;
+      if (effOutgoing > actualOutgoing) {
+        msg += ` + TPE $${((effOutgoing - actualOutgoing) / 1_000_000).toFixed(1)}M`;
+      }
+      msg += `，接收 $${(incoming / 1_000_000).toFixed(1)}M，最大允许 $${(maxAllowed / 1_000_000).toFixed(1)}M。`;
+      errors.push(msg);
+    }
+
+    if (team.apronStatus === 'SECOND_APRON' && incoming > actualOutgoing) {
+      errors.push(
+        `球队 ${team.name} 违反二层围裙限制（Second Apron）：接收薪资 $${(incoming / 1_000_000).toFixed(1)}M ` +
+        `超出送出薪资 $${(actualOutgoing / 1_000_000).toFixed(1)}M，不允许任何薪资增长。`
+      );
+    }
+  }
+
+  /* ---- Aggregation Restriction ---- */
+  _checkAggregationRestriction(team, outgoingPlayers, incomingPlayers, errors) {
+    if (team.apronStatus !== 'SECOND_APRON') return;
+    if (outgoingPlayers.length > 1) {
+      const maxOut = Math.max(...outgoingPlayers.map(p => p.salary));
+      const maxIn = incomingPlayers.length > 0 ? Math.max(...incomingPlayers.map(p => p.salary)) : 0;
+      if (maxIn > maxOut) {
+        errors.push(
+          `球队 ${team.name} 违反聚合限制（Aggregation Restriction）：作为二层围裙球队，` +
+          `不能合并多名球员薪资以换取薪资高于其送出的任何单一球员的球员。` +
+          `最高送出 $${(maxOut / 1_000_000).toFixed(1)}M，最高接收 $${(maxIn / 1_000_000).toFixed(1)}M。`
+        );
+      }
+    }
+  }
+
+  /* ---- Stepien Rule ---- */
+  _checkStepienRule(team, tradedPicks, errors) {
+    const firstRound = tradedPicks
+      .filter(p => p.round === 1 && p.currentOwner === team.id)
+      .map(p => p.year)
+      .sort((a, b) => a - b);
+    for (let i = 0; i < firstRound.length - 1; i++) {
+      if (firstRound[i + 1] - firstRound[i] === 1) {
+        errors.push(`球队 ${team.name} 违反 Stepien 规则：不能交易连续未来年份的首轮选秀权（${firstRound[i]}-${firstRound[i + 1]}）。`);
+        return;
+      }
+    }
+  }
+
+  /* ---- TPE ---- */
+  _applyTradeException(team, outgoing, incoming, tpeUsed, errors) {
+    if (tpeUsed <= 0) return;
+    if (incoming > tpeUsed) {
+      errors.push(`球队 ${team.name} 的 TPE $${(tpeUsed / 1_000_000).toFixed(1)}M 不足以覆盖接收球员薪资 $${(incoming / 1_000_000).toFixed(1)}M。`);
+      return;
+    }
+    const available = team.tradeExceptions.reduce((a, b) => a + b, 0);
+    if (tpeUsed > available) {
+      errors.push(`球队 ${team.name} 没有足够的交易特例（TPE）：需要 $${(tpeUsed / 1_000_000).toFixed(1)}M，可用 $${(available / 1_000_000).toFixed(1)}M。`);
+    }
+  }
+}
+
+// ============================================================
+// Data Layer — Salary Lookup from salary_data.json
+// ============================================================
+// ============================================================
+// Data Layer — Dual Data Sources (nba_data.json + salary_data.json)
+// ============================================================
+window.nbaData = null;
+window.salaryData = null;
+
+/**
+ * Load team/player data from salary_data.json (Spotrac).
+ * Falls back to nba_data.json if unavailable.
+ * @returns {Promise<Object>}
+ */
+async function loadData() {
+  if (window.nbaData) return window.nbaData;
+
+  // Try salary_data.json first (Spotrac real salaries)
+  try {
+    const resp = await fetch('salary_data.json');
+    if (resp.ok) {
+      const data = await resp.json();
+      if (data && data.teams && data.teams.length > 0) {
+        window.nbaData = data;
+        return data;
+      }
+    }
+  } catch (_) { /* fall through */ }
+
+  // Fallback to nba_data.json
+  const resp = await fetch('nba_data.json');
+  if (!resp.ok) throw new Error(`Failed to load data (HTTP ${resp.status})`);
+  const data = await resp.json();
+  window.nbaData = data;
+  return data;
+}
+
+/**
+ * Look up a player's salary from loaded data by name (fuzzy match).
+ * Defensive: returns 0 if not found, preventing page crash.
+ * @param {string} playerName
+ * @returns {number}
+ */
+function getSalary(playerName) {
+  if (!window.nbaData) return 0;
+  const nameNorm = (playerName || '').toLowerCase().replace(/[^a-z0-9\s\-'.]/g, '').trim();
+  if (!nameNorm) return 0;
+  for (const team of window.nbaData.teams) {
+    if (!team || !team.players) continue;
+    for (const p of team.players) {
+      if (!p || !p.name) continue;
+      const pNorm = p.name.toLowerCase().replace(/[^a-z0-9\s\-'.]/g, '').trim();
+      if (pNorm === nameNorm || pNorm.includes(nameNorm) || nameNorm.includes(pNorm)) {
+        return p.salary || 0;
+      }
+    }
+  }
+  return 0;
+}
+
+/**
+ * Pick a team record from data and convert to internal Team object.
+ * Apron status is inferred from payroll: >$200M → SECOND_APRON, >$185M → FIRST_APRON.
+ * TPE data and draft picks are initialized from embedded data if available,
+ * otherwise set to empty arrays (defensive: prevents crashes from missing data).
+ */
+function pickTeamFromData(teamName) {
+  const raw = window.nbaData.teams.find(t => t.team_name === teamName);
+  if (!raw) return null;
+  const players = (raw.players || []).map((p, i) =>
+    createPlayer(`D_${teamName}_${i}`, p.name || 'Unknown', p.salary || 0, 'TRADABLE')
+  );
+  const apronStatus = raw.payroll > 200_000_000 ? 'SECOND_APRON'
+    : raw.payroll > 185_000_000 ? 'FIRST_APRON'
+    : 'BELOW_APRON';
+
+  // Parse TPEs if available — CBA Concept: TPEs have 1-year expiry window
+  const tpes = (raw.trade_exceptions || raw.tpe || []).map(t =>
+    createTradeException(t.amount || 0, t.expiry || '2027-06-30', t.description || '')
+  );
+
+  // Parse draft picks — CBA Concept: picks may have protection clauses
+  const picks = (raw.draft_picks || raw.picks || []).map(p =>
+    createDraftPick(p.year || 2027, p.round || 1, p.origin || teamName,
+      p.is_unprotected === false || p.protection !== 'Unprotected',
+      p.protection || 'Unprotected', p.currentOwner || teamName, p.origin || teamName)
+  );
+
+  return createTeam(teamName, teamName, raw.payroll || 0, apronStatus, players, tpes, picks);
+}
+
+// ============================================================
+// initSimulation() — Exposed for external initialization
+// Loads data, populates selectors, sets up default teams.
+// ============================================================
+async function initSimulation() {
+  try {
+    await loadData();
+    App._populateTeamSelectors();
+    App._seedData();
+    App.render();
+    console.log('[initSimulation] Simulation initialized successfully');
+    return true;
+  } catch (err) {
+    console.error('[initSimulation] Failed:', err);
+    App._seedFallback();
+    App.render();
+    return false;
+  }
+}
+
+// ============================================================
+// testScenario() — End-to-end test of a complex TPE trade
+// Scenario: LAL (Below Apron) uses $12M TPE to absorb Pritchard ($11M) from BOS
+// ============================================================
+function testScenario() {
+  console.log('%c========== testScenario: TPE Complex Trade ==========', 'font-weight:bold');
+
+  const PAYTON_PRITCHARD = createPlayer('T_PP', 'Payton Pritchard', 11_000_000, 'TRADABLE');
+
+  // LAL has a $12M TPE (expiring 2027-06-30)
+  const lalTPE = createTradeException(12_000_000, '2027-06-30', 'From Westbrook trade');
+  const teamLAL = createTeam('LAL', 'Los Angeles Lakers', 175_000_000, 'BELOW_APRON',
+    [PAYTON_PRITCHARD], [lalTPE], []);
+
+  // BOS sends out Pritchard, receives nothing
+  const teamBOS = createTeam('BOS', 'Boston Celtics', 190_000_000, 'FIRST_APRON', [], [], []);
+
+  const tValidator = new TradeValidator();
+  const result = tValidator.validateTrade(teamLAL, teamBOS, [], [PAYTON_PRITCHARD],
+    { tpeUsedA: 11_000_000 });
+
+  console.log('Scenario: LAL uses $12M TPE → absorbs Pritchard ($11M) from BOS');
+  console.log('Result:', result);
+
+  if (result.success) {
+    console.log('%c✅ TEST PASSED: TPE trade approved','color:green;font-weight:bold');
+    console.log(`  LAL: $175M → $${(result.newSalaryA / 1_000_000).toFixed(1)}M (+$11M)`);
+    console.log(`  BOS: $190M → $${(result.newSalaryB / 1_000_000).toFixed(1)}M (-$11M)`);
+  } else {
+    console.log('%c❌ TEST FAILED','color:red;font-weight:bold');
+    result.errors.forEach(e => console.log('  -', e));
+  }
+
+  console.log('%c====================================================','font-weight:bold');
+  return result;
+}
+
+// ============================================================
+// Application State & Controller
+// ============================================================
+const App = {
+  /* ---- State ---- */
+  teamA: null,
+  teamB: null,
+  selectedA: new Set(), // player IDs
+  selectedB: new Set(),
+
+  validator: new TradeValidator(),
+
+  /* ---- DOM refs ---- */
+  els: {},
+
+  /* ---- Init: wire DOM, fetch data, seed teams ---- */
+  async init() {
+    this.els = {
+      statusBar: document.getElementById('status-bar'),
+      statusText: document.getElementById('status-text'),
+      teamASelect: document.getElementById('team-a-select'),
+      teamAApron: document.getElementById('team-a-apron'),
+      teamAPayroll: document.getElementById('team-a-payroll'),
+      teamAPlayers: document.getElementById('team-a-players'),
+      teamATpe: document.getElementById('team-a-tpe'),
+      teamAPicks: document.getElementById('team-a-picks'),
+      teamBSelect: document.getElementById('team-b-select'),
+      teamBApron: document.getElementById('team-b-apron'),
+      teamBPayroll: document.getElementById('team-b-payroll'),
+      teamBPlayers: document.getElementById('team-b-players'),
+      teamBTpe: document.getElementById('team-b-tpe'),
+      teamBPicks: document.getElementById('team-b-picks'),
+      summaryA: document.getElementById('summary-a'),
+      summaryB: document.getElementById('summary-b'),
+      tradeBtn: document.getElementById('trade-btn'),
+    };
+
+    this.els.tradeBtn.addEventListener('click', () => this.handleTrade());
+    this.els.teamASelect.addEventListener('change', () => this.handleTeamChange('A'));
+    this.els.teamBSelect.addEventListener('change', () => this.handleTeamChange('B'));
+
+    // Use initSimulation for consistent initialization
+    await initSimulation();
+  },
+
+  /* ---- Seed from loaded data ---- */
+  _seedData() {
+    const teams = window.nbaData && window.nbaData.teams;
+    if (!teams || teams.length < 2) { this._seedFallback(); return; }
+
+    // Try to pick specific teams; fallback to first two
+    let teamA = pickTeamFromData('Los Angeles Lakers');
+    let teamB = pickTeamFromData('Boston Celtics');
+    if (!teamA) teamA = pickTeamFromData(teams[0].team_name);
+    if (!teamB) teamB = pickTeamFromData(teams[1].team_name);
+    if (!teamA || !teamB) { this._seedFallback(); return; }
+
+    this.teamA = teamA;
+    this.teamB = teamB;
+  },
+
+  /* ---- Populate team selector dropdowns ---- */
+  _populateTeamSelectors() {
+    if (!window.nbaData || !window.nbaData.teams) return;
+    const teams = window.nbaData.teams;
+    for (const side of ['A', 'B']) {
+      const sel = side === 'A' ? this.els.teamASelect : this.els.teamBSelect;
+      sel.innerHTML = '';
+      for (const t of teams) {
+        const opt = document.createElement('option');
+        opt.value = t.team_name;
+        opt.textContent = t.team_name;
+        sel.appendChild(opt);
+      }
+    }
+  },
+
+  /* ---- Handle team change from dropdown ---- */
+  handleTeamChange(side) {
+    const sel = side === 'A' ? this.els.teamASelect : this.els.teamBSelect;
+    const teamName = sel.value;
+    const newTeam = pickTeamFromData(teamName);
+    if (!newTeam) return;
+
+    if (side === 'A') {
+      this.selectedA.clear();
+      this.teamA = newTeam;
+    } else {
+      this.selectedB.clear();
+      this.teamB = newTeam;
+    }
+    this._renderStatus();
+    this.render();
+  },
+
+  /* ---- Fallback mock data (when fetch fails) ---- */
+  _seedFallback() {
+    const playersA = [
+      createPlayer('P001', 'Luka Doncic',    46_000_000, 'TRADABLE'),
+      createPlayer('P002', 'Kyrie Irving',    43_500_000, 'TRADABLE'),
+      createPlayer('P003', 'Klay Thompson',   15_800_000, 'TRADABLE'),
+      createPlayer('P004', 'Draymond Green',  24_100_000, 'TRADABLE'),
+    ];
+    const playersB = [
+      createPlayer('P010', 'Jayson Tatum',    54_000_000, 'TRADABLE'),
+      createPlayer('P011', 'Jaylen Brown',    30_000_000, 'TRADABLE'),
+      createPlayer('P012', 'Derrick White',   18_200_000, 'TRADABLE'),
+      createPlayer('P013', 'Kristaps Porzingis', 29_300_000, 'FROZEN'),
+    ];
+    // Add sample TPE with expiry — CBA Concept: TPEs expire 1 year after creation
+    const tpe = createTradeException(12_000_000, '2027-06-30', 'From Porzingis trade');
+    const picks = [
+      createDraftPick(2027, 1, 'DAL', false, 'Unprotected', 'DAL'),
+      createDraftPick(2028, 1, 'DAL', true, 'Top-4 protected', 'DAL'),
+    ];
+    this.teamA = createTeam('DAL', 'Dallas Mavericks', 206_000_000, 'SECOND_APRON', playersA, [], picks);
+    this.teamB = createTeam('BOS', 'Boston Celtics',   195_000_000, 'BELOW_APRON',  playersB, [tpe], []);
+  },
+
+  /* ---- Render everything ---- */
+  render() {
+    this._renderTeam('A');
+    this._renderTeam('B');
+    this._renderSummary();
+    this._renderStatus();
+
+    const hasSelA = this.selectedA.size > 0;
+    const hasSelB = this.selectedB.size > 0;
+    this.els.tradeBtn.disabled = !(hasSelA || hasSelB);
+  },
+
+  _renderTeam(side) {
+    const isA = side === 'A';
+    const team = isA ? this.teamA : this.teamB;
+    const selected = isA ? this.selectedA : this.selectedB;
+    const selectEl = isA ? this.els.teamASelect : this.els.teamBSelect;
+    const apronEl = isA ? this.els.teamAApron : this.els.teamBApron;
+    const payrollEl = isA ? this.els.teamAPayroll : this.els.teamBPayroll;
+    const container = isA ? this.els.teamAPlayers : this.els.teamBPlayers;
+    const tpeEl = isA ? this.els.teamATpe : this.els.teamBTpe;
+    const picksEl = isA ? this.els.teamAPicks : this.els.teamBPicks;
+
+    if (!team) return;
+
+    // Sync the dropdown to match current team
+    if (selectEl) selectEl.value = team.name;
+
+    const apronLabel = team.apronStatus === 'SECOND_APRON' ? 'Second Apron'
+      : team.apronStatus === 'FIRST_APRON' ? 'First Apron'
+      : 'Below Apron';
+    apronEl.innerHTML = `<span class="apron-badge ${team.apronStatus === 'SECOND_APRON' ? 'second' : team.apronStatus === 'FIRST_APRON' ? 'first' : 'below'}">${apronLabel}</span>`;
+
+    payrollEl.textContent = `Payroll: $${(team.payroll / 1_000_000).toFixed(1)}M`;
+
+    /* Render TPE info */
+    // CBA Concept: "Traded Player Exception" — 1-year window from generation
+    const tpes = team.tradeExceptions || [];
+    const now = new Date();
+    if (tpeEl) {
+      if (tpes.length === 0) {
+        tpeEl.textContent = '';
+      } else {
+        const validTpes = tpes.filter(t => t && t.expiry && new Date(t.expiry) >= now);
+        const expiredTpes = tpes.filter(t => t && t.expiry && new Date(t.expiry) < now);
+        let html = '<div style="font-size:11px;margin-top:6px;opacity:0.8;">';
+        if (validTpes.length > 0) {
+          html += validTpes.map(t =>
+            `<span style="color:#00c853;">▸ TPE: $${(t.amount / 1_000_000).toFixed(1)}M</span> <small>exp ${t.expiry}</small>`
+          ).join('<br>');
+        }
+        if (expiredTpes.length > 0) {
+          html += (validTpes.length > 0 ? '<br>' : '') +
+            expiredTpes.map(t =>
+              `<span style="color:#666;text-decoration:line-through;">▸ TPE: $${(t.amount / 1_000_000).toFixed(1)}M</span> <small style="color:#666;">exp ${t.expiry} (EXPIRED)</small>`
+            ).join('<br>');
+        }
+        html += '</div>';
+        tpeEl.innerHTML = html;
+      }
+    }
+
+    /* Render draft picks info */
+    // CBA Concept: "Stepien Rule" governs consecutive pick trading
+    const picks = team.draftPicks || [];
+    if (picksEl) {
+      if (picks.length === 0) {
+        picksEl.textContent = '';
+      } else {
+        let html = '<div style="font-size:11px;margin-top:4px;opacity:0.7;">';
+        html += picks.map(p =>
+          `<span>🏀 ${p.year} Rd${p.round}${p.protection !== 'Unprotected' ? ` (${p.protection})` : ''}</span>`
+        ).join(' ');
+        html += '</div>';
+        picksEl.innerHTML = html;
+      }
+    }
+
+    /* Build player cards */
+    container.innerHTML = '';
+    for (const p of team.roster) {
+      const isSelected = selected.has(p.id);
+      const isFrozen = p.tradeStatus === 'FROZEN';
+      const card = document.createElement('div');
+      card.className = `player-card${isSelected ? ' selected' : ''}${isFrozen ? ' frozen' : ''}`;
+      card.dataset.playerId = p.id;
+      card.dataset.teamId = side;
+
+      const initials = (p.name || '??').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+
+      card.innerHTML = `
+        <div class="player-left">
+          <div class="player-avatar">${initials}</div>
+          <span class="player-name">${p.name}</span>
+          ${isFrozen ? '<span class="player-status-tag frozen-tag">FROZEN</span>' : ''}
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="player-salary">$${(p.salary / 1_000_000).toFixed(1)}M</span>
+          <span class="selection-indicator"></span>
+        </div>
+      `;
+
+      if (!isFrozen) {
+        card.addEventListener('click', () => this.handleSelection(p.id, side));
+      }
+
+      container.appendChild(card);
+    }
+  },
+
+  _renderSummary() {
+    const outA = this._getPackage('A');
+    const outB = this._getPackage('B');
+    const salaryA = totalSalary(outA);
+    const salaryB = totalSalary(outB);
+
+    this.els.summaryA.innerHTML =
+      `<span class="salary-figure team-a-color">${this.teamA.name}:</span> ${outA.length} players — $${(salaryA / 1_000_000).toFixed(1)}M`;
+    this.els.summaryB.innerHTML =
+      `<span class="salary-figure team-b-color">${this.teamB.name}:</span> ${outB.length} players — $${(salaryB / 1_000_000).toFixed(1)}M`;
+  },
+
+  _renderStatus() {
+    // Default idle message — no result to display yet
+    this.els.statusBar.className = '';
+    this.els.statusBar.querySelector('.status-icon').textContent = '⚡';
+    this.els.statusText.textContent = 'Click players to select them, then execute a trade.';
+  },
+
+  /* ---- Helpers ---- */
+  _getPackage(side) {
+    const isA = side === 'A';
+    const team = isA ? this.teamA : this.teamB;
+    const selected = isA ? this.selectedA : this.selectedB;
+    return team.roster.filter(p => selected.has(p.id));
+  },
+
+  /* ---- Selection handler ---- */
+  handleSelection(playerId, teamId) {
+    const selected = teamId === 'A' ? this.selectedA : this.selectedB;
+    if (selected.has(playerId)) {
+      selected.delete(playerId);
+    } else {
+      selected.add(playerId);
+    }
+    this.render();
+  },
+
+  /* ---- Trade execution with TPE & pick detail ---- */
+  handleTrade() {
+    const packageA = this._getPackage('A');
+    const packageB = this._getPackage('B');
+
+    if (packageA.length === 0 && packageB.length === 0) {
+      this._showStatus('info', 'ℹ️', 'Please select at least one player to trade.');
+      return;
+    }
+
+    // Check if TPE is being used (from the TPE input field)
+    const tpeInputA = document.getElementById('tpe-input-a');
+    const tpeInputB = document.getElementById('tpe-input-b');
+    const tpeUsedA = tpeInputA ? (parseInt(tpeInputA.value) || 0) : 0;
+    const tpeUsedB = tpeInputB ? (parseInt(tpeInputB.value) || 0) : 0;
+
+    const result = this.validator.validateTrade(this.teamA, this.teamB, packageA, packageB, {
+      tpeUsedA, tpeUsedB,
+      draftPicksA: [], // Future: allow pick selection in UI
+      draftPicksB: [],
+    });
+    const outA = totalSalary(packageA);
+    const outB = totalSalary(packageB);
+    const diffA = result.newSalaryA - this.teamA.payroll;
+    const diffB = result.newSalaryB - this.teamB.payroll;
+
+    // Compute salary matching ratio for each side
+    const ratioA = outA > 0 ? ((outB / outA) * 100).toFixed(1) : 'N/A';
+    const ratioB = outB > 0 ? ((outA / outB) * 100).toFixed(1) : 'N/A';
+    const maxRatioA = getSalaryMatchRatio(this.teamA.apronStatus) * 100;
+    const maxRatioB = getSalaryMatchRatio(this.teamB.apronStatus) * 100;
+
+    // TPE creation info
+    const tpeGenHtml = (result.tpeGeneratedA || result.tpeGeneratedB) ? `
+      <div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.08);">
+        <small>
+          ${result.tpeGeneratedA ? `<span style="color:#00f2ff">${this.teamA.name}</span> 产生 TPE: $${(result.tpeGeneratedA.amount / 1_000_000).toFixed(1)}M<br>` : ''}
+          ${result.tpeGeneratedB ? `<span style="color:#ff0055">${this.teamB.name}</span> 产生 TPE: $${(result.tpeGeneratedB.amount / 1_000_000).toFixed(1)}M` : ''}
+        </small>
+      </div>
+    ` : '';
+
+    if (result.success) {
+      this._showStatus('success', '✅', `
+        <strong>✅ Trade Approved!</strong><br>
+        <div style="margin-top:6px; display:flex; gap:20px; flex-wrap:wrap;">
+          <div>
+            <strong style="color:#00f2ff">${this.teamA.name}</strong><br>
+            <small>
+              Before: <strong>$${(this.teamA.payroll / 1_000_000).toFixed(1)}M</strong><br>
+              After:  <strong>$${(result.newSalaryA / 1_000_000).toFixed(1)}M</strong><br>
+              Delta:  <strong style="color:${diffA >= 0 ? '#ff6b6b' : '#00c853'}">${diffA >= 0 ? '+' : ''}$${(diffA / 1_000_000).toFixed(1)}M</strong>
+              ${tpeUsedA > 0 ? `<br><span style="color:#00c853;">TPE used: $${(tpeUsedA / 1_000_000).toFixed(1)}M</span>` : ''}
+            </small>
+          </div>
+          <div>
+            <strong style="color:#ff0055">${this.teamB.name}</strong><br>
+            <small>
+              Before: <strong>$${(this.teamB.payroll / 1_000_000).toFixed(1)}M</strong><br>
+              After:  <strong>$${(result.newSalaryB / 1_000_000).toFixed(1)}M</strong><br>
+              Delta:  <strong style="color:${diffB >= 0 ? '#ff6b6b' : '#00c853'}">${diffB >= 0 ? '+' : ''}$${(diffB / 1_000_000).toFixed(1)}M</strong>
+              ${tpeUsedB > 0 ? `<br><span style="color:#00c853;">TPE used: $${(tpeUsedB / 1_000_000).toFixed(1)}M</span>` : ''}
+            </small>
+          </div>
+          <div>
+            <strong>Matching Ratio</strong><br>
+            <small>
+              ${this.teamA.name}: <strong>${ratioA}%</strong> / ${maxRatioA}%<br>
+              ${this.teamB.name}: <strong>${ratioB}%</strong> / ${maxRatioB}%
+            </small>
+          </div>
+        </div>
+        ${tpeGenHtml}
+      `);
+    } else {
+      const list = result.errors.map(e => `<li>${e}</li>`).join('');
+      this._showStatus('failure', '❌', `
+        <strong>❌ Trade Rejected — ${result.errors.length} violation(s)</strong>
+        <div style="margin-top:6px; display:flex; gap:20px; flex-wrap:wrap;">
+          <div>
+            <small>
+              <strong style="color:#00f2ff">${this.teamA.name}</strong><br>
+              Before: <strong>$${(this.teamA.payroll / 1_000_000).toFixed(1)}M</strong> →
+              After: <strong>$${(result.newSalaryA / 1_000_000).toFixed(1)}M</strong>
+              (${diffA >= 0 ? '+' : ''}$${(diffA / 1_000_000).toFixed(1)}M)
+              ${tpeUsedA > 0 ? `<br><span style="color:#ff6b6b;">TPE: $${(tpeUsedA / 1_000_000).toFixed(1)}M</span>` : ''}
+            </small>
+          </div>
+          <div>
+            <small>
+              <strong style="color:#ff0055">${this.teamB.name}</strong><br>
+              Before: <strong>$${(this.teamB.payroll / 1_000_000).toFixed(1)}M</strong> →
+              After: <strong>$${(result.newSalaryB / 1_000_000).toFixed(1)}M</strong>
+              (${diffB >= 0 ? '+' : ''}$${(diffB / 1_000_000).toFixed(1)}M)
+              ${tpeUsedB > 0 ? `<br><span style="color:#ff6b6b;">TPE: $${(tpeUsedB / 1_000_000).toFixed(1)}M</span>` : ''}
+            </small>
+          </div>
+        </div>
+        <ul class="status-errors" style="margin-top:6px;">${list}</ul>
+        ${tpeGenHtml}
+      `);
+    }
+  },
+
+  _showStatus(type, icon, html) {
+    this.els.statusBar.className = type === 'success' ? 'success' : type === 'failure' ? 'failure' : '';
+    this.els.statusBar.querySelector('.status-icon').textContent = icon;
+    this.els.statusText.innerHTML = html;
+  },
+};
+
+// ============================================================
+// Bootstrap — async init loads data
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => App.init().catch(err => {
+  console.error('App.init() failed:', err);
+  document.getElementById('status-text').textContent =
+    '⚠️ Failed to load data. Check console for details.';
+}));
+
+// Expose simulation & test to console for interactive debugging
+// Make schema factory functions globally available for console testing
+window.createPlayer = createPlayer;
+window.createTeam = createTeam;
+window.createDraftPick = createDraftPick;
+window.createTradeException = createTradeException;
+window.TradeValidator = TradeValidator;
+window.totalSalary = totalSalary;
+window.getSalaryMatchRatio = getSalaryMatchRatio;
+window.getAvailableTPE = getAvailableTPE;
+window.initSimulation = initSimulation;
+window.testScenario = testScenario;
+window.App = App;
+</script>
+</body>
+</html>

@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>NBA离谱报价模拟器 - 虎扑</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; width: 100%; min-height: 100%; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", Arial, sans-serif; background: #f5f5f5; color: #1a1a1a; }
+  body { overflow-x: hidden; }
+
+  :root {
+    --hupu-red: #e0232b;
+    --hupu-orange: #ff6b35;
+    --hupu-gold: #ffb347;
+    --hupu-blue: #246bfe;
+    --hupu-bg: #f5f5f5;
+    --card-bg: #ffffff;
+    --card-border: #e8e8e8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #888;
+    --text-muted: #aaa;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,.10);
+  }
+
+  .hupu-header { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 0 2px; }
+  .hupu-header img { width: 22px; height: 22px; border-radius: 4px; }
+  .hupu-header span { font-size: 13px; font-weight: 700; color: var(--text-secondary); letter-spacing: .3px; }
+
+  .app { width: 100%; min-height: 100vh; background: var(--hupu-bg); position: relative; overflow: hidden; }
+
+  .screen { display: none; min-height: 100vh; padding: 16px 14px 20px; position: relative; z-index: 2; }
+  .screen.active { display: flex; flex-direction: column; }
+
+  .hero { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 10px 0 30px; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border: 1px solid var(--hupu-red); background: rgba(224,35,43,.06); border-radius: 999px; color: var(--hupu-red); font-size: 12px; font-weight: 800; letter-spacing: .3px; }
+  .title { margin: 14px 0 6px; font-size: clamp(36px, 10vw, 52px); line-height: 1; font-weight: 1000; letter-spacing: -1.5px; }
+  .title span { display: block; color: var(--text-primary); }
+  .title .highlight { background: linear-gradient(135deg, var(--hupu-red), var(--hupu-orange)); -webkit-background-clip: text; color: transparent; }
+  .subtitle { max-width: 300px; color: var(--text-secondary); line-height: 1.6; font-size: 14px; margin: 8px auto 22px; }
+  .fun-card { width: min(340px, 92vw); border: 1px solid var(--card-border); border-radius: 18px; background: var(--card-bg); box-shadow: var(--shadow-md); padding: 16px; margin: 10px auto 22px; text-align: left; }
+  .fax { display: flex; gap: 10px; align-items: center; color: var(--text-primary); font-weight: 800; font-size: 15px; }
+  .fax-icon { width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, var(--hupu-red), var(--hupu-orange)); display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 6px 16px rgba(224,35,43,.22); flex-shrink: 0; }
+  .fax-icon img { width: 22px; height: 22px; border-radius: 3px; }
+  .quote { color: var(--text-secondary); margin-top: 10px; font-size: 12px; line-height: 1.6; }
+
+  button { border: none; color: #fff; font-weight: 800; cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: transparent; outline: none; }
+  button:active { opacity: .88; }
+  .primary-btn { width: min(340px, 92vw); min-height: 50px; border-radius: 14px; background: linear-gradient(135deg, var(--hupu-red), var(--hupu-orange)); box-shadow: 0 8px 24px rgba(224,35,43,.28); font-size: 17px; letter-spacing: .5px; }
+  .ghost-btn { min-height: 44px; padding: 0 16px; border-radius: 14px; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-primary); font-size: 14px; box-shadow: var(--shadow-sm); }
+
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; padding-top: 4px; }
+  .page-title { font-size: 20px; font-weight: 1000; color: var(--text-primary); letter-spacing: -.3px; }
+  .limit { color: var(--hupu-red); font-size: 12px; font-weight: 800; background: rgba(224,35,43,.08); border: 1px solid rgba(224,35,43,.18); border-radius: 999px; padding: 5px 10px; white-space: nowrap; }
+
+  .offer-panel { position: sticky; top: 0; z-index: 10; padding: 12px; margin: 0 -2px 10px; border: 1px solid var(--card-border); border-radius: 18px; background: var(--card-bg); box-shadow: var(--shadow-md); }
+  .selected-list { display: flex; gap: 6px; overflow-x: auto; padding: 8px 0 2px; scrollbar-width: none; }
+  .selected-list::-webkit-scrollbar { display: none; }
+  .chip { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; border-radius: 999px; background: rgba(224,35,43,.07); color: var(--hupu-red); border: 1px solid rgba(224,35,43,.15); font-size: 12px; font-weight: 800; }
+  .chip.empty { color: var(--text-muted); background: transparent; border-color: var(--card-border); }
+
+  .section-hd { display: flex; align-items: center; justify-content: space-between; margin: 12px 0 8px; }
+  .section-hd b { font-size: 15px; color: var(--text-primary); }
+  .section-hd span { color: var(--text-muted); font-size: 12px; }
+
+  .items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding-bottom: 80px; }
+  .item { min-height: 100px; padding: 12px 6px 10px; border-radius: 16px; background: var(--card-bg); border: 1px solid var(--card-border); text-align: center; position: relative; overflow: hidden; transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease; box-shadow: var(--shadow-sm); }
+  .item:active { transform: scale(.96); }
+  .item.selected { border-color: var(--hupu-red); background: rgba(224,35,43,.04); box-shadow: 0 0 0 1px var(--hupu-red), var(--shadow-sm); }
+  .item.disabled { opacity: .35; }
+  .emoji { font-size: 28px; line-height: 1.1; margin-bottom: 6px; }
+  .item-name { font-size: 12px; font-weight: 800; line-height: 1.25; min-height: 30px; display: flex; align-items: center; justify-content: center; color: var(--text-primary); }
+  .check { position: absolute; top: 6px; right: 6px; width: 18px; height: 18px; border-radius: 50%; background: var(--hupu-red); color: #fff; font-size: 11px; display: none; align-items: center; justify-content: center; font-weight: 1000; }
+  .selected .check { display: flex; }
+  .item-score { display: inline-flex; margin-top: 6px; padding: 3px 7px; border-radius: 999px; background: rgba(224,35,43,.08); color: var(--hupu-red); font-size: 11px; font-weight: 900; }
+  .selected .item-score { background: rgba(224,35,43,.18); }
+
+  .bottom-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); background: var(--card-bg); border-top: 1px solid var(--card-border); display: flex; gap: 10px; box-shadow: 0 -2px 12px rgba(0,0,0,.04); }
+  .bottom-bar .primary-btn { flex: 1; width: auto; min-height: 48px; font-size: 15px; }
+  .bottom-bar .ghost-btn { width: 80px; min-height: 48px; }
+
+  .loading { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+  .loader { width: 100px; height: 100px; border-radius: 28px; background: var(--card-bg); border: 1px solid var(--card-border); display: flex; align-items: center; justify-content: center; font-size: 48px; box-shadow: var(--shadow-lg); animation: float 1.2s ease-in-out infinite alternate; }
+  @keyframes float { from { transform: translateY(0) rotate(-3deg); } to { transform: translateY(-10px) rotate(4deg); } }
+  .loading h2 { margin: 20px 0 6px; font-size: 22px; color: var(--text-primary); }
+  .loading p { margin: 0; color: var(--text-secondary); line-height: 1.7; font-size: 14px; }
+  .dots::after { content: ""; animation: dots 1.2s infinite; }
+  @keyframes dots { 0% { content: ""; } 33% { content: "."; } 66% { content: ".."; } 100% { content: "..."; } }
+
+  .result-wrap { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+  .result-card { border-radius: 22px; background: var(--card-bg); border: 1px solid var(--card-border); box-shadow: var(--shadow-md); overflow: hidden; }
+  .result-head { padding: 16px 18px 12px; background: linear-gradient(135deg, rgba(224,35,43,.08), rgba(255,107,53,.05)); }
+  .small-tag { display: inline-flex; padding: 5px 10px; border-radius: 999px; background: var(--hupu-red); color: #fff; font-weight: 800; font-size: 11px; }
+  .player-name { margin: 10px 0 6px; font-size: clamp(32px, 10vw, 48px); line-height: 1.05; font-weight: 1000; letter-spacing: -1.5px; color: var(--text-primary); }
+  .result-rank { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--text-secondary); font-size: 13px; margin-top: 6px; }
+  .result-rank b { color: var(--hupu-red); font-size: 22px; }
+  .result-body { padding: 14px 18px 18px; }
+  .result-title { font-size: 18px; font-weight: 1000; margin-bottom: 6px; color: var(--text-primary); }
+  .comment { color: var(--text-secondary); line-height: 1.65; font-size: 14px; }
+  .offer-list { display: flex; gap: 6px; flex-wrap: wrap; margin: 12px 0 0; }
+  .reaction { margin-top: 12px; padding: 12px; border-radius: 14px; background: #fafafa; border: 1px solid var(--card-border); color: var(--text-secondary); line-height: 1.55; font-size: 13px; }
+  .score-item { padding: 14px 0; border-bottom: 1px solid var(--card-border); }
+  .score-item:last-child { border-bottom: none; }
+  .score-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .score-emoji { font-size: 24px; width: 36px; text-align: center; }
+  .score-name { font-size: 14px; font-weight: 800; flex: 1; color: var(--text-primary); }
+  .score-badge { display: inline-flex; align-items: center; gap: 2px; padding: 4px 10px; border-radius: 999px; font-size: 16px; font-weight: 1000; letter-spacing: -.3px; }
+  .score-badge.high { background: linear-gradient(135deg, #ffd700, #ffb347); color: #5a3e00; }
+  .score-badge.mid { background: linear-gradient(135deg, #4ecdc4, #44a08d); color: #fff; }
+  .score-badge.low { background: linear-gradient(135deg, #ff6b6b, #c0392b); color: #fff; }
+  .score-tag { font-size: 11px; padding: 3px 8px; border-radius: 999px; background: #f0f0f0; color: var(--text-secondary); font-weight: 700; }
+  .score-analysis { font-size: 13px; line-height: 1.55; color: var(--text-secondary); margin-top: 4px; }
+
+  .toast { position: fixed; left: 50%; bottom: 80px; transform: translateX(-50%) translateY(20px); z-index: 99; opacity: 0; pointer-events: none; background: rgba(0,0,0,.82); color: #fff; padding: 10px 16px; border-radius: 999px; font-size: 13px; transition: .22s ease; white-space: nowrap; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 380px) {
+    .items { gap: 8px; }
+    .item { min-height: 88px; padding: 10px 4px 8px; }
+    .item-name { font-size: 11px; }
+    .emoji { font-size: 24px; }
+  }
+  @media (max-height: 640px) {
+    .screen { padding-top: 10px; }
+    .hero { justify-content: flex-start; padding-top: 14px; }
+    .title { font-size: 34px; }
+    .fun-card { padding: 12px; margin-top: 4px; margin-bottom: 12px; }
+    .item { min-height: 84px; }
+  }
+</style>
+</head>
+<body>
+  <div class="app">
+    <div class="hupu-header">
+      <img src="https://i3.hoopchina.com.cn/newsPost/de00f9a83014c2b3196d831d4be1adb9_w_300_h_300_.png" alt="虎扑">
+      <span>虎扑 · NBA离谱交易</span>
+    </div>
+    <section id="startScreen" class="screen active">
+      <div class="hero">
+        <div class="badge">🏀 NBA报价整活</div>
+        <h1 class="title"><span>离谱报价</span><span class="highlight">模拟器</span></h1>
+        <p class="subtitle">用各种离谱道具凑成交易筹码，看看你到底能换来哪位NBA球星。</p>
+        <div class="fun-card">
+          <div class="fax"><div class="fax-icon"><img src="https://i3.hoopchina.com.cn/newsPost/de00f9a83014c2b3196d831d4be1adb9_w_300_h_300_.png" alt="H"></div><div>交易热线已接通<br><small style="color:var(--text-secondary);font-weight:700;">最多选择 3 样道具组成筹码包</small></div></div>
+          <div class="quote">选的道具指向同一个人越明确，就越容易换到他！指向多人则随机抽选，主打一个抽象整活。</div>
+        </div>
+        <button class="primary-btn" onclick="goPick()">立即开始交易</button>
+      </div>
+    </section>
+
+    <section id="pickScreen" class="screen">
+      <div class="topbar">
+        <div class="page-title">选择交易筹码</div>
+        <div class="limit"><span id="countText">0</span>/3</div>
+      </div>
+
+      <div class="offer-panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <span style="font-size:12px;color:var(--text-secondary);">已选筹码</span>
+          <button class="ghost-btn" onclick="clearItems()" style="min-height:34px;padding:0 12px;font-size:12px;">清空</button>
+        </div>
+        <div id="selectedList" class="selected-list"><span class="chip empty">还没放东西</span></div>
+      </div>
+
+      <div class="section-hd"><b>道具市场</b><span>点击选择 / 再点取消</span></div>
+      <div id="items" class="items"></div>
+
+      <div class="bottom-bar">
+        <button class="ghost-btn" onclick="goStart()">返回</button>
+        <button class="primary-btn" onclick="submitOffer()">发送交易</button>
+      </div>
+    </section>
+
+    <section id="loadingScreen" class="screen">
+      <div class="loading">
+        <div class="loader">🏀</div>
+        <h2 class="dots">正在拨通交易热线</h2>
+        <p id="loadingText">正在等待对方总经理回复</p>
+      </div>
+    </section>
+
+    <section id="resultScreen" class="screen">
+      <div class="result-wrap">
+        <div class="topbar">
+          <div class="page-title">交易结果</div>
+          <button class="ghost-btn" onclick="goPick(true)">再试一次</button>
+        </div>
+
+        <div class="result-card" id="resultCard">
+          <div class="result-head">
+            <span id="specialTag" class="small-tag">🏀 交易达成</span>
+            <div id="playerName" class="player-name">---</div>
+          </div>
+          <div class="result-body">
+            <div id="resultTitle" class="result-title">---</div>
+            <div id="comment" class="comment">---</div>
+            <div id="resultOfferList" class="offer-list"></div>
+            <div id="reaction" class="reaction">---</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="toast" class="toast">已复制</div>
+
+  <script>
+    const MAX_SELECT = 3;
+
+    // ========== 从 name.md 解析的数据 ==========
+    const items = [
+      { id: 'cognac', name: '轩尼诗干邑VSOP', emoji: '🥃', players: ['詹姆斯'] },
+      { id: 'malcolmx', name: '马尔科姆X自传', emoji: '📖', players: ['詹姆斯'] },
+      { id: 'godfather', name: '教父三部曲影碟片', emoji: '🎬', players: ['詹姆斯'] },
+      { id: 'cold', name: '999感冒灵', emoji: '💊', players: ['詹姆斯', '韦德', '诺维茨基'] },
+      { id: 'condom', name: '杰士邦超薄001', emoji: '🛡️', players: ['小波特', '哈登', '爱德华兹'] },
+      { id: 'horse', name: '一匹顶级赛马', emoji: '🐎', players: ['约基奇'] },
+      { id: 'scooter', name: '小牛电动车', emoji: '🛵', players: ['哈登'] },
+      { id: 'wine', name: '小杨哥直播间绝版红酒', emoji: '🍷', players: ['哈登'] },
+      { id: 'popcorn', name: '爆米花畅吃', emoji: '🍿', players: ['库里'] },
+      { id: 'golf', name: '高尔夫球场', emoji: '⛳', players: ['库里'] },
+      { id: 'egg', name: '鸡蛋灌饼', emoji: '🌮', players: ['周琦'] },
+      { id: 'rtx4090', name: '顶配RTX4090', emoji: '🖥️', players: ['戴维斯', '乔治', '西蒙斯', '布克', '东契奇', '海沃德'] },
+      { id: 'gloves', name: '拳击手套', emoji: '🥊', players: ['追梦格林', '朱芳雨', '保罗', '隆多'] },
+      { id: 'whistle', name: '金哨子', emoji: '🎺', players: ['亚历山大', '恩比德', '哈登', '东契奇'] },
+
+      { id: 'floor', name: '分区决赛地板', emoji: '🏟️', players: ['恩比德', '保罗', '米切尔'] },
+      { id: 'hairline', name: '发际线粉', emoji: '🧂', players: ['杰伦布朗'] },
+      { id: 'threebody', name: '三体全集', emoji: '📚', players: ['文班亚马'] },
+      { id: 'detail', name: "科比的《Detail》全集", emoji: '🎥', players: ['曼巴门徒们'] },
+      { id: 'shoes', name: '小一号的球鞋', emoji: '👟', players: ['杜兰特'] },
+      { id: 'dna', name: '和乔丹的亲子鉴定书', emoji: '📜', players: ['爱德华兹', '巴特勒', '基恩-埃利斯'] },
+      { id: 'suit', name: '顶级男士西装', emoji: '👔', players: ['伦纳德'] },
+      { id: 'poker', name: '德州扑克24小时畅打', emoji: '♠️', players: ['巴特勒', '内马尔'] },
+
+      { id: 'burger', name: 'BurgerKing豪华套餐', emoji: '🍔', players: ['东契奇', '约基奇', '蔡恩'] },
+      { id: 'coke', name: '2.5升大可乐', emoji: '🥤', players: ['约基奇'] },
+      { id: 'murray', name: '默里的珍贵影像资料', emoji: '📀', players: ['随机'] },
+      { id: 'fishing', name: '顶级钓鱼竿', emoji: '🎣', players: ['保罗乔治', '西蒙斯'] },
+      { id: 'wrestling', name: '摔角狂热门票', emoji: '🎪', players: ['哈利伯顿', '恩比德'] },
+      { id: 'nykey', name: '纽约荣誉市长头衔', emoji: '🗽', players: ['特雷-杨'] },
+      { id: 'shaolin', name: '少林寺免费十日游', emoji: '⛩️', players: ['戈贝尔', '切特', 'SGA'] },
+      { id: 'highbbiq', name: '高球商的头脑', emoji: '🧠', players: ['西蒙斯', '怀斯曼', '普尔'] },
+      { id: 'hairstylist', name: '顶级发型设计师', emoji: '💇', players: ['巴特勒', '卡斯尔', '詹姆斯'] },
+      { id: 'bathwater', name: '斯嘉丽的洗澡水', emoji: '🛁', players: ['杜兰特'] },
+      { id: 'cerave', name: 'Cerave润肤乳', emoji: '🧴', players: ['杜兰特'] },
+      { id: 'fangyuan', name: '与方圆共度良宵一晚', emoji: '🌙', players: ['切特'] },
+      { id: 'jacket', name: '一件75大夹克', emoji: '🧥', players: ['威斯布鲁克'] },
+      { id: 'kendrick', name: 'Kendrick Lamar演唱会门票', emoji: '🎫', players: ['德罗赞', '詹姆斯'] }
+    ];
+
+    // ========== 所有球员及其关联的道具数（用于显示） ==========
+    const playerMap = {};
+    items.forEach(item => {
+      item.players.forEach(p => {
+        if (!playerMap[p]) playerMap[p] = { count: 0, items: [] };
+        playerMap[p].count++;
+        playerMap[p].items.push(item.name);
+      });
+    });
+
+    // ========== 随机道具的候选池（所有非随机的球员） ==========
+    function getAllNormalPlayers() {
+      const set = new Set();
+      items.forEach(item => {
+        item.players.forEach(p => {
+          if (p !== '随机') set.add(p);
+        });
+      });
+      return [...set];
+    }
+    const ALL_PLAYERS = getAllNormalPlayers();
+
+    // ========== 随机池 ==========
+    const randomThresholds = [
+      { min: 0, max: 1, label: '边缘人', players: ['周琦', '切特', '威斯布鲁克', '杰伦布朗', '曼巴门徒们', '伦纳德', '基恩-埃利斯', '卡斯尔'] },
+      { min: 2, max: 2, label: '潜力股', players: ['文班亚马', '爱德华兹', '哈利伯顿', '亚历山大', '米切尔', '布克', '蔡恩', 'SGA'] },
+      { min: 3, max: 3, label: '全明星', players: ['戴维斯', '巴特勒', '乔治', '西蒙斯', '保罗乔治', '保罗', '隆多', '特雷-杨', '德罗赞', '海沃德', '小波特', '戈贝尔'] },
+      { min: 4, max: 4, label: '超级巨星', players: ['东契奇', '恩比德', '库里', '杜兰特', '约基奇', '哈登'] },
+      { min: 5, max: 5, label: '传奇', players: ['詹姆斯', '韦德', '诺维茨基'] }
+    ];
+
+    const selected = new Set();
+    let lastResult = null;
+
+    function $(id) { return document.getElementById(id); }
+
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      $(id).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function goStart() { showScreen('startScreen'); }
+    function goPick(reset = false) {
+      if (reset) selected.clear();
+      showScreen('pickScreen');
+      renderItems();
+      updateOffer();
+    }
+
+    function renderItems() {
+      $('items').innerHTML = items.map(item => {
+        const isSelected = selected.has(item.id);
+        const isDisabled = !isSelected && selected.size >= MAX_SELECT;
+        const playerTags = item.players.map(p =>
+          `<span style="font-size:10px;color:rgba(255,255,255,.5);display:inline-block;">${p}</span>`
+        ).join('');
+        return `
+          <button class="item ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}" onclick="toggleItem('${item.id}')">
+            <span class="check">✓</span>
+            <div class="emoji">${item.emoji}</div>
+            <div class="item-name">${item.name}</div>
+          </button>`;
+      }).join('');
+    }
+
+    function toggleItem(id) {
+      if (selected.has(id)) selected.delete(id);
+      else {
+        if (selected.size >= MAX_SELECT) return toast('最多只能选 3 样道具');
+        selected.add(id);
+      }
+      renderItems();
+      updateOffer();
+    }
+
+    function clearItems() {
+      selected.clear();
+      renderItems();
+      updateOffer();
+    }
+
+    function selectedItems() {
+      return items.filter(i => selected.has(i.id));
+    }
+
+    // ========== 核心算法：计算每个球员的关联度 ==========
+    function computeAssociations() {
+      const selItems = selectedItems();
+      const assoc = {};
+      selItems.forEach(item => {
+        item.players.forEach(p => {
+          if (!assoc[p]) assoc[p] = 0;
+          assoc[p]++;
+        });
+      });
+      return assoc;
+    }
+
+    // 最高关联度
+    function maxAssociation() {
+      const assoc = computeAssociations();
+      let max = 0;
+      for (const p in assoc) {
+        if (assoc[p] > max) max = assoc[p];
+      }
+      return max;
+    }
+
+    function updateOffer() {
+      $('countText').textContent = selected.size;
+      const list = selectedItems();
+      $('selectedList').innerHTML = list.length
+        ? list.map(i => `<span class="chip">${i.emoji} ${i.name}</span>`).join('')
+        : '<span class="chip empty">还没放东西</span>';
+    }
+
+    function randomFrom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function submitOffer() {
+      if (!selected.size) return toast('先放点东西进去');
+      showScreen('loadingScreen');
+      const texts = ['正在拨通总经理热线', '正在翻阅球员交易记录', 'Woj正在核实消息', 'Shams正在跟进'];
+      let idx = 0;
+      $('loadingText').textContent = texts[0];
+      const timer = setInterval(() => {
+        idx = (idx + 1) % texts.length;
+        $('loadingText').textContent = texts[idx];
+      }, 520);
+      setTimeout(() => {
+        clearInterval(timer);
+        createResult();
+        showScreen('resultScreen');
+      }, 1700);
+    }
+
+    // ========== 每个道具专属的炸裂梗文案 ==========
+    const itemStories = {};
+
+    function addStory(id, tag, lines, reacts) {
+      itemStories[id] = { tag, lines, reacts };
+    }
+
+    addStory('cognac', '🥃', [
+      '轩尼诗干邑VSOP——这不是酒，是詹姆斯更衣室读书会的入场券。据说老詹看到这瓶酒就想起了当年在骑士2.0的夺冠夜。',
+      '看到轩尼诗，总经理的DNA动了：这瓶酒的价值不在于价格，而在于它能撬动一个国王的心。',
+      '轩尼诗干邑一出现，整个交易大厅安静了——懂的人都知道，这是属于勒布朗的味道。',
+      '用轩尼诗做交易筹码？对方总经理表示：这酒不错，但我要的是年份！年份懂吗！'
+    ], ['詹姆斯：这酒我熟，给我留一杯。浓眉：我也要！', '保安：不好意思，交易现场禁止饮酒。总经理：那是我留的！', '虎扑JRs：这瓶酒值一个首轮签！']);
+
+    addStory('malcolmx', '📖', [
+      '马尔科姆X自传——詹姆斯更衣室指定读物。据说看完这本书的人，都能在关键时刻做出正确决定。比如决定二。',
+      '一本自传换一个球员？对方总经理读了之后表示：这书写得不错，但我不会因此降价。...好吧，成交。',
+      '马尔科姆X自传出现在筹码包里，意味着这不是普通的交易——这是一笔有思想深度的交易。',
+      '用书换人？这交易太有文化了。对方总经理：我看完这本书就签字！然后看了三个月。'
+    ], ['詹姆斯：这本书我送过给每一个队友。他们现在在哪？在别的队当核心。', '欧文：地球是平的，但这本书是圆的——因为翻太多遍了。', '湖人图书管理员：这本书已经被预借到2030年了。']);
+
+    addStory('godfather', '🎬', [
+      '教父三部曲——篮球界的必修课。每一个伟大的交易背后，都有一句"我要给他一个无法拒绝的报价"。',
+      '对方总经理看到教父影碟，沉默了许久：你是在学维托·柯里昂吗？好吧，你成功了。我无法拒绝。',
+      '用《教父》换人？这交易充满了黑帮电影的戏剧性。就差配一句"Leave the gun, take the cannoli"。',
+      '教父三部曲一出现，整个谈判桌的气氛都变了——严肃、深沉、充满意大利黑手党的味道。'
+    ], ['詹姆斯：这部电影我看了20遍。每一次看都能学到新的谈判技巧。', '湖人管理层：所以我们是柯里昂家族？那谁是叛徒？', '马龙·白兰度（AI）：我同意这笔交易。']);
+
+    addStory('cold', '💊', [
+      '999感冒灵——2011年总决赛的阴影再现！{player}看到这盒药，咳嗽了两声，然后投进了一记金鸡独立。',
+      '用感冒灵换人？这不是交易，是医疗援助。对方总经理：你是在暗示我们队有人感冒了吗？...成交！',
+      '999感冒灵专治各种不服——专治咳嗽，专治{player}，专治热火三巨头。一盒见效。',
+      '这盒药见证了NBA历史上最著名的咳嗽事件。对方总经理：你是来交易还是来揭伤疤的？...行吧，你赢了。'
+    ], ['{player}：我看到这盒药就想起2011年，然后我就笑了。你们知道后果的。', '詹姆斯：能不能别提这件事了？韦德：是他提的，不是我。', '库班：这盒药我要裱起来！这是小牛队史上最重要的药品！']);
+
+    addStory('condom', '🛡️', [
+      '杰士邦超薄001——交易市场上的硬通货。安全第一，快乐第二，篮球第三。对方的年轻球员看了直接脸红。',
+      '用安全套做交易筹码？对方总经理推了推眼镜：很有创意。但你能不能用点正经的？...算了，我签。',
+      '超薄001出现在筹码包里，整个会议室的气氛突然变得微妙起来。有人笑了，有人沉默了，有人签了字。',
+      '这笔交易的主打概念是"安全"。对方总经理：你是说我需要保护自己不被这笔交易坑吗？'
+    ], ['{player}：这个我熟。我能用一箱这个换一个MVP吗？', '等等，这是我的！我放在交易桌上了！', 'NBA安全委员会：这笔交易很安全——字面意义上的。']);
+
+    addStory('horse', '🐎', [
+      '一匹顶级赛马——约基奇看了直接放下可乐翻身上马：这才是我的终极梦想！打篮球只是副业。',
+      '用赛马换人？对方总经理：我们是篮球队，不是马术队！...不过你这马确实不错，我收了。',
+      '顶级赛马一出现，约基奇的眼睛比看到总冠军奖杯还亮。掘金管理层：完了，留不住了。',
+      '这匹马的价值不在于速度，而在于它能换到两届MVP。性价比？历史第一。'
+    ], ['约基奇：我的马在哪？！可乐可以不带，马必须骑！', '丹佛赛马场：我们愿意提供终身免费寄养服务——前提是让约基奇当我们的代言人。', '马龙教练：我训练了一个赛季，不如一匹马有吸引力。']);
+
+    addStory('scooter', '🛵', [
+      '小牛电动车——哈登去夜店的专属座驾。节能环保，而且不用找代驾。对方总经理：他确实是刚需。',
+      '用电动车换人？太接地气了！哈登看到直接掏出手机导航夜店路线：从这里到我心里怎么走？',
+      '小牛电动车出现在交易筹码里，意味着这位球员被交易后需要一种环保的出行方式。哈登：我同意！',
+      '这不是普通的电动车，这是通往夜店的VIP通行证。哈登的夜店会员积分已经兑换好了。'
+    ], ['哈登：充电两小时，蹦迪一整夜。这交易我做了！', '交警：哈登先生，请出示你的电动车驾照。哈登：...这车还要驾照？', '夜店经理：我们有专门的电动车停车位了！']);
+
+    addStory('wine', '🍷', [
+      '小杨哥直播间的绝版红酒——哈登看到直接打开手机定位：直播间的链接发我，我要给兄弟们抽奖！',
+      '这瓶红酒的来历比球员本人还复杂——从小杨哥直播间到交易谈判桌，它经历了太多。',
+      '绝版红酒一出现，哈登的品酒师DNA动了：这酒不错，配我的小牛电动车刚刚好。今晚夜店走起！',
+      '用直播间红酒换人？对方总经理品了一口：嗯，确实不错。但能不能多送一瓶？'
+    ], ['小杨哥：兄弟们！这瓶酒我卖的时候没想到会被用来交易NBA球员！把排面打在公屏上！', '哈登：这酒比我的MVP奖杯还珍贵——因为它是绝版的！', '品酒师：这瓶酒的价值...无法估量。就像这笔交易一样。']);
+
+    addStory('popcorn', '🍿', [
+      '爆米花畅吃——库里的快乐源泉。没有什么比一场爆米花+三分表演更让人满足了。如果有，那就两场。',
+      '用爆米花换人？库里：管够吗？不限量吗？能带到球场边吃吗？科尔：你够了啊！',
+      '爆米花畅吃卡一出现，库里开始计算：一场比赛投10个三分，一包爆米花可以看半场...无限续杯？成交！',
+      '这份筹码的价值不在于金钱，而在于它解决了库里生涯最大的问题——中场休息吃什么。'
+    ], ['库里：这爆米花比我的三分还香！格林：你吃的时候能给我留点吗？', '科尔教练：更衣室禁止携带零食！库里：那我偷偷带。', '勇士食堂：爆米花机已到位，24小时供应！']);
+
+    addStory('golf', '⛳', [
+      '高尔夫球场——库里退役后的第一选择。用一块球场换一个球员？库里：我可以马上退役去打球吗？',
+      '看到高尔夫球场，库里的高尔夫DNA苏醒了：18洞？有没有81洞？我要打81洞，因为还有19分在三分线外！',
+      '用高尔夫球场做筹码？库里已经开始规划果岭设计了。总经理：合同还没签呢！库里：不重要，先选址。',
+      '库里：我可以一边打高尔夫一边投三分。你们信不信？我可以从果岭上投超远三分。'
+    ], ['库里：我可以在高尔夫球场上投三分！这比篮球场有意思多了！', '克莱：你打高尔夫的时候能带上我吗？我负责捡球。', '高尔夫球协会：我们愿意用18洞换库里来代言！']);
+
+    addStory('egg', '🌮', [
+      '鸡蛋灌饼——中国篮球的图腾级美食。{player}看到这张饼，回忆起了在火箭的峥嵘岁月。那饼，那味，那人。',
+      '用鸡蛋灌饼换人？{player}：终于有人懂我了！在NBA我什么都没学到，但我知道鸡蛋灌饼是家的味道。',
+      '鸡蛋灌饼一出现，整个CBA都震动了。{player}：双蛋还是单蛋？加辣还是不加？这笔交易我签了！',
+      '这不是一张普通的灌饼——这是中国篮球的希望，是无数个街球场的清晨，是一个大魔王的青春。'
+    ], ['{player}：加两个蛋！加一根肠！我的早餐有着落了！', '火箭食堂阿姨：原来他每天早饭想吃这个？我当年怎么不知道！', 'CBA官方：即日起所有食堂新增鸡蛋灌饼窗口。王哲林：我也要！']);
+
+    addStory('rtx4090', '🖥️', [
+      '顶配RTX4090——当代NBA球员的硬通货。管你多大牌的球星，看到4090就走不动路。游戏玩家の终极梦想。',
+      '用4090换人？对方总经理：你以为我们队都是网瘾少年吗？...把配置单发我看看。',
+      'RTX4090一出现，三个球员同时举了手。交易谈判桌变成了网吧开黑现场。',
+      '这张显卡的价值在于：它可以让球员在2K里把自己交易到任何球队。元宇宙交易，先行一步。'
+    ], ['{player}：4K144帧！我来了！等我打完这把Rank！', '{player}：这显卡比我家的好！我换！等等，我已经在队里了？', '游戏好友：{player}上线了？他不是在打比赛吗？{player}：比赛结束了，打两把2K。']);
+
+    addStory('gloves', '🥊', [
+      '拳击手套——{player}看了直呼专业。这是训练器材，也是更衣室矛盾的解决方案。打兄弟用左勾拳，打对手用右勾拳。',
+      '一副拳击手套出现在交易桌上，空气突然安静。总经理：这是暗示什么吗？{player}：不是暗示，是明示。',
+      '用拳击手套换人？对方总经理：你是在威胁我吗？...行，我接受挑战。等等，这是交易不是格斗比赛。',
+      '这副手套见证了NBA历史上最著名的训练场冲突。现在它成了一笔交易的筹码。历史总是惊人地相似。'
+    ], ['{player}：拳套不错，但我要再加一个麦克风。我的播客不能停。', '我看到这副手套PTSD了。能不能换个别的筹码？', '科尔：我不同意这笔交易——除非{player}保证不用这副手套。']);
+
+    addStory('whistle', '🎺', [
+      '金哨子——裁判听了都嫉妒。{player}看了直接伸手：以后我自己吹犯规，不用麻烦裁判了。',
+      '用哨子换人？对方总经理：你是暗示我们队造犯规太多了吗？...确实是，成交！',
+      '金哨子一吹，整个球馆都安静了。不是球赛开始了，是交易谈妥了。',
+      '这只哨子的魔力在于：吹一声是犯规，吹两声是交易达成，吹三声是{player}在罚球。'
+    ], ['{player}：这哨子归我了！以后我自己吹！场均30罚不是梦！', '裁判工会：强烈抗议这种非官方的哨子出现在交易中！', '{player}：我也要一个！我的倒地需要配BGM！']);
+
+    addStory('shaolin', '⛩️', [
+      '少林寺免费十日游——{player}看了直接订机票：终于有机会去中国学习了！铁山靠配少林功夫，天下无敌。',
+      '用少林寺十日游换人？{player}：我这身板去少林寺练完回来是不是就能增重30斤？方丈：看造化。',
+      '少林寺门票一出，{player}放下了篮球，拿起了木棍：我要学少林棍法！以后打球更丝滑。',
+      '十日游的价值不在于旅游，而在于让{player}找到了人生的第二春——出家还是打球，这是个问题。'
+    ], ['{player}：法棍配少林棍，双棍合璧！', '{player}：我去少林寺练完，能不能长到2米3？方丈：施主，你已经够高了。', '{player}：我回来以后，造犯规的动作更丝滑了——因为学会了太极。']);
+
+    addStory('highbbiq', '🧠', [
+      '高球商的头脑——这是NBA交易史上最珍贵的筹码。拥有它，{player}就拥有了阅读比赛的能力。',
+      '用高球商换人？{player}：我终于可以理解战术板了！教练画的是牛角战术？还是钻石战术？我全都能懂了！',
+      '高球商的头脑一出现，联盟里所有球商堪忧的球员都排队了。{player}：我先来！我已经会跑战术了！',
+      '这个筹码的价值无法用金钱衡量——因为它给的不是数据，是意识。是场上阅读比赛的能力。'
+    ], ['{player}：有了这个，我就能知道什么时候该投篮了。虽然我可能还是不投。', '{player}：教练，我终于知道你要我站哪了！教练：泪目了。', '{player}：我现在知道什么时候该传什么时候该投了——等等，还是投吧。']);
+
+    addStory('hairstylist', '💇', [
+      '顶级发型设计师——{player}的专属造型师。没有这个设计师，{player}的发型就没有灵魂，人设少一半。',
+      '用发型设计师换人？{player}：我刚进联盟的发型就靠你了！给我设计一个能上十佳球的发型！',
+      '顶级发型设计师一出现，{player}拿起了手机：我每年花几百万保养头发，这个设计师我收了。',
+      '这笔交易的重点不是球员，而是发型。一个好的发型等于半管属性加成——精神Buff。'
+    ], ['{player}：发型不能乱！硬汉也要有型！', '{player}：新秀赛季三大任务：打球、发型、社交媒体。', '{player}：我已经秃了，但我还能变强。发型师：我可以帮你植发。{player}：成交！']);
+
+    addStory('floor', '🏟️', [
+      '分区决赛地板——{player}看到这块地板沉默了。那是每个球员的终极梦想——摸到分区决赛的地板。',
+      '这块地板见证了太多。也许它价值不高，但它代表着一个球员的终极梦想——摸到分区决赛的地板。',
+      '用一块地板换人？这是精神层面的交易。对方总经理看着地板，想起了自己多年未进分区决赛的岁月。',
+      '分区决赛地板出现在筹码包里的那一刻，所有人都知道——这笔交易不是关于现在，而是关于未来。'
+    ], ['{player}：这块地板我要带回家铺在客厅。每天踩一踩，激励自己。', '{player}：我摸过西决地板，但东决地板什么感觉？我也不知道。', '西蒙斯：我连季后赛地板都很少摸...等等，这不重要。']);
+
+    addStory('hairline', '🧂', [
+      '发际线粉——{player}的私人订制。看到这盒粉，{player}下意识摸了摸额头：你怎么知道的？！谁说的？！',
+      '用发际线粉换人？{player}：我用不用是我的事，但你送了我就是兄弟。',
+      '发际线粉——NBA更衣室的秘密武器。每一个光鲜亮丽的球星背后，都有一盒看不见的粉。',
+      '这盒粉的价值不在于它本身，而在于它解决了NBA球员最大的焦虑——发际线。'
+    ], ['{player}：这个话题到此为止。', 'NBA官方商店：{player}同款发际线粉已上架，一秒售罄。', '吉诺比利：我当年要是有这个就好了。']);
+
+    addStory('threebody', '📚', [
+      '《三体》全集——{player}的身份证。2米24的外星人捧着《三体》热泪盈眶：这就是我的族谱啊！',
+      '用《三体》换{player}？对方总经理：这交易太科幻了。{player}：不，这是现实。三体文明在召唤我。',
+      '《三体》一出，{player}直接进入脱水状态——等等，那是三体人的技能，他是地球人吗？不确定。',
+      '这套书的出现证明了：{player}可能真的是三体人派来统治NBA的间谍。人类，你们准备好了吗？'
+    ], ['{player}：刘慈欣老师，第二部什么时候出？我要带回三体星。', 'NBA药检官：我建议对所有看过《三体》的球员进行药检。', '波波维奇：他的臂展比这本书的页数还长。我怎么量？我够不着！']);
+
+    addStory('detail', '🎥', [
+      '科比的《Detail》全集——曼巴门徒们的圣物。{player}看到直接请假：教练我要看完再回来训练！',
+      '用《Detail》全集换人？这已经不是交易了，这是传教。{player}：地球是平的，但科比的脚步是立体的。',
+      '这套录像带的价值无法用金钱衡量。它是凌晨四点的洛杉矶，是曼巴精神的实体化。',
+      '《Detail》出现在交易桌上，所有人都站了起来。不是因为惊讶，而是因为尊重。曼巴永存。'
+    ], ['{player}：已请假三天。看完《Detail》之前不回来。', '{player}：我看到这个的时候，地球颤抖了一下——不是因为地震，是因为曼巴精神。', '{player}：中投训练加十组！老大在天上看着我！']);
+
+    addStory('shoes', '👟', [
+      '小一号的球鞋——杜兰特专属。为什么是小一号？因为KD的脚和身高不成正比，就像他的社交媒体小号一样。',
+      '用一双小鞋换杜兰特？杜兰特：你是在暗示我脚小还是暗示我用小号？不管了，反正这鞋我能穿。',
+      '小一号的球鞋出现在交易里，KD小号第一时间发帖：这鞋码很准，好评！——来自一个"普通篮球爱好者"。',
+      '这双鞋的背后，是一个关于脚和小号的悲伤故事。但KD穿得挺开心的。'
+    ], ['杜兰特小号：这鞋不错，我替KD收了。——不是本人。', '耐克：我们真的不做小一号的鞋。杜兰特：你们现在做了。', '格林：你来之前我们就有小号鞋了——等等，我是不是说错话了？']);
+
+    addStory('dna', '📜', [
+      '和乔丹的亲子鉴定书——{player}看了直接发Instagram：妈！我是不是乔丹的儿子？！我妈：不是。',
+      '用亲子鉴定书换人？对方球员：我是乔丹的儿子吗？不管是不是，这份鉴定书先收了，万一是呢？',
+      '这份鉴定书的价值在于——它让每一个年轻球员都开始怀疑自己的身世。乔丹：我什么都没做。',
+      '亲子鉴定书一出现，联盟里一半的年轻球员都开始做DNA测试了。NBA官方：你们够了！'
+    ], ['乔丹：又一个来碰瓷的。不过{player}打得确实像我。', '{player}：不管结果是不是，我打球的方式就是乔丹！', '{player}：我也需要一份。我总觉得我和乔丹有关系。']);
+
+    addStory('suit', '👔', [
+      '顶级男士西装——伦纳德的战袍。穿上西装，就是两届FMVP；脱下西装，还是两届FMVP。但你可能不知道他什么时候穿。',
+      '用西装换伦纳德？他穿上照了照镜子，露出了0.5秒的微笑，然后沉默地签了字。经纪人：他同意了。',
+      '这套西装出现在交易桌上，伦纳德看了三分钟，然后说了一句"不错"。这是他本赛季说过的最长的一句话。',
+      '西装的价值不在于面料，而在于它让伦纳德看起来像个正常人——虽然我们都知道他不是。'
+    ], ['伦纳德：...（穿上西装，沉默）经纪人：他说谢谢。', '波波维奇：我早该给他送一套西装的。说不定他就留下来了。', '快船球迷：他这表情是高兴还是不高兴？没人知道。']);
+
+
+
+
+
+    addStory('poker', '♠️', [
+      '德州扑克24小时畅打——{player}的全副武装。没什么比一局德州扑克更能体现硬汉精神了。all in！',
+      '用德州扑克畅打换人？对方总经理：你是想和我打一局吗？我全压了！{player}：跟了！',
+      '德州扑克一出现，整个谈判桌变成了赌桌。筹码是球员，底池是未来。',
+      '这笔交易是在牌桌上谈成的。{player}：人生就像德州扑克，你永远不知道下一张牌是什么。但我all in了。'
+    ], ['{player}：加注！我全押了！教练：冷静！这是交易不是赌博！', '内马尔：巴西人喜欢足球，但德州扑克也行。发牌！', '赌神高进：这笔交易有我的风格。all in！']);
+
+    addStory('burger', '🍔', [
+      'BurgerKing豪华套餐——{player}的快乐源泉。没有什么是一顿汉堡解决不了的，如果有，那就两顿。',
+      '用汉堡套餐换人？{player}：管够吗？不限量吗？能送到训练馆吗？签约！立刻！马上！',
+      '看到BurgerKing，{player}放下了手中的东西，系好安全带，已经在app上点单了。',
+      '这份套餐的价值不在于食物本身，而在于它能满足{player}的胃。性价比之王。'
+    ], ['{player}：汉堡管够！合同我签！体测不测体重！', '{player}：有没有大份的？可乐是免费续杯吗？', '{player}：我同意这笔交易。但下次我要麦当劳。']);
+
+    addStory('coke', '🥤', [
+      '2.5升大可乐——约基奇的续命水。没有可乐的人生是不完整的，就像没有三分的库里一样。',
+      '用2.5升大可乐换约基奇？马龙教练：完了，他的体重又要失控了。约基奇：大份！谢谢！',
+      '大可乐一出现，约基奇的眼睛比看到战术板还亮。这才是人生真正的追求——碳酸自由。',
+      '这笔交易的真正成本不是金钱，而是约基奇未来的体检报告。队医已经在颤抖了。'
+    ], ['约基奇：冰镇的吗？加冰！满上！马龙教练：...我什么也没看见。', '掘金营养师：我辞职。这份工作我干不下去了。', '可乐公司：约基奇先生，终身免费畅饮！来代言吧！']);
+
+    addStory('murray', '📀', [
+      '默里的珍贵影像资料——NBA最神秘的筹码。没人知道里面是什么，但每个人都想要。可能是绝杀集锦，也可能是恶作剧。',
+      '用"未知影像资料"换人？对方总经理：里面是什么？回答：你猜。总经理：...行吧，我赌了。',
+      '这份影像资料的存在本身就是个梗。默里：你们随便猜，反正我不说是啥。节目效果拉满。',
+      '据说打开这份影像资料的人，都成为了球队的核心。也有人说，里面只是默里的一日Vlog。'
+    ], ['默里：你们不会想看到的。但我也不会说里面是什么。', '约基奇：我看过。我不能说。但我笑了三天。', 'Woj：我从业20年，这份资料是最神秘的交易筹码。']);
+
+    addStory('fishing', '🎣', [
+      '顶级钓鱼竿——{player}的灵魂伴侣。钓鱼佬永不空军！这根竿比总冠军戒指还珍贵。',
+      '用鱼竿换人？对方球员：我本来想拒绝的，但他送了我这根竿。你知道一根好竿对钓鱼佬意味着什么吗？',
+      '钓鱼竿一出现，{player}放下了手机，伸出了手。没有什么比钓鱼更让人心动了。',
+      '这根竿的价值不在于它能钓到多少鱼，而在于它能让{player}露出真心的笑容。'
+    ], ['{player}：好竿！比冠军戒指还实用！', '{player}：我终于找到了人生目标——钓鱼。什么？篮球？顺便打打。', '威少：钓鱼带我一个！我可以在水上拿三双！']);
+
+    addStory('wrestling', '🎪', [
+      '摔角狂热门票——{player}的快乐源泉。比NBA比赛刺激多了！毕竟摔角不用打82场常规赛。',
+      '用摔角门票换人？{player}：比我的no-look pass还精彩！成交！我现在就去看！',
+      '摔角门票出现在交易桌上，意味着这笔交易充满了娱乐精神。毕竟篮球和摔角都是表演艺术。',
+      '{player}：我可以一边看摔角一边练传球。你们信不信？我从观众席能传到球场对面。'
+    ], ['{player}：WWE比NBA好看！我要去看！教练：训练呢？{player}：训练取消！', '{player}：摔角？我的假摔技术就是从WWE学的！', 'WWE官方：欢迎{player}来看比赛！我们教你几招！']);
+
+    addStory('nykey', '🗽', [
+      '纽约City Key——特雷-杨的市长就职礼物。拿到这把钥匙，他就是纽约的主人了。尼克斯球迷：你不要过来啊！',
+      '用纽约钥匙换人？特雷-杨：从今天起，纽约只有一个王。那就是我。麦迪逊广场花园归我了。',
+      '这把钥匙打开了纽约的大门，也打开了尼克斯球迷的心理防线。吹杨：以后我在纽约吃饭不用排队了吧？',
+      '纽约City Key一出现，整个纽约都震动了。市长办公室：我们没发过这把钥匙！特雷杨：不，你们发过。'
+    ], ['尼克斯球迷：你不要过来啊！我们已经被你绝杀够了！', '篮网球迷：纽约只有一个队——市长的队！等等，市长是谁队的？', '杜兰特小号：纽约换市长了？那我是不是该回来了？']);
+
+    addStory('bathwater', '🛁', [
+      '斯嘉丽的洗澡水——杜兰特的一生追求。从2011年那条著名的推特到现在，这份执念终于有了实体化的交易筹码。',
+      '用洗澡水换杜兰特？杜兰特小号：这水是斯嘉丽本人的吗？什么温度？批次号多少？保质期到什么时候？',
+      '洗澡水一出现，杜兰特的DNA动了。死神放下了镰刀，端起了这杯水——这是他一生的梦想。',
+      '这笔交易的主打概念是"梦想成真"。杜兰特等了十年的洗澡水，今天终于以交易筹码的形式出现在他面前。'
+    ], ['斯嘉丽·约翰逊：所以我的洗澡水被NBA交易了？我本人都不知道这件事。', '杜兰特小号已发帖：这杯水我喝了。味道不错。不是本人。', '格林：你来之前我们就有洗澡水了——等等，这不对。']);
+
+    addStory('cerave', '🧴', [
+      'Cerave润肤乳——杜兰特的护肤秘籍。死神的皮肤为什么这么好？因为他每天用Cerave。保养和打球一样重要。',
+      '用润肤乳换杜兰特？KD：你们太懂我了！我每天都要用！没有Cerave我打不了球！',
+      'Cerave润肤乳出现在交易筹码里，杜兰特的护肤流程终于可以在新球队继续了。死神也需要保湿。',
+      '这笔交易不仅是篮球层面的，更是护肤层面的。杜兰特：我的皮肤状态决定了我的投篮手感。'
+    ], ['杜兰特：洗澡水配润肤乳，完美！今天是个好日子！', 'Cerave官方：杜兰特先生，我们愿意终身赞助！来当代言人吧！', '格林：你来之前我们就有润肤乳了...但你确实比我皮肤好。']);
+
+    addStory('fangyuan', '🌙', [
+      '与方圆共度良宵一晚——NBA年度最离谱交易筹码。切特看到直接脸红到耳朵根：你们怎么知道的？！虎扑JR你们是神吗！',
+      '用"一晚良宵"换切特？方圆本人：？？？我被交易了？？？我怎么不知道？？？切特：我也不知道怎么解释。',
+      '这个筹码出现的时候，整个虎扑服务器都卡了。热搜第一：#方圆被交易# 阅读量三亿。',
+      '切特：我能换个筹码吗？这个梗我要背一辈子了。总经理：不能。这是交易的核心资产。'
+    ], ['虎扑JRs：我出两晚加一顿夜宵，换切特！排队了排队了！', '方圆：我和切特真的只是朋友！只是朋友！但你们开心就好...', '雷霆球迷：欢迎切特！等等，方圆来不来？不来？那算了。']);
+
+    addStory('jacket', '🧥', [
+      '一件75大夹克——威斯布鲁克的历史地位认证。虽然他不需要这件夹克来证明自己，但穿上它，他就是75大。',
+      '用75大夹克换威少？威少：我就是75大！不需要你送！...但既然送了，我收下了。下一个问题。',
+      '这件夹克承载了NBA75年的历史。威少穿上它，场均三双Buff加持。',
+      '威斯布鲁克：这件夹克我会穿到每一场发布会上。记者问什么我都穿着它回答。'
+    ], ['威少：下一个问题——关于这件夹克？下一个问题。', '贝弗利：75大夹克？他确实值得。但我也有吗？', 'NBA官方：威斯布鲁克先生，这件夹克本来就是你的。我们送过了。']);
+
+    addStory('kendrick', '🎫', [
+      'Kendrick Lamar演唱会门票——{player}的音乐信仰。没有什么比一边听Kendrick一边打球更爽了。',
+      '用Kendrick门票换{player}？{player}：这是我收到过的最好的交易筹码！比全明星票还珍贵！',
+      '门票一出现，{player}已经开始哼歌了。Kendrick的词他倒背如流——就像他的中投一样精准。',
+      '这笔交易证明：音乐和篮球是相通的。{player}的投篮节奏就是从Kendrick的歌里学来的。'
+    ], ['{player}：Kendrick Lamar的歌我听了1000遍。这张票我会裱起来。', '猛龙球迷：我们错了！回来吧！顺便带我去看演唱会！', 'Kendrick Lamar官方：恭喜{player}！送他VIP后台通行证！']);
+
+    function getItemStory(itemId) {
+      return itemStories[itemId] || { tag: '🎁', lines: ['这是一个神秘的交易筹码。没人知道它为什么会出现在这里，但它确实促成了一笔交易。'], reacts: ['总经理：这个筹码...很有创意。我签了。'] };
+    }
+
+    function createResult() {
+      const assoc = computeAssociations();
+      const selItems = selectedItems();
+      const hasRandomItem = selected.has('murray');
+
+      let maxAssoc = 0;
+      let topPlayers = [];
+      for (const p in assoc) {
+        if (assoc[p] > maxAssoc) maxAssoc = assoc[p];
+      }
+      for (const p in assoc) {
+        if (assoc[p] === maxAssoc) topPlayers.push(p);
+      }
+      topPlayers = topPlayers.filter(p => p !== '随机');
+
+      let player;
+      if (topPlayers.length === 0) {
+        player = randomFrom(ALL_PLAYERS);
+      } else if (hasRandomItem && Math.random() < 0.3) {
+        player = randomFrom(ALL_PLAYERS);
+      } else {
+        player = randomFrom(topPlayers);
+      }
+
+      const selectedNames = selItems.map(i => `${i.emoji} ${i.name}`);
+
+      // 根据选中的道具生成文案，并替换{player}为实际匹配的球员
+      const starItem = randomFrom(selItems);
+      const story = getItemStory(starItem.id);
+      const itemListStr = selItems.map(i => i.name).join('、');
+      function replacePlayer(text) { return text.replace(/\{player\}/g, player); }
+
+      const titlePool = [
+        `你用了${itemListStr}换来了${player}！`,
+        `交易达成：${itemListStr} → ${player}`,
+        `离谱！${itemListStr}居然换到了${player}`,
+        `用${itemListStr}换${player}？这交易我打满分！`
+      ];
+
+      lastResult = {
+        player,
+        title: randomFrom(titlePool),
+        comment: replacePlayer(randomFrom(story.lines)),
+        reaction: replacePlayer(randomFrom(story.reacts)),
+        selectedNames,
+        tag: `${story.tag} ${player}`
+      };
+
+      renderResult();
+    }
+
+    function renderResult() {
+      const r = lastResult;
+      $('specialTag').textContent = r.tag;
+      $('playerName').textContent = r.player;
+      $('resultTitle').textContent = r.title;
+      $('comment').textContent = r.comment;
+      $('reaction').textContent = r.reaction;
+      $('resultOfferList').innerHTML = r.selectedNames.map(name => `<span class="chip">${name}</span>`).join('');
+    }
+
+    function toast(msg) {
+      const t = $('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    // 预渲染
+    renderItems();
+    updateOffer();
+  </script>
+</body>
+</html>
