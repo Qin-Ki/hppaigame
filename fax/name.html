@@ -34,10 +34,10 @@
   .screen { display: none; min-height: 100vh; padding: 16px 14px 20px; position: relative; z-index: 2; }
   .screen.active { display: flex; flex-direction: column; }
 
-  .hero { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 10px 0 30px; }
+  .hero { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 0 30px; margin-top: -30px; }
   .badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border: 1px solid var(--hupu-red); background: rgba(224,35,43,.06); border-radius: 999px; color: var(--hupu-red); font-size: 12px; font-weight: 800; letter-spacing: .3px; }
   .title { margin: 14px 0 6px; font-size: clamp(36px, 10vw, 52px); line-height: 1; font-weight: 1000; letter-spacing: -1.5px; }
-  .title span { display: block; color: var(--text-primary); }
+  .title span { display: inline; color: var(--text-primary); }
   .title .highlight { background: linear-gradient(135deg, var(--hupu-red), var(--hupu-orange)); -webkit-background-clip: text; color: transparent; }
   .subtitle { max-width: 300px; color: var(--text-secondary); line-height: 1.6; font-size: 14px; margin: 8px auto 22px; }
   .fun-card { width: min(340px, 92vw); border: 1px solid var(--card-border); border-radius: 18px; background: var(--card-bg); box-shadow: var(--shadow-md); padding: 16px; margin: 10px auto 22px; text-align: left; }
@@ -65,21 +65,21 @@
   .section-hd b { font-size: 15px; color: var(--text-primary); }
   .section-hd span { color: var(--text-muted); font-size: 12px; }
 
-  .items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding-bottom: 80px; }
-  .item { min-height: 100px; padding: 12px 6px 10px; border-radius: 16px; background: var(--card-bg); border: 1px solid var(--card-border); text-align: center; position: relative; overflow: hidden; transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease; box-shadow: var(--shadow-sm); }
+  .items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding-bottom: 90px; }
+  .item { min-height: 96px; padding: 10px 4px 8px; border-radius: 14px; background: var(--card-bg); border: 1px solid var(--card-border); text-align: center; position: relative; overflow: hidden; transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease; box-shadow: var(--shadow-sm); }
   .item:active { transform: scale(.96); }
   .item.selected { border-color: var(--hupu-red); background: rgba(224,35,43,.04); box-shadow: 0 0 0 1px var(--hupu-red), var(--shadow-sm); }
   .item.disabled { opacity: .35; }
-  .emoji { font-size: 28px; line-height: 1.1; margin-bottom: 6px; }
-  .item-name { font-size: 12px; font-weight: 800; line-height: 1.25; min-height: 30px; display: flex; align-items: center; justify-content: center; color: var(--text-primary); }
+  .emoji { font-size: 26px; line-height: 1.1; margin-bottom: 4px; }
+  .item-name { font-size: 11px; font-weight: 800; line-height: 1.3; min-height: 28px; display: flex; align-items: center; justify-content: center; color: var(--text-primary); overflow-wrap: break-word; word-break: break-word; hyphens: auto; padding: 0 2px; }
   .check { position: absolute; top: 6px; right: 6px; width: 18px; height: 18px; border-radius: 50%; background: var(--hupu-red); color: #fff; font-size: 11px; display: none; align-items: center; justify-content: center; font-weight: 1000; }
   .selected .check { display: flex; }
   .item-score { display: inline-flex; margin-top: 6px; padding: 3px 7px; border-radius: 999px; background: rgba(224,35,43,.08); color: var(--hupu-red); font-size: 11px; font-weight: 900; }
   .selected .item-score { background: rgba(224,35,43,.18); }
 
   .bottom-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); background: var(--card-bg); border-top: 1px solid var(--card-border); display: flex; gap: 10px; box-shadow: 0 -2px 12px rgba(0,0,0,.04); }
-  .bottom-bar .primary-btn { flex: 1; width: auto; min-height: 48px; font-size: 15px; }
-  .bottom-bar .ghost-btn { width: 80px; min-height: 48px; }
+  .bottom-bar .primary-btn { flex: 1; width: auto; min-height: 48px; font-size: 14px; white-space: nowrap; }
+  .bottom-bar .ghost-btn { min-width: 64px; min-height: 48px; padding: 0 12px; font-size: 13px; }
 
   .loading { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
   .loader { width: 100px; height: 100px; border-radius: 28px; background: var(--card-bg); border: 1px solid var(--card-border); display: flex; align-items: center; justify-content: center; font-size: 48px; box-shadow: var(--shadow-lg); animation: float 1.2s ease-in-out infinite alternate; }
@@ -89,15 +89,19 @@
   .dots::after { content: ""; animation: dots 1.2s infinite; }
   @keyframes dots { 0% { content: ""; } 33% { content: "."; } 66% { content: ".."; } 100% { content: "..."; } }
 
-  .result-wrap { flex: 1; display: flex; flex-direction: column; gap: 12px; }
-  .result-card { border-radius: 22px; background: var(--card-bg); border: 1px solid var(--card-border); box-shadow: var(--shadow-md); overflow: hidden; }
-  .result-head { padding: 16px 18px 12px; background: linear-gradient(135deg, rgba(224,35,43,.08), rgba(255,107,53,.05)); }
-  .small-tag { display: inline-flex; padding: 5px 10px; border-radius: 999px; background: var(--hupu-red); color: #fff; font-weight: 800; font-size: 11px; }
-  .player-name { margin: 10px 0 6px; font-size: clamp(32px, 10vw, 48px); line-height: 1.05; font-weight: 1000; letter-spacing: -1.5px; color: var(--text-primary); }
+  .result-wrap { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 10px; min-height: 0; }
+  .result-card { border-radius: 22px; background: var(--card-bg); border: 1px solid var(--card-border); box-shadow: var(--shadow-md); overflow: visible; }
+  .result-head { padding: 18px 18px 14px; background: linear-gradient(135deg, rgba(224,35,43,.08), rgba(255,107,53,.05)); display: flex; align-items: flex-end; gap: 14px; position: relative; overflow: visible; border-radius: 22px 22px 0 0; }
+  .result-head::before { content: ''; position: absolute; top: -50%; right: -20%; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(224,35,43,.04), transparent); pointer-events: none; }
+  .result-head-inner { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; padding-bottom: 4px; }
+  .player-portrait { width: 100px; height: 140px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 40px; margin-top: -100px; margin-bottom: -10px; position: relative; filter: drop-shadow(0 8px 20px rgba(0,0,0,.20)); z-index: 1; }
+  .player-portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .small-tag { display: none; }
+  .player-name { margin: 10px 0 6px; font-size: clamp(28px, 10vw, 48px); line-height: 1.05; font-weight: 1000; letter-spacing: -1.5px; color: var(--text-primary); overflow-wrap: break-word; word-break: break-word; }
   .result-rank { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--text-secondary); font-size: 13px; margin-top: 6px; }
   .result-rank b { color: var(--hupu-red); font-size: 22px; }
-  .result-body { padding: 14px 18px 18px; }
-  .result-title { font-size: 18px; font-weight: 1000; margin-bottom: 6px; color: var(--text-primary); }
+  .result-body { padding: 14px 16px 18px; }
+  .result-title { font-size: 15px; font-weight: 1000; margin-bottom: 6px; color: var(--text-primary); line-height: 1.4; overflow-wrap: break-word; word-break: break-word; }
   .comment { color: var(--text-secondary); line-height: 1.65; font-size: 14px; }
   .offer-list { display: flex; gap: 6px; flex-wrap: wrap; margin: 12px 0 0; }
   .reaction { margin-top: 12px; padding: 12px; border-radius: 14px; background: #fafafa; border: 1px solid var(--card-border); color: var(--text-secondary); line-height: 1.55; font-size: 13px; }
@@ -117,42 +121,68 @@
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   @media (max-width: 380px) {
-    .items { gap: 8px; }
-    .item { min-height: 88px; padding: 10px 4px 8px; }
-    .item-name { font-size: 11px; }
+    .items { gap: 6px; }
+    .item { min-height: 88px; padding: 8px 3px 6px; }
+    .item-name { font-size: 10px; min-height: 24px; }
+    .emoji { font-size: 22px; }
+  }
+  @media (max-width: 359px) {
+    .items { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .item { min-height: 82px; padding: 8px 6px 6px; }
+    .item-name { font-size: 11px; min-height: 26px; }
     .emoji { font-size: 24px; }
   }
   @media (max-height: 640px) {
-    .screen { padding-top: 10px; }
-    .hero { justify-content: flex-start; padding-top: 14px; }
-    .title { font-size: 34px; }
-    .fun-card { padding: 12px; margin-top: 4px; margin-bottom: 12px; }
-    .item { min-height: 84px; }
+    .screen { padding-top: 8px; padding-left: 10px; padding-right: 10px; }
+    .hero { justify-content: flex-start; padding-top: 10px; }
+    .title { font-size: 30px; }
+    .fun-card { padding: 10px; margin-top: 4px; margin-bottom: 10px; }
+    .items { gap: 6px; padding-bottom: 80px; }
+    .item { min-height: 78px; padding: 6px 3px 5px; }
+    .item-name { font-size: 10px; min-height: 22px; }
+    .emoji { font-size: 20px; }
   }
+
+  /* ─── 海报预览弹窗 ─── */
+  #posterOverlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:100;display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px;}
+  #posterOverlay.active{display:flex;}
+  #posterOverlay img{max-width:100%;max-height:80vh;border-radius:12px;box-shadow:0 0 40px rgba(124,58,237,.3);object-fit:contain;}
+  #posterOverlay .poster-actions{display:flex;flex-direction:column;gap:10px;width:100%;max-width:340px;margin-top:20px;}
+  #posterOverlay .poster-actions button{width:100%;padding:14px;border:none;border-radius:50px;font-size:1em;font-weight:700;cursor:pointer;font-family:inherit;}
+  #posterOverlay .btn-share{background:linear-gradient(135deg,#e0232b,#ff6b35);color:#fff;}
+  #posterOverlay .poster-close{background:rgba(255,255,255,.1);color:#888;margin-top:4px;}
+  .btn-poster{width:min(340px,92vw);padding:14px 20px;border:none;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;transition:transform .2s,opacity .2s;}
+  .btn-poster:hover{opacity:.9;}
+  .btn-poster:active{transform:scale(0.95);}
+  .spinner{width:24px;height:24px;border:3px solid rgba(255,255,255,.2);border-top-color:#a855f7;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;vertical-align:middle;margin-right:8px;}
+  @keyframes spin{to{transform:rotate(360deg);}}
 </style>
+<script src="https://gosspublic.alicdn.com/aliyun-oss-sdk-6.17.1.min.js"></script>
+<script src="https://activity-static.hoopchina.com.cn/colorbox-activities/js/kaleido-fed-sdk.js"></script>
 </head>
 <body>
   <div class="app">
     <div class="hupu-header">
       <img src="https://i3.hoopchina.com.cn/newsPost/de00f9a83014c2b3196d831d4be1adb9_w_300_h_300_.png" alt="虎扑">
-      <span>虎扑 · NBA离谱交易</span>
+      <span>虎扑 · NBA离谱报价</span>
     </div>
     <section id="startScreen" class="screen active">
       <div class="hero">
         <div class="badge">🏀 NBA报价整活</div>
         <h1 class="title"><span>离谱报价</span><span class="highlight">模拟器</span></h1>
-        <p class="subtitle">用各种离谱道具凑成交易筹码，看看你到底能换来哪位NBA球星。</p>
+        <p class="subtitle">用各种离谱道具凑成报价筹码<br>看看你到底能换来哪位NBA球星</p>
         <div class="fun-card">
-          <div class="fax"><div class="fax-icon"><img src="https://i3.hoopchina.com.cn/newsPost/de00f9a83014c2b3196d831d4be1adb9_w_300_h_300_.png" alt="H"></div><div>交易热线已接通<br><small style="color:var(--text-secondary);font-weight:700;">最多选择 3 样道具组成筹码包</small></div></div>
-          <div class="quote">选的道具指向同一个人越明确，就越容易换到他！指向多人则随机抽选，主打一个抽象整活。</div>
+          <div class="fax"><div class="fax-icon">☎️</div><div>报价热线已接通<br><small style="color:var(--text-secondary);font-weight:700;">最多选择 3 样道具组成筹码包</small></div></div>
+          <div class="quote"></div>
         </div>
-        <button class="primary-btn" onclick="goPick()">立即开始交易</button>
+        <button class="primary-btn" onclick="goPick()">立即开始报价</button>
+        <button class="ghost-btn" onclick="window.ColorboxAI?.navigateTo('huputiyu://bbs/topicTag?tagId=147772')" style="margin-top:10px;width:min(340px,92vw);">查看其他JRs的离谱报价</button>
       </div>
     </section>
 
     <section id="pickScreen" class="screen">
       <div class="topbar">
-        <div class="page-title">选择交易筹码</div>
+        <div class="page-title">选择报价筹码</div>
         <div class="limit"><span id="countText">0</span>/3</div>
       </div>
 
@@ -169,39 +199,54 @@
 
       <div class="bottom-bar">
         <button class="ghost-btn" onclick="goStart()">返回</button>
-        <button class="primary-btn" onclick="submitOffer()">发送交易</button>
+        <button class="primary-btn" onclick="submitOffer()">发送报价</button>
       </div>
     </section>
 
     <section id="loadingScreen" class="screen">
       <div class="loading">
         <div class="loader">🏀</div>
-        <h2 class="dots">正在拨通交易热线</h2>
+        <h2 class="dots">正在拨通报价热线</h2>
         <p id="loadingText">正在等待对方总经理回复</p>
       </div>
     </section>
 
     <section id="resultScreen" class="screen">
+      <div class="topbar" style="flex-shrink:0">
+        <div class="page-title">报价结果</div>
+        <button class="ghost-btn" onclick="goPick(true)">再试一次</button>
+      </div>
+      <canvas id="posterCanvas" style="display:none"></canvas>
       <div class="result-wrap">
-        <div class="topbar">
-          <div class="page-title">交易结果</div>
-          <button class="ghost-btn" onclick="goPick(true)">再试一次</button>
-        </div>
-
         <div class="result-card" id="resultCard">
           <div class="result-head">
-            <span id="specialTag" class="small-tag">🏀 交易达成</span>
-            <div id="playerName" class="player-name">---</div>
+            <div class="player-portrait" id="playerPortrait">
+              <span id="portraitPlaceholder" style="font-size:40px">🏀</span>
+            </div>
+            <div class="result-head-inner">
+              <div id="playerName" class="player-name">---</div>
+            </div>
           </div>
           <div class="result-body">
             <div id="resultTitle" class="result-title">---</div>
             <div id="comment" class="comment">---</div>
             <div id="resultOfferList" class="offer-list"></div>
             <div id="reaction" class="reaction">---</div>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px;align-items:center;">
+              <button class="btn-poster" onclick="generatePoster()">📷 生成海报</button>
+            </div>
           </div>
         </div>
       </div>
     </section>
+    <!-- 海报预览弹窗 -->
+    <div id="posterOverlay">
+      <img id="posterPreviewImg" alt="海报预览">
+      <div class="poster-actions">
+        <button class="btn-share" onclick="sharePoster(this)">📤 一键发帖</button>
+        <button class="poster-close" onclick="closePoster()">关闭</button>
+      </div>
+    </div>
   </div>
 
   <div id="toast" class="toast">已复制</div>
@@ -215,33 +260,33 @@
       { id: 'malcolmx', name: '马尔科姆X自传', emoji: '📖', players: ['詹姆斯'] },
       { id: 'godfather', name: '教父三部曲影碟片', emoji: '🎬', players: ['詹姆斯'] },
       { id: 'cold', name: '999感冒灵', emoji: '💊', players: ['詹姆斯', '韦德', '诺维茨基'] },
-      { id: 'condom', name: '杰士邦超薄001', emoji: '🛡️', players: ['小波特', '哈登', '爱德华兹'] },
+      { id: 'condom', name: '杰士邦超薄001', emoji: '☔', players: ['小波特', '哈登', '爱德华兹'] },
       { id: 'horse', name: '一匹顶级赛马', emoji: '🐎', players: ['约基奇'] },
       { id: 'scooter', name: '小牛电动车', emoji: '🛵', players: ['哈登'] },
       { id: 'wine', name: '小杨哥直播间绝版红酒', emoji: '🍷', players: ['哈登'] },
       { id: 'popcorn', name: '爆米花畅吃', emoji: '🍿', players: ['库里'] },
       { id: 'golf', name: '高尔夫球场', emoji: '⛳', players: ['库里'] },
       { id: 'egg', name: '鸡蛋灌饼', emoji: '🌮', players: ['周琦'] },
-      { id: 'rtx4090', name: '顶配RTX4090', emoji: '🖥️', players: ['戴维斯', '乔治', '西蒙斯', '布克', '东契奇', '海沃德'] },
+      { id: 'rtx4090', name: '顶配RTX4090', emoji: '🎮', players: ['戴维斯', '乔治', '西蒙斯', '布克', '东契奇', '海沃德'] },
       { id: 'gloves', name: '拳击手套', emoji: '🥊', players: ['追梦格林', '朱芳雨', '保罗', '隆多'] },
-      { id: 'whistle', name: '金哨子', emoji: '🎺', players: ['亚历山大', '恩比德', '哈登', '东契奇'] },
+      { id: 'whistle', name: '丐帮棍法秘籍', emoji: '📕', players: ['亚历山大', '恩比德', '哈登', '东契奇'] },
 
-      { id: 'floor', name: '分区决赛地板', emoji: '🏟️', players: ['恩比德', '保罗', '米切尔'] },
+      { id: 'floor', name: '分区决赛地板', emoji: '🏀', players: ['恩比德', '保罗', '米切尔'] },
       { id: 'hairline', name: '发际线粉', emoji: '🧂', players: ['杰伦布朗'] },
       { id: 'threebody', name: '三体全集', emoji: '📚', players: ['文班亚马'] },
-      { id: 'detail', name: "科比的《Detail》全集", emoji: '🎥', players: ['曼巴门徒们'] },
-      { id: 'shoes', name: '小一号的球鞋', emoji: '👟', players: ['杜兰特'] },
+      { id: 'detail', name: "科比的《Detail》全集", emoji: '🎥', players: ['亚历山大'] },
       { id: 'dna', name: '和乔丹的亲子鉴定书', emoji: '📜', players: ['爱德华兹', '巴特勒', '基恩-埃利斯'] },
+      { id: 'ring', name: '一枚真正的戒指', emoji: '💍', players: ['哈登', '恩比德', '威斯布鲁克'] },
       { id: 'suit', name: '顶级男士西装', emoji: '👔', players: ['伦纳德'] },
-      { id: 'poker', name: '德州扑克24小时畅打', emoji: '♠️', players: ['巴特勒', '内马尔'] },
+      { id: 'poker', name: '德州扑克24小时畅打', emoji: '🃏', players: ['巴特勒', '内马尔'] },
 
       { id: 'burger', name: 'BurgerKing豪华套餐', emoji: '🍔', players: ['东契奇', '约基奇', '蔡恩'] },
       { id: 'coke', name: '2.5升大可乐', emoji: '🥤', players: ['约基奇'] },
       { id: 'murray', name: '默里的珍贵影像资料', emoji: '📀', players: ['随机'] },
       { id: 'fishing', name: '顶级钓鱼竿', emoji: '🎣', players: ['保罗乔治', '西蒙斯'] },
-      { id: 'wrestling', name: '摔角狂热门票', emoji: '🎪', players: ['哈利伯顿', '恩比德'] },
+      { id: 'wrestling', name: 'WWE摔角狂热头排门票', emoji: '🎪', players: ['哈利伯顿', '恩比德'] },
       { id: 'nykey', name: '纽约荣誉市长头衔', emoji: '🗽', players: ['特雷-杨'] },
-      { id: 'shaolin', name: '少林寺免费十日游', emoji: '⛩️', players: ['戈贝尔', '切特', 'SGA'] },
+      { id: 'shaolin', name: '少林寺免费十日游', emoji: '🛕', players: ['戈贝尔', '切特', '亚历山大'] },
       { id: 'highbbiq', name: '高球商的头脑', emoji: '🧠', players: ['西蒙斯', '怀斯曼', '普尔'] },
       { id: 'hairstylist', name: '顶级发型设计师', emoji: '💇', players: ['巴特勒', '卡斯尔', '詹姆斯'] },
       { id: 'bathwater', name: '斯嘉丽的洗澡水', emoji: '🛁', players: ['杜兰特'] },
@@ -273,10 +318,60 @@
     }
     const ALL_PLAYERS = getAllNormalPlayers();
 
+    // ========== 球员头像图床链接（请替换为实际图片地址） ========== 
+    // 使用格式：'球员名': 'https://你的图床域名/图片.jpg',
+    // 不设置或留空则显示 🏀 占位
+    // 可设置 default 作为未单独配置球员的默认头像
+    const playerImages = {
+      default: '',
+
+      '东契奇': 'https://i11.hoopchina.com.cn/editor/76b11c4fe7568c6e624bfd7bdc87d117_w_1040_h_760_.png',
+      '乔治': 'https://i5.hoopchina.com.cn/editor/6cee910a137d63768d04743a603de7e1_w_1040_h_760_.png',
+      '亚历山大': 'https://i5.hoopchina.com.cn/editor/a1a04f8498b86a7d565659fcbf872047_w_1040_h_760_.png',
+      '伦纳德': 'https://i11.hoopchina.com.cn/editor/f8b4d0019b849ac0fd50a5f31b69ab3a_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',
+      '保罗': 'https://i5.hoopchina.com.cn/newsPost/3d20cd75055c519ec91c518a57ef125b_w_1040_h_760_.png',
+      '保罗乔治': 'https://i5.hoopchina.com.cn/editor/6cee910a137d63768d04743a603de7e1_w_1040_h_760_.png',
+      '内马尔': 'https://i1.hoopchina.com.cn/newsPost/56f80851fefb8228dcbcd0f0d45e3f41_w_350_h_350_.jpeg',
+      '切特': 'https://i1.hoopchina.com.cn/editor/5a79e49b9d5dcada136c847d73d1a00d_w_1040_h_760_.png',
+      '卡斯尔': 'https://i1.hoopchina.com.cn/editor/7f419a4d7849b37f8eb8b7eb3c653906_w_1040_h_760_.png',
+      '周琦': 'https://i3.hoopchina.com.cn/newsPost/e975e20438842464cf48719b64695fd9_w_1040_h_760_.jpeg',
+      '哈利伯顿': 'https://i5.hoopchina.com.cn/editor/11533547ffd921301f450057da89a961_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',
+      '哈登': 'https://i5.hoopchina.com.cn/newsPost/6e0fe3db7d0cd238195b525de2afae58_w_1040_h_760_.png',
+      '基恩-埃利斯': 'https://i1.hoopchina.com.cn/editor/832c5dae04ad9d90d25c3643f645866e_w_1040_h_760_.png',
+      '威斯布鲁克': 'https://i3.hoopchina.com.cn/editor/6cc176f93893f527e1c9fdace221e423_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',
+      '小波特': 'https://i10.hoopchina.com.cn/editor/fa2b12b4ddf526d03cff3e84fa5087ed_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',
+      '巴特勒': 'https://i10.hoopchina.com.cn/editor/bee7807f3bfccbaefcdfe4917ccf1e40_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',
+      '布克': 'https://i3.hoopchina.com.cn/editor/c36e98f9f60697039fb458fa0c2d989d_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',
+      '库里': 'https://i11.hoopchina.com.cn/editor/2ed0a8f59423eaa15146f6cb86eaf2cd_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',
+      '德罗赞': 'https://i3.hoopchina.com.cn/editor/bccf943a2a22270b5e6fba44311deb82_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',
+      '怀斯曼': 'https://i3.hoopchina.com.cn/newsPost/fddc544e4d00fbbbb96b4bf537eea78a_w_1040_h_760_.png',
+      '恩比德': 'https://i10.hoopchina.com.cn/editor/c106a38bdee12a4c49130dde8c4107e4_w_1040_h_760_.png',
+      '戈贝尔': 'https://i1.hoopchina.com.cn/editor/a7020bc2708774efb428d81faa446720_w_1040_h_760_.png ',
+      '戴维斯': 'https://i11.hoopchina.com.cn/editor/4e2fc522a87e0cbb1da2530ef60a22c0_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',
+      '文班亚马': 'https://i5.hoopchina.com.cn/editor/355a40d5555305ab7e1a0aaf0583961e_w_1040_h_760_.png ',
+      '普尔': 'https://i10.hoopchina.com.cn/editor/4ba6801fcf3dc26de83110903efb192c_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',
+
+      '朱芳雨': 'https://i5.hoopchina.com.cn/newsPost/d2a7d9783c4d1edc03e135958c0579ef_w_296_h_385_.png',
+      '杜兰特': 'https://i11.hoopchina.com.cn/editor/a6f101d22587146cb83652d4056fe08e_w_1040_h_760_.png',
+      '杰伦布朗': 'https://i10.hoopchina.com.cn/editor/21fb7f63790bc84e0046d6d17d8604d6_w_1040_h_760_.png',
+      '海沃德': 'https://i10.hoopchina.com.cn/editor/459554a53494238929b901c299326e7a_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',
+      '爱德华兹': 'https://i3.hoopchina.com.cn/editor/fe2f50e37db5859d03c8c8764c215578_w_1040_h_760_.png',
+      '特雷-杨': 'https://i3.hoopchina.com.cn/editor/49470908e672dc8c10c0a2501eca3cb0_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',
+      '米切尔': 'https://i3.hoopchina.com.cn/editor/25e33208569d1a6f9f68f7ef2dceb497_w_1040_h_760_.png',
+      '约基奇': 'https://i11.hoopchina.com.cn/editor/f350578222002fab0a0327313993d348_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',
+      '蔡恩': 'https://i3.hoopchina.com.cn/editor/0509e735f6cf1d699290c10d44bd1828_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',
+      '西蒙斯': 'https://i1.hoopchina.com.cn/editor/cd1c965116bd7337e7fca3aab20a8e76_w_1040_h_760_.webp?x-oss-process=image/resize,w_800/format,webp',
+      '詹姆斯': 'https://i1.hoopchina.com.cn/newsPost/ed8ffcdbfd3fbf7eddceab1e074c460a_w_1040_h_760_.png',
+      '诺维茨基': 'https://i1.hoopchina.com.cn/editor/a8b4495725fcc64a87349a857533c076_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',
+      '追梦格林': 'https://i1.hoopchina.com.cn/editor/c4cf23d04f4d81458e4ca705d0d9e528_w_1040_h_760_.png?x-oss-process=image/resize,w_800/format,webp',
+      '隆多': 'https://i3.hoopchina.com.cn/editor/d90c6735bce3e40483200acdbb949bfb_w_1040_h_760_.webp?x-oss-process=image/resize,w_800/format,webp',
+      '韦德': 'https://i3.hoopchina.com.cn/editor/3eb621a1b7b82a43fd065a0a9dda995f_w_1040_h_760_.webp?x-oss-process=image/resize,w_800/format,webp'
+    };
+
     // ========== 随机池 ==========
     const randomThresholds = [
-      { min: 0, max: 1, label: '边缘人', players: ['周琦', '切特', '威斯布鲁克', '杰伦布朗', '曼巴门徒们', '伦纳德', '基恩-埃利斯', '卡斯尔'] },
-      { min: 2, max: 2, label: '潜力股', players: ['文班亚马', '爱德华兹', '哈利伯顿', '亚历山大', '米切尔', '布克', '蔡恩', 'SGA'] },
+      { min: 0, max: 1, label: '边缘人', players: ['周琦', '切特', '威斯布鲁克', '杰伦布朗', '伦纳德', '基恩-埃利斯', '卡斯尔'] },
+      { min: 2, max: 2, label: '潜力股', players: ['文班亚马', '爱德华兹', '哈利伯顿', '亚历山大', '米切尔', '布克', '蔡恩'] },
       { min: 3, max: 3, label: '全明星', players: ['戴维斯', '巴特勒', '乔治', '西蒙斯', '保罗乔治', '保罗', '隆多', '特雷-杨', '德罗赞', '海沃德', '小波特', '戈贝尔'] },
       { min: 4, max: 4, label: '超级巨星', players: ['东契奇', '恩比德', '库里', '杜兰特', '约基奇', '哈登'] },
       { min: 5, max: 5, label: '传奇', players: ['詹姆斯', '韦德', '诺维茨基'] }
@@ -294,15 +389,29 @@
     }
 
     function goStart() { showScreen('startScreen'); }
+
+    // Fisher-Yates 洗牌算法
+    function shuffleArray(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    let shuffledItems = [];
+
     function goPick(reset = false) {
       if (reset) selected.clear();
+      shuffledItems = shuffleArray(items);
       showScreen('pickScreen');
       renderItems();
       updateOffer();
     }
 
     function renderItems() {
-      $('items').innerHTML = items.map(item => {
+      $('items').innerHTML = shuffledItems.map(item => {
         const isSelected = selected.has(item.id);
         const isDisabled = !isSelected && selected.size >= MAX_SELECT;
         const playerTags = item.players.map(p =>
@@ -320,7 +429,7 @@
     function toggleItem(id) {
       if (selected.has(id)) selected.delete(id);
       else {
-        if (selected.size >= MAX_SELECT) return toast('最多只能选 3 样道具');
+        if (selected.size >= MAX_SELECT) return toast('最多只能选3样道具');
         selected.add(id);
       }
       renderItems();
@@ -375,7 +484,7 @@
     function submitOffer() {
       if (!selected.size) return toast('先放点东西进去');
       showScreen('loadingScreen');
-      const texts = ['正在拨通总经理热线', '正在翻阅球员交易记录', 'Woj正在核实消息', 'Shams正在跟进'];
+      const texts = ['正在拨通总经理热线', '正在翻阅球员报价记录', '虎扑小编正在核实', 'Shams正在跟进'];  
       let idx = 0;
       $('loadingText').textContent = texts[0];
       const timer = setInterval(() => {
@@ -424,7 +533,7 @@
       '这盒药见证了NBA历史上最著名的咳嗽事件。对方总经理：你是来交易还是来揭伤疤的？...行吧，你赢了。'
     ], ['{player}：我看到这盒药就想起2011年，然后我就笑了。你们知道后果的。', '詹姆斯：能不能别提这件事了？韦德：是他提的，不是我。', '库班：这盒药我要裱起来！这是小牛队史上最重要的药品！']);
 
-    addStory('condom', '🛡️', [
+    addStory('condom', '☂️', [
       '杰士邦超薄001——交易市场上的硬通货。安全第一，快乐第二，篮球第三。对方的年轻球员看了直接脸红。',
       '用安全套做交易筹码？对方总经理推了推眼镜：很有创意。但你能不能用点正经的？...算了，我签。',
       '超薄001出现在筹码包里，整个会议室的气氛突然变得微妙起来。有人笑了，有人沉默了，有人签了字。',
@@ -473,7 +582,7 @@
       '这不是一张普通的灌饼——这是中国篮球的希望，是无数个街球场的清晨，是一个大魔王的青春。'
     ], ['{player}：加两个蛋！加一根肠！我的早餐有着落了！', '火箭食堂阿姨：原来他每天早饭想吃这个？我当年怎么不知道！', 'CBA官方：即日起所有食堂新增鸡蛋灌饼窗口。王哲林：我也要！']);
 
-    addStory('rtx4090', '🖥️', [
+    addStory('rtx4090', '�', [
       '顶配RTX4090——当代NBA球员的硬通货。管你多大牌的球星，看到4090就走不动路。游戏玩家の终极梦想。',
       '用4090换人？对方总经理：你以为我们队都是网瘾少年吗？...把配置单发我看看。',
       'RTX4090一出现，三个球员同时举了手。交易谈判桌变成了网吧开黑现场。',
@@ -487,13 +596,12 @@
       '这副手套见证了NBA历史上最著名的训练场冲突。现在它成了一笔交易的筹码。历史总是惊人地相似。'
     ], ['{player}：拳套不错，但我要再加一个麦克风。我的播客不能停。', '我看到这副手套PTSD了。能不能换个别的筹码？', '科尔：我不同意这笔交易——除非{player}保证不用这副手套。']);
 
-    addStory('whistle', '🎺', [
-      '金哨子——裁判听了都嫉妒。{player}看了直接伸手：以后我自己吹犯规，不用麻烦裁判了。',
-      '用哨子换人？对方总经理：你是暗示我们队造犯规太多了吗？...确实是，成交！',
-      '金哨子一吹，整个球馆都安静了。不是球赛开始了，是交易谈妥了。',
-      '这只哨子的魔力在于：吹一声是犯规，吹两声是交易达成，吹三声是{player}在罚球。'
-    ], ['{player}：这哨子归我了！以后我自己吹！场均30罚不是梦！', '裁判工会：强烈抗议这种非官方的哨子出现在交易中！', '{player}：我也要一个！我的倒地需要配BGM！']);
-
+    addStory('whistle', '📕', [
+      '丐帮棍法秘籍——{player}看完仰天长叹：我要是在街头要饭时学会这招，何愁没饭吃！',
+      '丐帮棍法秘籍——{player}拿着碗和棍子上场了：以前要饭，现在要球权！战术地位就是这么讨来的。',
+      '丐帮棍法秘籍——自从{player}开始练习，球队食堂的剩饭都不够分了。助教：他一个人能要三份！',
+      '丐帮棍法秘籍——{player}在场上边跑边喊：行行好，给个助攻吧！队友：你这丐帮打法我们跟不上啊！'
+    ], ['{player}：我从不要饭，我只要球！...不过要是管饭的话也可以。', '食堂阿姨：{player}今天又来了，给他多打一勺吧，毕竟丐帮的。', '对手教练：对面那打法怎么跟要饭似的？哦，原来真是丐帮的。']);
     addStory('shaolin', '⛩️', [
       '少林寺免费十日游——{player}看了直接订机票：终于有机会去中国学习了！铁山靠配少林功夫，天下无敌。',
       '用少林寺十日游换人？{player}：我这身板去少林寺练完回来是不是就能增重30斤？方丈：看造化。',
@@ -514,6 +622,38 @@
       '顶级发型设计师一出现，{player}拿起了手机：我每年花几百万保养头发，这个设计师我收了。',
       '这笔交易的重点不是球员，而是发型。一个好的发型等于半管属性加成——精神Buff。'
     ], ['{player}：发型不能乱！硬汉也要有型！', '{player}：新秀赛季三大任务：打球、发型、社交媒体。', '{player}：我已经秃了，但我还能变强。发型师：我可以帮你植发。{player}：成交！']);
+
+    // 部分道具的球员专属文案覆盖
+    const playerSpecificLines = {
+      hairstylist: {
+        '詹姆斯': {
+          lines: [
+            '顶级发型设计师——詹皇的专属剃头师。有没有发型无所谓，但光头必须锃亮！这就是统治力的象征。',
+            '用发型设计师换詹姆斯？对方总经理：他都秃了还要发型师？詹姆斯：你懂什么！光头也要精致！',
+            '顶级发型设计师一出现，詹姆斯摸了摸光头：来吧，给我剃个最亮的头，我要在场上反光晃晕对手。',
+            '这笔交易的重点是让詹姆斯的头光亮到能当灯泡用——每场多一个助攻就算回本了。'
+          ],
+          reacts: [
+            '詹姆斯：剃光头是我做过最好的决定——等等，我本来就没头发。设计师：那我给你抛光一下。',
+            '浓眉：哥，你头好亮。詹姆斯：这叫王者之光。',
+            '虎扑JRs：这发型师是给詹姆斯剃头的，不是给他植发的！'
+          ]
+        },
+        '卡斯尔': {
+          lines: [
+            '顶级发型设计师——卡斯尔的抓发师。这头发太滑了根本抓不住！就像他在场上的第一步一样丝滑。',
+            '用发型设计师换卡斯尔？卡斯尔：我这头发抓不住啊！每次想抓都滑掉，就像我想抓篮板但手滑一样。',
+            '顶级发型设计师一出现，卡斯尔指了指头顶：能帮我设计一个抓得住的发型吗？我现在头发太滑了。',
+            '这笔交易的重点不是造型，而是解决卡斯尔的世纪难题——如何让头发能被手抓住。'
+          ],
+          reacts: [
+            '卡斯尔：这头发太滑了，抓不住！设计师：那我给你烫个方便面头。',
+            '新秀队友：你的头发为什么这么滑？卡斯尔：因为我的球风更滑。',
+            '马刺教练组：卡斯尔终于解决了抓不住的问题——虽然我们说的是头发。'
+          ]
+        }
+      }
+    };
 
     addStory('floor', '🏟️', [
       '分区决赛地板——{player}看到这块地板沉默了。那是每个球员的终极梦想——摸到分区决赛的地板。',
@@ -537,18 +677,18 @@
     ], ['{player}：刘慈欣老师，第二部什么时候出？我要带回三体星。', 'NBA药检官：我建议对所有看过《三体》的球员进行药检。', '波波维奇：他的臂展比这本书的页数还长。我怎么量？我够不着！']);
 
     addStory('detail', '🎥', [
-      '科比的《Detail》全集——曼巴门徒们的圣物。{player}看到直接请假：教练我要看完再回来训练！',
+      '科比的《Detail》全集——曼巴精神的圣物。{player}看到直接请假：教练我要看完再回来训练！',
       '用《Detail》全集换人？这已经不是交易了，这是传教。{player}：地球是平的，但科比的脚步是立体的。',
       '这套录像带的价值无法用金钱衡量。它是凌晨四点的洛杉矶，是曼巴精神的实体化。',
       '《Detail》出现在交易桌上，所有人都站了起来。不是因为惊讶，而是因为尊重。曼巴永存。'
     ], ['{player}：已请假三天。看完《Detail》之前不回来。', '{player}：我看到这个的时候，地球颤抖了一下——不是因为地震，是因为曼巴精神。', '{player}：中投训练加十组！老大在天上看着我！']);
 
-    addStory('shoes', '👟', [
-      '小一号的球鞋——杜兰特专属。为什么是小一号？因为KD的脚和身高不成正比，就像他的社交媒体小号一样。',
-      '用一双小鞋换杜兰特？杜兰特：你是在暗示我脚小还是暗示我用小号？不管了，反正这鞋我能穿。',
-      '小一号的球鞋出现在交易里，KD小号第一时间发帖：这鞋码很准，好评！——来自一个"普通篮球爱好者"。',
-      '这双鞋的背后，是一个关于脚和小号的悲伤故事。但KD穿得挺开心的。'
-    ], ['杜兰特小号：这鞋不错，我替KD收了。——不是本人。', '耐克：我们真的不做小一号的鞋。杜兰特：你们现在做了。', '格林：你来之前我们就有小号鞋了——等等，我是不是说错话了？']);
+    addStory('ring', '💍', [
+      '一枚真正的戒指——{player}看了直接放下酒杯：是总冠军戒指吗？不是？那我不签。等等，钻戒也行！',
+      '用戒指换{player}？{player}：我有MVP，有得分王，就差这枚戒指了！季后赛我可以不那么拼，只要你给我这枚戒指！',
+      '一枚戒指出现在交易桌上，{player}的眼睛亮了：我走南闯北，就差一枚戒指来圆梦了！',
+      '这枚戒指的价值不在于它有多闪，而在于它能圆一个超巨的终极梦想——毕竟什么都拿过了，就差一个戒指。'
+    ], ['{player}：这戒指是打中锋换的吗？不是？那也行。', '{player}：有了这枚戒指，我就可以安心退役了——等等，再来一年。', '{player}：下一个问题——关于这枚戒指？下一个问题。']);
 
     addStory('dna', '📜', [
       '和乔丹的亲子鉴定书——{player}看了直接发Instagram：妈！我是不是乔丹的儿子？！我妈：不是。',
@@ -604,7 +744,7 @@
     ], ['{player}：好竿！比冠军戒指还实用！', '{player}：我终于找到了人生目标——钓鱼。什么？篮球？顺便打打。', '威少：钓鱼带我一个！我可以在水上拿三双！']);
 
     addStory('wrestling', '🎪', [
-      '摔角狂热门票——{player}的快乐源泉。比NBA比赛刺激多了！毕竟摔角不用打82场常规赛。',
+      'WWE摔角狂热头排门票——{player}的快乐源泉。比NBA比赛刺激多了！毕竟摔角不用打82场常规赛。',
       '用摔角门票换人？{player}：比我的no-look pass还精彩！成交！我现在就去看！',
       '摔角门票出现在交易桌上，意味着这笔交易充满了娱乐精神。毕竟篮球和摔角都是表演艺术。',
       '{player}：我可以一边看摔角一边练传球。你们信不信？我从观众席能传到球场对面。'
@@ -683,25 +823,38 @@
       const selectedNames = selItems.map(i => `${i.emoji} ${i.name}`);
 
       // 根据选中的道具生成文案，并替换{player}为实际匹配的球员
-      const starItem = randomFrom(selItems);
+      // 只从关联了该球员的道具中选取，确保文案与球员匹配
+      const itemsForPlayer = selItems.filter(i => i.players.includes(player));
+      const starItem = (itemsForPlayer.length > 0 ? randomFrom(itemsForPlayer) : randomFrom(selItems)) || selItems[0] || items[0];
       const story = getItemStory(starItem.id);
+      // 检查是否有球员专属文案覆盖
+      const playerStory = playerSpecificLines[starItem.id]?.[player];
+      const finalLines = playerStory?.lines || story.lines;
+      const finalReacts = playerStory?.reacts || story.reacts;
       const itemListStr = selItems.map(i => i.name).join('、');
       function replacePlayer(text) { return text.replace(/\{player\}/g, player); }
 
       const titlePool = [
-        `你用了${itemListStr}换来了${player}！`,
-        `交易达成：${itemListStr} → ${player}`,
-        `离谱！${itemListStr}居然换到了${player}`,
-        `用${itemListStr}换${player}？这交易我打满分！`
+        `总经理含泪签字：用${itemListStr}换${player}？成交！`,
+        `对方经理后悔三天：${itemListStr}居然换走了${player}`,
+        `交易热线被打爆：${itemListStr}换${player}，速来围观！`,
+        `虎扑JR全体起立！${itemListStr}拿下${player}！`,
+        `离谱！用${itemListStr}换到${player}，这波能吹十年`,
+        `谈判桌拍板！${player}收拾行李吧，${itemListStr}已到账`,
+        `${player}：我能换回${itemListStr}？还有这种好事？`,
+        `对方经理：${itemListStr}换${player}？...好吧成交`,
+        `Shams：重磅！${itemListStr}换来${player}！`,
+        `这是交易还是打劫？${itemListStr}竟换到${player}`,
+        `虎扑热搜第一：${itemListStr}换来${player}！`,
+        `${player}看到${itemListStr}，直接签字：我来了！`
       ];
 
       lastResult = {
         player,
         title: randomFrom(titlePool),
-        comment: replacePlayer(randomFrom(story.lines)),
-        reaction: replacePlayer(randomFrom(story.reacts)),
-        selectedNames,
-        tag: `${story.tag} ${player}`
+        comment: replacePlayer(randomFrom(finalLines)),
+        reaction: replacePlayer(randomFrom(finalReacts)),
+        selectedNames
       };
 
       renderResult();
@@ -709,12 +862,19 @@
 
     function renderResult() {
       const r = lastResult;
-      $('specialTag').textContent = r.tag;
       $('playerName').textContent = r.player;
       $('resultTitle').textContent = r.title;
       $('comment').textContent = r.comment;
       $('reaction').textContent = r.reaction;
       $('resultOfferList').innerHTML = r.selectedNames.map(name => `<span class="chip">${name}</span>`).join('');
+      // 更新头像
+      const imgUrl = playerImages[r.player] || playerImages.default;
+      const portrait = $('playerPortrait');
+      if (imgUrl) {
+        portrait.innerHTML = `<img crossorigin="anonymous" src="${imgUrl}" alt="${r.player}" onerror="this.innerHTML='<span style=\'font-size:40px\'>🏀</span>'">`;
+      } else {
+        portrait.innerHTML = `<span style="font-size:40px">🏀</span>`;
+      }
     }
 
     function toast(msg) {
@@ -725,9 +885,482 @@
       t._timer = setTimeout(() => t.classList.remove('show'), 2000);
     }
 
-    // 预渲染
+    // 预渲染（首次加载也打乱顺序）
+    shuffledItems = shuffleArray(items);
     renderItems();
     updateOffer();
+
+    // ─── 预加载虎扑logo供海报使用 ───
+    const hupuLogoImg = new Image();
+    hupuLogoImg.crossOrigin = 'anonymous';
+    hupuLogoImg.src = 'https://i3.hoopchina.com.cn/newsPost/de00f9a83014c2b3196d831d4be1adb9_w_300_h_300_.png';
+
+    // ═══════════════════════════════════════
+    //  海报生成 + 一键发帖
+    // ═══════════════════════════════════════
+
+    // ─── 全局 shim（KaleidoOSS 依赖） ───
+    window.require = window.require || function(name) {
+      if (name === 'ali-oss') return window.OSS;
+      if (name === '@hupu/kaleido-fed-sdk') return window.KaleidoOSS;
+      return null;
+    };
+    window.webGuard = window.webGuard || window.WebGuard || { hupuLog: function() {} };
+
+    // ─── 通过 Colorbox Bridge / 直连 OSS 上传 ───
+    let _ossClient = null;
+    function getOssClient() {
+      if (_ossClient) return _ossClient;
+      const K = window.KaleidoOSS || (typeof require === 'function' ? require('@hupu/kaleido-fed-sdk') : null);
+      if (K) {
+        _ossClient = new K({
+          appId: 'b1AcxWKA1u0hyDYv5kXgImZBRSQ=',
+          module: 'activity-screenshot-fed',
+          path: '/screenshot/activity/fed',
+          sk: 'HioGpkmGe9bsW0iqRLJEyGoLr4Q=',
+          action: '1',
+        });
+        if (typeof _ossClient.start === 'function') _ossClient.start();
+      }
+      return _ossClient;
+    }
+
+    function uploadToOSS(file, filename) {
+      return new Promise((resolve, reject) => {
+        // 1) ColorboxAI API
+        if (window.ColorboxAI && window.ColorboxAI.oss && typeof window.ColorboxAI.oss.uploadFile === 'function') {
+          window.ColorboxAI.oss.uploadFile({ file, filename })
+            .then(res => resolve(res.downloadUrl || ''))
+            .catch(reject);
+          return;
+        }
+        // 2) postMessage Bridge（作为 iframe 运行在 Colorbox Shell 中）
+        if (window.parent && window.parent !== window) {
+          const callbackId = '_cb_up_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+          const timer = setTimeout(() => { cleanup(); reject(new Error('上传超时')); }, 30000);
+          const handler = e => {
+            const d = e.data;
+            if (d && d.protocol === 'colorbox-ai-bridge' && d.type === 'oss.upload.callback' && d.payload && d.payload.callbackId === callbackId) {
+              clearTimeout(timer); cleanup();
+              d.payload.error ? reject(new Error(d.payload.error)) : resolve(d.payload.downloadUrl || '');
+            }
+          };
+          const cleanup = () => window.removeEventListener('message', handler);
+          window.addEventListener('message', handler);
+          window.parent.postMessage({
+            protocol: 'colorbox-ai-bridge', version: 1, direction: 'frame-to-host',
+            type: 'oss.upload',
+            payload: { file, filename, callbackId }
+          }, '*');
+          return;
+        }
+        // 3) 直连 KaleidoOSS（独立运行时）
+        const client = getOssClient();
+        if (client) {
+          const ext = filename.lastIndexOf('.') >= 0 ? filename.slice(filename.lastIndexOf('.')) : '.png';
+          const now = new Date();
+          const key = `user-upload/${(now.getFullYear() % 100)}${now.getMonth() + 1}${now.getDate()}-${Math.random().toString(36).slice(-6)}${ext}`;
+          client.multipartUpload(key, file, {})
+            .then(res => resolve(res.downloadUrl || `https://activity-static.hoopchina.com.cn/${res.name}`))
+            .catch(reject);
+          return;
+        }
+        // 4) 没有任何上传能力
+        reject(new Error('No upload capability'));
+      });
+    }
+
+    // ─── 工具：dataURL → Blob ───
+    function dataURLToBlob(dataURL) {
+      const parts = dataURL.split(',');
+      const mime = parts[0].match(/:(.*?);/)[1];
+      const bstr = atob(parts[1]);
+      const n = bstr.length;
+      const u8arr = new Uint8Array(n);
+      for (let i = 0; i < n; i++) u8arr[i] = bstr.charCodeAt(i);
+      return new Blob([u8arr], { type: mime });
+    }
+
+    // ─── 创建高清海报 canvas（2x 分辨率） ───
+    // 3:4 比例
+    const POSTER_W = 540, POSTER_H = 720, POSTER_SCALE = 2;
+
+    function createPosterCanvas() {
+      const canvas = document.getElementById('posterCanvas');
+      canvas.width = POSTER_W * POSTER_SCALE;
+      canvas.height = POSTER_H * POSTER_SCALE;
+      const ctx = canvas.getContext('2d');
+      ctx.scale(POSTER_SCALE, POSTER_SCALE);
+      drawPoster(ctx, POSTER_W, POSTER_H);
+      return canvas;
+    }
+
+    // ─── 辅助：圆角矩形 ───
+    function roundRectC(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h - r);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      ctx.lineTo(x + r, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+    }
+
+    // ─── 绘制海报（与 result-head + result-body 完全一致） ───
+    function drawPoster(ctx, w, h) {
+      const r = lastResult;
+      if (!r) return;
+
+      // ── 外层卡片 ──
+      const gapT = 100, gapB = 20;
+      const cardX = 0, cardY = gapT, cardW = w, cardH = h - gapT - gapB;
+      // 阴影
+      ctx.shadowColor = 'rgba(0,0,0,.12)';
+      ctx.shadowBlur = 20;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 6;
+      ctx.fillStyle = '#ffffff';
+      roundRectC(ctx, cardX, cardY, cardW, cardH, 22);
+      ctx.fill();
+      ctx.shadowColor = 'transparent';
+      ctx.shadowBlur = 0;
+      // 卡片边框
+      ctx.strokeStyle = '#e8e8e8';
+      ctx.lineWidth = 1;
+      roundRectC(ctx, cardX, cardY, cardW, cardH, 22);
+      ctx.stroke();
+
+      // ── 裁剪 ──
+      ctx.save();
+      roundRectC(ctx, cardX, cardY, cardW, cardH, 22);
+      ctx.clip();
+
+      // ════════════════════════════════════
+      //   result-head
+      // ════════════════════════════════════
+      const headPadL = 18, headPadR = 18, headPadT = 18, headPadB = 14;
+      const headX = cardX, headW = cardW;
+      // 动态计算 head 高度（由 portrait + name 决定）
+      const portW = 120, portH = 160;
+      const portOverlap = 0; // 头像完全在卡片内，不会被裁剪
+      const nameFontSize = 46; // clamp(28px, 10vw, 48px)
+      const nameLineH = nameFontSize * 1.05;
+      const nameMarginT = 10, nameMarginB = 6;
+      const nameH = nameMarginT + nameLineH + nameMarginB;
+      // head 内容区高度 = portrait 在 flow 中的高度 + padding
+      const portFlowH = portH - portOverlap; // 头像实际占据的流式高度
+      const headContentH = Math.max(nameH, portFlowH);
+      const headH = headPadT + headContentH + headPadB;
+      const headTop = cardY;
+      const headBottom = headTop + headH;
+
+      // head 背景（纯白）
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(headX, headTop, headW, headH);
+
+
+
+      // ── 头像（矩形+圆角，不下圆形裁剪） ──
+      const portLeft = headPadL;
+      const portTop = headTop + headPadT - portOverlap + 20; // 向下移20px
+      const portRadius = 16; // 圆角
+      // 头像阴影+圆角矩形底色
+      ctx.shadowColor = 'rgba(0,0,0,.20)';
+      ctx.shadowBlur = 20;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 10;
+      ctx.fillStyle = '#f0f0f0';
+      roundRectC(ctx, portLeft, portTop, portW, portH, portRadius);
+      ctx.fill();
+      // 圆角矩形裁剪绘制头像
+      ctx.save();
+      roundRectC(ctx, portLeft, portTop, portW, portH, portRadius);
+      ctx.clip();
+      ctx.shadowColor = 'transparent';
+      // 从 DOM 获取已加载的 img 元素
+      const domPortrait = document.getElementById('playerPortrait');
+      const domImg = domPortrait ? domPortrait.querySelector('img') : null;
+      if (domImg && domImg.complete && domImg.naturalWidth > 0) {
+        // object-fit: cover 效果：取中心区域
+        const iw = domImg.naturalWidth, ih = domImg.naturalHeight;
+        const cr = portW / portH;
+        const ir = iw / ih;
+        let sx, sy, sw, sh;
+        if (ir > cr) {
+          sh = ih;
+          sw = ih * cr;
+          sx = (iw - sw) / 2;
+          sy = 0;
+        } else {
+          sw = iw;
+          sh = iw / cr;
+          sx = 0;
+          sy = (ih - sh) / 2;
+        }
+        ctx.drawImage(domImg, sx, sy, sw, sh, portLeft, portTop, portW, portH);
+      } else {
+        // 兜底 emoji
+        ctx.font = '44px -apple-system,"PingFang SC","Microsoft YaHei",sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#1a1a1a';
+        ctx.fillText('🏀', portLeft + portW / 2, portTop + portH / 2 + 2);
+      }
+      ctx.restore(); // 解除头像裁剪
+      ctx.shadowColor = 'transparent';
+      ctx.shadowBlur = 0;
+
+      // ── 球员名称 ── 与头像底部对齐，gap:14px
+      const nameLeft = portLeft + portW + 14;
+      // 名称底部与 head 内容区底部对齐（减去 paddingBottom 后的底部）
+      const contentBottom = headBottom - headPadB;
+      const nameBaseline = contentBottom - nameMarginB; // 底部基线
+      ctx.fillStyle = '#1a1a1a';
+      ctx.font = 'bold 46px -apple-system,"PingFang SC","Microsoft YaHei",sans-serif';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'bottom';
+      ctx.fillText(r.player || '---', nameLeft, nameBaseline + 2);
+
+      // ════════════════════════════════════
+      //   result-body
+      // ════════════════════════════════════
+      const bodyPadL = 16, bodyPadR = 16, bodyPadT = 14, bodyPadB = 18;
+      const bodyX = cardX + bodyPadL;
+      const bodyY = headBottom + bodyPadT;
+      const bodyW = cardW - bodyPadL - bodyPadR;
+      let cursorY = bodyY;
+
+      // ── result-title ──
+      ctx.fillStyle = '#1a1a1a';
+      ctx.font = 'bold 20px -apple-system,"PingFang SC","Microsoft YaHei",sans-serif';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      const titleLines = breakText(ctx, r.title || '---', bodyW);
+      titleLines.forEach((line, i) => {
+        ctx.fillText(line, bodyX, cursorY + i * 28);
+      });
+      cursorY += titleLines.length * 28 + 10;
+
+      // ── comment ──
+      ctx.fillStyle = '#888';
+      ctx.font = '18px -apple-system,"PingFang SC","Microsoft YaHei",sans-serif';
+      const commentLines = breakText(ctx, r.comment || '---', bodyW);
+      commentLines.forEach((line, i) => {
+        ctx.fillText(line, bodyX, cursorY + i * 26);
+      });
+      cursorY += commentLines.length * 26 + 16;
+
+      // ── offer-list chips（水平排列，自动换行） ──
+      const chips = (r.selectedNames || []);
+      const chipH = 32;
+      const chipGap = 8;
+      const chipPadLR = 14;
+      const labelGap = 10;
+      const chipX = bodyX;
+      const maxChipRight = bodyX + bodyW;
+      ctx.font = 'bold 16px -apple-system,"PingFang SC","Microsoft YaHei",sans-serif';
+      // ── 报价筹码标签 ──
+      ctx.fillStyle = '#666';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      const labelText = '报价筹码';
+      const labelWidth = ctx.measureText(labelText).width;
+      const chipStartXBase = chipX + labelWidth + labelGap;
+      let chipStartX = chipStartXBase;
+      let chipCenterY = cursorY + chipH / 2;
+
+      // 先画标签（仅第一次）
+      ctx.fillText(labelText, chipX, chipCenterY);
+
+      // 固定布局：每行最多放 2 个 chip
+      const perRow = 2;
+      // 用 DOM 测量纯文本宽度 + emoji 固定宽度（兼容 iOS emoji 测量不准的问题）
+      const measurer = document.createElement('span');
+      measurer.style.cssText = 'position:fixed;left:-9999px;top:0;visibility:hidden;white-space:nowrap;font:bold 16px -apple-system,"PingFang SC","Microsoft YaHei",sans-serif';
+      document.body.appendChild(measurer);
+      const emojiRe = /\p{Emoji}/gu;
+      chips.forEach((name, idx) => {
+        const emojiCount = (name.match(emojiRe) || []).length;
+        const textOnly = name.replace(emojiRe, '').trim();
+        measurer.textContent = textOnly || ' ';
+        const textW = measurer.offsetWidth;
+        const chipW = textW + emojiCount * 22 + chipPadLR * 2;
+        const chipR = chipH / 2;
+
+        // 每行 perRow 个，换行重置
+        if (idx > 0 && idx % perRow === 0) {
+          cursorY += chipH + chipGap;
+          chipStartX = chipStartXBase;
+          chipCenterY = cursorY + chipH / 2;
+        }
+
+        // chip 背景（淡红渐变）
+        const grad = ctx.createLinearGradient(chipStartX, cursorY, chipStartX, cursorY + chipH);
+        grad.addColorStop(0, '#fecaca');
+        grad.addColorStop(1, '#fca5a5');
+        ctx.fillStyle = grad;
+        roundRectC(ctx, chipStartX, cursorY, chipW, chipH, chipR);
+        ctx.fill();
+
+        // chip 边框光晕
+        ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+        ctx.lineWidth = 1;
+        roundRectC(ctx, chipStartX, cursorY, chipW, chipH, chipR);
+        ctx.stroke();
+
+        // chip 文字
+        ctx.fillStyle = '#991b1b';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(name, chipStartX + chipW / 2, chipCenterY);
+
+        chipStartX += chipW + chipGap;
+      });
+      document.body.removeChild(measurer);
+      cursorY += chipH + 14;
+
+      // ── reaction ──
+      if (r.reaction) {
+        const reactW = bodyW;
+        // reaction 高度自适应
+        ctx.font = '17px -apple-system,"PingFang SC","Microsoft YaHei",sans-serif';
+        const reactLines = breakText(ctx, r.reaction, reactW - 24);
+        const lineH = 26;
+        const textH = Math.min(reactLines.length, 3) * lineH;
+        const reactPad = 12;
+        const reactH = textH + reactPad * 2;
+
+        ctx.fillStyle = '#fafafa';
+        roundRectC(ctx, bodyX, cursorY, reactW, reactH, 14);
+        ctx.fill();
+        ctx.strokeStyle = '#e8e8e8';
+        ctx.lineWidth = 1;
+        roundRectC(ctx, bodyX, cursorY, reactW, reactH, 14);
+        ctx.stroke();
+
+        ctx.fillStyle = '#888';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+        reactLines.slice(0, 3).forEach((line, i) => {
+          ctx.fillText(line, bodyX + reactPad, cursorY + reactPad + i * lineH);
+        });
+        cursorY += reactH + 14;
+      }
+
+      ctx.restore(); // 解除 clip
+
+      // ── 水印 ──
+      ctx.fillStyle = '#bbb';
+      ctx.font = '12px -apple-system,"PingFang SC","Microsoft YaHei",sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
+      ctx.fillText('NBA离谱报价模拟器 · 虎扑JRs出品', w / 2, h - 54);
+    }
+
+    // ─── 文字自动换行：返回行数组 ───
+    function breakText(ctx, text, maxWidth) {
+      if (!text) return [''];
+      const lines = [];
+      let line = '';
+      for (let i = 0; i < text.length; i++) {
+        const ch = text[i];
+        const test = line + ch;
+        if (ctx.measureText(test).width > maxWidth && line.length > 0) {
+          lines.push(line);
+          line = ch;
+        } else {
+          line = test;
+        }
+      }
+      if (line) lines.push(line);
+      return lines.length ? lines : [''];
+    }
+
+    // ─── 生成海报（预览） ───
+    function generatePoster() {
+      const canvas = createPosterCanvas();
+      const img = document.getElementById('posterPreviewImg');
+      img.src = canvas.toDataURL('image/png');
+      document.getElementById('posterOverlay').classList.add('active');
+    }
+
+    function closePoster() {
+      resetShareBtn();
+      document.getElementById('posterOverlay').classList.remove('active');
+    }
+
+    function resetShareBtn() {
+      const btn = document.querySelector('#posterOverlay .btn-share');
+      if (btn) { btn.disabled = false; btn.textContent = '📤 一键发帖'; }
+    }
+
+    // ─── 统一跳转工具 ───
+    function safeNavigate(url, target) {
+      if (window.ColorboxAI && typeof window.ColorboxAI.track === 'function') {
+        try { window.ColorboxAI.track({ event: 'navigate', url: url, target: target || '_blank' }); } catch (_) {}
+      }
+      if (window.ColorboxAI && typeof window.ColorboxAI.navigateTo === 'function') {
+        return window.ColorboxAI.navigateTo(url, target || '_blank');
+      }
+      if (window.ColorboxAI && typeof window.ColorboxAI.openUrl === 'function') {
+        return window.ColorboxAI.openUrl(url);
+      }
+      window.open(url, target || '_blank');
+    }
+
+    // ─── 一键发帖 ───
+    let _posterUploadPromise = null;
+
+    function sharePoster(btn) {
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span>上传中...';
+      const canvas = createPosterCanvas();
+      (async () => {
+        try {
+          const dataURL = canvas.toDataURL('image/png');
+          const blob = dataURLToBlob(dataURL);
+          const url = await uploadToOSS(blob, `NBA离谱报价_${Date.now()}.png`);
+          const imageUrl = url || '';
+          const initialValue = {
+            syncPost: true,
+            appJsonV3: {
+              activeTab: 'thread',
+              data: {
+                title: '',
+                imageList: imageUrl ? [imageUrl] : [],
+                content: '',
+              },
+            },
+          };
+          const tagName = encodeURIComponent('NBA离谱报价模拟器');
+          const link = `huputiyu://bbs/postImg?tagName=${tagName}&tagId=147772&topicName=${encodeURIComponent('湿乎乎的话题')}&topicId=177&initialValue=${encodeURIComponent(JSON.stringify(initialValue))}`;
+          safeNavigate(link);
+        } catch (e) {
+          console.error('发帖失败', e);
+          // 降级：不带图纯文字发帖
+          const initialValue = {
+            syncPost: true,
+            appJsonV3: {
+              activeTab: 'thread',
+              data: {
+                title: '',
+                imageList: [],
+                content: '',
+              },
+            },
+          };
+          const tagName = encodeURIComponent('NBA离谱报价模拟器');
+          const link = `huputiyu://bbs/postImg?tagName=${tagName}&tagId=147772&topicName=${encodeURIComponent('湿乎乎的话题')}&topicId=177&initialValue=${encodeURIComponent(JSON.stringify(initialValue))}`;
+          safeNavigate(link);
+        } finally {
+          btn.disabled = false;
+          btn.textContent = '📤 一键发帖';
+        }
+      })();
+    }
   </script>
 </body>
 </html>

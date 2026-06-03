@@ -1,0 +1,483 @@
+[
+  {
+    "team": "Atlanta Hawks",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Atlanta Hawks", "protection": "Unprotected", "note": ""},
+      {"year": 2027, "round": 2, "original_team": "Atlanta Hawks", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Atlanta Hawks", "protection": "Unprotected", "note": "Least favorable of ATL, CLE and UTA; other to CLE via ATL swap for CLE or UTA"},
+      {"year": 2028, "round": 1, "original_team": "Milwaukee Bucks", "protection": "Unprotected", "note": "Least favorable of MIL and NOP; other to NOP"},
+      {"year": 2028, "round": 2, "original_team": "Atlanta Hawks", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 1, "original_team": "Atlanta Hawks", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "Atlanta Hawks", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Atlanta Hawks", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Atlanta Hawks", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Atlanta Hawks", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Atlanta Hawks", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Boston Celtics",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Boston Celtics", "protection": "Unprotected", "note": ""},
+      {"year": 2027, "round": 2, "original_team": "Boston Celtics", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Boston Celtics", "protection": "Unprotected", "note": "If 1st pick → BOS owns; if 2-30 → SAS may swap with BOS (via SAS swap for BOS)"},
+      {"year": 2028, "round": 2, "original_team": "Boston Celtics", "protection": "Unprotected", "note": "Most and least favorable of BOS, MIL and POR to POR; other to WAS"},
+      {"year": 2029, "round": 1, "original_team": "Boston Celtics", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "Boston Celtics", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Boston Celtics", "protection": "Frozen pick", "note": "Stepien rule frozen pick"},
+      {"year": 2030, "round": 2, "original_team": "Boston Celtics", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Boston Celtics", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Boston Celtics", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Brooklyn Nets",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Brooklyn Nets", "protection": "Unprotected", "note": "HOU may swap with BKN (via HOU swap for BKN)"},
+      {"year": 2027, "round": 2, "original_team": "Brooklyn Nets", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Brooklyn Nets", "protection": "Unprotected", "note": "Two most favorable of BKN, PHI 9-30 (if PHI conveys 1st to OKC by 2026) and PHX; NYK may swap with BKN"},
+      {"year": 2028, "round": 1, "original_team": "Philadelphia 76ers", "protection": "Top-8 protected", "note": "If 1-8 → PHI keeps; if 9-30 → BKN receives (if PHI conveys 1st to OKC by 2026)"},
+      {"year": 2028, "round": 2, "original_team": "Brooklyn Nets", "protection": "Unprotected", "note": "Least favorable of DAL, HOU and PHX to HOU; other to BKN"},
+      {"year": 2029, "round": 1, "original_team": "Brooklyn Nets", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "Brooklyn Nets", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Brooklyn Nets", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Brooklyn Nets", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Brooklyn Nets", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Brooklyn Nets", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Charlotte Hornets",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Charlotte Hornets", "protection": "Unprotected", "note": ""},
+      {"year": 2027, "round": 1, "original_team": "Dallas Mavericks", "protection": "Top-2 protected", "note": "If 1-2 → DAL keeps; if 3-30 → CHA receives"},
+      {"year": 2027, "round": 1, "original_team": "Miami Heat", "protection": "Top-14 protected", "note": "If 1-14 → MIA keeps; if 15-30 → CHA receives"},
+      {"year": 2027, "round": 2, "original_team": "Charlotte Hornets", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Charlotte Hornets", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 2, "original_team": "Miami Heat", "protection": "Unprotected", "note": "If MIA conveys 1st to CHA in 2027 or if MIA did not convey 1st to OKC in 2025"},
+      {"year": 2029, "round": 1, "original_team": "Charlotte Hornets", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "Charlotte Hornets", "protection": "Unprotected", "note": "Least favorable of CLE, MIN 6-30 and UTA to PHX; others to UTA"},
+      {"year": 2030, "round": 1, "original_team": "Charlotte Hornets", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Charlotte Hornets", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Charlotte Hornets", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Charlotte Hornets", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Chicago Bulls",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Chicago Bulls", "protection": "Unprotected", "note": ""},
+      {"year": 2027, "round": 1, "original_team": "Portland Trail Blazers", "protection": "Top-14 protected", "note": "If 1-14 → POR keeps; if 15-30 → CHI receives (if not already settled)"},
+      {"year": 2027, "round": 2, "original_team": "Chicago Bulls", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Chicago Bulls", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Portland Trail Blazers", "protection": "Top-14 protected", "note": "If 1-14 → POR keeps (if not already settled) or swap with MIL; if 15-30 → CHI receives"},
+      {"year": 2028, "round": 2, "original_team": "Chicago Bulls", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 1, "original_team": "Chicago Bulls", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "Chicago Bulls", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Chicago Bulls", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Chicago Bulls", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Chicago Bulls", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Chicago Bulls", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Cleveland Cavaliers",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Cleveland Cavaliers", "protection": "Unprotected", "note": "Least favorable of CLE, MIN and UTA to PHX; others to UTA (via UTA)"},
+      {"year": 2027, "round": 2, "original_team": "Cleveland Cavaliers", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Cleveland Cavaliers", "protection": "Unprotected", "note": "Least favorable of CLE, ATL and UTA (via UTA/ATL swap); UTA may swap with CLE"},
+      {"year": 2028, "round": 2, "original_team": "Cleveland Cavaliers", "protection": "Unprotected", "note": "Least favorable of CLE, MIN 6-30 and UTA to PHX; others to UTA (via CHA)"},
+      {"year": 2029, "round": 1, "original_team": "Cleveland Cavaliers", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "Cleveland Cavaliers", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Cleveland Cavaliers", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Cleveland Cavaliers", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Cleveland Cavaliers", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Cleveland Cavaliers", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Dallas Mavericks",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Dallas Mavericks", "protection": "Top-2 protected", "note": "If 1-2 → DAL keeps; if 3-30 → CHA receives"},
+      {"year": 2027, "round": 2, "original_team": "Dallas Mavericks", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Dallas Mavericks", "protection": "Unprotected", "note": "OKC may swap with DAL (via OKC swap for DAL)"},
+      {"year": 2028, "round": 2, "original_team": "Dallas Mavericks", "protection": "Unprotected", "note": "Two most favorable of BKN, DAL and PHX to HOU; least favorable to BKN"},
+      {"year": 2029, "round": 1, "original_team": "Dallas Mavericks", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "Dallas Mavericks", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Dallas Mavericks", "protection": "Unprotected", "note": "Least favorable of DAL and SAS (via SAS swap for DAL); GSW if 1-20 → DAL if 21-30 (via WAS)"},
+      {"year": 2030, "round": 2, "original_team": "Dallas Mavericks", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Dallas Mavericks", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Dallas Mavericks", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Denver Nuggets",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Denver Nuggets", "protection": "Top-5 protected", "note": "If 1-5 → DEN keeps; if 6-30 → OKC receives"},
+      {"year": 2027, "round": 2, "original_team": "Denver Nuggets", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Denver Nuggets", "protection": "Top-5 protected", "note": "If 1-5 → DEN keeps (if not already settled); if 6-30 → OKC receives"},
+      {"year": 2028, "round": 2, "original_team": "Denver Nuggets", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 1, "original_team": "Denver Nuggets", "protection": "Top-5 protected", "note": "If 1-5 → DEN keeps (if not already settled); if 6-30 → OKC receives"},
+      {"year": 2029, "round": 2, "original_team": "Denver Nuggets", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Denver Nuggets", "protection": "Top-5 protected", "note": "If 1-5 → DEN keeps (if not already settled); if 6-30 → OKC receives"},
+      {"year": 2030, "round": 2, "original_team": "Denver Nuggets", "protection": "Unprotected", "note": "→ BKN receives"},
+      {"year": 2031, "round": 1, "original_team": "Denver Nuggets", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Denver Nuggets", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Detroit Pistons",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Detroit Pistons", "protection": "Unprotected", "note": ""},
+      {"year": 2027, "round": 2, "original_team": "Detroit Pistons", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Detroit Pistons", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 2, "original_team": "Detroit Pistons", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 1, "original_team": "Detroit Pistons", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "Detroit Pistons", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Detroit Pistons", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Detroit Pistons", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Detroit Pistons", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Detroit Pistons", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Golden State Warriors",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Golden State Warriors", "protection": "Unprotected", "note": ""},
+      {"year": 2027, "round": 2, "original_team": "Golden State Warriors", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Golden State Warriors", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 2, "original_team": "Golden State Warriors", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 1, "original_team": "Golden State Warriors", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "Golden State Warriors", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Golden State Warriors", "protection": "Top-20 protected", "note": "If 1-20 → GSW keeps; if 21-30 → DAL receives (via WAS)"},
+      {"year": 2030, "round": 2, "original_team": "Golden State Warriors", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Golden State Warriors", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Golden State Warriors", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Houston Rockets",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Brooklyn Nets", "protection": "Unprotected", "note": "HOU may swap with BKN (via HOU swap for BKN); HOU receives BKN pick"},
+      {"year": 2027, "round": 1, "original_team": "Houston Rockets", "protection": "Unprotected", "note": ""},
+      {"year": 2027, "round": 2, "original_team": "Houston Rockets", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Houston Rockets", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 2, "original_team": "Houston Rockets", "protection": "Unprotected", "note": "Two most favorable of BKN, DAL and PHX to HOU; least favorable to BKN"},
+      {"year": 2029, "round": 1, "original_team": "Houston Rockets", "protection": "Unprotected", "note": "Two most favorable of BKN, DAL and PHX to HOU; least favorable to BKN"},
+      {"year": 2029, "round": 2, "original_team": "Houston Rockets", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Houston Rockets", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Houston Rockets", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Houston Rockets", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Houston Rockets", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Indiana Pacers",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Indiana Pacers", "protection": "Unprotected", "note": ""},
+      {"year": 2027, "round": 2, "original_team": "Indiana Pacers", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Indiana Pacers", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 2, "original_team": "Indiana Pacers", "protection": "Unprotected", "note": "→ LAC receives"},
+      {"year": 2029, "round": 1, "original_team": "Indiana Pacers", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "Indiana Pacers", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Indiana Pacers", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Indiana Pacers", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Indiana Pacers", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Indiana Pacers", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Los Angeles Clippers",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Los Angeles Clippers", "protection": "Unprotected", "note": "OKC receives most favorable of DEN 6-30, LAC and OKC; LAC receives 2nd most favorable (via OKC swap for LAC)"},
+      {"year": 2027, "round": 2, "original_team": "Los Angeles Clippers", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Los Angeles Clippers", "protection": "Unprotected", "note": "→ PHI receives"},
+      {"year": 2028, "round": 2, "original_team": "Los Angeles Clippers", "protection": "Unprotected", "note": "→ LAC receives (from IND)"},
+      {"year": 2029, "round": 1, "original_team": "Los Angeles Clippers", "protection": "Unprotected", "note": "PHI may swap 4-30 with LAC (via PHI swap for LAC)"},
+      {"year": 2029, "round": 2, "original_team": "Los Angeles Clippers", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Los Angeles Clippers", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Los Angeles Clippers", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Los Angeles Clippers", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Los Angeles Clippers", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Los Angeles Lakers",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Los Angeles Lakers", "protection": "Top-4 protected", "note": "If 1-4 → LAL keeps; if 5-30 → MEM receives (via UTA)"},
+      {"year": 2027, "round": 2, "original_team": "Los Angeles Lakers", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Los Angeles Lakers", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 2, "original_team": "Los Angeles Lakers", "protection": "Unprotected", "note": "→ DAL receives"},
+      {"year": 2029, "round": 1, "original_team": "Los Angeles Lakers", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "Los Angeles Lakers", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Los Angeles Lakers", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Los Angeles Lakers", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Los Angeles Lakers", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Los Angeles Lakers", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Memphis Grizzlies",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Los Angeles Lakers", "protection": "Top-4 protected", "note": "If 1-4 → LAL keeps; if 5-30 → MEM receives (via UTA)"},
+      {"year": 2027, "round": 1, "original_team": "Memphis Grizzlies", "protection": "Unprotected", "note": "Most favorable of CLE, MIN and UTA to MEM; others to PHX and UTA"},
+      {"year": 2027, "round": 2, "original_team": "Memphis Grizzlies", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Memphis Grizzlies", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 2, "original_team": "Memphis Grizzlies", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 1, "original_team": "Memphis Grizzlies", "protection": "Unprotected", "note": "MEM may swap with ORL (3-30); More favorable of MEM and less favorable of PHX and WAS"},
+      {"year": 2029, "round": 2, "original_team": "Memphis Grizzlies", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Memphis Grizzlies", "protection": "Unprotected", "note": "→ MEM receives (via UTA)"},
+      {"year": 2030, "round": 2, "original_team": "Memphis Grizzlies", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Memphis Grizzlies", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Memphis Grizzlies", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Miami Heat",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Miami Heat", "protection": "Top-14 protected", "note": "If 1-14 → MIA keeps; if 15-30 → CHA receives"},
+      {"year": 2027, "round": 2, "original_team": "Miami Heat", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Miami Heat", "protection": "Unprotected", "note": "If MIA conveys 1st to CHA in 2027 or if MIA did not convey 1st to OKC in 2025, CHA receives 2nd rnd pick"},
+      {"year": 2028, "round": 2, "original_team": "Miami Heat", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 1, "original_team": "Miami Heat", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "Miami Heat", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Miami Heat", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Miami Heat", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Miami Heat", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Miami Heat", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Milwaukee Bucks",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Milwaukee Bucks", "protection": "Unprotected", "note": "Least favorable of MIL and NOP; other to ATL"},
+      {"year": 2027, "round": 2, "original_team": "Milwaukee Bucks", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Milwaukee Bucks", "protection": "Unprotected", "note": "POR may swap with MIL (via POR swap for MIL)"},
+      {"year": 2028, "round": 2, "original_team": "Milwaukee Bucks", "protection": "Unprotected", "note": "Most and least favorable of BOS, MIL and POR to POR; other to WAS"},
+      {"year": 2029, "round": 1, "original_team": "Milwaukee Bucks", "protection": "Unprotected", "note": "POR may swap with MIL"},
+      {"year": 2029, "round": 2, "original_team": "Milwaukee Bucks", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Milwaukee Bucks", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Milwaukee Bucks", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Milwaukee Bucks", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Milwaukee Bucks", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Minnesota Timberwolves",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Minnesota Timberwolves", "protection": "Unprotected", "note": "Two most favorable of CLE, MIN and UTA to UTA; least favorable to PHX"},
+      {"year": 2027, "round": 2, "original_team": "Minnesota Timberwolves", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Minnesota Timberwolves", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 2, "original_team": "Minnesota Timberwolves", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 1, "original_team": "Minnesota Timberwolves", "protection": "Top-5 protected", "note": "If 1-5 → MIN keeps; if 6-30 → UTA receives then two most favorable to UTA"},
+      {"year": 2029, "round": 2, "original_team": "Minnesota Timberwolves", "protection": "Unprotected", "note": "Least favorable of MIN 2-30, DAL and SAS"},
+      {"year": 2030, "round": 1, "original_team": "Minnesota Timberwolves", "protection": "Unprotected", "note": "Least favorable of CLE, MIN 6-30 and UTA to PHX; others to UTA (via CHA); SAC receives (via SAS)"},
+      {"year": 2030, "round": 2, "original_team": "Minnesota Timberwolves", "protection": "Frozen pick", "note": "Stepien rule frozen pick"},
+      {"year": 2031, "round": 1, "original_team": "Minnesota Timberwolves", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Minnesota Timberwolves", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "New Orleans Pelicans",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "New Orleans Pelicans", "protection": "Unprotected", "note": "Most favorable of MIL and NOP; other to ATL"},
+      {"year": 2027, "round": 2, "original_team": "New Orleans Pelicans", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "New Orleans Pelicans", "protection": "Unprotected", "note": "Least favorable of MIL and NOP to ATL; other to NOP"},
+      {"year": 2028, "round": 2, "original_team": "New Orleans Pelicans", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 1, "original_team": "New Orleans Pelicans", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "New Orleans Pelicans", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "New Orleans Pelicans", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "New Orleans Pelicans", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "New Orleans Pelicans", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "New Orleans Pelicans", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "New York Knicks",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "New York Knicks", "protection": "Unprotected", "note": "→ BKN receives"},
+      {"year": 2027, "round": 2, "original_team": "New York Knicks", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "New York Knicks", "protection": "Unprotected", "note": "NYK may swap with BKN (via BKN swap for NYK)"},
+      {"year": 2028, "round": 2, "original_team": "New York Knicks", "protection": "Unprotected", "note": "→ BKN receives"},
+      {"year": 2029, "round": 1, "original_team": "New York Knicks", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "New York Knicks", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "New York Knicks", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "New York Knicks", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "New York Knicks", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "New York Knicks", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Oklahoma City Thunder",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Denver Nuggets", "protection": "Top-5 protected", "note": "If 1-5 → DEN keeps; if 6-30 → OKC receives"},
+      {"year": 2027, "round": 1, "original_team": "Los Angeles Clippers", "protection": "Unprotected", "note": "OKC receives most favorable of DEN 6-30, LAC and OKC (via OKC swap for LAC)"},
+      {"year": 2027, "round": 1, "original_team": "Oklahoma City Thunder", "protection": "Unprotected", "note": "OKC receives 2nd most favorable of DEN 6-30, LAC and OKC (via OKC swap for LAC)"},
+      {"year": 2027, "round": 1, "original_team": "Philadelphia 76ers", "protection": "Top-4 protected", "note": "If 1-4 → PHI keeps (if not already settled); if 5-30 → OKC receives"},
+      {"year": 2027, "round": 1, "original_team": "Sacramento Kings", "protection": "Unprotected", "note": "If 17-30 → OKC receives"},
+      {"year": 2027, "round": 2, "original_team": "Oklahoma City Thunder", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Dallas Mavericks", "protection": "Unprotected", "note": "OKC may swap with DAL (via OKC swap for DAL)"},
+      {"year": 2028, "round": 1, "original_team": "Denver Nuggets", "protection": "Top-5 protected", "note": "If 1-5 → DEN keeps; if 6-30 → OKC receives"},
+      {"year": 2028, "round": 1, "original_team": "Oklahoma City Thunder", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 2, "original_team": "Oklahoma City Thunder", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 1, "original_team": "Denver Nuggets", "protection": "Top-5 protected", "note": "If 1-5 → DEN keeps; if 6-30 → OKC receives"},
+      {"year": 2029, "round": 1, "original_team": "Oklahoma City Thunder", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "Oklahoma City Thunder", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Denver Nuggets", "protection": "Top-5 protected", "note": "If 1-5 → DEN keeps; if 6-30 → OKC receives"},
+      {"year": 2030, "round": 1, "original_team": "Oklahoma City Thunder", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Oklahoma City Thunder", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Oklahoma City Thunder", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Oklahoma City Thunder", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Orlando Magic",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Orlando Magic", "protection": "Unprotected", "note": ""},
+      {"year": 2027, "round": 2, "original_team": "Orlando Magic", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Orlando Magic", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 2, "original_team": "Orlando Magic", "protection": "Unprotected", "note": "→ POR receives (via MEM)"},
+      {"year": 2029, "round": 1, "original_team": "Memphis Grizzlies", "protection": "Unprotected", "note": "ORL if 1-2 or MEM may swap 3-30 with ORL; More favorable of MEM and less favorable of PHX and WAS"},
+      {"year": 2029, "round": 1, "original_team": "Orlando Magic", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "Orlando Magic", "protection": "Unprotected", "note": "→ MEM receives"},
+      {"year": 2030, "round": 1, "original_team": "Orlando Magic", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Orlando Magic", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Orlando Magic", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Orlando Magic", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Philadelphia 76ers",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Philadelphia 76ers", "protection": "Top-4 protected", "note": "If 1-4 → PHI keeps (if not already settled); if 5-30 → OKC receives"},
+      {"year": 2027, "round": 2, "original_team": "Philadelphia 76ers", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Los Angeles Clippers", "protection": "Unprotected", "note": "→ PHI receives"},
+      {"year": 2028, "round": 1, "original_team": "Philadelphia 76ers", "protection": "Top-8 protected", "note": "If 1-8 → PHI keeps; if 9-30 → BKN receives (if PHI conveys 1st to OKC by 2026)"},
+      {"year": 2028, "round": 2, "original_team": "Philadelphia 76ers", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 1, "original_team": "Los Angeles Clippers", "protection": "Unprotected", "note": "PHI may swap 4-30 with LAC (via PHI swap for LAC)"},
+      {"year": 2029, "round": 1, "original_team": "Philadelphia 76ers", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "Philadelphia 76ers", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Philadelphia 76ers", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Philadelphia 76ers", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Philadelphia 76ers", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Philadelphia 76ers", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Phoenix Suns",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Cleveland Cavaliers", "protection": "Unprotected", "note": "Least favorable of CLE, MIN and UTA to PHX (via UTA)"},
+      {"year": 2027, "round": 1, "original_team": "Houston Rockets", "protection": "Unprotected", "note": "→ PHX receives (via BKN)"},
+      {"year": 2027, "round": 1, "original_team": "Phoenix Suns", "protection": "Unprotected", "note": ""},
+      {"year": 2027, "round": 2, "original_team": "Phoenix Suns", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Phoenix Suns", "protection": "Unprotected", "note": "Least favorable of WAS, BKN, PHI 9-30 (if PHI conveys 1st to OKC) and PHX"},
+      {"year": 2028, "round": 2, "original_team": "Phoenix Suns", "protection": "Unprotected", "note": "Two most favorable of BKN, DAL and PHX to HOU; least favorable to BKN"},
+      {"year": 2029, "round": 1, "original_team": "Phoenix Suns", "protection": "Unprotected", "note": "Two most favorable of BKN, DAL and PHX to HOU; least favorable to BKN"},
+      {"year": 2029, "round": 2, "original_team": "Phoenix Suns", "protection": "Unprotected", "note": "Least favorable of PHX, MEM and WAS"},
+      {"year": 2030, "round": 1, "original_team": "Phoenix Suns", "protection": "Unprotected", "note": "→ MEM receives (via UTA)"},
+      {"year": 2030, "round": 2, "original_team": "Phoenix Suns", "protection": "Unprotected", "note": "Frozen pick"},
+      {"year": 2031, "round": 1, "original_team": "Phoenix Suns", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Phoenix Suns", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Portland Trail Blazers",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Portland Trail Blazers", "protection": "Top-14 protected", "note": "If 1-14 → POR keeps (if not already settled); if 15-30 → CHI receives"},
+      {"year": 2027, "round": 2, "original_team": "Portland Trail Blazers", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Milwaukee Bucks", "protection": "Unprotected", "note": "POR may swap with MIL (via POR swap for MIL)"},
+      {"year": 2028, "round": 1, "original_team": "Portland Trail Blazers", "protection": "Top-14 protected", "note": "If 1-14 → POR keeps (if not already settled) or swap with MIL; if 15-30 → CHI receives"},
+      {"year": 2028, "round": 2, "original_team": "Portland Trail Blazers", "protection": "Unprotected", "note": "Most and least favorable of BOS, MIL and POR to POR; other to WAS"},
+      {"year": 2029, "round": 1, "original_team": "Milwaukee Bucks", "protection": "Unprotected", "note": "POR may swap with MIL"},
+      {"year": 2029, "round": 1, "original_team": "Portland Trail Blazers", "protection": "Unprotected", "note": "Most and least favorable of BOS, MIL and POR to POR; other to WAS"},
+      {"year": 2029, "round": 2, "original_team": "Portland Trail Blazers", "protection": "Unprotected", "note": "Two most favorable of BKN, DAL and PHX to HOU; least favorable to BKN → WAS"},
+      {"year": 2030, "round": 1, "original_team": "Portland Trail Blazers", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Portland Trail Blazers", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Portland Trail Blazers", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Portland Trail Blazers", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Sacramento Kings",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Sacramento Kings", "protection": "Unprotected", "note": "If 17-30 → OKC receives"},
+      {"year": 2027, "round": 2, "original_team": "Sacramento Kings", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Sacramento Kings", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 2, "original_team": "Sacramento Kings", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 1, "original_team": "Sacramento Kings", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "Sacramento Kings", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Sacramento Kings", "protection": "Unprotected", "note": "SAC may swap with SAS (via SAS swap for SAC)"},
+      {"year": 2030, "round": 2, "original_team": "Sacramento Kings", "protection": "Unprotected", "note": "→ SAC receives (from MIN via SAS)"},
+      {"year": 2031, "round": 1, "original_team": "Sacramento Kings", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Sacramento Kings", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "San Antonio Spurs",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "San Antonio Spurs", "protection": "Unprotected", "note": "→ SAS receives (from ATL)"},
+      {"year": 2027, "round": 1, "original_team": "Sacramento Kings", "protection": "Unprotected", "note": "If 17-30 → OKC receives"},
+      {"year": 2027, "round": 2, "original_team": "San Antonio Spurs", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Boston Celtics", "protection": "Unprotected", "note": "If 1st → BOS keeps; if 2-30 → SAS may swap with BOS (via SAS swap for BOS)"},
+      {"year": 2028, "round": 1, "original_team": "San Antonio Spurs", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 2, "original_team": "San Antonio Spurs", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 1, "original_team": "San Antonio Spurs", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "San Antonio Spurs", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Dallas Mavericks", "protection": "Unprotected", "note": "Least favorable of DAL and SAS (via SAS swap for DAL); SAS may also receive MIN 2-30 swap"},
+      {"year": 2030, "round": 1, "original_team": "Sacramento Kings", "protection": "Unprotected", "note": "SAS may swap with SAC (via SAS swap for SAC)"},
+      {"year": 2030, "round": 1, "original_team": "San Antonio Spurs", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "San Antonio Spurs", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "San Antonio Spurs", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "San Antonio Spurs", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Toronto Raptors",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Toronto Raptors", "protection": "Unprotected", "note": ""},
+      {"year": 2027, "round": 2, "original_team": "Toronto Raptors", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Toronto Raptors", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 2, "original_team": "Toronto Raptors", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 1, "original_team": "Toronto Raptors", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "Toronto Raptors", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Toronto Raptors", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Toronto Raptors", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Toronto Raptors", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Toronto Raptors", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Utah Jazz",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Cleveland Cavaliers", "protection": "Unprotected", "note": "Two most favorable of CLE, MIN and UTA to UTA; least favorable to PHX"},
+      {"year": 2027, "round": 1, "original_team": "Minnesota Timberwolves", "protection": "Unprotected", "note": "Most favorable of CLE, MIN and UTA to MEM; others to PHX and UTA"},
+      {"year": 2027, "round": 1, "original_team": "Utah Jazz", "protection": "Unprotected", "note": "Two most favorable of CLE, MIN and UTA to UTA; least favorable to PHX"},
+      {"year": 2027, "round": 2, "original_team": "Utah Jazz", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Cleveland Cavaliers", "protection": "Unprotected", "note": "Least favorable of CLE, ATL and UTA (via UTA/ATL swap); UTA may swap with CLE"},
+      {"year": 2028, "round": 1, "original_team": "Utah Jazz", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 2, "original_team": "Utah Jazz", "protection": "Unprotected", "note": "Least favorable of CLE, MIN 6-30 and UTA to PHX; others to UTA (via CHA)"},
+      {"year": 2029, "round": 1, "original_team": "Minnesota Timberwolves", "protection": "Top-5 protected", "note": "If 1-5 → MIN keeps; if 6-30 → UTA receives then two most favorable of CLE, MIN 6-30 and UTA to UTA; other to PHX"},
+      {"year": 2029, "round": 1, "original_team": "Utah Jazz", "protection": "Unprotected", "note": ""},
+      {"year": 2029, "round": 2, "original_team": "Utah Jazz", "protection": "Unprotected", "note": "Least favorable of CLE, MIN 6-30 and UTA to PHX; others to UTA (via CHA)"},
+      {"year": 2030, "round": 1, "original_team": "Utah Jazz", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Utah Jazz", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Utah Jazz", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Utah Jazz", "protection": "Unprotected", "note": ""}
+    ]
+  },
+  {
+    "team": "Washington Wizards",
+    "picks": [
+      {"year": 2027, "round": 1, "original_team": "Washington Wizards", "protection": "Unprotected", "note": ""},
+      {"year": 2027, "round": 2, "original_team": "Washington Wizards", "protection": "Unprotected", "note": ""},
+      {"year": 2028, "round": 1, "original_team": "Washington Wizards", "protection": "Unprotected", "note": "Most favorable of WAS, BKN, PHI 9-30 (if conveyed) and PHX; may swap for MIL or POR"},
+      {"year": 2028, "round": 2, "original_team": "Washington Wizards", "protection": "Unprotected", "note": "Two most favorable of BKN, DAL and PHX to HOU; least favorable to BKN → WAS receives"},
+      {"year": 2029, "round": 1, "original_team": "Washington Wizards", "protection": "Unprotected", "note": "Most favorable of WAS, MEM and PHX"},
+      {"year": 2029, "round": 2, "original_team": "Washington Wizards", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 1, "original_team": "Washington Wizards", "protection": "Unprotected", "note": ""},
+      {"year": 2030, "round": 2, "original_team": "Washington Wizards", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 1, "original_team": "Washington Wizards", "protection": "Unprotected", "note": ""},
+      {"year": 2031, "round": 2, "original_team": "Washington Wizards", "protection": "Unprotected", "note": ""}
+    ]
+  }
+]

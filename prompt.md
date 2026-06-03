@@ -155,3 +155,52 @@ window.require = window.require || function(name) {
 - [ ] 上传按钮显示 spinner + loading 状态
 - [ ] 上传失败降级纯文字发帖
 - [ ] 所有跳转走 `safeNavigate`
+
+---
+
+## name.html (NBA离谱报价模拟器) 实施方案
+
+### 数据来源
+
+```js
+const lastResult = {
+  player: '球员名',
+  title: '交易标题文案',
+  comment: '吐槽文案',
+  selectedNames: ['🥃 轩尼诗干邑VSOP', ...]
+}
+```
+
+### `drawPoster(ctx, w, h)` 具体实现
+
+| 元素 | 位置 | 样式 |
+|------|------|------|
+| 背景 | 全画布 | 深色渐变 `#0e0e1e → #16162a → #0e0e1e` |
+| 标题 | y=30+offY | `「我对NBA离谱报价模拟器的交易结果」` 34px bold #ddd |
+| 分隔线 | y=78+offY | 渐变透明线（左中右淡出） |
+| 球员名标签 | 320×72 圆角矩形, y=100+offY | 半透明白底框 + 白边, 44px bold 白色球员名居中 |
+| 统计行×3 | sy=200+offY, ih=46, gap=10 | 圆角底框 + 边框, 左标签 `#999`, 右数值带颜色 |
+| 行1 | 交易结果 | 白色 `#fff`, bold 15px |
+| 行2 | 交易筹码（emoji+名称·分隔） | 金色 `#ffb347`, 14px, 超长自动截断+... |
+| 行3 | 精彩吐槽 | 灰色 `#999`, 14px, 超长自动截断+... |
+| 水印 | h-16 | `「NBA离谱报价模拟器 · 虎扑JRs出品」` 13px #555 |
+
+注：`offY = 80` 整体下移居中。
+
+### 关键参数
+
+| 参数 | 值 |
+|------|-----|
+| `tagName` | `NBA离谱报价模拟器` |
+| `tagId` | `147772` |
+| `topicName` | `湿乎乎的话题` |
+| `topicId` | `177` |
+| 跳转协议 | `huputiyu://bbs/postImg` |
+| 文件名模板 | `NBA离谱报价_${Date.now()}.png` |
+
+### Canvas 尺寸
+
+```
+POSTER_W = 500, POSTER_H = 680, POSTER_SCALE = 2
+canvas: 1000 × 1360 (2x Retina)
+```

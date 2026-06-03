@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>历史最强冠军球队大评比</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: radial-gradient(circle at 10% 20%, rgba(200, 80, 30, 0.15), transparent 45%),
+                  radial-gradient(circle at 90% 70%, rgba(245, 197, 66, 0.1), transparent 40%),
+                  linear-gradient(145deg, #0b111f 0%, #101826 100%);
+      color: #f0f3fa;
+      font-family: "Bahnschrift", "DIN Condensed", "Poppins", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    #home {
+      position: relative;
+      min-height: 100vh;
+      background: url("https://i3.hoopchina.com.cn/newsPost/5877cd4605605a62b71dde8e7b857301_w_941_h_1672_.png") center center / cover no-repeat;
+      background-color: #0b111f;
+    }
+    #home::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.55);
+      pointer-events: none;
+      z-index: 1;
+    }
+    #home > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .app {
+      min-height: 100vh;
+      padding: 16px 12px;
+    }
+
+    .screen {
+      display: none;
+      max-width: 100%;
+      margin: 0 auto;
+      animation: fadeSlide 0.28s ease both;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1, h2, p {
+      margin: 0;
+    }
+
+    .global-header {
+      text-align: center;
+      margin-top: 28px;
+      margin-bottom: 12px;
+    }
+    .global-header h1 {
+      font-size: clamp(22px, 6vw, 32px);
+      font-weight: 900;
+      color: #f5c542;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .home-screen-content {
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      padding: 20px 12px;
+    }
+    .home-badge {
+      display: inline-block;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      padding: 6px 18px;
+      border-radius: 60px;
+      margin-bottom: 18px;
+      border: 1px solid #f5c542;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .home-title {
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      margin-bottom: 12px;
+    }
+    .home-desc {
+      margin: 16px auto;
+      max-width: 280px;
+      font-size: 14px;
+      opacity: 0.85;
+    }
+
+    .btn {
+      min-height: 48px;
+      padding: 0 28px;
+      border-radius: 60px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(245, 197, 66, 0.5);
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .btn-primary {
+      background: linear-gradient(105deg, #c85a1a, #e37a2c);
+      border: none;
+      box-shadow: 0 6px 14px rgba(200, 80, 30, 0.4);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      border-color: #f5c542;
+    }
+
+    .roster-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 8px 0 16px;
+    }
+    .fighter {
+      background: linear-gradient(145deg, rgba(20, 32, 46, 0.95), rgba(12, 20, 32, 0.98));
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(245, 197, 66, 0.25);
+      border-radius: 20px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .portrait {
+      width: 60px;
+      height: 60px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #2a2a36, #181e2a);
+      border-radius: 60px;
+      border: 2px solid rgba(245, 197, 66, 0.6);
+      overflow: hidden;
+    }
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .fighter-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .fighter-name {
+      font-size: 0.68rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .fighter-note {
+      font-size: 0.49rem;
+      color: rgba(220, 230, 245, 0.85);
+      line-height: 1.3;
+    }
+    .fighter-note div {
+      margin-top: 2px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 8px 0 4px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .board-scroll {
+      width: 100%;
+      overflow-x: visible;
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+      position: relative;
+    }
+    .poster {
+      position: relative;
+      width: 100%;
+      max-width: 656px;
+      aspect-ratio: 656 / 918;
+      background: radial-gradient(ellipse at 30% 25%, #2a2418, #0f131c);
+      border-radius: 24px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(245, 197, 66, 0.3);
+      overflow: hidden;
+      margin: 0 auto;
+    }
+
+    .court-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .trophy-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      pointer-events: none;
+    }
+    .trophy-emoji {
+      font-size: 160px;
+      filter: drop-shadow(0 0 20px rgba(245, 197, 66, 0.7));
+      display: block;
+    }
+    .hoop-logo {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 72px;
+      opacity: 0.75;
+      pointer-events: none;
+      z-index: 6;
+    }
+
+    .line-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .line-layer path {
+      fill: none;
+      stroke: rgba(210, 180, 110, 0.35);
+      stroke-width: 1.6;
+      stroke-linecap: round;
+    }
+    .line-layer path.hot {
+      stroke: rgba(245, 197, 66, 0.7);
+      filter: drop-shadow(0 0 3px #f5b642);
+    }
+
+    .ball-match {
+      position: absolute;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .ball-pair {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      pointer-events: auto;
+    }
+    .ball-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .ball {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #e67e2e, #ac4f1a);
+      border: 2px solid rgba(255, 220, 120, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      color: white;
+      box-shadow: 0 4px 10px black;
+      cursor: pointer;
+      transition: 0.1s linear;
+      position: relative;
+      overflow: hidden;
+    }
+    .ball img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .ball.placeholder {
+      background: #4a4f5e;
+      border-color: rgba(255, 255, 255, 0.2);
+      cursor: default;
+    }
+    .ball.winner {
+      border-color: var(--gold, #f5c542);
+      box-shadow: 0 0 18px currentColor;
+      transform: scale(1.04);
+    }
+    .ball.loser {
+      opacity: 0.28;
+      filter: grayscale(0.6);
+      transform: scale(0.92);
+      cursor: pointer;
+    }
+    .ball-name {
+      font-size: 9px;
+      font-weight: 600;
+      color: #e0e7ff;
+      max-width: 70px;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ball-r1 .ball {
+      width: 40px;
+      height: 40px;
+      font-size: 10px;
+    }
+    .ball-r1 .ball-name {
+      font-size: 7px;
+      max-width: 55px;
+    }
+    .ball-r1 .ball-pair {
+      gap: 4px;
+    }
+
+    .ball-r3 .ball {
+      width: 60px;
+      height: 60px;
+      font-size: 15px;
+    }
+    .ball-final .ball {
+      width: 74px;
+      height: 74px;
+      font-size: 18px;
+      border-width: 3px;
+    }
+    .ball-final .ball-pair {
+      gap: 10px;
+    }
+
+    .preview-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1100;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .preview-card {
+      background: #101a28e6;
+      border-radius: 36px;
+      padding: 24px 20px;
+      max-width: 280px;
+      width: 80vw;
+      text-align: center;
+      border: 1px solid #f5c542;
+    }
+    .preview-img-wrap {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 12px;
+      border-radius: 60px;
+      background: #2c313f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .preview-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .preview-name {
+      font-size: 18px;
+      font-weight: 800;
+      margin: 8px 0;
+    }
+    .preview-note {
+      font-size: 12px;
+      color: #ddd;
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+    .preview-close {
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      font-size: 28px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    .panel {
+      background: radial-gradient(circle at 50% 20%, rgba(200, 80, 30, 0.2), transparent 70%);
+      backdrop-filter: blur(12px);
+      border-radius: 40px;
+      padding: 20px 16px;
+      margin-top: 20px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    .result-preview {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+      border-radius: 60px;
+      background: #1f2a38;
+      border: 2px solid #f5c542;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .result-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .finalbtns {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+    .btn.red {
+      background: linear-gradient(145deg, #c53a1c, #992e12);
+      border: none;
+    }
+    .champion-header {
+      text-align: center;
+      margin-top: 28px;
+      margin-bottom: 12px;
+    }
+    .champion-header h2 {
+      font-size: 22px;
+      color: #f5c542;
+    }
+
+    .btn.loading {
+      opacity: 0.7;
+      pointer-events: none;
+      filter: saturate(0.8);
+    }
+    a.btn {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    img, .ball, .portrait, .result-preview, .preview-img-wrap {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      touch-action: manipulation;
+    }
+
+    .preview-overlay {
+      z-index: 99999 !important;
+      pointer-events: auto !important;
+    }
+
+    .preview-card {
+      position: relative !important;
+      border-radius: 24px !important;
+      pointer-events: auto !important;
+    }
+
+    .preview-img-wrap {
+      width: 116px !important;
+      height: 116px !important;
+      margin: 0 auto 12px !important;
+      border-radius: 16px !important;
+      border: 2px solid rgba(245, 197, 66, 0.75) !important;
+      background: #2c313f !important;
+      overflow: hidden !important;
+    }
+
+    .preview-img-wrap img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      border-radius: 0 !important;
+      display: block !important;
+      pointer-events: none !important;
+    }
+
+    .preview-close {
+      z-index: 2 !important;
+      width: 32px !important;
+      height: 32px !important;
+      line-height: 32px !important;
+      text-align: center !important;
+      border-radius: 50% !important;
+      background: rgba(255,255,255,0.08) !important;
+    }
+
+    body.preview-open {
+      overflow: hidden;
+      touch-action: none;
+    }
+
+    /* ====== 海报弹窗样式 ====== */
+    #posterOverlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.92);
+      z-index: 99999; display: none; flex-direction: column;
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    #posterOverlay.active { display: flex; }
+    #posterOverlay img {
+      max-width: 100%; max-height: 70vh; border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    }
+    .poster-actions {
+      display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; justify-content: center;
+    }
+    .btn-poster {
+      background: linear-gradient(135deg,#7c3aed,#a855f7); color: #fff;
+      border-radius: 50px; border: none;
+    }
+    .btn-share {
+      min-height: 44px; padding: 12px 24px;
+      font-size: 15px; font-weight: 700;
+      cursor: pointer; display: inline-flex;
+      align-items: center; justify-content: center;
+      box-shadow: 0 8px 20px rgba(124,58,237,0.35);
+      transition: transform 0.14s ease, filter 0.14s ease;
+    }
+    .btn-share:active { transform: scale(0.97); filter: brightness(0.92); }
+    .btn-share:disabled { opacity: 0.6; pointer-events: none; }
+    .poster-close {
+      min-height: 44px; padding: 12px 24px;
+      border-radius: 50px; border: none;
+      font-size: 15px; font-weight: 700;
+      cursor: pointer;
+    }
+  </style>
+  <script src="https://activity-static.hoopchina.com.cn/colorbox-activities/js/kaleido-fed-sdk.js"></script>
+  <script src="https://gosspublic.alicdn.com/aliyun-oss-sdk-6.17.1.min.js"></script>
+</head>
+<body>
+<canvas id="shareCanvas" style="display:none"></canvas>
+<main class="app">
+  <section id="home" class="screen active">
+    <div class="home-screen-content">
+      <div class="home-badge">🏆历史最强冠军球队大评比🏆</div>
+      <h1 class="home-title">冠军之师终极对决</h1>
+      <p class="home-desc">从16支传奇冠军球队中选出最强冠军<br>谁是你心目中的“王中之王”？</p>
+      <div class="actions" style="flex-direction:column; gap:12px; margin-top:28px;">
+        <button id="homeStartBtn" class="btn btn-primary" style="padding:12px 32px;">开启冠军们的“冠军之路”</button>
+        <button class="btn" id="homeOtherBtn" style="background:#1f3b6c; padding:12px 32px;">👥 查看其他JRs的选择</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="intro" class="screen">
+    <div class="global-header"><h1>🏅历史最强冠军球队大评比</h1></div>
+    <div id="rosterGrid" class="roster-grid"></div>
+    <div class="actions"><button id="startBtn" class="btn btn-primary">🏆开启冠军之路</button></div>
+  </section>
+
+  <section id="tournament" class="screen">
+    <div class="global-header"><h1>🏅历史最强冠军球队大评比</h1></div>
+    <div style="text-align:center; margin: 4px 0 8px;"><h2 id="roundTitle" style="font-size: 1.4rem;">王朝争霸 · 冠军之路</h2><p id="roundCopy" class="subtitle" style="text-align:center;">点击圆形队徽，选择更强的冠军球队晋级（可反复更改）<br>长按球队头像可查看其该赛季战绩</p></div>
+    <div class="board-scroll"><div id="poster" class="poster"></div></div>
+    <div class="actions">
+      <button id="redrawBtn" class="btn" style="display:inline-flex;">🔄 重新抽签</button>
+      <button id="backIntroBtn" class="btn">📋 返回球队页</button>
+    </div>
+  </section>
+
+  <section id="champion" class="screen">
+    <div class="global-header"><h1>我心中的历史最强冠军球队</h1></div>
+    <div class="champion-bracket"><div id="championPoster" class="poster"></div></div>
+    <div id="championPanel" class="panel"></div>
+  </section>
+
+  <div id="playerPreview" class="preview-overlay" style="display:none">
+    <div class="preview-card"><button class="preview-close">&times;</button>
+      <div class="preview-img-wrap"><img id="previewImg" src="" alt=""><div id="previewImgPlaceholder" style="display:none; font-size:32px;">🏆</div></div>
+      <div class="preview-name" id="previewName"></div>
+      <div class="preview-note" id="previewNote"></div>
+    </div>
+  </div>
+
+  <!-- 海报弹窗 -->
+  <div id="posterOverlay">
+    <img id="posterPreviewImg" alt="海报预览">
+    <div class="poster-actions">
+      <button class="btn btn-poster btn-share" id="posterShareBtn">📤 一键发帖</button>
+      <button class="btn poster-close" id="posterCloseBtn" style="background:#555">关闭</button>
+    </div>
+  </div>
+</main>
+
+<script>
+  // ===================== 虎扑发帖专用配置 =====================
+  const POST_CONFIG = {
+    // 专区 (湿乎乎的话题)
+    TOPIC_ID: 177,
+    TOPIC_NAME: "湿乎乎的话题",
+    FORUM_ID: 177,
+    FORUM_NAME: "湿乎乎的话题",
+    BOARD_ID: 177,
+    BOARD_NAME: "湿乎乎的话题",
+    // 活动标签
+    TAG_ID: 147869,
+    TAG_NAME: "历史最强冠军球队大评比",
+    ACTIVITY_NAME: "历史最强冠军球队大评比"
+  };
+
+  const HUPU_LOGO_URL = "https://i1.hoopchina.com.cn/newsPost/de00f9a83014c2b3196d831d4be1adb9_w_300_h_300_.png";
+
+  // 全局诊断日志
+  window.__posterDebugLogs = [];
+  function debugLog(step, detail = {}) {
+    const item = { time: new Date().toISOString(), step, detail, ua: navigator.userAgent };
+    window.__posterDebugLogs.push(item);
+    try { console.log('[POST_DEBUG]', JSON.stringify(item)); } catch(e) {}
+  }
+
+  // ===================== 冠军球队数据 (原始) =====================
+  const teamsData = [
+    { id: 1, name: "2017 勇士", shortName: "17勇", regSeason: "常规赛67胜15负", playoff: "季后赛16胜1负", themeColor: "#f5c542", fmvpName: "凯文-杜兰特", fmvpImage: "https://i10.hoopchina.com.cn/editor/a8ededd509afaf88b2f559f03a5ed3e6_w_503_h_482_.png?x-oss-process=image/resize,w_800/format,webp" },
+    { id: 2, name: "1996 公牛", shortName: "96公", regSeason: "常规赛72胜10负", playoff: "季后赛15胜3负", themeColor: "#ce1141", fmvpName: "迈克尔-乔丹", fmvpImage: "https://i3.hoopchina.com.cn/editor/7958767011143b0456340655fb6a6208_w_390_h_370_.png?x-oss-process=image/resize,w_800/format,webp" },
+    { id: 3, name: "2001 湖人", shortName: "01湖", regSeason: "常规赛56胜26负", playoff: "季后赛15胜1负", themeColor: "#552583", fmvpName: "沙奎尔-奥尼尔", fmvpImage: "https://i3.hoopchina.com.cn/editor/18173ab3d5dbd056d2f6bcf9a4e0be10_w_479_h_432_.png?x-oss-process=image/resize,w_800/format,webp" },
+    { id: 4, name: "1986 凯尔特人", shortName: "86凯", regSeason: "常规赛67胜15负", playoff: "季后赛15胜3负", themeColor: "#007a33", fmvpName: "拉里-伯德", fmvpImage: "https://i1.hoopchina.com.cn/editor/2c0543a595248034e785fd554dd99e72_w_551_h_501_.png?x-oss-process=image/resize,w_800/format,webp" },
+    { id: 5, name: "1983 76人", shortName: "83七", regSeason: "常规赛65胜17负", playoff: "季后赛12胜1负", themeColor: "#006bb6", fmvpName: "摩西-马龙", fmvpImage: "https://i10.hoopchina.com.cn/editor/6a361d36cd8a02aace698420e791739b_w_408_h_394_.png?x-oss-process=image/resize,w_800/format,webp" },
+    { id: 6, name: "1972 湖人", shortName: "72湖", regSeason: "常规赛69胜13负", playoff: "季后赛12胜3负", themeColor: "#552583", fmvpName: "威尔特-张伯伦", fmvpImage: "https://i3.hoopchina.com.cn/editor/d0566ef68468d5dca294241ef62a6fbe_w_369_h_362_.png?x-oss-process=image/resize,w_800/format,webp" },
+    { id: 7, name: "1987 湖人", shortName: "87湖", regSeason: "常规赛65胜17负", playoff: "季后赛15胜3负", themeColor: "#552583", fmvpName: "埃尔文-约翰逊", fmvpImage: "https://i3.hoopchina.com.cn/editor/1428966b38d708f5ca44e696d3d31a4f_w_414_h_419_.png?x-oss-process=image/resize,w_800/format,webp" },
+    { id: 8, name: "1999 马刺", shortName: "99刺", regSeason: "常规赛37胜13负", playoff: "季后赛15胜2负", themeColor: "#000000", fmvpName: "蒂姆-邓肯", fmvpImage: "https://i5.hoopchina.com.cn/editor/8c5659e9292193731402bb6854c28605_w_893_h_878_.png?x-oss-process=image/resize,w_800/format,webp" },
+    { id: 9, name: "2014 马刺", shortName: "14刺", regSeason: "常规赛62胜20负", playoff: "季后赛16胜7负", themeColor: "#000000", fmvpName: "科怀-伦纳德", fmvpImage: "https://i1.hoopchina.com.cn/editor/431f00d28f8b440c5dc8affbbfae0273_w_476_h_490_.png?x-oss-process=image/resize,w_800/format,webp" },
+    { id: 10, name: "1994 火箭", shortName: "94火", regSeason: "常规赛58胜24负", playoff: "季后赛15胜8负", themeColor: "#ce1141", fmvpName: "哈基姆-奥拉朱旺", fmvpImage: "https://i11.hoopchina.com.cn/editor/fb9a1c33bb30c76b2fa643c27bbcfe70_w_512_h_464_.png?x-oss-process=image/resize,w_800/format,webp" },
+    { id: 11, name: "2013 热火", shortName: "13热", regSeason: "常规赛66胜16负", playoff: "季后赛16胜7负", themeColor: "#98002e", fmvpName: "勒布朗-詹姆斯", fmvpImage: "https://i3.hoopchina.com.cn/editor/e90564b441d7a797fdb8343ef066f3ae_w_481_h_453_.png?x-oss-process=image/resize,w_800/format,webp" },
+    { id: 12, name: "2009 湖人", shortName: "09湖", regSeason: "常规赛65胜17负", playoff: "季后赛16胜7负", themeColor: "#552583", fmvpName: "科比-布莱恩特", fmvpImage: "https://i1.hoopchina.com.cn/editor/66a563fcd7398014976182a09d37748d_w_564_h_447_.png?x-oss-process=image/resize,w_800/format,webp" },
+    { id: 13, name: "2025 雷霆", shortName: "25雷", regSeason: "常规赛68胜14负", playoff: "季后赛16胜7负", themeColor: "#007ac1", fmvpName: "谢伊-亚历山大", fmvpImage: "https://i5.hoopchina.com.cn/editor/578c02cbfeb9eee2bcaf9dbed11ff3e7_w_581_h_541_.png?x-oss-process=image/resize,w_800/format,webp" },
+    { id: 14, name: "2008 凯尔特人", shortName: "08凯", regSeason: "常规赛66胜16负", playoff: "季后赛16胜10负", themeColor: "#007a33", fmvpName: "保罗-皮尔斯", fmvpImage: "https://i11.hoopchina.com.cn/editor/554c014ee889372a64b2202f8ff9ca75_w_542_h_477_.png?x-oss-process=image/resize,w_800/format,webp" },
+    { id: 15, name: "2016 骑士", shortName: "16骑", regSeason: "常规赛57胜25负", playoff: "季后赛16胜5负", themeColor: "#860038", fmvpName: "勒布朗-詹姆斯", fmvpImage: "https://i1.hoopchina.com.cn/editor/6a9cd0201b0731fc5c2f7a25e44ef9b5_w_609_h_627_.png?x-oss-process=image/resize,w_800/format,webp" },
+    { id: 16, name: "2011 独行侠", shortName: "11侠", regSeason: "常规赛56胜26负", playoff: "季后赛16胜5负", themeColor: "#00538c", fmvpName: "德克-诺维茨基", fmvpImage: "https://i11.hoopchina.com.cn/editor/b7c7f58ef3afd5e7f0c61c322f4f732e_w_578_h_552_.png?x-oss-process=image/resize,w_800/format,webp" }
+  ];
+
+  // 赛事全局变量 (保留原有 tournament 逻辑)
+  let matches = {};
+  let currentDraw = [];
+  const positions = {
+    M1: { x: 17, y: 42, w: 148, h: 73 },
+    M2: { x: 175, y: 42, w: 148, h: 73 },
+    M3: { x: 333, y: 42, w: 148, h: 73 },
+    M4: { x: 491, y: 42, w: 148, h: 73 },
+    M9: { x: 96, y: 162, w: 148, h: 73 },
+    M10: { x: 412, y: 162, w: 148, h: 73 },
+    M13: { x: 254, y: 292, w: 148, h: 73 },
+    M15: { x: 128, y: 390, w: 400, h: 124, final: true },
+    M14: { x: 254, y: 553, w: 148, h: 73 },
+    M11: { x: 96, y: 683, w: 148, h: 73 },
+    M12: { x: 412, y: 683, w: 148, h: 73 },
+    M5: { x: 17, y: 803, w: 148, h: 73 },
+    M6: { x: 175, y: 803, w: 148, h: 73 },
+    M7: { x: 333, y: 803, w: 148, h: 73 },
+    M8: { x: 491, y: 803, w: 148, h: 73 }
+  };
+  const links = [["M1","M9"],["M2","M9"],["M3","M10"],["M4","M10"],["M9","M13"],["M10","M13"],["M13","M15"],["M5","M11"],["M6","M11"],["M7","M12"],["M8","M12"],["M11","M14"],["M12","M14"],["M14","M15"]];
+
+  // ========== 冠军海报生成 (复用原有稳定canvas绘制) ==========
+  function loadImageSafe(src) {
+    return new Promise(resolve => {
+      if (!src) return resolve(null);
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => resolve(img);
+      img.onerror = () => resolve(null);
+      img.src = src;
+      setTimeout(() => resolve(null), 2500);
+    });
+  }
+  function drawRoundRect(ctx, x, y, w, h, r) { /* 原有 */ ctx.beginPath(); let rr = Math.min(r,w/2,h/2); ctx.moveTo(x+rr,y); ctx.lineTo(x+w-rr,y); ctx.quadraticCurveTo(x+w,y,x+w,y+rr); ctx.lineTo(x+w,y+h-rr); ctx.quadraticCurveTo(x+w,y+h,x+w-rr,y+h); ctx.lineTo(x+rr,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-rr); ctx.lineTo(x,y+rr); ctx.quadraticCurveTo(x,y,x+rr,y); ctx.closePath(); }
+  function getTeamColor(team) { let found = teamsData.find(t=>t.id===team.id); return found ? found.themeColor : "#e67e2e"; }
+
+
+  function drawBracketLinesOnCanvas(ctx) {
+    ctx.save();
+    ctx.lineWidth = 1.8;
+    ctx.lineCap = 'round';
+    links.forEach(([f, t]) => {
+      const fp = positions[f], tp = positions[t];
+      if (!fp || !tp) return;
+      const fcx = fp.x + fp.w / 2;
+      const tcx = tp.x + tp.w / 2;
+      const fcy = fp.y + fp.h / 2;
+      const tcy = tp.y + tp.h / 2;
+      const goingDown = tcy >= fcy;
+      const ax = fcx;
+      const ay = goingDown ? fp.y + fp.h : fp.y;
+      const bx = tcx;
+      const by = goingDown ? tp.y : tp.y + tp.h;
+      const midY = (ay + by) / 2;
+      ctx.beginPath();
+      ctx.moveTo(ax, ay);
+      ctx.lineTo(ax, midY);
+      ctx.lineTo(bx, midY);
+      ctx.lineTo(bx, by);
+      if (matches[f]?.winner) {
+        ctx.strokeStyle = 'rgba(245,197,66,.78)';
+        ctx.shadowColor = 'rgba(245,182,66,.55)';
+        ctx.shadowBlur = 5;
+        ctx.lineWidth = 2.2;
+      } else {
+        ctx.strokeStyle = 'rgba(210,180,110,.36)';
+        ctx.shadowBlur = 0;
+        ctx.lineWidth = 1.6;
+      }
+      ctx.stroke();
+    });
+    ctx.restore();
+  }
+
+  async function createStableChampionPosterCanvas() {
+    const champion = matches.M15?.winner;
+    if (!champion) throw new Error("请先完成冠军对决");
+    const canvas = document.getElementById('shareCanvas');
+    const W = 656, H = 1240, S = 2;
+    const bracketTop = 128;
+    const bracketScale = 0.88;
+    const bracketLeft = (W - W * bracketScale) / 2;
+    const bracketH = 918 * bracketScale;
+    const finalH = 172;
+    const bracketBgBottom = bracketTop + bracketH + 10;
+    const finalTop = bracketBgBottom + (H - 12 - bracketBgBottom - finalH) / 2;
+    canvas.width = W * S; canvas.height = H * S;
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(S, 0, 0, S, 0, 0);
+    // 背景
+    const grad = ctx.createLinearGradient(0,0,W,H);
+    grad.addColorStop(0,'#192033'); grad.addColorStop(0.45,'#101826'); grad.addColorStop(1,'#050812');
+    ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
+    // 装饰
+    ctx.save(); ctx.globalAlpha=0.22;
+    let glow=ctx.createRadialGradient(80,120,10,80,120,360); glow.addColorStop(0,'#c8501e'); glow.addColorStop(1,'rgba(200,80,30,0)');
+    ctx.fillStyle=glow; ctx.fillRect(0,0,W,H);
+    ctx.restore();
+    drawRoundRect(ctx,12,12,W-24,H-24,24); ctx.strokeStyle='rgba(245,197,66,.36)'; ctx.lineWidth=2; ctx.stroke();
+    ctx.textAlign='center';
+    ctx.textBaseline='middle';
+    ctx.fillStyle='#f5c542';
+    ctx.font='900 32px PingFang SC, Microsoft YaHei, sans-serif';
+    ctx.shadowColor='rgba(245,197,66,.42)';
+    ctx.shadowBlur=14;
+    ctx.fillText('🥇历史最强冠军球队大评比', W/2, 65);
+    ctx.shadowBlur=0;
+    ctx.fillStyle='rgba(245,197,66,.58)';
+    ctx.font='700 14px PingFang SC, Microsoft YaHei, sans-serif';
+    ctx.fillText('', W/2, 96);
+    // 预加载所有球队图片
+    let visibleTeams=[];
+    Object.values(matches).forEach(m=>{ if(m.a && !m.a.placeholder) visibleTeams.push(m.a); if(m.b && !m.b.placeholder) visibleTeams.push(m.b); });
+    let imageMap=new Map();
+    const championFull = teamsData.find(t=>t.id===champion.id) || champion;
+    const hoopLogoImgPromise = loadImageSafe(HUPU_LOGO_URL);
+    const championImgPromise = loadImageSafe(championFull?.fmvpImage);
+    await Promise.all(visibleTeams.map(async team=>{ let found=teamsData.find(t=>t.id===team.id); let img=await loadImageSafe(found?.fmvpImage); imageMap.set(team.id,img); }));
+    const hoopLogoImg = await hoopLogoImgPromise;
+    const championImg = await championImgPromise;
+
+    drawRoundRect(ctx, 24, bracketTop - 10, W - 48, bracketH + 20, 22);
+    ctx.fillStyle = 'rgba(255,255,255,.035)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(245,197,66,.22)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    // 中线奖杯
+    ctx.save();
+    ctx.translate(bracketLeft, bracketTop);
+    ctx.scale(bracketScale, bracketScale);
+    ctx.font='150px Apple Color Emoji, Segoe UI Emoji, sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.shadowBlur=20; ctx.shadowColor='rgba(245,197,66,.7)'; ctx.fillText('🏆',W/2,918/2); ctx.shadowBlur=0;
+    // 左侧虎扑logo（海报版放大）
+    if (hoopLogoImg) {
+      const logoW = 112;
+      const logoH = 112;
+      const logoX = 20;
+      const logoY = 918 / 2 - logoH / 2;
+      ctx.save();
+      ctx.globalAlpha = 0.86;
+      ctx.drawImage(hoopLogoImg, logoX, logoY, logoW, logoH);
+      ctx.restore();
+    }
+    // 绘制对阵图连线
+    drawBracketLinesOnCanvas(ctx);
+    // 绘制对阵图
+    Object.keys(positions).forEach(id=>{
+      let m=matches[id]; if(!m) return;
+      let pos=positions[id], isFinal=!!pos.final;
+      let round=parseInt(id.slice(1));
+      let r=isFinal?42:(round<=8?22:round<=12?29:34);
+      let gap=isFinal?24:8;
+      let cx=pos.x+pos.w/2, cy=pos.y+pos.h/2-(isFinal?4:0);
+      let xs=[cx-r-gap/2, cx+r+gap/2];
+      [m.a,m.b].forEach((team,idx)=>{
+        if(!team) return;
+        let placeholder=team.placeholder;
+        let isWinner=m.winner && m.winner.id===team.id;
+        let color=getTeamColor(team);
+        let img=!placeholder?imageMap.get(team.id):null;
+        ctx.save(); ctx.beginPath(); ctx.arc(xs[idx],cy,r,0,Math.PI*2); ctx.closePath();
+        let gradBall=ctx.createRadialGradient(xs[idx]-r*0.35,cy-r*0.35,r*0.15,xs[idx],cy,r);
+        gradBall.addColorStop(0,color||'#e67e2e'); gradBall.addColorStop(1,'#101826');
+        ctx.fillStyle=gradBall; ctx.fill();
+        if(img){ ctx.clip(); let iw=img.naturalWidth||img.width, ih=img.naturalHeight||img.height; let scale=Math.max((r*2)/iw,(r*2)/ih); ctx.drawImage(img,xs[idx]-iw*scale/2,cy-ih*scale/2,iw*scale,ih*scale); }
+        else{ ctx.fillStyle='#fff'; ctx.font=`900 ${Math.max(10,r*0.46)}px PingFang SC`; ctx.fillText(placeholder?'?':team.shortName,xs[idx],cy); }
+        ctx.restore();
+        ctx.beginPath(); ctx.arc(xs[idx],cy,r,0,Math.PI*2); ctx.strokeStyle=isWinner?'#f5c542':'rgba(255,220,120,.75)'; ctx.lineWidth=isWinner?4:2.4; ctx.shadowBlur=isWinner?12:0; ctx.stroke(); ctx.shadowBlur=0;
+        ctx.fillStyle=placeholder?'rgba(224,231,255,.55)':'#e0e7ff'; ctx.font=`700 ${isFinal?12:9}px PingFang SC`; ctx.textAlign='center'; ctx.fillText(placeholder?'待定':team.name,xs[idx],cy+r+5);
+      });
+    });
+    ctx.restore();
+    const champColor = getTeamColor(champion);
+    drawRoundRect(ctx, 54, finalTop, W - 108, finalH, 22);
+    const finalGrad = ctx.createLinearGradient(54, finalTop, W - 54, finalTop + finalH);
+    finalGrad.addColorStop(0, `${champColor}33`);
+    finalGrad.addColorStop(1, 'rgba(8,12,22,.92)');
+    ctx.fillStyle = finalGrad;
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(245,197,66,.48)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    const textX = 88;
+    const imageSize = 136;
+    const imageX = W - 54 - imageSize - 18;
+    const imageY = finalTop + (finalH - imageSize) / 2;
+    ctx.fillStyle = 'rgba(245,197,66,.82)';
+    ctx.font = '800 20px PingFang SC, Microsoft YaHei, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('我心中的最强冠军', textX, finalTop + 54);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '900 34px PingFang SC, Microsoft YaHei, sans-serif';
+    ctx.shadowColor = `${champColor}cc`;
+    ctx.shadowBlur = 10;
+    ctx.fillText(champion.name, textX, finalTop + 98);
+    ctx.shadowBlur = 0;
+    ctx.save();
+    drawRoundRect(ctx, imageX, imageY, imageSize, imageSize, 18);
+    ctx.clip();
+    ctx.fillStyle = '#1f2a38';
+    ctx.fillRect(imageX, imageY, imageSize, imageSize);
+    if(championImg){
+      let iw=championImg.naturalWidth||championImg.width, ih=championImg.naturalHeight||championImg.height;
+      let scale=Math.max(imageSize/iw,imageSize/ih);
+      ctx.drawImage(championImg,imageX+(imageSize-iw*scale)/2,imageY+(imageSize-ih*scale)/2,iw*scale,ih*scale);
+    } else {
+      ctx.fillStyle='#fff';
+      ctx.font='900 24px PingFang SC';
+      ctx.textAlign='center';
+      ctx.fillText(champion.shortName || '🏆', imageX + imageSize/2, imageY + imageSize/2);
+    }
+    ctx.restore();
+    drawRoundRect(ctx, imageX, imageY, imageSize, imageSize, 18);
+    ctx.strokeStyle='#f5c542';
+    ctx.lineWidth=3;
+    ctx.stroke();
+    return canvas;
+  }
+
+  // ========== 通用上传工具 ==========
+  function dataURLToBlob(dataURL) { let arr=dataURL.split(','), mime=arr[0].match(/:(.*?);/)?.[1]||'image/png', bstr=atob(arr[1]), n=bstr.length, u8arr=new Uint8Array(n); while(n--) u8arr[n]=bstr.charCodeAt(n); return new Blob([u8arr],{type:mime}); }
+  function canvasToBlob(canvas, type='image/png', quality=0.95){ return new Promise((resolve,reject)=>{ if(canvas.toBlob) canvas.toBlob(blob=>blob?resolve(blob):reject(new Error('toBlob failed')),type,quality); else resolve(dataURLToBlob(canvas.toDataURL(type,quality))); }); }
+  function isValidImageUrl(url){ return typeof url==='string' && /^https?:\/\//i.test(url.trim()); }
+  function normalizeUploadUrl(res){ if(!res) return ''; let candidates=[]; if(typeof res==='string') candidates.push(res); else if(typeof res==='object'){ candidates.push(res.url,res.ossUrl,res.fileUrl,res.imageUrl,res.downloadUrl,res.data?.url,res.result?.url,res.res?.requestUrls?.[0]?.split('?')[0]); }
+    for(let u of candidates){ if(u&&typeof u==='string'){ u=u.trim(); if(u.startsWith('//')) u=`https:${u}`; if(isValidImageUrl(u)) return u; } } return ''; }
+  function makeUploadFile(blob,filename){ try{ return new File([blob],filename,{type:blob.type||'image/png'}); }catch(e){ blob.name=filename; return blob; } }
+  async function waitForBridge(timeout=2500){ let start=Date.now(); while(Date.now()-start<timeout){ if(window.ColorboxAI?.oss?.uploadFile||window.ColorboxAI?.uploadFile||window.ColorboxAI?.uploadImage||window.KaleidoOSS||(window.parent&&window.parent!==window)) return true; await new Promise(r=>setTimeout(r,120)); } return false; }
+  async function uploadToOSS(blob, filename){
+    debugLog('bridge_wait_start'); await waitForBridge(); debugLog('bridge_wait_done',{hasColorboxAI:!!window.ColorboxAI,hasKaleido:!!window.KaleidoOSS});
+    let file=makeUploadFile(blob,filename);
+    let attempts=[];
+    if(window.ColorboxAI?.oss?.uploadFile) attempts.push(['ColorboxAI.oss.uploadFile(file,filename)',()=>window.ColorboxAI.oss.uploadFile(file,filename)],['ColorboxAI.oss.uploadFile({file,filename})',()=>window.ColorboxAI.oss.uploadFile({file,filename})]);
+    if(window.ColorboxAI?.uploadFile) attempts.push(['ColorboxAI.uploadFile(file,filename)',()=>window.ColorboxAI.uploadFile(file,filename)]);
+    if(window.ColorboxAI?.uploadImage) attempts.push(['ColorboxAI.uploadImage(file,filename)',()=>window.ColorboxAI.uploadImage(file,filename)]);
+    if(window.KaleidoOSS?.multipartUpload) attempts.push(['KaleidoOSS.multipartUpload(filename,file)',()=>window.KaleidoOSS.multipartUpload(filename,file)]);
+    for(let [method,run] of attempts){
+      try{ let res=await run(); let url=normalizeUploadUrl(res); if(isValidImageUrl(url)){ debugLog('upload_success',{method,url}); return url; } }catch(e){ debugLog('upload_attempt_failed',{method,error:e?.message}); }
+    }
+    if(window.parent && window.parent!==window){
+      let dataURL=await new Promise((resolve,reject)=>{ let reader=new FileReader(); reader.onload=()=>resolve(reader.result); reader.onerror=reject; reader.readAsDataURL(file); });
+      let requestId=`oss_${Date.now()}_${Math.random()}`;
+      let p=new Promise((resolve,reject)=>{
+        let timer=setTimeout(()=>reject(new Error('postMessage timeout')),15000);
+        let handler=(e)=>{ let d=e.data||{}; if(d.requestId===requestId){ clearTimeout(timer); window.removeEventListener('message',handler); let url=normalizeUploadUrl(d); if(isValidImageUrl(url)) resolve(url); else reject(new Error(d.error||'postMessage invalid url')); } };
+        window.addEventListener('message',handler);
+        window.parent.postMessage({type:'HUPU_OSS_UPLOAD',requestId,filename,dataURL},'*');
+      });
+      let url=await p; if(isValidImageUrl(url)) return url;
+    }
+    throw new Error('OSS_UPLOAD_UNAVAILABLE');
+  }
+
+  // ========== 发帖内容构建 ==========
+  function getCurrentChampion(){ return matches.M15?.winner || null; }
+  function buildPostTitle(){ return ''; }
+  function buildPostContent(){ return ''; }
+  function buildInitialValue(imageUrl){
+    let valid=isValidImageUrl(imageUrl);
+    let images=valid?[imageUrl]:[];
+    return { syncPost:true, appJsonV3:{ activeTab:'thread', data:{ topicId:POST_CONFIG.TOPIC_ID, topicName:POST_CONFIG.TOPIC_NAME, forumId:POST_CONFIG.FORUM_ID, forumName:POST_CONFIG.FORUM_NAME, boardId:POST_CONFIG.BOARD_ID, boardName:POST_CONFIG.BOARD_NAME, tagId:POST_CONFIG.TAG_ID, tagName:POST_CONFIG.TAG_NAME, title:buildPostTitle(), content:buildPostContent(valid), imageList:images, images, pics:images, picList:images } } };
+  }
+  function buildPostUrl(initialValue){ let q=`topicName=${encodeURIComponent(POST_CONFIG.TOPIC_NAME)}&topicId=${POST_CONFIG.TOPIC_ID}&forumName=${encodeURIComponent(POST_CONFIG.FORUM_NAME)}&forumId=${POST_CONFIG.FORUM_ID}&boardName=${encodeURIComponent(POST_CONFIG.BOARD_NAME)}&boardId=${POST_CONFIG.BOARD_ID}&tagName=${encodeURIComponent(POST_CONFIG.TAG_NAME)}&tagId=${POST_CONFIG.TAG_ID}&initialValue=${encodeURIComponent(JSON.stringify(initialValue))}`; return `huputiyu://bbs/postImg?${q}`; }
+  function safeNavigate(url){ debugLog('navigate_post',{mode:'location.href',url}); try{ window.location.href=url; }catch(e){ console.warn(e); } }
+
+  // ========== 一键发帖主流程 ==========
+  async function sharePoster(btn){
+    if(!btn) return;
+    let oldText=btn.textContent;
+    btn.disabled=true; btn.textContent='生成海报中...'; btn.classList.add('loading');
+    debugLog('share_start');
+    let imageUrl='';
+    try{
+      let canvas=await createStableChampionPosterCanvas();
+      debugLog('canvas_created',{w:canvas.width,h:canvas.height});
+      let blob=await canvasToBlob(canvas,'image/png',0.92);
+      debugLog('blob_created',{size:blob.size});
+      btn.textContent='上传图片中...';
+      imageUrl=await uploadToOSS(blob,`champion_${Date.now()}.png`);
+      if(!isValidImageUrl(imageUrl)) throw new Error('图片URL无效');
+    }catch(e){
+      debugLog('upload_failed',{error:e?.message});
+      imageUrl='';
+    }
+    let hasImage=isValidImageUrl(imageUrl);
+    let initialValue=buildInitialValue(imageUrl);
+    let url=buildPostUrl(initialValue);
+    btn.disabled=false; btn.textContent=oldText; btn.classList.remove('loading');
+    if(hasImage) alert('图片上传成功，正在打开发帖编辑器');
+    else alert('图片暂未带入，将打开文字发帖（仍可手动配图）');
+    setTimeout(()=>safeNavigate(url),200);
+  }
+
+  // 原有 tournament 逻辑需要保留，为节省篇幅保留核心函数桥接，以下快速整合原有控制流
+  let homeScreen=document.querySelector("#home"), introScreen=document.querySelector("#intro"), tournamentScreen=document.querySelector("#tournament"), championScreen=document.querySelector("#champion");
+  function showScreen(target){ [homeScreen,introScreen,tournamentScreen,championScreen].forEach(s=>s.classList.remove("active")); target.classList.add("active"); window.scrollTo(0,0); }
+  function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ let j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
+  function makeMatch(id,label,a=null,b=null,fromA=null,fromB=null){ return {id,label,a,b,fromA,fromB,winner:null}; }
+  function buildMatches(draw){ currentDraw=[...draw]; matches={}; for(let i=1;i<=8;i++) matches[`M${i}`]=makeMatch(`M${i}`,`M${i}`,draw[(i-1)*2],draw[(i-1)*2+1]); matches.M9=makeMatch("M9","M9",null,null,"M1","M2"); matches.M10=makeMatch("M10","M10",null,null,"M3","M4"); matches.M11=makeMatch("M11","M11",null,null,"M5","M6"); matches.M12=makeMatch("M12","M12",null,null,"M7","M8"); matches.M13=makeMatch("M13","M13",null,null,"M9","M10"); matches.M14=makeMatch("M14","M14",null,null,"M11","M12"); matches.M15=makeMatch("M15","决赛",null,null,"M13","M14"); resolveSlots(); }
+  function resolveSlots(){ ["M9","M10","M11","M12","M13","M14","M15"].forEach(id=>{ let m=matches[id]; m.a=matches[m.fromA]?.winner||{name:"待定",placeholder:true,shortName:"??"}; m.b=matches[m.fromB]?.winner||{name:"待定",placeholder:true,shortName:"??"}; }); }
+  function isMatchReady(mid){ let m=matches[mid]; return Boolean(m && !m.a?.placeholder && !m.b?.placeholder); }
+  function getMatchSide(match,side){ return side==="A"?match.a:match.b; }
+  function renderBall(match,side){ let player=getMatchSide(match,side); let isWinner=match.winner && match.winner.id===player?.id; let cls=[]; if(player?.placeholder) cls.push("placeholder"); if(!isMatchReady(match.id)|| player?.placeholder) cls.push("disabled"); if(match.winner){ if(isWinner) cls.push("winner"); else cls.push("loser"); } let disabled=!isMatchReady(match.id)||player?.placeholder; let inner=""; if(player?.placeholder) inner="?"; else{ let imgUrl=teamsData.find(t=>t.id===player.id)?.fmvpImage||""; inner=`<img src="${imgUrl}" alt="${player.shortName}">`; } let styleAttr=isWinner?`style="background: radial-gradient(circle at 35% 30%, ${getTeamColor(player)}, ${getTeamColor(player)}cc); border-color: gold;"`:""; return `<div class="ball-side"><button class="ball ${cls.join(" ")}" data-match="${match.id}" data-side="${side}" ${disabled?"disabled":""} ${styleAttr}>${inner}</button><span class="ball-name">${player?.name||""}</span></div>`; }
+  function renderBallMatch(match){ let pos=positions[match.id]; let finalClass=pos.final?"ball-final":""; let roundClass=parseInt(match.id.slice(1))<=8?"ball-r1":(parseInt(match.id.slice(1))<=12?"":"ball-r3"); return `<div class="ball-match ${finalClass} ${roundClass}" style="left:${(pos.x/656*100).toFixed(2)}%; top:${(pos.y/918*100).toFixed(2)}%; width:${(pos.w/656*100).toFixed(2)}%; height:${(pos.h/918*100).toFixed(2)}%;"><div class="ball-pair">${renderBall(match,"A")}${renderBall(match,"B")}</div></div>`; }
+  function renderCourtSVG(){ return `<svg class="court-layer" viewBox="0 0 656 918"><rect width="656" height="918" fill="url(#wood)"/><defs><linearGradient id="wood"><stop offset="0%" stop-color="#c7a45b" stop-opacity="0.25"/><stop offset="100%" stop-color="#9e7b42" stop-opacity="0.18"/></linearGradient></defs><line x1="0" y1="459" x2="656" y2="459" stroke="#d4b87a" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.5"/><circle cx="328" cy="459" r="18" fill="none" stroke="#d4b87a" stroke-width="1.2" opacity="0.5"/></svg>`; }
+  function renderLines(){
+    const makePath = ([f, t]) => {
+      const fp = positions[f], tp = positions[t];
+      if (!fp || !tp) return '';
+      const fcx = fp.x + fp.w / 2;
+      const tcx = tp.x + tp.w / 2;
+      const fcy = fp.y + fp.h / 2;
+      const tcy = tp.y + tp.h / 2;
+      const goingDown = tcy >= fcy;
+      const a = { x: fcx, y: goingDown ? fp.y + fp.h : fp.y };
+      const b = { x: tcx, y: goingDown ? tp.y : tp.y + tp.h };
+      const midY = (a.y + b.y) / 2;
+      const hotClass = matches[f]?.winner ? 'hot' : '';
+      return `<path d="M${a.x} ${a.y} V${midY} H${b.x} V${b.y}" class="${hotClass}"></path>`;
+    };
+    return `<svg class="line-layer" viewBox="0 0 656 918">${links.map(makePath).join("")}</svg>`;
+  }
+  function renderPosterInto(container){ container.innerHTML=`${renderCourtSVG()}<div class="trophy-center"><span class="trophy-emoji">🏆</span></div><img class="hoop-logo" src="https://i1.hoopchina.com.cn/newsPost/de00f9a83014c2b3196d831d4be1adb9_w_300_h_300_.png" alt="hoop">${renderLines()}${Object.keys(positions).map(id=>renderBallMatch(matches[id])).join("")}`; container.querySelectorAll("[data-match][data-side]").forEach(btn=>{ btn.addEventListener("click",(e)=>{ e.stopPropagation(); let matchId=btn.dataset.match,side=btn.dataset.side; let match=matches[matchId]; if(!match||!isMatchReady(matchId)) return; let newWinner=getMatchSide(match,side); if(!newWinner||newWinner.placeholder) return; if(match.winner&&match.winner.id===newWinner.id) return; if(match.winner) Object.values(matches).forEach(m=>{ if(m.id===matchId|| (m.fromA===matchId||m.fromB===matchId)) m.winner=null; }); match.winner=newWinner; renderTournament(); if(matches.M15?.winner) setTimeout(()=>{ renderChampion(matches.M15.winner); showScreen(championScreen); },300); }); }); }
+  function renderTournament(){ resolveSlots(); renderPosterInto(document.querySelector("#poster")); }
+  function renderChampion(player){
+    const color = getTeamColor(player);
+    const full = teamsData.find(t => t.id === player.id) || player;
+    const panel = document.querySelector("#championPanel");
+    panel.style.background = `radial-gradient(circle at 50% 20%, ${color}40, transparent 70%), #0a0c12`;
+    const champPosterDiv = document.querySelector("#championPoster");
+    champPosterDiv.style.borderColor = color;
+    renderPosterInto(champPosterDiv);
+    const fmvpImg = full.fmvpImage || '';
+    panel.innerHTML = `
+      <div class="result-preview">${fmvpImg ? `<img src="${fmvpImg}" alt="${player.name}">` : `<div style="font-size:32px;">🏆 ${player.shortName}</div>`}</div>
+      <div style="font-size:22px; font-weight:800; margin:10px 0 2px;">${player.name}</div>
+      <div style="color:#e6c88f; margin-bottom:6px;">🏆 ${full.regSeason || ''} · ${full.playoff || ''}</div>
+      <div style="color:#ffd966; margin-bottom:12px;">🏅 FMVP：${full.fmvpName || '—'}</div>
+      <div class="finalbtns">
+        <button class="btn red" id="restartBtn">🏆 再来一次</button>
+        <button class="btn" id="sharePostBtn">📷 生成海报</button>
+        <a class="btn" id="otherBtn" style="background:#1f3b6c; text-decoration:none;" href="huputiyu://bbs/topicTag?tagId=${POST_CONFIG.TAG_ID}" target="_blank">👥 查看其他JRs的选择</a>
+      </div>`;
+    document.getElementById("restartBtn")?.addEventListener("click",()=>showScreen(homeScreen));
+    document.getElementById("sharePostBtn")?.addEventListener("click",()=>generatePoster());
+  }
+  function renderRoster(){ let grid=document.querySelector("#rosterGrid"); grid.innerHTML=teamsData.map(t=>`<div class="fighter" data-team='${JSON.stringify(t)}'><div class="portrait"><img src="${t.fmvpImage}" alt="${t.fmvpName}"></div><div class="fighter-info"><div class="fighter-name">${t.name}</div><div class="fighter-note"><div>${t.regSeason}</div><div>${t.playoff}</div><div>🏅 FMVP：${t.fmvpName}</div></div></div></div>`).join(""); document.querySelectorAll(".fighter").forEach(el=>{ let t=JSON.parse(el.dataset.team); el.addEventListener("click",()=>{ let overlay=document.querySelector("#playerPreview"); document.querySelector("#previewImg").src=t.fmvpImage; document.querySelector("#previewName").innerText=`${t.name} · ${t.fmvpName}`; document.querySelector("#previewNote").innerHTML=`${t.regSeason}<br>${t.playoff}<br>🏅 FMVP：${t.fmvpName}`; overlay.style.display="flex"; }); }); }
+
+
+  // ===================== 修正版补丁：长按预览 / 下半区对齐 / 发帖带图链路 =====================
+  // 1) 下半区位置严格按上半区镜像，保证上下半区线长、头像相对位置和比例一致
+  Object.assign(positions, {
+    M14: { x: 254, y: 553, w: 148, h: 73 },
+    M11: { x: 96,  y: 683, w: 148, h: 73 },
+    M12: { x: 412, y: 683, w: 148, h: 73 },
+    M5:  { x: 17,  y: 803, w: 148, h: 73 },
+    M6:  { x: 175, y: 803, w: 148, h: 73 },
+    M7:  { x: 333, y: 803, w: 148, h: 73 },
+    M8:  { x: 491, y: 803, w: 148, h: 73 }
+  });
+
+  // 2) 长按头像预览工具。用于对阵图中的球队头像，不影响点击晋级
+  function getFullTeamInfo(team) {
+    if (!team || team.placeholder) return null;
+    return teamsData.find(t => t.id === team.id) || team;
+  }
+
+  function showTeamPreview(team) {
+    const full = getFullTeamInfo(team);
+    if (!full) return;
+    const overlay = document.querySelector('#playerPreview');
+    const img = document.querySelector('#previewImg');
+    const ph = document.querySelector('#previewImgPlaceholder');
+    img.src = full.fmvpImage || '';
+    img.style.display = full.fmvpImage ? 'block' : 'none';
+    ph.style.display = full.fmvpImage ? 'none' : 'block';
+    document.querySelector('#previewName').innerText = `${full.name} · ${full.fmvpName || 'FMVP'}`;
+    document.querySelector('#previewNote').innerHTML = `${full.regSeason || '常规赛数据待定'}<br>${full.playoff || '季后赛数据待定'}<br>🏅 FMVP：${full.fmvpName || '—'}`;
+    overlay.style.display = 'flex';
+    document.body.classList.add('preview-open');
+  }
+
+  function hideTeamPreview() {
+    document.querySelector('#playerPreview').style.display = 'none';
+    document.body.classList.remove('preview-open');
+  }
+
+  function attachLongPressPreview(el, getTeam) {
+    let pressTimer = null;
+    let startX = 0;
+    let startY = 0;
+    let triggered = false;
+    const clear = () => {
+      if (pressTimer) clearTimeout(pressTimer);
+      pressTimer = null;
+    };
+    const start = (e) => {
+      const team = getTeam();
+      if (!team || team.placeholder) return;
+      triggered = false;
+      const point = e.touches ? e.touches[0] : e;
+      startX = point.clientX || 0;
+      startY = point.clientY || 0;
+      clear();
+      pressTimer = setTimeout(() => {
+        triggered = true;
+        el.dataset.longPressed = '1';
+        showTeamPreview(team);
+      }, 520);
+    };
+    const move = (e) => {
+      const point = e.touches ? e.touches[0] : e;
+      const dx = Math.abs((point.clientX || 0) - startX);
+      const dy = Math.abs((point.clientY || 0) - startY);
+      if (dx > 10 || dy > 10) clear();
+    };
+    const end = () => {
+      clear();
+      if (triggered) {
+        setTimeout(() => { el.dataset.longPressed = ''; }, 80);
+      }
+    };
+    el.addEventListener('touchstart', start, { passive: true });
+    el.addEventListener('touchmove', move, { passive: true });
+    el.addEventListener('touchend', end, { passive: true });
+    el.addEventListener('touchcancel', end, { passive: true });
+    el.addEventListener('mousedown', start);
+    el.addEventListener('mousemove', move);
+    el.addEventListener('mouseup', end);
+    el.addEventListener('mouseleave', end);
+    el.addEventListener('contextmenu', (e) => e.preventDefault());
+  }
+
+  // 3) 覆盖对阵图渲染：保留原点击晋级逻辑，同时恢复长按查看信息
+  function renderPosterInto(container){
+    container.innerHTML = `${renderCourtSVG()}<div class="trophy-center"><span class="trophy-emoji">🏆</span></div><img class="hoop-logo" src="https://i1.hoopchina.com.cn/newsPost/de00f9a83014c2b3196d831d4be1adb9_w_300_h_300_.png" alt="hoop">${renderLines()}${Object.keys(positions).map(id=>renderBallMatch(matches[id])).join("")}`;
+    container.querySelectorAll('[data-match][data-side]').forEach(btn => {
+      const getTeam = () => {
+        const match = matches[btn.dataset.match];
+        return match ? getMatchSide(match, btn.dataset.side) : null;
+      };
+      attachLongPressPreview(btn, getTeam);
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (btn.dataset.longPressed === '1') {
+          btn.dataset.longPressed = '';
+          return;
+        }
+        const matchId = btn.dataset.match;
+        const side = btn.dataset.side;
+        const match = matches[matchId];
+        if (!match || !isMatchReady(matchId)) return;
+        const newWinner = getMatchSide(match, side);
+        if (!newWinner || newWinner.placeholder) return;
+        if (match.winner && match.winner.id === newWinner.id) return;
+        if (match.winner) {
+          Object.values(matches).forEach(m => {
+            if (m.id === matchId || m.fromA === matchId || m.fromB === matchId) m.winner = null;
+          });
+        }
+        match.winner = newWinner;
+        renderTournament();
+        if (matches.M15?.winner) setTimeout(() => { renderChampion(matches.M15.winner); showScreen(championScreen); }, 300);
+      });
+    });
+  }
+
+  // 4) 上传与发帖链路增强：生成Canvas -> toBlob -> OSS -> initialValue带图进入编辑器；失败时纯文字兜底
+  window.require = window.require || function(name) {
+    if (name === 'ali-oss') return window.OSS;
+    if (name === '@hupu/kaleido-fed-sdk') return window.KaleidoOSS;
+    return null;
+  };
+
+  function normalizeUploadUrl(res){
+    if(!res) return '';
+    const candidates=[];
+    if(typeof res==='string') candidates.push(res);
+    if(typeof res==='object'){
+      candidates.push(
+        res.url,res.ossUrl,res.fileUrl,res.imageUrl,res.downloadUrl,res.src,
+        res.data?.url,res.data?.ossUrl,res.data?.fileUrl,res.data?.imageUrl,res.data?.downloadUrl,res.data?.src,
+        res.result?.url,res.result?.ossUrl,res.result?.fileUrl,res.result?.imageUrl,res.result?.downloadUrl,res.result?.src,
+        res.res?.requestUrls?.[0]?.split('?')[0]
+      );
+    }
+    for(let url of candidates){
+      if(!url || typeof url !== 'string') continue;
+      url = url.trim();
+      if(url.startsWith('//')) url = `https:${url}`;
+      if(/^https?:\/\//i.test(url)) return url;
+    }
+    return '';
+  }
+
+  function isValidImageUrl(url){
+    return typeof url === 'string' && /^https?:\/\//i.test(url.trim());
+  }
+
+  function dataURLToBlob(dataURL) {
+    const arr = dataURL.split(',');
+    const mime = arr[0].match(/:(.*?);/)?.[1] || 'image/png';
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while(n--) u8arr[n] = bstr.charCodeAt(n);
+    return new Blob([u8arr], { type: mime });
+  }
+
+  function canvasToBlob(canvas, type='image/png', quality=0.95){
+    return new Promise((resolve,reject)=>{
+      if(canvas.toBlob){
+        canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('canvas toBlob failed')), type, quality);
+        return;
+      }
+      try { resolve(dataURLToBlob(canvas.toDataURL(type, quality))); }
+      catch(e) { reject(e); }
+    });
+  }
+
+  function makeUploadFile(blob, filename){
+    try { return new File([blob], filename, { type: blob.type || 'image/png' }); }
+    catch(e) { blob.name = filename; blob.fileName = filename; return blob; }
+  }
+
+  async function waitForBridge(timeout=2600){
+    const start=Date.now();
+    while(Date.now()-start<timeout){
+      if(window.ColorboxAI?.oss?.uploadFile || window.ColorboxAI?.uploadFile || window.ColorboxAI?.uploadImage || window.ColorboxAI?.upload || window.KaleidoOSS || (window.parent && window.parent !== window)) return true;
+      await new Promise(r=>setTimeout(r,120));
+    }
+    return false;
+  }
+
+  async function tryUploadAttempt(method, run){
+    debugLog('upload_attempt_start', { method });
+    try{
+      const res = await run();
+      const url = normalizeUploadUrl(res);
+      debugLog('upload_attempt_result', { method, rawType: typeof res, normalizedUrl: url });
+      if(isValidImageUrl(url)) return url;
+      throw new Error('UPLOAD_RETURN_INVALID_URL');
+    }catch(e){
+      debugLog('upload_attempt_failed', { method, error: e?.message || String(e) });
+      return '';
+    }
+  }
+
+  async function uploadToOSS(blob, filename){
+    debugLog('bridge_wait_start');
+    await waitForBridge();
+    debugLog('bridge_wait_done', {
+      hasColorboxAI: !!window.ColorboxAI,
+      hasColorboxAIOss: !!window.ColorboxAI?.oss,
+      hasKaleidoOSS: !!window.KaleidoOSS,
+      hasParent: !!(window.parent && window.parent !== window)
+    });
+
+    const file = makeUploadFile(blob, filename);
+    const attempts=[];
+
+    if(window.ColorboxAI?.oss?.uploadFile){
+      const upload = window.ColorboxAI.oss.uploadFile;
+      attempts.push(
+        ['ColorboxAI.oss.uploadFile(file, filename)', () => upload(file, filename)],
+        ['ColorboxAI.oss.uploadFile(file)', () => upload(file)],
+        ['ColorboxAI.oss.uploadFile({file, filename})', () => upload({ file, filename })],
+        ['ColorboxAI.oss.uploadFile({file, fileName})', () => upload({ file, fileName: filename })],
+        ['ColorboxAI.oss.uploadFile({blob, filename})', () => upload({ blob: file, filename })]
+      );
+    }
+    if(window.ColorboxAI?.uploadFile){
+      const upload = window.ColorboxAI.uploadFile;
+      attempts.push(
+        ['ColorboxAI.uploadFile(file, filename)', () => upload(file, filename)],
+        ['ColorboxAI.uploadFile(file)', () => upload(file)],
+        ['ColorboxAI.uploadFile({file, filename})', () => upload({ file, filename })],
+        ['ColorboxAI.uploadFile({file, fileName})', () => upload({ file, fileName: filename })]
+      );
+    }
+    if(window.ColorboxAI?.uploadImage){
+      const upload = window.ColorboxAI.uploadImage;
+      attempts.push(
+        ['ColorboxAI.uploadImage(file, filename)', () => upload(file, filename)],
+        ['ColorboxAI.uploadImage(file)', () => upload(file)],
+        ['ColorboxAI.uploadImage({file, filename})', () => upload({ file, filename })]
+      );
+    }
+    if(window.ColorboxAI?.upload){
+      const upload = window.ColorboxAI.upload;
+      attempts.push(
+        ['ColorboxAI.upload(file, filename)', () => upload(file, filename)],
+        ['ColorboxAI.upload(file)', () => upload(file)],
+        ['ColorboxAI.upload({file, filename})', () => upload({ file, filename })]
+      );
+    }
+    if(window.KaleidoOSS){
+      attempts.push(
+        ['KaleidoOSS.multipartUpload(filename, file)', () => window.KaleidoOSS.multipartUpload?.(filename, file)],
+        ['KaleidoOSS.multipartUpload(file, filename)', () => window.KaleidoOSS.multipartUpload?.(file, filename)],
+        ['KaleidoOSS.uploadFile(file, filename)', () => window.KaleidoOSS.uploadFile?.(file, filename)],
+        ['KaleidoOSS.uploadFile({file, filename})', () => window.KaleidoOSS.uploadFile?.({ file, filename })]
+      );
+    }
+
+    for(const [method, run] of attempts){
+      const url = await tryUploadAttempt(method, run);
+      if(isValidImageUrl(url)) return url;
+    }
+
+    if(window.ColorboxAI?.uploadBase64 || window.ColorboxAI?.uploadDataURL || (window.parent && window.parent !== window)){
+      const dataURL = await new Promise((resolve,reject)=>{
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+      if(window.ColorboxAI?.uploadBase64){
+        const base64 = String(dataURL).split(',')[1] || '';
+        const url = await tryUploadAttempt('ColorboxAI.uploadBase64', () => window.ColorboxAI.uploadBase64({ base64, filename, fileName: filename, mimeType: file.type || 'image/png' }));
+        if(isValidImageUrl(url)) return url;
+      }
+      if(window.ColorboxAI?.uploadDataURL){
+        const url = await tryUploadAttempt('ColorboxAI.uploadDataURL', () => window.ColorboxAI.uploadDataURL({ dataURL, filename, fileName: filename, mimeType: file.type || 'image/png' }));
+        if(isValidImageUrl(url)) return url;
+      }
+      if(window.parent && window.parent !== window){
+        const url = await tryUploadAttempt('postMessage:HUPU_OSS_UPLOAD', () => new Promise((resolve,reject)=>{
+          const requestId = `oss_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+          const timer = setTimeout(()=>{ window.removeEventListener('message', onMessage); reject(new Error('postMessage upload timeout')); }, 15000);
+          function onMessage(event){
+            const data = event.data || {};
+            if(data.requestId !== requestId) return;
+            clearTimeout(timer);
+            window.removeEventListener('message', onMessage);
+            const url = normalizeUploadUrl(data) || normalizeUploadUrl(data.data) || normalizeUploadUrl(data.result);
+            if(isValidImageUrl(url)) resolve(url);
+            else reject(new Error(data.error || 'postMessage upload failed'));
+          }
+          window.addEventListener('message', onMessage);
+          window.parent.postMessage({ type:'HUPU_OSS_UPLOAD', requestId, filename, fileName: filename, mimeType: file.type || 'image/png', dataURL }, '*');
+        }));
+        if(isValidImageUrl(url)) return url;
+      }
+    }
+    throw new Error('OSS_UPLOAD_UNAVAILABLE');
+  }
+
+  function buildInitialValue(imageUrl){
+    const valid = isValidImageUrl(imageUrl);
+    const images = valid ? [imageUrl] : [];
+    return {
+      syncPost: true,
+      appJsonV3: {
+        activeTab: 'thread',
+        data: {
+          topicId: Number(POST_CONFIG.TOPIC_ID),
+          topicName: POST_CONFIG.TOPIC_NAME,
+          forumId: Number(POST_CONFIG.FORUM_ID),
+          forumName: POST_CONFIG.FORUM_NAME,
+          boardId: Number(POST_CONFIG.BOARD_ID),
+          boardName: POST_CONFIG.BOARD_NAME,
+          tagId: Number(POST_CONFIG.TAG_ID),
+          tagName: POST_CONFIG.TAG_NAME,
+          title: buildPostTitle(),
+          content: buildPostContent(valid),
+          imageList: images,
+          images,
+          pics: images,
+          picList: images
+        }
+      }
+    };
+  }
+
+  function buildPostUrl(initialValue){
+    const query = [
+      `topicName=${encodeURIComponent(POST_CONFIG.TOPIC_NAME)}`,
+      `topicId=${encodeURIComponent(POST_CONFIG.TOPIC_ID)}`,
+      `forumName=${encodeURIComponent(POST_CONFIG.FORUM_NAME)}`,
+      `forumId=${encodeURIComponent(POST_CONFIG.FORUM_ID)}`,
+      `boardName=${encodeURIComponent(POST_CONFIG.BOARD_NAME)}`,
+      `boardId=${encodeURIComponent(POST_CONFIG.BOARD_ID)}`,
+      `tagName=${encodeURIComponent(POST_CONFIG.TAG_NAME)}`,
+      `tagId=${encodeURIComponent(POST_CONFIG.TAG_ID)}`,
+      `initialValue=${encodeURIComponent(JSON.stringify(initialValue))}`
+    ].join('&');
+    return `huputiyu://bbs/postImg?${query}`;
+  }
+
+  function safeNavigate(url, target='_self'){
+    if(window.ColorboxAI?.navigateTo){ debugLog('navigate_post', { mode:'ColorboxAI.navigateTo' }); return window.ColorboxAI.navigateTo(url); }
+    if(window.ColorboxAI?.openUrl){ debugLog('navigate_post', { mode:'ColorboxAI.openUrl' }); return window.ColorboxAI.openUrl(url); }
+    if(target === '_blank'){ debugLog('navigate_post', { mode:'window.open' }); return window.open(url, '_blank'); }
+    debugLog('navigate_post', { mode:'location.href' });
+    window.location.href = url;
+  }
+
+  // ========== 生成海报（弹窗预览） ==========
+  async function generatePoster(){
+    const overlay = document.getElementById('posterOverlay');
+    const img = document.getElementById('posterPreviewImg');
+    img.src = '';
+    overlay.classList.add('active');
+    img.style.opacity = '0.5';
+    try{
+      const canvas = await createStableChampionPosterCanvas();
+      window.__posterCanvas = canvas;
+      const dataURL = canvas.toDataURL('image/png');
+      img.src = dataURL;
+      img.style.opacity = '1';
+    }catch(e){
+      debugLog('generate_poster_failed', { error: e?.message });
+      img.alt = '海报生成失败';
+      img.style.opacity = '1';
+    }
+  }
+
+  function closePoster(){
+    document.getElementById('posterOverlay').classList.remove('active');
+  }
+
+  async function sharePoster(btn){
+    if(!btn) return;
+    const oldText = btn.innerHTML;
+    btn.innerHTML = '⏳ 上传中...';
+    btn.disabled = true;
+    debugLog('share_start');
+    let imageUrl = '';
+    let uploadError = '';
+    try{
+      const canvas = window.__posterCanvas || await createStableChampionPosterCanvas();
+      debugLog('canvas_created', { width: canvas.width, height: canvas.height });
+      const blob = await canvasToBlob(canvas, 'image/png', 0.95);
+      debugLog('blob_created', { size: blob.size, type: blob.type });
+      btn.innerHTML = '⏳ 上传中...';
+      debugLog('upload_start');
+      imageUrl = await uploadToOSS(blob, `champion_${Date.now()}.png`);
+      if(!isValidImageUrl(imageUrl)) throw new Error('OSS返回值不是可访问图片URL');
+      debugLog('upload_success', { imageUrl });
+    }catch(e){
+      uploadError = e?.message || String(e);
+      debugLog('upload_failed', { error: uploadError });
+      imageUrl = '';
+    }
+    const initialValue = buildInitialValue(imageUrl);
+    const url = buildPostUrl(initialValue);
+    btn.innerHTML = oldText;
+    btn.disabled = false;
+    closePoster();
+    setTimeout(()=>safeNavigate(url), 260);
+  }
+
+  document.querySelector("#homeStartBtn").addEventListener("click",()=>showScreen(introScreen));
+  document.querySelector("#homeOtherBtn").addEventListener("click",()=>safeNavigate(`huputiyu://bbs/topicTag?tagId=${POST_CONFIG.TAG_ID}`));
+  document.querySelector("#startBtn").addEventListener("click",()=>{ buildMatches(shuffle([...teamsData])); renderTournament(); showScreen(tournamentScreen); });
+  document.querySelector("#redrawBtn").addEventListener("click",()=>{ buildMatches(shuffle([...teamsData])); renderTournament(); });
+  document.querySelector("#backIntroBtn").addEventListener("click",()=>showScreen(introScreen));
+  let previewOverlay=document.querySelector("#playerPreview"); previewOverlay.addEventListener("click",(e)=>{ if(e.target===previewOverlay) hideTeamPreview(); }); previewOverlay.querySelector(".preview-close").addEventListener("click",()=>hideTeamPreview());
+  document.getElementById('posterShareBtn').addEventListener('click',(e)=>sharePoster(e.currentTarget));
+  document.getElementById('posterCloseBtn').addEventListener('click',()=>closePoster());
+  document.getElementById('posterOverlay').addEventListener('click',(e)=>{ if(e.target===e.currentTarget) closePoster(); });
+  renderRoster(); buildMatches(shuffle([...teamsData])); renderTournament();
+</script>
+</body>
+</html>
