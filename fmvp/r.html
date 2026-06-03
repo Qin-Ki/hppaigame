@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-<title>FMVP 25年评级排行 🏆</title>
+<title>本世纪FMVP含金量金字塔排行 🏆</title>
 <script src="https://gosspublic.alicdn.com/aliyun-oss-sdk-6.17.1.min.js"></script>
 <script src="https://activity-static.hoopchina.com.cn/colorbox-activities/js/kaleido-fed-sdk.js"></script>
 <style>
@@ -16,8 +16,8 @@
     --gold-dark: #B8860B;
     --champagne: #F7E7CE;
     --crimson: #8B0000;
-    --bg-warm: #2f1a10;
-    --bg-deep: #1a0e08;
+    --bg-warm: #5a3020;
+    --bg-deep: #3a1e12;
     --trophy-glow: rgba(255, 215, 0, 0.5);
   }
 
@@ -54,9 +54,9 @@
     padding: 20px;
     text-align: center;
     background:
-      radial-gradient(circle at 20% 0%, rgba(255, 215, 0, 0.10), transparent 35%),
-      radial-gradient(circle at 80% 10%, rgba(139, 0, 0, 0.12), transparent 30%),
-      linear-gradient(180deg, #2f1a10 0%, #1a0e08 60%, #140a06);
+      radial-gradient(circle at 20% 0%, rgba(255, 215, 0, 0.15), transparent 40%),
+      radial-gradient(circle at 80% 10%, rgba(255, 165, 0, 0.10), transparent 35%),
+      linear-gradient(180deg, #5a3020 0%, #3a1e12 60%, #2a1410);
   }
 
   .home-inner {
@@ -121,9 +121,9 @@
     padding: 0;
     text-align: center;
     background:
-      radial-gradient(circle at 20% 0%, rgba(255, 215, 0, 0.10), transparent 35%),
-      radial-gradient(circle at 80% 10%, rgba(139, 0, 0, 0.12), transparent 30%),
-      linear-gradient(180deg, #2f1a10 0%, #1a0e08 60%, #140a06);
+      radial-gradient(circle at 20% 0%, rgba(255, 215, 0, 0.15), transparent 40%),
+      radial-gradient(circle at 80% 10%, rgba(255, 165, 0, 0.10), transparent 35%),
+      linear-gradient(180deg, #5a3020 0%, #3a1e12 60%, #2a1410);
     --final-item-size: clamp(64px, 10.5vw, 96px);
     --final-item-height: calc(var(--final-item-size) + 30px);
   }
@@ -299,7 +299,7 @@
     padding: 28px 20px;
     border-radius: 28px;
     border: 1px solid rgba(255, 215, 0, 0.2);
-    background: linear-gradient(145deg, rgba(255, 215, 0, 0.06), rgba(255, 165, 0, 0.04)), rgba(13, 8, 6, 0.95);
+    background: linear-gradient(145deg, rgba(255, 215, 0, 0.10), rgba(255, 165, 0, 0.06)), rgba(40, 22, 14, 0.95);
     box-shadow: 0 22px 56px rgba(0,0,0,0.5);
   }
 
@@ -491,7 +491,7 @@
     width: 100%;
     padding: 14px 8px;
     border-radius: 16px;
-    background: rgba(8, 5, 3, 0.85);
+    background: rgba(40, 22, 14, 0.85);
     border: 1.5px solid rgba(255, 215, 0, 0.12);
     box-sizing: border-box;
   }
@@ -689,7 +689,7 @@
     max-width: 380px;
     max-height: 85vh;
     overflow-y: auto;
-    background: linear-gradient(160deg, #2f1a10 0%, #1a0e08 100%);
+    background: linear-gradient(160deg, #5a3020 0%, #3a1e12 100%);
     border: 2px solid rgba(255, 215, 0, 0.5);
     border-radius: 24px;
     padding: 28px 24px 24px;
@@ -743,6 +743,14 @@
     font-weight: 900;
     color: rgba(255, 215, 0, 0.4);
   }
+  .modal-title {
+    font-size: 15px;
+    font-weight: 900;
+    color: #FFA500;
+    text-align: center;
+    margin: 4px 0 4px;
+    letter-spacing: 1px;
+  }
   .modal-name {
     font-size: 22px;
     font-weight: 900;
@@ -759,11 +767,12 @@
   .modal-stats {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 14px;
     margin-bottom: 16px;
     padding: 12px 0;
     border-top: 1px solid rgba(255, 215, 0, 0.15);
     border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+    flex-wrap: wrap;
   }
   .modal-stat {
     text-align: center;
@@ -842,38 +851,71 @@
 <script>
 /* ===== FMVP 数据（请填入真实数据） ===== */
 var FMVP_DATA = [
-  { id:'2001-shaq',   year:'2001', nameCN:'奥尼尔', playerName:"Shaquille O'Neal", team:'Lakers',   imgUrl:'https://i5.hoopchina.com.cn/newsPost/4fa787b20b5fa55db985135eca8a510a_w_235_h_219_.png', finalsPPG:33.0, finalsRPG:15.8, finalsAPG:4.8, story:'OK 组合的巅峰之作！湖人季后赛 15 胜 1 负创历史最佳战绩，奥尼尔在内线如同洪荒巨兽，场均 33 分 15.8 篮板，76 人用穆托姆博（当季最佳防守球员）来防他，结果大鲨鱼场均 16 次罚球笑纳一切。湖人三连冠第一冠，一个王朝的开端。' },
-  { id:'2002-shaq',  year:'2002', nameCN:'奥尼尔', playerName:"Shaquille O'Neal", team:'Lakers',   imgUrl:'https://i5.hoopchina.com.cn/newsPost/954b70cd2657a34ad5762fff79b2cd79_w_290_h_258_.png', finalsPPG:36.3, finalsRPG:12.3, finalsAPG:3.8, story:'三连冠！总决赛场均 36.3 分 12.3 篮板，奥尼尔在篮下的统治力已臻化境。面对篮网的弱侧内线，鲨鱼打出了个人总决赛场均得分最高的一轮系列赛。从 2000 到 2002，奥尼尔连续三年包揽常规赛 MVP、全明星 MVP 和总决赛 MVP，乔丹后第一人。' },
-  { id:'2003-duncan', year:'2003', nameCN:'邓肯',   playerName:'Tim Duncan',       team:'Spurs',    imgUrl:'https://i1.hoopchina.com.cn/newsPost/2f8dda91a544ea64625dd49de87a4fe8_w_190_h_190_.png', finalsPPG:24.2, finalsRPG:17.0, finalsAPG:5.3, story:'历史级的单核夺冠！邓肯在总决赛第六场打出 21 分 20 篮板 10 助攻 8 盖帽的准四双，距史上第一个总决赛四双仅差 2 个盖帽。马刺淘汰了三连冠的湖人，又击败了基德率领的篮网。这一年也是「海军上将」罗宾逊的退役巡礼，邓肯用冠军送别了老搭档。' },
-  { id:'2004-billups',year:'2004', nameCN:'比卢普斯', playerName:'Chauncey Billups', team:'Pistons', imgUrl:'https://i1.hoopchina.com.cn/newsPost/41c0ee72ef42a2505d2c28a645f5fb06_w_204_h_231_.png', finalsPPG:21.0, finalsRPG:3.2,  finalsAPG:5.2, story:'草根逆袭的终极剧本！活塞没有超级巨星，却用铁血防守把拥有「四巨头」（奥尼尔+科比+马龙+佩顿）的湖人防到只场均 81.8 分。比卢普斯作为平民活塞的大脑，以 5 场解决战斗，捧走 FMVP。他是 1997 年探花秀，生涯辗转多队才在底特律找到归宿——一个关于「团队篮球」的完美故事。' },
-  { id:'2005-duncan', year:'2005', nameCN:'邓肯',   playerName:'Tim Duncan',       team:'Spurs',    imgUrl:'https://i1.hoopchina.com.cn/newsPost/a18b42775875d57236e09452a6fe0ff5_w_114_h_119_.png', finalsPPG:20.6, finalsRPG:14.1, finalsAPG:2.1, story:'史上最沉闷也最绞肉机式的总决赛之一！吉诺比利和霍里的关键发挥功不可没，但邓肯的 14.1 篮板和场均 2.1 盖帽才是防守基石。抢七大战邓肯砍下 25 分 11 篮板，第三节那记打板中投锁定胜局。马刺 7 年 3 冠，一个属于邓肯的低调王朝悄然成型。' },
-  { id:'2006-wade',   year:'2006', nameCN:'韦德',   playerName:'Dwyane Wade',      team:'Heat',     imgUrl:'https://i5.hoopchina.com.cn/newsPost/c53d63cd0bcb68be967920d0cb861a42_w_105_h_124_.png', finalsPPG:34.7, finalsRPG:7.8,  finalsAPG:3.8, story:'闪电侠的封神之作！0-2 落后小牛，随后连扳四场，韦德在后四场场均轰下 39.3 分——就像 2006 年的乔丹。整个系列赛场均 34.7 分，效率值高达 33.8，总决赛历史上最伟大的个人表演之一。韦德用这轮系列赛宣告：我不是「鲨鱼的小弟」，我是迈阿密的国王。' },
-  { id:'2007-parker', year:'2007', nameCN:'帕克',   playerName:'Tony Parker',      team:'Spurs',    imgUrl:'https://i3.hoopchina.com.cn/newsPost/809141ee6e6b1b5cb2fedb64e7ec7033_w_206_h_193_.png', finalsPPG:24.5, finalsRPG:5.0,  finalsAPG:3.3, story:'NBA 历史上第一位欧洲出生的总决赛 MVP！法国跑车的速度让骑士防线无法招架，场均 24.5 分命中率高达 56.8%，以突破撕裂了骑士的年轻防线。GDP 组合的第三冠，马刺四年三冠建立了真正的王朝。而年仅 22 岁的詹姆斯，第一次感受到总决赛的残酷。' },
-  { id:'2008-pierce', year:'2008', nameCN:'皮尔斯', playerName:'Paul Pierce',      team:'Celtics',  imgUrl:'https://i5.hoopchina.com.cn/newsPost/a04d9cded6b2f197e33acb4ad2fef07f_w_126_h_154_.png', finalsPPG:21.8, finalsRPG:4.5,  finalsAPG:6.3, story:'「真理归来」的名场面！总决赛第一场皮尔斯膝盖受伤被抬出场，片刻后竟王者归来，连中两记三分，全场拿下 22 分。凯尔特人三巨头（皮尔斯+加内特+雷阿伦）组建第一年就夺冠，在主场以 131-92 的屠杀死敌湖人，皮尔斯当选 FMVP 后被浇了一桶佳得乐——这是他 10 年绿军生涯最荣耀的时刻。' },
-  { id:'2009-kobe',   year:'2009', nameCN:'科比',   playerName:'Kobe Bryant',      team:'Lakers',   imgUrl:'https://i5.hoopchina.com.cn/newsPost/34e32c0088a7d78424d87ce5629466a8_w_171_h_198_.png', finalsPPG:32.4, finalsRPG:5.6,  finalsAPG:7.4, story:'科比终于证明了自己！没有奥尼尔，他是老大。总决赛场均 32.4 分 5.6 篮板 7.4 助攻，面对魔术以 4-1 绅士横扫。第四场命中的那记制胜打板三分，冷血至極。这一年科比拿到了唯一的常规赛 MVP，加上全明星 MVP 和 FMVP，完成个人荣誉大满贯。曼巴精神，自此成为一代人的信仰。' },
-  { id:'2010-kobe',   year:'2010', nameCN:'科比',   playerName:'Kobe Bryant',      team:'Lakers',   imgUrl:'https://i5.hoopchina.com.cn/newsPost/9f041da8df0b5f58b8711786e85b91f4_w_170_h_188_.png', finalsPPG:28.6, finalsRPG:8.0,  finalsAPG:3.9, story:'复仇之战！2008 年湖人被凯尔特人血洗，两年后科比在抢七大战中复仇成功。虽然那场他 24 投仅 6 中，但抢下 15 个篮板——用最不「科比」的方式赢下了最想要的一个冠军。赛后科比跳上技术台张开双臂的画面，成为洛杉矶永恒的记忆。第五冠到手，追平魔术师，距离乔丹还差一步。' },
-  { id:'2011-dirk',   year:'2011', nameCN:'诺维茨基', playerName:'Dirk Nowitzki', team:'Mavericks',imgUrl:'https://i1.hoopchina.com.cn/newsPost/4e82e3e8080389bd2390c7aef08b2c83_w_193_h_234_.png', finalsPPG:26.0, finalsRPG:9.7,  finalsAPG:2.0, story:'史上最伟大的单核冠军之一！德克顶着举世皆敌的压力，击败了拥有「三巨头」的热火。他高烧 39 度在客场投进绝杀球，总决赛最后三战场均 32.3 分，用无解的金鸡独立告诉世界——篮球不只有天赋，还有坚守。这是小牛队史首冠，也是诺维茨基对 2006 年噩梦的最完美救赎。' },
-  { id:'2012-lebron', year:'2012', nameCN:'詹姆斯', playerName:'LeBron James',     team:'Heat',     imgUrl:'https://i3.hoopchina.com.cn/newsPost/4c064b68227d52241a2826bd62f11fb4_w_410_h_493_.png', finalsPPG:28.6, finalsRPG:10.2, finalsAPG:7.4, story:'等了九年！詹姆斯终于拿到第一座总冠军。2011 年总决赛的低迷让他背负巨大压力，面对年轻的雷霆三少，他场均 28.6 分 10.2 篮板 7.4 助攻——几乎每场准三双。系列赛第五场，他砍下 26 分 11 篮板 13 助攻的三双，在美航中心捧起生涯首冠。属于勒布朗的时代，正式拉开帷幕。' },
-  { id:'2013-lebron', year:'2013', nameCN:'詹姆斯', playerName:'LeBron James',     team:'Heat',     imgUrl:'https://i1.hoopchina.com.cn/newsPost/c09c85458d68088e65ed23c33a75284b_w_138_h_170_.png', finalsPPG:25.3, finalsRPG:10.9, finalsAPG:7.0, story:'最惊险的卫冕！雷阿伦在 G6 命中了那记载入史册的底角三分，将比赛拖入加时。詹姆斯在 G7 砍下 37 分 12 篮板，包括那记杀死比赛的中投——他没有逃避，在最关键的时刻接管了比赛。这是詹姆斯生涯第二个 FMVP，也是热火两连冠的巅峰。' },
-  { id:'2014-kawhi',  year:'2014', nameCN:'伦纳德', playerName:'Kawhi Leonard',    team:'Spurs',    imgUrl:'https://i3.hoopchina.com.cn/newsPost/76d614212dd2db8f22663eef853abf64_w_153_h_212_.png', finalsPPG:17.8, finalsRPG:6.4,  finalsAPG:2.0, story:'最年轻的 FMVP 之一（22 岁），仅次于魔术师！伦纳德用一双大手锁死了詹姆斯，同时以 61.2% 的命中率场均 17.8 分。马刺打出了史上最漂亮的团队篮球——场均 25.3 次助攻、净胜 70 分创总决赛纪录。GDP 组合的最后一冠，也是伦纳德从角色球员向巨星进化的起点。' },
-  { id:'2015-iguodala',year:'2015',nameCN:'伊戈达拉', playerName:'Andre Iguodala', team:'Warriors', imgUrl:'https://i5.hoopchina.com.cn/newsPost/4b06b170866df5a40d0c39b7467a259c_w_164_h_183_.png', finalsPPG:16.3, finalsRPG:5.8,  finalsAPG:4.0, story:'史上第一个常规赛零首发、总决赛拿 FMVP 的球员！科尔在 1-2 落后时将伊戈达拉提上首发，此后勇士连胜三场。他场均 16.3 分 5.8 篮板 4 助攻，关键时刻对詹姆斯的防守堪称教科书。伊戈达拉牺牲了首发位置，却在最需要他的时候站了出来——勇士王朝的起点，来自一个替补的奉献。' },
-  { id:'2016-lebron', year:'2016', nameCN:'詹姆斯', playerName:'LeBron James',     team:'Cavaliers',imgUrl:'https://i5.hoopchina.com.cn/newsPost/c5dd95f29d6736badd45e9c2eb688eaa_w_140_h_149_.png', finalsPPG:29.7, finalsRPG:11.3, finalsAPG:8.9, story:'史上最伟大的总决赛翻盘！1-3 落后于常规赛 73 胜的勇士，詹姆斯率队连扳三场。G5 和 G6 背靠背 41 分，G7 的「The Block」封盖伊戈达拉、欧文的「The Shot」三分——克利夫兰 52 年首冠。詹姆斯跪地痛哭的画面，是一个男人兑现了对家乡的承诺。全票 FMVP，实至名归。' },
-  { id:'2017-kd',     year:'2017', nameCN:'杜兰特', playerName:'Kevin Durant',     team:'Warriors', imgUrl:'https://i5.hoopchina.com.cn/newsPost/1502f5c7e6064e21d589c2fb0a7ac342_w_128_h_158_.png', finalsPPG:35.2, finalsRPG:8.2,  finalsAPG:5.4, story:'死神降临！杜兰特在加盟勇士的第一年就以场均 35.2 分拿下 FMVP，面对詹姆斯的三分线外一步干拔，是这轮系列赛最无解的武器。最致命的是 G3 那记三分——在左侧 45 度迎着詹姆斯命中，几乎杀死了悬念。杜兰特用最「杜兰特」的方式，拿到了渴望已久的第一冠。' },
-  { id:'2018-kd',     year:'2018', nameCN:'杜兰特', playerName:'Kevin Durant',     team:'Warriors', imgUrl:'https://i3.hoopchina.com.cn/newsPost/bb4446bed00af8f13dc5db6b7e034923_w_174_h_159_.png', finalsPPG:28.8, finalsRPG:10.8, finalsAPG:7.5, story:'连续第二年斩获 FMVP！G3 杜兰特命中那记在相同位置的三分——又是左侧 45 度迎射詹姆斯——勇士横扫骑士。如果说 2017 年是杜兰特证明自己，2018 年则是他巩固历史地位的注脚。只可惜总决赛 G5 的跟腱断裂成为转折，让勇士的王朝之路戛然而止。' },
-  { id:'2019-kawhi',  year:'2019', nameCN:'伦纳德', playerName:'Kawhi Leonard',    team:'Raptors',  imgUrl:'https://i5.hoopchina.com.cn/newsPost/ff666329ab93f6835703dfd0ff581e07_w_136_h_158_.png', finalsPPG:28.5, finalsRPG:9.8,  finalsAPG:4.2, story:'北境之王！伦纳德在猛龙的第一年就带回了总冠军——加拿大史上第一座 NBA 冠军。他拖着一条伤腿，击败了伤兵满营的勇士王朝。那一季他的中距离稳如磐石，东部半决赛 G7 那记颠进篮筐的绝杀，是 2019 年季后赛最戏剧化的瞬间。从多伦多到全世界，都在喊「Kawhi」！' },
-  { id:'2020-lebron', year:'2020', nameCN:'詹姆斯', playerName:'LeBron James',     team:'Lakers',   imgUrl:'https://i1.hoopchina.com.cn/newsPost/3029ef4f7c61ca4d5806570a67767110_w_219_h_301_.png', finalsPPG:29.8, finalsRPG:11.8, finalsAPG:8.5, story:'历史第一人：在三支不同球队拿到 FMVP！迪士尼泡泡园区，詹姆斯带领湖人以 4-2 击败热火。他场均 29.8 分 11.8 篮板 8.5 助攻，在 35 岁的年纪打出 MVP 级别表现。这一年也是科比的离世之年，湖人全队「为科比而战」——捧起奖杯的那一刻，「Kobe, this is for you!」响彻全场。' },
-  { id:'2021-giannis',year:'2021', nameCN:'字母哥', playerName:'Giannis Antetokounmpo', team:'Bucks', imgUrl:'https://i5.hoopchina.com.cn/newsPost/cadd140f7834dde88d8a569d6da653d1_w_164_h_202_.png', finalsPPG:35.2, finalsRPG:13.2, finalsAPG:5.0, story:'总决赛 50 分！字母哥在 G6 封神战中砍下 50 分 14 篮板 5 盖帽——历史总决赛抢七战之外的最高分。更令人动容的是，他曾在东决 G4 膝盖反关节受伤，所有人都以为他赛季报销了，他却休息了两场就火线复出。从瘦弱的希腊少年到扛着雄鹿夺冠的希腊怪物，字母哥的故事本身就是一部励志电影。' },
-  { id:'2022-curry',  year:'2022', nameCN:'库里',   playerName:'Stephen Curry',    team:'Warriors', imgUrl:'https://i3.hoopchina.com.cn/newsPost/684e1d77952aabf049195d716a6c807b_w_206_h_281_.png', finalsPPG:31.2, finalsRPG:6.0,  finalsAPG:5.0, story:'终于拿到了！库里职业生涯第一座 FMVP。尽管已经手握三个总冠军和两个 MVP，但 FMVP 的缺失一直是质疑者的口实。2022 年总决赛他场均 31.2 分，G4 砍下 43 分 10 篮板，彻底击碎了所有质疑。捧杯时他说：「他们现在还能说什么？」——一个完美主义者的终极证明。' },
-  { id:'2023-jokic',  year:'2023', nameCN:'约基奇', playerName:'Nikola Jokic',     team:'Nuggets',  imgUrl:'https://i5.hoopchina.com.cn/newsPost/53a6d9347dde9e66dc7ce4c6cf20da67_w_181_h_180_.png', finalsPPG:30.2, finalsRPG:14.0, finalsAPG:7.2, story:'史上最独特的 FMVP——一个打中锋的控卫！约基奇场均 30.2 分 14 篮板 7.2 助攻，率掘金绅士横扫热火。他是 NBA 历史上选秀顺位最低（第 41 顺位）的总决赛 MVP，诠释了「技术可以超越天赋」。总决赛中那记跨越全场的精准长传助攻戈登，是他独特球风的完美缩影。约基奇改变了篮球世界对中锋的全部想象。' },
-  { id:'2024-brown',  year:'2024', nameCN:'布朗',   playerName:'Jaylen Brown',     team:'Celtics',  imgUrl:'https://i1.hoopchina.com.cn/newsPost/268a61aecee52381a39b398d4a336b4b_w_141_h_169_.png', finalsPPG:20.8, finalsRPG:5.4,  finalsAPG:5.0, story:'凯尔特人第 18 冠！杰伦·布朗拿下东决 MVP + 总决赛 MVP 大满贯。他在总决赛攻防一体的表现——首战 22 分 6 篮板、关键时刻的单防锁定胜局，证明了他是波士顿真正的核心。从 2018 年东决抢七失利到如今登顶，布朗走过了六年磨一剑的奋斗路。他和塔图姆的「双探花」组合，终于修成正果。' },
-  { id:'2025-shai',   year:'2025', nameCN:'亚历山大', playerName:'Shai Gilgeous-Alexander', team:'Thunder', imgUrl:'https://i3.hoopchina.com.cn/newsPost/e830ec0d898e7e7954611cd0263666be_w_129_h_152_.png', finalsPPG:32.5, finalsRPG:6.2, finalsAPG:7.8, story:'雷霆的新王！亚历山大在 2025 年率领俄克拉荷马重返巅峰，用无解的中距离和犀利的突破撕裂了对手防线。从快船的弃将到雷霆的基石，SGA 一步步成长为 MVP 级别的超级巨星。总决赛场均 32.5 分 7.8 助攻，打得像身材更高大的保罗——冷静、致命、不可阻挡。雷霆上一次夺冠还是 2012 年，SGA 让蓝色风暴再次席卷联盟。' }
+  { id:'2001-shaq',   year:'2001', nameCN:'奥尼尔', playerName:"Shaquille O'Neal", team:'Lakers',   imgUrl:'https://i5.hoopchina.com.cn/newsPost/4fa787b20b5fa55db985135eca8a510a_w_235_h_219_.png', finalsPPG:33.0, finalsRPG:15.8, finalsAPG:4.8, title:'禁区暴君', story:'湖人季后赛15胜1负，奥尼尔场均33分15.8篮板统治内线，76人用当季DPOY穆托姆博也拦不住他。三连冠的第一块基石，一个王朝的开端。' },
+  { id:'2002-shaq',  year:'2002', nameCN:'奥尼尔', playerName:"Shaquille O'Neal", team:'Lakers',   imgUrl:'https://i5.hoopchina.com.cn/newsPost/954b70cd2657a34ad5762fff79b2cd79_w_290_h_258_.png', finalsPPG:36.3, finalsRPG:12.3, finalsAPG:3.8, title:'三连庄统治者', story:'总决赛场均36.3分12.3篮板，奥尼尔完成FMVP三连庄。面对篮网弱侧内线，鲨鱼打出个人总决赛场均得分最高的一轮系列赛，乔丹后第一人。' },
+  { id:'2003-duncan', year:'2003', nameCN:'邓肯',   playerName:'Tim Duncan',       team:'Spurs',    imgUrl:'https://i1.hoopchina.com.cn/newsPost/2f8dda91a544ea64625dd49de87a4fe8_w_190_h_190_.png', finalsPPG:24.2, finalsRPG:17.0, finalsAPG:5.3, title:'准四双石佛', story:'邓肯在G6打出21分20篮板10助攻8盖帽的准四双，距总决赛四双仅差2帽。马刺淘汰三连冠湖人，单核击败篮网，用冠军送别退役的「海军上将」罗宾逊。', stats:[{label:'场均得分',value:24.2},{label:'场均篮板',value:17.0},{label:'场均盖帽',value:5.3}] },
+  { id:'2004-billups',year:'2004', nameCN:'比卢普斯', playerName:'Chauncey Billups', team:'Pistons', imgUrl:'https://i1.hoopchina.com.cn/newsPost/41c0ee72ef42a2505d2c28a645f5fb06_w_204_h_231_.png', finalsPPG:21.0, finalsRPG:3.2,  finalsAPG:5.2, title:'平民王朝核心', story:'活塞用近乎完美的团队防守击溃湖人F4。没有超级巨星，却人人都能成为关键先生。比卢普斯捧起FMVP，也让世界重新认识团队篮球的力量。', stats:[{label:'场均得分',value:21.0},{label:'场均助攻',value:5.2},{label:'三分命中率',value:'50.0%'}] },
+  { id:'2005-duncan', year:'2005', nameCN:'邓肯',   playerName:'Tim Duncan',       team:'Spurs',    imgUrl:'https://i1.hoopchina.com.cn/newsPost/a18b42775875d57236e09452a6fe0ff5_w_114_h_119_.png', finalsPPG:20.6, finalsRPG:14.1, finalsAPG:2.1, title:'防守战争之王', story:'史上最绞肉机式的防守大战，吉诺比利和霍里的关键发挥功不可没，但邓肯场均14.1篮板2.1盖帽才是防守基石。抢七25分11篮板，打板中投锁定胜局，马刺7年3冠。', stats:[{label:'场均得分',value:20.6},{label:'场均篮板',value:14.1},{label:'场均盖帽',value:2.1}] },
+  { id:'2006-wade',   year:'2006', nameCN:'韦德',   playerName:'Dwyane Wade',      team:'Heat',     imgUrl:'https://i5.hoopchina.com.cn/newsPost/c53d63cd0bcb68be967920d0cb861a42_w_105_h_124_.png', finalsPPG:34.7, finalsRPG:7.8,  finalsAPG:3.8, title:'迈阿密闪电', story:'从0-2到4-2，韦德用历史级个人表演完成逆转。闪电侠正式接过迈阿密的王冠。' },
+  { id:'2007-parker', year:'2007', nameCN:'帕克',   playerName:'Tony Parker',      team:'Spurs',    imgUrl:'https://i3.hoopchina.com.cn/newsPost/809141ee6e6b1b5cb2fedb64e7ec7033_w_206_h_193_.png', finalsPPG:24.5, finalsRPG:5.0,  finalsAPG:3.3, title:'欧洲第一FMVP', story:'NBA首位欧洲出身FMVP，法国跑车场均24.5分命中率56.8%，用突破彻底打穿骑士年轻防线。GDP第三冠，马刺四年三冠建立王朝，22岁的詹姆斯第一次感受总决赛残酷。', stats:[{label:'场均得分',value:24.5},{label:'场均篮板',value:5.0},{label:'命中率',value:'56.8%'}] },
+  { id:'2008-pierce', year:'2008', nameCN:'皮尔斯', playerName:'Paul Pierce',      team:'Celtics',  imgUrl:'https://i5.hoopchina.com.cn/newsPost/a04d9cded6b2f197e33acb4ad2fef07f_w_126_h_154_.png', finalsPPG:21.8, finalsRPG:4.5,  finalsAPG:6.3, title:'真理归来', story:'「真理归来」名场面！总决赛G1皮尔斯膝盖受伤被抬出场，片刻后王者归来连中两记三分。绿军三巨头组建第一年即夺冠，主场131-92屠杀死敌湖人，皮尔斯当选FMVP后被浇一桶佳得乐。' },
+  { id:'2009-kobe',   year:'2009', nameCN:'科比',   playerName:'Kobe Bryant',      team:'Lakers',   imgUrl:'https://i5.hoopchina.com.cn/newsPost/34e32c0088a7d78424d87ce5629466a8_w_171_h_198_.png', finalsPPG:32.4, finalsRPG:5.6,  finalsAPG:7.4, title:'证明之冠', story:'场均32.4分5.6篮板7.4助攻，终于证明自己也能作为绝对核心登顶。等待七年后，FMVP奖杯终于刻上了科比的名字。' },
+  { id:'2010-kobe',   year:'2010', nameCN:'科比',   playerName:'Kobe Bryant',      team:'Lakers',   imgUrl:'https://i5.hoopchina.com.cn/newsPost/9f041da8df0b5f58b8711786e85b91f4_w_170_h_188_.png', finalsPPG:28.6, finalsRPG:8.0,  finalsAPG:3.9, title:'紫金终极复仇', story:'抢七大战手感冰冷，却抢下15个篮板死磕到底。用最不科比的方式，赢下了最科比的一冠。' },
+  { id:'2011-dirk',   year:'2011', nameCN:'诺维茨基', playerName:'Dirk Nowitzki', team:'Mavericks',imgUrl:'https://i1.hoopchina.com.cn/newsPost/4e82e3e8080389bd2390c7aef08b2c83_w_193_h_234_.png', finalsPPG:26.0, finalsRPG:9.7,  finalsAPG:2.0, title:'单核神话', story:'被无数球迷视为最伟大的单核夺冠征程之一。德克顶着举世皆敌的压力击败热火三巨头。高烧39度客场投进绝杀，用金鸡独立告诉世界——篮球不只有天赋，还有坚守。' },
+  { id:'2012-lebron', year:'2012', nameCN:'詹姆斯', playerName:'LeBron James',     team:'Heat',     imgUrl:'https://i3.hoopchina.com.cn/newsPost/4c064b68227d52241a2826bd62f11fb4_w_410_h_493_.png', finalsPPG:28.6, finalsRPG:10.2, finalsAPG:7.4, title:'王冠初戴', story:'等了九年，詹姆斯终于拿到第一座总冠军！场均28.6分10.2篮板7.4助攻，面对雷霆三少几乎每场准三双。G5砍下26分11篮板13助攻的三双，在美航中心捧起生涯首冠，「终于跨过那道门」。' },
+  { id:'2013-lebron', year:'2013', nameCN:'詹姆斯', playerName:'LeBron James',     team:'Heat',     imgUrl:'https://i1.hoopchina.com.cn/newsPost/c09c85458d68088e65ed23c33a75284b_w_138_h_170_.png', finalsPPG:25.3, finalsRPG:10.9, finalsAPG:7.0, title:'救赎完成', story:'最惊险的卫冕！雷阿伦G6底角三分载入史册将比赛拖入加时。詹姆斯G7砍下37分12篮板，那记杀死比赛的中投——他没有逃避，在最关键的时刻接管了比赛。生涯第二座FMVP，热火两连冠巅峰。' },
+  { id:'2014-kawhi',  year:'2014', nameCN:'伦纳德', playerName:'Kawhi Leonard',    team:'Spurs',    imgUrl:'https://i3.hoopchina.com.cn/newsPost/76d614212dd2db8f22663eef853abf64_w_153_h_212_.png', finalsPPG:17.8, finalsRPG:6.4,  finalsAPG:2.0, title:'新王初现', story:'在防守詹姆斯的同时高效输出，成为马刺体系中最耀眼的新星。马刺打出史上最漂亮团队篮球——场均25.3次助攻净胜70分创纪录。22岁最年轻FMVP之一，从角色球员向巨星进化的起点。', stats:[{label:'场均得分',value:17.8},{label:'场均篮板',value:6.4},{label:'命中率',value:'61.2%'}] },
+  { id:'2015-iguodala',year:'2015',nameCN:'伊戈达拉', playerName:'Andre Iguodala', team:'Warriors', imgUrl:'https://i5.hoopchina.com.cn/newsPost/4b06b170866df5a40d0c39b7467a259c_w_164_h_183_.png', finalsPPG:16.3, finalsRPG:5.8,  finalsAPG:4.0, title:'奇兵夺帅', story:'死亡五小横空出世，伊戈达拉改变了整个系列赛走势。即便FMVP归属至今仍有争议，但没人否认他是勇士逆转的关键拼图。' },
+  { id:'2016-lebron', year:'2016', nameCN:'詹姆斯', playerName:'LeBron James',     team:'Cavaliers',imgUrl:'https://i5.hoopchina.com.cn/newsPost/c5dd95f29d6736badd45e9c2eb688eaa_w_140_h_149_.png', finalsPPG:29.7, finalsRPG:11.3, finalsAPG:8.9, title:'克利夫兰奇迹', story:'史上最伟大总决赛翻盘！1-3落后73胜勇士，詹姆斯率队连扳三场。G5+G6背靠背41分，G7「The Block」封盖伊戈达拉——克利夫兰52年首冠。五项数据领跑两队，全票FMVP，兑现了对家乡的承诺。' },
+  { id:'2017-kd',     year:'2017', nameCN:'杜兰特', playerName:'Kevin Durant',     team:'Warriors', imgUrl:'https://i5.hoopchina.com.cn/newsPost/1502f5c7e6064e21d589c2fb0a7ac342_w_128_h_158_.png', finalsPPG:35.2, finalsRPG:8.2,  finalsAPG:5.4, title:'死神降临', story:'死神降临！杜兰特加盟勇士第一年场均35.2分拿下FMVP，面对詹姆斯三分线外一步干拔是无解武器。G3左侧45度迎着詹姆斯命中关键三分几乎杀死悬念。用最「杜兰特」的方式拿到渴望已久的第一冠。' },
+  { id:'2018-kd',     year:'2018', nameCN:'杜兰特', playerName:'Kevin Durant',     team:'Warriors', imgUrl:'https://i3.hoopchina.com.cn/newsPost/bb4446bed00af8f13dc5db6b7e034923_w_174_h_159_.png', finalsPPG:28.8, finalsRPG:10.8, finalsAPG:7.5, title:'终结者', story:'连续第二年斩获FMVP！G3杜兰特在相同位置命中超远三分复刻2017经典——又是左侧45度迎射詹姆斯，勇士横扫骑士。场均28.8分10.8篮板7.5助攻，2017年是证明自己，2018年是巩固历史地位。' },
+  { id:'2019-kawhi',  year:'2019', nameCN:'伦纳德', playerName:'Kawhi Leonard',    team:'Raptors',  imgUrl:'https://i5.hoopchina.com.cn/newsPost/ff666329ab93f6835703dfd0ff581e07_w_136_h_158_.png', finalsPPG:28.5, finalsRPG:9.8,  finalsAPG:4.2, title:'北境之王', story:'在加盟猛龙的第一年便率队夺冠，为加拿大带来首座NBA总冠军奖杯。东部半决赛G7那记颠进篮筐的绝杀是2019年最戏剧化的瞬间，北境之王当之无愧。' },
+  { id:'2020-lebron', year:'2020', nameCN:'詹姆斯', playerName:'LeBron James',     team:'Lakers',   imgUrl:'https://i1.hoopchina.com.cn/newsPost/3029ef4f7c61ca4d5806570a67767110_w_219_h_301_.png', finalsPPG:29.8, finalsRPG:11.8, finalsAPG:8.5, title:'三冠三队', story:'历史第一人：在三支不同球队夺冠并获FMVP！迪士尼泡泡园区，詹姆斯率湖人在35岁年纪打出MVP级表现，场均29.8分11.8篮板8.5助攻，4-2击败热火。这一年科比离世，湖人「为科比而战」捧起奖杯。' },
+  { id:'2021-giannis',year:'2021', nameCN:'字母哥', playerName:'Giannis Antetokounmpo', team:'Bucks', imgUrl:'https://i5.hoopchina.com.cn/newsPost/cadd140f7834dde88d8a569d6da653d1_w_164_h_202_.png', finalsPPG:35.2, finalsRPG:13.2, finalsAPG:5.0, title:'50分封神夜', story:'G6封神战50分14篮板5盖帽——总决赛抢七战之外的历史最高分。字母哥曾在东决G4膝盖反关节受伤，所有人都以为他赛季报销，他却休息两场火线复出。从瘦弱希腊少年到扛着雄鹿夺冠的希腊怪物。' },
+  { id:'2022-curry',  year:'2022', nameCN:'库里',   playerName:'Stephen Curry',    team:'Warriors', imgUrl:'https://i3.hoopchina.com.cn/newsPost/684e1d77952aabf049195d716a6c807b_w_206_h_281_.png', finalsPPG:31.2, finalsRPG:6.0,  finalsAPG:5.0, title:'最后一块拼图', story:'终于拿到了！库里职业生涯第一座FMVP。场均31.2分，G4砍下43分10篮板彻底击碎质疑。尽管已手握三个总冠军和两个MVP，但FMVP的缺失一直是心结。捧杯时他说：「他们现在还能说什么？」', stats:[{label:'场均得分',value:31.2},{label:'场均篮板',value:6.0},{label:'场均助攻',value:5.0},{label:'场均三分',value:5.2}] },
+  { id:'2023-jokic',  year:'2023', nameCN:'约基奇', playerName:'Nikola Jokic',     team:'Nuggets',  imgUrl:'https://i5.hoopchina.com.cn/newsPost/53a6d9347dde9e66dc7ce4c6cf20da67_w_181_h_180_.png', finalsPPG:30.2, finalsRPG:14.0, finalsAPG:7.2, title:'全能篮球之神', story:'史上最独特FMVP——一个打中锋的控卫！约基奇场均30.2分14篮板7.2助攻率掘金绅士横扫热火。季后赛得分+篮板+助攻三项联盟第一，第41顺位出身诠释「技术超越天赋」。总决赛跨越全场长传助攻戈登是他独特球风的缩影。' },
+  { id:'2024-brown',  year:'2024', nameCN:'布朗',   playerName:'Jaylen Brown',     team:'Celtics',  imgUrl:'https://i1.hoopchina.com.cn/newsPost/268a61aecee52381a39b398d4a336b4b_w_141_h_169_.png', finalsPPG:20.8, finalsRPG:5.4,  finalsAPG:5.0, title:'双MVP之路', story:'凯尔特人第18冠！杰伦·布朗东决MVP与总决赛MVP双收，用攻防两端的稳定表现证明自己已是联盟顶级锋线。从2018年东决抢七失利到如今登顶，六年磨一剑终修成正果。' },
+  { id:'2025-shai',   year:'2025', nameCN:'亚历山大', playerName:'Shai Gilgeous-Alexander', team:'Thunder', imgUrl:'https://i3.hoopchina.com.cn/newsPost/e830ec0d898e7e7954611cd0263666be_w_129_h_152_.png', finalsPPG:30.3, finalsRPG:4.6, finalsAPG:5.6, title:'雷霆新王', story:'从重建核心成长为冠军领袖，SGA率领年轻雷霆完成登顶。总决赛打得像身材更高大的保罗——冷静、致命、不可阻挡。雷霆上一次夺冠还是2012年，SGA让蓝色风暴再次席卷联盟。' }
 ];
 
 // 为没有 story 的生成默认
 FMVP_DATA.forEach(function(p){
   if (!p.story) {
-    p.story = p.playerName + ' 在 ' + p.year + ' 年总决赛中率领 ' + p.team + ' 夺得总冠军，以场均 ' + p.finalsPPG + ' 分 ' + p.finalsRPG + ' 篮板 ' + p.finalsAPG + ' 助攻的杰出表现荣获总决赛MVP（FMVP），书写了属于自己的传奇篇章。';
+    p.story = p.playerName + '在' + p.year + '年总决赛中率领' + p.team + '夺得总冠军，以场均' + p.finalsPPG + '分' + p.finalsRPG + '篮板' + p.finalsAPG + '助攻的杰出表现荣获总决赛MVP（FMVP），书写了属于自己的传奇篇章。';
   }
+});
+
+// 虎扑中文译名映射
+var CN_NAMES = {
+  '2001-shaq':{nameCNFull:'沙奎尔-奥尼尔',teamCN:'湖人'},
+  '2002-shaq':{nameCNFull:'沙奎尔-奥尼尔',teamCN:'湖人'},
+  '2003-duncan':{nameCNFull:'蒂姆-邓肯',teamCN:'马刺'},
+  '2004-billups':{nameCNFull:'昌西-比卢普斯',teamCN:'活塞'},
+  '2005-duncan':{nameCNFull:'蒂姆-邓肯',teamCN:'马刺'},
+  '2006-wade':{nameCNFull:'德维恩-韦德',teamCN:'热火'},
+  '2007-parker':{nameCNFull:'托尼-帕克',teamCN:'马刺'},
+  '2008-pierce':{nameCNFull:'保罗-皮尔斯',teamCN:'凯尔特人'},
+  '2009-kobe':{nameCNFull:'科比-布莱恩特',teamCN:'湖人'},
+  '2010-kobe':{nameCNFull:'科比-布莱恩特',teamCN:'湖人'},
+  '2011-dirk':{nameCNFull:'德克-诺维茨基',teamCN:'独行侠'},
+  '2012-lebron':{nameCNFull:'勒布朗-詹姆斯',teamCN:'热火'},
+  '2013-lebron':{nameCNFull:'勒布朗-詹姆斯',teamCN:'热火'},
+  '2014-kawhi':{nameCNFull:'科怀-伦纳德',teamCN:'马刺'},
+  '2015-iguodala':{nameCNFull:'安德烈-伊戈达拉',teamCN:'勇士'},
+  '2016-lebron':{nameCNFull:'勒布朗-詹姆斯',teamCN:'骑士'},
+  '2017-kd':{nameCNFull:'凯文-杜兰特',teamCN:'勇士'},
+  '2018-kd':{nameCNFull:'凯文-杜兰特',teamCN:'勇士'},
+  '2019-kawhi':{nameCNFull:'科怀-伦纳德',teamCN:'猛龙'},
+  '2020-lebron':{nameCNFull:'勒布朗-詹姆斯',teamCN:'湖人'},
+  '2021-giannis':{nameCNFull:'扬尼斯-阿德托昆博',teamCN:'雄鹿'},
+  '2022-curry':{nameCNFull:'斯蒂芬-库里',teamCN:'勇士'},
+  '2023-jokic':{nameCNFull:'尼古拉-约基奇',teamCN:'掘金'},
+  '2024-brown':{nameCNFull:'杰伦-布朗',teamCN:'凯尔特人'},
+  '2025-shai':{nameCNFull:'谢伊-吉尔杰斯-亚历山大',teamCN:'雷霆'}
+};
+FMVP_DATA.forEach(function(p){
+  var cn = CN_NAMES[p.id];
+  if (cn) { p.nameCNFull = cn.nameCNFull; p.teamCN = cn.teamCN; }
 });
 
 /* ===== 全局状态 ===== */
@@ -884,10 +926,10 @@ function renderHome() {
   state.currentScreen = 'home';
   document.getElementById('app').innerHTML =
     '<section class="home-screen"><div class="home-inner">' +
-    '<h1 class="home-title">🏆 FMVP 25年评级排行</h1>' +
-    '<p class="home-subtitle">从 2000–2025 年的 25 位总决赛MVP中，<br>选出你心中的 Top 10 放入金字塔之巅！</p>' +
+    '<h1 class="home-title">🏆本世纪FMVP含金量金字塔排行</h1>' +
+    '<p class="home-subtitle">从2000–2025年的25位总决赛MVP中，<br>选出你心中的Top10放入金字塔之巅！</p>' +
     '<button class="home-btn" onclick="startGame()">开始挑战</button>' +
-    '<div class="home-note">拖拽 · 点击 · 长按查看球员故事</div>' +
+    '<div class="home-note">拖拽·点击·长按查看球员故事</div>' +
     '</div></section>';
 }
 
@@ -921,8 +963,8 @@ function showFinal() {
   }
 
   app.innerHTML =
-    '<section class="final-screen"><div class="final-pyramid-area"><div class="final-pyramid-header"><h2>🏆 我的 FMVP Top 10</h2></div>' +
-    '<div class="final-pyramid-stage"><div class="final-pyramid-bg"></div>' +
+    '<section class="final-screen"><div class="final-pyramid-area"><div class="final-pyramid-header"><h2>🏆本世纪FMVP含金量金字塔排行</h2></div>' +
+    '<div class="final-pyramid-stage"><div class="final-pyramid-bg"><img src="https://i3.hoopchina.com.cn/newsPost/83abe1337c3a97ed7d3cac93de259619_w_960_h_1200_.jpeg" alt="FMVP奖杯"></div>' +
     '<div class="final-triangle-skeleton">' +
     '<svg><defs><linearGradient id="goldGradFinal" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFD700"/><stop offset="50%" stop-color="#FFE55C"/><stop offset="100%" stop-color="#FFA500"/></linearGradient>' +
     '<linearGradient id="flowGradFinal" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0"/><stop offset="35%" stop-color="#ffffff" stop-opacity="0"/><stop offset="50%" stop-color="#FFD700" stop-opacity="0.8"/><stop offset="65%" stop-color="#ffffff" stop-opacity="0"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></linearGradient>' +
@@ -932,10 +974,10 @@ function showFinal() {
     '<polygon id="glow-flow-final" fill="none" stroke="url(#flowGradFinal)" stroke-width="3" stroke-opacity="0.6" stroke-linejoin="round" stroke-dasharray="20 20" class="gold-flow"/>' +
     '<polygon id="glow-core-final" fill="none" stroke="url(#goldGradFinal)" stroke-width="2" stroke-opacity="1" stroke-linejoin="round"/></svg></div>' +
     sHTML + '</div></div>' +
-    '<div class="final-result-area"><div class="final-panel"><div class="final-result">🏆 排行完成！</div>' +
-    '<div class="final-btns"><button class="btn-gold" onclick="generatePoster()">🎨 生成海报</button>' +
-    '<button class="btn-gold" onclick="startGame()">🔄 再来一次</button>' +
-    '<button class="btn-gray" onclick="renderHome()">🏠 返回首页</button></div></div></div></section>';
+    '<div class="final-result-area"><div class="final-panel"><div class="final-result">🏆排行完成！</div>' +
+    '<div class="final-btns"><button class="btn-gold" onclick="generatePoster()">🎨生成海报</button>' +
+    '<button class="btn-gold" onclick="startGame()">🔄再来一次</button>' +
+    '<button class="btn-gray" onclick="renderHome()">🏠返回首页</button></div></div></div></section>';
   initFinalTriangleSVG();
 }
 
@@ -972,8 +1014,8 @@ function startGame() {
 
   app.innerHTML =
     '<section class="game-screen">' +
-    '<div class="game-header"><h2>🏆 FMVP 25年评级排行</h2><div class="subtitle">拖拽或点击球员放入金字塔 — 长按查看球员信息</div></div>' +
-    '<div class="pyramid-stage"><div class="pyramid-bg"></div>' +
+    '<div class="game-header"><h2>🏆本世纪FMVP含金量金字塔排行</h2><div class="subtitle">拖拽或点击球员放入金字塔—长按查看球员该年数据</div></div>' +
+    '<div class="pyramid-stage"><div class="pyramid-bg"><img src="https://i3.hoopchina.com.cn/newsPost/83abe1337c3a97ed7d3cac93de259619_w_960_h_1200_.jpeg" alt="FMVP奖杯"></div>' +
     '<div class="triangle-skeleton">' +
     '<svg><defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFD700"/><stop offset="50%" stop-color="#FFE55C"/><stop offset="100%" stop-color="#FFA500"/></linearGradient>' +
     '<linearGradient id="flowGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0"/><stop offset="35%" stop-color="#ffffff" stop-opacity="0"/><stop offset="50%" stop-color="#FFD700" stop-opacity="0.8"/><stop offset="65%" stop-color="#ffffff" stop-opacity="0"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></linearGradient>' +
@@ -983,9 +1025,9 @@ function startGame() {
     '<polygon id="glow-flow" fill="none" stroke="url(#flowGrad)" stroke-width="2" stroke-opacity="0.6" stroke-linejoin="round" stroke-dasharray="20 20" class="gold-flow"/>' +
     '<polygon id="glow-core" fill="none" stroke="url(#goldGrad)" stroke-width="1.2" stroke-opacity="1" stroke-linejoin="round"/></svg></div>' +
     slotHTML + '</div>' +
-    '<div class="pool-container"><div class="pool-title">— 候选球员（长按查看详情） —</div>' +
+    '<div class="pool-container"><div class="pool-title">—候选球员（长按查看球员该年数据）—</div>' +
     '<div class="options-box" id="options-pool">'+poolHTML+'</div></div>' +
-    '<div style="text-align:center;margin-top:22px;"><button class="home-btn" onclick="showFinal()">🏆 查看排行结果</button></div>' +
+    '<div style="text-align:center;margin-top:22px;"><button class="home-btn" onclick="showFinal()">🏆查看排行结果</button></div>' +
     '</section>';
 
   initGame();
@@ -1070,6 +1112,21 @@ function getPlayerDataById(id) {
   return null;
 }
 
+function buildStatsHTML(p) {
+  var stats = p.stats || [
+    {label:'场均得分', value:p.finalsPPG},
+    {label:'场均篮板', value:p.finalsRPG},
+    {label:'场均助攻', value:p.finalsAPG}
+  ];
+  var html = '';
+  for (var i=0;i<stats.length;i++) {
+    var v = stats[i].value;
+    if (typeof v === 'number') v = v.toFixed(1);
+    html += '<div class="modal-stat"><div class="modal-stat-value">'+v+'</div><div class="modal-stat-label">'+stats[i].label+'</div></div>';
+  }
+  return html;
+}
+
 function showPlayerModal(playerId) {
   var p = getPlayerDataById(playerId);
   if (!p) return;
@@ -1083,13 +1140,12 @@ function showPlayerModal(playerId) {
     '<button class="modal-close">&times;</button>' +
     '<div class="modal-body">' +
     '<div class="modal-avatar">'+imgTag+fallback+'</div>' +
-    '<div class="modal-fmvp-badge">🏆 '+p.year+' 总决赛MVP</div>' +
-    '<div class="modal-name">'+p.playerName+'</div>' +
-    '<div class="modal-year-team">'+p.team+'</div>' +
-    '<div class="modal-stats">' +
-    '<div class="modal-stat"><div class="modal-stat-value">'+p.finalsPPG+'</div><div class="modal-stat-label">场均得分</div></div>' +
-    '<div class="modal-stat"><div class="modal-stat-value">'+p.finalsRPG+'</div><div class="modal-stat-label">场均篮板</div></div>' +
-    '<div class="modal-stat"><div class="modal-stat-value">'+p.finalsAPG+'</div><div class="modal-stat-label">场均助攻</div></div>' +
+    '<div class="modal-fmvp-badge">🏆'+p.year+'总决赛MVP</div>' +
+    '<div class="modal-title">「'+(p.title||'传奇')+'」</div>' +
+    '<div class="modal-name">'+(p.nameCNFull||p.playerName)+'</div>' +
+    '<div class="modal-year-team">'+(p.teamCN||p.team)+'</div>' +
+    '<div class="modal-stats" id="modal-stats-'+playerId+'">' +
+    buildStatsHTML(p) +
     '</div>' +
     '<div class="modal-story">'+p.story+'</div>' +
     '</div></div>';
@@ -1215,7 +1271,7 @@ function initDragState(item, touch) {
 }
 
 function bindItemEvents(item) {
-  // HTML5 拖拽（桌面端）
+  // HTML5拖拽（桌面端）
   item.addEventListener('dragstart', function(){
     clearSelection();
     draggedItem = this; originalParentSlot = this.parentNode;
@@ -1242,7 +1298,7 @@ function bindItemEvents(item) {
     touchMoved = false; longPressActive = false;
     lastTouchClientX = touch.clientX; lastTouchClientY = touch.clientY;
 
-    // 设置 600ms 长按定时器
+    // 设置600ms 长按定时器
     var self = this;
     longPressTimer = setTimeout(function(){
       longPressTimer = null;
@@ -1387,7 +1443,7 @@ function findFirstEmptyGridSlot() {
 /* ====== 海报生成 & 一键发帖 ====== */
 const POSTER_W = 600, POSTER_H = 800, POSTER_SCALE = 2;
 const TAG_ID = 148087;
-const TAG_NAME = '21世纪fmvp金字塔排行';
+const TAG_NAME = '本世纪fmvp含金量金字塔排行';
 const TOPIC_NAME = '湿乎乎的话题';
 const TOPIC_ID = 177;
 
@@ -1510,12 +1566,12 @@ function drawPoster(ctx, w, h, players) {
     ctx.textBaseline = 'top';
     ctx.fillStyle = '#FFD700';
     ctx.font = 'bold 28px -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif';
-    ctx.fillText('🏆 FMVP 金字塔排行', w / 2, 26);
+    ctx.fillText('🏆本世纪FMVP含金量金字塔排行', w / 2, 26);
 
     // 副标题
     ctx.fillStyle = '#a09080';
     ctx.font = '15px -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif';
-    ctx.fillText('我的 Top 10 排名', w / 2, 72);
+    ctx.fillText('我的Top10排名', w / 2, 72);
 
     // 分隔线
     ctx.fillStyle = 'rgba(255,215,0,0.1)';
@@ -1594,7 +1650,7 @@ function drawPoster(ctx, w, h, players) {
     ctx.font = '13px -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'bottom';
-    ctx.fillText('21世纪FMVP金字塔排行 · 虎扑JRs出品', w / 2, h - 8);
+    ctx.fillText('本世纪FMVP含金量金字塔排行·虎扑JRs出品', w / 2, h - 8);
 }
 
 function calcPosterHeight(players) {
@@ -1767,8 +1823,8 @@ renderHome();
 <div id="posterOverlay">
     <img id="posterPreviewImg" alt="海报预览">
     <div class="poster-actions">
-        <button class="btn btn-poster btn-share" onclick="sharePoster(this)">📤 一键发帖</button>
-        <button class="btn poster-close" style="background:#555;color:#fff" onclick="closePoster()">✕ 取消</button>
+        <button class="btn btn-poster btn-share" onclick="sharePoster(this)">📤一键发帖</button>
+        <button class="btn poster-close" style="background:#555;color:#fff" onclick="closePoster()">✕取消</button>
     </div>
 </div>
 
