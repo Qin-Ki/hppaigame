@@ -633,6 +633,7 @@
     <img id="posterPreviewImg" alt="海报预览">
     <div class="poster-actions">
       <button class="btn btn-poster btn-share" id="posterShareBtn">📤 一键发帖</button>
+      <button class="btn" id="posterSaveBtn" style="background:#2a6b3c;">💾 保存到相册</button>
       <button class="btn poster-close" id="posterCloseBtn" style="background:#555">关闭</button>
     </div>
   </div>
@@ -846,15 +847,29 @@
         let isWinner=m.winner && m.winner.id===team.id;
         let color=getTeamColor(team);
         let img=!placeholder?imageMap.get(team.id):null;
-        ctx.save(); ctx.beginPath(); ctx.arc(xs[idx],cy,r,0,Math.PI*2); ctx.closePath();
+        ctx.save();
+        if(!isWinner && m.winner){ ctx.globalAlpha=0.65; }
+        ctx.beginPath(); ctx.arc(xs[idx],cy,r,0,Math.PI*2); ctx.closePath();
         let gradBall=ctx.createRadialGradient(xs[idx]-r*0.35,cy-r*0.35,r*0.15,xs[idx],cy,r);
         gradBall.addColorStop(0,color||'#e67e2e'); gradBall.addColorStop(1,'#101826');
         ctx.fillStyle=gradBall; ctx.fill();
         if(img){ ctx.clip(); let iw=img.naturalWidth||img.width, ih=img.naturalHeight||img.height; let scale=Math.max((r*2)/iw,(r*2)/ih); ctx.drawImage(img,xs[idx]-iw*scale/2,cy-ih*scale/2,iw*scale,ih*scale); }
         else{ ctx.fillStyle='#fff'; ctx.font=`900 ${Math.max(10,r*0.46)}px PingFang SC`; ctx.fillText(placeholder?'?':team.shortName,xs[idx],cy); }
         ctx.restore();
-        ctx.beginPath(); ctx.arc(xs[idx],cy,r,0,Math.PI*2); ctx.strokeStyle=isWinner?'#f5c542':'rgba(255,220,120,.75)'; ctx.lineWidth=isWinner?4:2.4; ctx.shadowBlur=isWinner?12:0; ctx.stroke(); ctx.shadowBlur=0;
-        ctx.fillStyle=placeholder?'rgba(224,231,255,.55)':'#e0e7ff'; ctx.font=`700 ${isFinal?12:9}px PingFang SC`; ctx.textAlign='center'; ctx.fillText(placeholder?'待定':team.name,xs[idx],cy+r+5);
+        if(!isWinner && m.winner){
+          ctx.save(); ctx.globalAlpha=0.10;
+          ctx.beginPath(); ctx.arc(xs[idx],cy,r,0,Math.PI*2); ctx.closePath();
+          ctx.fillStyle='#000'; ctx.fill();
+          ctx.restore();
+        }
+        ctx.beginPath(); ctx.arc(xs[idx],cy,r,0,Math.PI*2);
+        ctx.strokeStyle=isWinner?'#f5c542':'rgba(200,200,210,.6)';
+        ctx.lineWidth=isWinner?4:2.2;
+        if(isWinner){ ctx.shadowColor='rgba(245,197,66,.7)'; ctx.shadowBlur=14; }
+        ctx.stroke(); ctx.shadowBlur=0;
+        ctx.fillStyle=isWinner?'#e0e7ff':(m.winner?'rgba(210,215,230,.8)':'#e0e7ff');
+        ctx.font=`700 ${isFinal?12:9}px PingFang SC`; ctx.textAlign='center';
+        ctx.fillText(placeholder?'待定':team.name,xs[idx],cy+r+5);
       });
     });
     ctx.restore();
@@ -1408,6 +1423,46 @@
     document.getElementById('posterOverlay').classList.remove('active');
   }
 
+  async function savePosterToAlbum(){
+    const btn = document.getElementById('posterSaveBtn');
+    const oldText = btn.innerHTML;
+    btn.innerHTML = '⏳ 保存中...';
+    btn.disabled = true;
+    try{
+      const canvas = window.__posterCanvas || await createStableChampionPosterCanvas();
+      const blob = await canvasToBlob(canvas, 'image/png', 0.95);
+      const file = new File([blob], `champion_${Date.now()}.png`, { type: 'image/png' });
+      // 优先使用 Web Share API（iOS/Android 均可保存到相册）
+      if(navigator.share && navigator.canShare && navigator.canShare({ files: [file] })){
+        try{
+          await navigator.share({ files: [file], title: '历史最强冠军球队' });
+          btn.innerHTML = oldText;
+          btn.disabled = false;
+          return;
+        }catch(e){
+          if(e.name === 'AbortError'){ btn.innerHTML = oldText; btn.disabled = false; return; }
+        }
+      }
+      // 兜底：创建下载链接
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `champion_${Date.now()}.png`;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 1500);
+      btn.innerHTML = oldText;
+      btn.disabled = false;
+    }catch(e){
+      debugLog('save_poster_failed', { error: e?.message });
+      btn.innerHTML = '❌ 保存失败';
+      setTimeout(() => { btn.innerHTML = oldText; btn.disabled = false; }, 2000);
+    }
+  }
+
   async function sharePoster(btn){
     if(!btn) return;
     const oldText = btn.innerHTML;
@@ -1446,6 +1501,7 @@
   document.querySelector("#backIntroBtn").addEventListener("click",()=>showScreen(introScreen));
   let previewOverlay=document.querySelector("#playerPreview"); previewOverlay.addEventListener("click",(e)=>{ if(e.target===previewOverlay) hideTeamPreview(); }); previewOverlay.querySelector(".preview-close").addEventListener("click",()=>hideTeamPreview());
   document.getElementById('posterShareBtn').addEventListener('click',(e)=>sharePoster(e.currentTarget));
+  document.getElementById('posterSaveBtn').addEventListener('click',()=>savePosterToAlbum());
   document.getElementById('posterCloseBtn').addEventListener('click',()=>closePoster());
   document.getElementById('posterOverlay').addEventListener('click',(e)=>{ if(e.target===e.currentTarget) closePoster(); });
   renderRoster(); buildMatches(shuffle([...teamsData])); renderTournament();

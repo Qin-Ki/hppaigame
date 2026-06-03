@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+<title>FMVP 25年评级排行 🏆</title>
+<script src="https://gosspublic.alicdn.com/aliyun-oss-sdk-6.17.1.min.js"></script>
+<script src="https://activity-static.hoopchina.com.cn/colorbox-activities/js/kaleido-fed-sdk.js"></script>
+<style>
+  :root {
+    --item-size: 82px;
+    --item-height: 112px;
+    --font-size-text: 11px;
+    --gold: #FFD700;
+    --gold-light: #FFE55C;
+    --gold-dark: #B8860B;
+    --champagne: #F7E7CE;
+    --crimson: #8B0000;
+    --bg-warm: #2f1a10;
+    --bg-deep: #1a0e08;
+    --trophy-glow: rgba(255, 215, 0, 0.5);
+  }
+
+  @media (max-width: 640px) {
+    :root {
+      --item-size: 64px;
+      --item-height: 98px;
+      --font-size-text: 10px;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg-deep);
+    color: var(--champagne);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  #app { width: 100%; }
+
+  /* ===== 首页 ===== */
+  .home-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    background:
+      radial-gradient(circle at 20% 0%, rgba(255, 215, 0, 0.10), transparent 35%),
+      radial-gradient(circle at 80% 10%, rgba(139, 0, 0, 0.12), transparent 30%),
+      linear-gradient(180deg, #2f1a10 0%, #1a0e08 60%, #140a06);
+  }
+
+  .home-inner {
+    width: 100%;
+    max-width: 500px;
+    padding: 30px 16px;
+    border-radius: 28px;
+  }
+
+  .home-title {
+    font-size: clamp(28px, 8vw, 42px);
+    font-weight: 1000;
+    line-height: 1.15;
+    margin: 0 0 8px 0;
+    letter-spacing: -.02em;
+    background: linear-gradient(135deg, #FFD700 0%, #FFE55C 40%, #FFA500 70%, #FFD700 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 4px 18px rgba(255, 215, 0, 0.4));
+  }
+
+  .home-subtitle {
+    color: #a09080;
+    font-size: 14px;
+    margin: 12px 0 28px 0;
+    line-height: 1.6;
+  }
+
+  .home-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    border: none;
+    border-radius: 999px;
+    padding: 14px 36px;
+    color: #1a0f0a;
+    font-size: 17px;
+    font-weight: 1000;
+    cursor: pointer;
+    background: linear-gradient(135deg, #FFD700, #FFA500 50%, #FF8C00);
+    box-shadow: 0 12px 32px rgba(255, 215, 0, 0.35), 0 0 20px rgba(255, 215, 0, 0.15);
+    text-decoration: none;
+    letter-spacing: .02em;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .home-btn:active { transform: scale(.97); }
+
+  .home-note {
+    margin-top: 18px;
+    color: #5a4a3a;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  /* ===== 结果页 ===== */
+  .final-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    text-align: center;
+    background:
+      radial-gradient(circle at 20% 0%, rgba(255, 215, 0, 0.10), transparent 35%),
+      radial-gradient(circle at 80% 10%, rgba(139, 0, 0, 0.12), transparent 30%),
+      linear-gradient(180deg, #2f1a10 0%, #1a0e08 60%, #140a06);
+    --final-item-size: clamp(64px, 10.5vw, 96px);
+    --final-item-height: calc(var(--final-item-size) + 30px);
+  }
+
+  .final-pyramid-area {
+    width: 100%;
+    max-width: 900px;
+    height: 72vh;
+    min-height: 500px;
+    margin: 0 auto;
+    padding: 16px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .final-pyramid-header {
+    text-align: center;
+    height: 64px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .final-pyramid-header h2 {
+    font-size: clamp(24px, 4.8vw, 34px);
+    font-weight: 900;
+    margin: 0;
+    transform: translateY(16px);
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .final-pyramid-stage {
+    position: relative;
+    width: min(100vw, 860px, calc((72vh - 82px) * 1.12));
+    height: min(calc(72vh - 104px), calc(100vw * 1.18), 720px);
+    margin: auto auto;
+  }
+  .final-pyramid-stage::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 80%;
+    background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.06) 0%, rgba(255, 165, 0, 0.03) 40%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .final-pyramid-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .final-pyramid-bg img {
+    width: 120%;
+    height: 120%;
+    object-fit: cover;
+    opacity: 0.4;
+    filter: blur(0.25px);
+    border-radius: 8px;
+  }
+
+  .final-triangle-skeleton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .final-triangle-skeleton svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+  }
+
+  .final-slot {
+    position: absolute;
+    width: var(--final-item-size);
+    height: var(--final-item-height);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .final-slot .item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: var(--final-item-size);
+    height: var(--final-item-height);
+  }
+  .final-slot .item-avatar {
+    width: var(--final-item-size);
+    height: var(--final-item-size);
+  }
+  .final-slot .item-text {
+    font-size: clamp(10px, 1.7vw, 13px);
+  }
+  .final-slot .slot-circle-backer {
+    width: var(--final-item-size);
+    height: var(--final-item-size);
+    border-radius: 50%;
+    border: 2px solid rgba(255, 215, 0, 0.45);
+    background: var(--bg-deep);
+    box-shadow: inset 0 0 8px rgba(255, 215, 0, 0.15);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  .final-screen .s-r1-c1 { top: 13%; margin-left: 0; }
+  .final-screen .s-r2-c1 { top: 36.5%; margin-left: -11.8%; }
+  .final-screen .s-r2-c2 { top: 36.5%; margin-left: 11.8%; }
+  .final-screen .s-r3-c1 { top: 60%; margin-left: -23.6%; }
+  .final-screen .s-r3-c2 { top: 60%; margin-left: 0; }
+  .final-screen .s-r3-c3 { top: 60%; margin-left: 23.6%; }
+  .final-screen .s-r4-c1 { top: 83.5%; margin-left: -35.4%; }
+  .final-screen .s-r4-c2 { top: 83.5%; margin-left: -11.8%; }
+  .final-screen .s-r4-c3 { top: 83.5%; margin-left: 11.8%; }
+  .final-screen .s-r4-c4 { top: 83.5%; margin-left: 35.4%; }
+
+  @media (max-width: 640px) {
+    .final-screen {
+      --final-item-size: clamp(60px, 15.8vw, 76px);
+      --final-item-height: calc(var(--final-item-size) + 26px);
+    }
+    .final-pyramid-area {
+      height: 72vh;
+      min-height: 0;
+      padding-top: 12px;
+    }
+    .final-pyramid-header {
+      height: 60px;
+      margin-bottom: 12px;
+    }
+    .final-pyramid-stage {
+      width: 100vw;
+      height: min(calc(72vh - 108px), calc(100vw * 1.2));
+      margin: auto auto;
+    }
+  }
+
+  .final-result-area {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 20px 20px;
+  }
+
+  .final-panel {
+    width: 100%;
+    padding: 28px 20px;
+    border-radius: 28px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    background: linear-gradient(145deg, rgba(255, 215, 0, 0.06), rgba(255, 165, 0, 0.04)), rgba(13, 8, 6, 0.95);
+    box-shadow: 0 22px 56px rgba(0,0,0,0.5);
+  }
+
+  .final-result {
+    font-size: clamp(18px, 5vw, 24px);
+    font-weight: 1000;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .final-btns { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+  .final-btns a, .final-btns button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    border-radius: 999px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 1000;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: transform .15s;
+  }
+  .final-btns a:active, .final-btns button:active { transform: scale(.97); }
+  .btn-gold { color: #1a0f0a; background: linear-gradient(135deg, #FFD700, #FFA500); box-shadow: 0 8px 20px rgba(255, 215, 0, 0.35); }
+  .btn-gray { color: var(--champagne); background: linear-gradient(135deg, #3a2a1a, #2a1a0a); border: 1px solid rgba(255, 215, 0, 0.15); }
+
+  /* ===== 游戏页 ===== */
+  .game-screen { width: 100%; max-width: 680px; margin: 0 auto; padding: 16px 8px 40px 8px; }
+  .game-header { text-align: center; margin-bottom: 16px; }
+  .game-header h2 {
+    font-size: 24px;
+    font-weight: 900;
+    margin: 0 0 5px 0;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .subtitle { color: #6a5a4a; font-size: 11px; text-align: center; letter-spacing: 2px; }
+
+  .pyramid-stage {
+    position: relative;
+    width: 540px;
+    height: 460px;
+    margin: 0 auto;
+  }
+  .pyramid-stage::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 80%;
+    background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.06) 0%, rgba(255, 165, 0, 0.03) 40%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  @media (max-width: 640px) { .pyramid-stage { width: 400px; height: 400px; } }
+
+  .pyramid-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .pyramid-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.25;
+    filter: blur(0.5px);
+    border-radius: 8px;
+  }
+
+  .triangle-skeleton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .triangle-skeleton svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+  }
+
+  .slot {
+    position: absolute;
+    width: var(--item-size);
+    height: var(--item-height);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    z-index: 1;
+  }
+  .slot .item { position: absolute; top: 0; left: 0; z-index: 2; }
+  .slot .slot-circle-backer {
+    width: var(--item-size);
+    height: var(--item-size);
+    border-radius: 50%;
+    border: 2px solid rgba(255, 215, 0, 0.4);
+    background: var(--bg-deep);
+    box-shadow: inset 0 0 8px rgba(255, 215, 0, 0.1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transition: all 0.15s ease-out;
+  }
+  .slot.drag-over .slot-circle-backer {
+    border-color: #FFD700;
+    background: rgba(255, 215, 0, 0.12);
+    box-shadow: 0 0 20px var(--trophy-glow), inset 0 0 10px var(--trophy-glow);
+  }
+  body.is-touch-dragging .slot.drag-over .slot-circle-backer {
+    border-color: #FFD700;
+    background: rgba(255, 215, 0, 0.15);
+    box-shadow: inset 0 0 0 2px rgba(255, 215, 0, 0.35);
+  }
+
+  .s-r1-c1 { top: 12.5%; margin-left: 0; }
+  .s-r2-c1 { top: 38%; margin-left: -53px; }
+  .s-r2-c2 { top: 38%; margin-left: 53px; }
+  .s-r3-c1 { top: 63.5%; margin-left: -108px; }
+  .s-r3-c2 { top: 63.5%; margin-left: 0; }
+  .s-r3-c3 { top: 63.5%; margin-left: 108px; }
+  .s-r4-c1 { top: 89%; margin-left: -163px; }
+  .s-r4-c2 { top: 89%; margin-left: -54px; }
+  .s-r4-c3 { top: 89%; margin-left: 54px; }
+  .s-r4-c4 { top: 89%; margin-left: 163px; }
+
+  @media (max-width: 640px) {
+    .s-r2-c1 { margin-left: -35px; }
+    .s-r2-c2 { margin-left: 35px; }
+    .s-r3-c1 { margin-left: -72px; }
+    .s-r3-c3 { margin-left: 72px; }
+    .s-r4-c1 { margin-left: -109px; }
+    .s-r4-c2 { margin-left: -36px; }
+    .s-r4-c3 { margin-left: 36px; }
+    .s-r4-c4 { margin-left: 109px; }
+  }
+
+  .pool-container {
+    width: 100%;
+    max-width: 440px;
+    margin: 36px auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    z-index: 10;
+  }
+  @media (max-width: 640px) { .pool-container { max-width: 360px; margin-top: 6px; } }
+
+  .pool-title {
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #6a5a4a;
+    margin-bottom: 10px;
+  }
+
+  .options-box {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, var(--item-height));
+    justify-items: center;
+    align-items: center;
+    gap: 10px 6px;
+    width: 100%;
+    padding: 14px 8px;
+    border-radius: 16px;
+    background: rgba(8, 5, 3, 0.85);
+    border: 1.5px solid rgba(255, 215, 0, 0.12);
+    box-sizing: border-box;
+  }
+  @media (max-width: 640px) { .options-box { gap: 8px 4px; padding: 10px 4px; } }
+
+  .pool-grid-slot {
+    width: var(--item-size);
+    height: var(--item-height);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .pool-grid-backer {
+    width: var(--item-size);
+    height: var(--item-size);
+    border-radius: 50%;
+    border: 1px dashed rgba(255, 255, 255, 0.06);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  .pool-grid-slot .item { position: absolute; top: 0; left: 0; z-index: 2; }
+
+  .item {
+    width: var(--item-size);
+    height: var(--item-height);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: grab;
+    user-select: none;
+    box-sizing: border-box;
+    touch-action: none;
+  }
+  .item-avatar {
+    width: var(--item-size);
+    height: var(--item-size);
+    border-radius: 50%;
+    background: #0a0605;
+    border: 2px solid rgba(255, 215, 0, 0.55);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+    overflow: hidden;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 900;
+    color: rgba(255, 215, 0, 0.3);
+    position: relative;
+  }
+  .item:hover .item-avatar { border-color: #FFD700; box-shadow: 0 0 15px var(--trophy-glow); }
+  .item-text {
+    margin-top: 4px;
+    font-size: var(--font-size-text);
+    font-weight: 700;
+    color: #a09080;
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.3s;
+  }
+
+  @keyframes slotFlash {
+    0% { border-color: rgba(255,215,0,0.4); box-shadow: inset 0 0 6px rgba(255,215,0,0.1); }
+    15% { border-color: #FFD700; box-shadow: 0 0 25px rgba(255,215,0,0.5), inset 0 0 10px rgba(255,215,0,0.2); }
+    35% { border-color: rgba(255,215,0,0.4); box-shadow: inset 0 0 6px rgba(255,215,0,0.1); }
+    55% { border-color: #FFD700; box-shadow: 0 0 30px rgba(255,215,0,0.6), inset 0 0 12px rgba(255,215,0,0.25); }
+    100% { border-color: rgba(255,215,0,0.4); box-shadow: inset 0 0 6px rgba(255,215,0,0.1); }
+  }
+  .slot-circle-backer.flash-active { animation: slotFlash 0.75s ease-out forwards; }
+  @keyframes avatarFlash {
+    0% { filter: brightness(1); }
+    15% { filter: brightness(1.5); }
+    35% { filter: brightness(1); }
+    55% { filter: brightness(1.8); }
+    100% { filter: brightness(1); }
+  }
+  .item.flash-active .item-avatar { animation: avatarFlash 0.75s ease-out forwards; }
+  .item.selected { opacity: 1; }
+  .item.selected .item-avatar {
+    border-color: #FFD700;
+    box-shadow: 0 0 20px var(--trophy-glow), 0 0 40px rgba(255, 215, 0, 0.3);
+  }
+  .item.dragging { opacity: 0.18; }
+
+  .touch-ghost {
+    position: fixed !important;
+    z-index: 9999 !important;
+    pointer-events: none !important;
+    opacity: 0.94;
+    transform: translate3d(0, 0, 0) scale(1.05);
+    filter: none !important;
+    will-change: transform;
+    contain: strict;
+    left: 0 !important;
+    top: 0 !important;
+    transition: none !important;
+  }
+  .touch-ghost .item-text { display: none !important; }
+  .touch-ghost.item-avatar,
+  .touch-ghost .item-avatar {
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.65) !important;
+    transition: none !important;
+  }
+  .touch-ghost.item-avatar img,
+  .touch-ghost .item-avatar img { transform: translateZ(0); }
+
+  .slot.clickable { cursor: pointer; }
+  .slot.clickable .slot-circle-backer {
+    border-color: #FFD700;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4), inset 0 0 8px rgba(255, 215, 0, 0.15);
+    animation: slotPulse 1.2s ease-in-out infinite;
+  }
+  @keyframes slotPulse {
+    0%, 100% { box-shadow: 0 0 15px rgba(255,215,0,0.4), inset 0 0 8px rgba(255,215,0,0.15); }
+    50% { box-shadow: 0 0 25px rgba(255,215,0,0.6), inset 0 0 12px rgba(255,215,0,0.25); }
+  }
+
+  .item-avatar img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    display: block;
+  }
+  .item-avatar .initials-fallback {
+    font-size: 24px;
+    font-weight: 900;
+    color: rgba(255, 215, 0, 0.4);
+    line-height: 1;
+  }
+
+  @keyframes goldPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+  @keyframes flowGlow { 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -40; } }
+  .gold-pulse { animation: goldPulse 3s ease-in-out infinite; }
+  .gold-flow { animation: flowGlow 1.5s linear infinite; }
+
+  body.is-touch-dragging .gold-pulse,
+  body.is-touch-dragging .gold-flow,
+  body.is-touch-dragging .slot.clickable .slot-circle-backer {
+    animation: none !important;
+  }
+  @media (prefers-reduced-motion: reduce) { .gold-pulse, .gold-flow { animation: none; } }
+
+  .float-toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(139, 0, 0, 0.92);
+    color: var(--champagne);
+    font-size: 15px;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(139, 0, 0, 0.5);
+    z-index: 99999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-align: center;
+  }
+  .float-toast.show { opacity: 1; }
+
+  /* ===== 长按弹窗 ===== */
+  .player-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.75);
+    z-index: 99998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+  }
+  .player-modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .player-modal {
+    width: 88%;
+    max-width: 380px;
+    max-height: 85vh;
+    overflow-y: auto;
+    background: linear-gradient(160deg, #2f1a10 0%, #1a0e08 100%);
+    border: 2px solid rgba(255, 215, 0, 0.5);
+    border-radius: 24px;
+    padding: 28px 24px 24px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.7), 0 0 40px rgba(255, 215, 0, 0.1);
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.25s ease;
+  }
+  .player-modal-overlay.active .player-modal {
+    transform: scale(1);
+  }
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: rgba(255, 215, 0, 0.5);
+    font-size: 28px;
+    cursor: pointer;
+    padding: 4px 8px;
+    line-height: 1;
+    transition: color 0.2s;
+    z-index: 1;
+  }
+  .modal-close:hover { color: #FFD700; }
+  .modal-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 3px solid #FFD700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    margin: 0 auto 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0a0605;
+    position: relative;
+  }
+  .modal-avatar img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .modal-avatar .initials-fallback {
+    font-size: 36px;
+    font-weight: 900;
+    color: rgba(255, 215, 0, 0.4);
+  }
+  .modal-name {
+    font-size: 22px;
+    font-weight: 900;
+    color: #FFD700;
+    text-align: center;
+    margin: 0 0 2px;
+  }
+  .modal-year-team {
+    font-size: 14px;
+    color: #a09080;
+    text-align: center;
+    margin: 0 0 16px;
+  }
+  .modal-stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 16px;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255, 215, 0, 0.15);
+    border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+  }
+  .modal-stat {
+    text-align: center;
+  }
+  .modal-stat-value {
+    font-size: 20px;
+    font-weight: 900;
+    color: #FFD700;
+  }
+  .modal-stat-label {
+    font-size: 11px;
+    color: #6a5a4a;
+    margin-top: 2px;
+    font-weight: 700;
+  }
+  .modal-story {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #c0b0a0;
+    text-align: center;
+  }
+  .modal-fmvp-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #1a0f0a;
+    font-size: 11px;
+    font-weight: 900;
+    padding: 3px 12px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  .modal-body {
+    text-align: center;
+  }
+
+  /* ====== 海报弹窗样式 ====== */
+  #posterOverlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,.92);
+    z-index: 99999; display: none; flex-direction: column;
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  #posterOverlay.active { display: flex; }
+  #posterOverlay img {
+    max-width: 100%; max-height: 75vh; border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+  .poster-actions {
+    display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;
+    justify-content: center;
+  }
+  .btn-poster {
+    background: linear-gradient(135deg,#7c3aed,#a855f7); color: #fff;
+    border-radius: 50px; border: none;
+  }
+  .btn-share {
+    min-height: 44px; padding: 12px 24px;
+    font-size: 15px; font-weight: 700;
+    cursor: pointer; display: inline-flex;
+    align-items: center; justify-content: center;
+    box-shadow: 0 8px 20px rgba(124,58,237,0.35);
+    transition: transform 0.14s ease, filter 0.14s ease;
+  }
+  .btn-share:active { transform: scale(0.97); filter: brightness(0.92); }
+  .btn-share:disabled { opacity: 0.6; pointer-events: none; }
+  .poster-close {
+    min-height: 44px; padding: 12px 24px;
+    border-radius: 50px; border: none;
+    font-size: 15px; font-weight: 700;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* ===== FMVP 数据（请填入真实数据） ===== */
+var FMVP_DATA = [
+  { id:'2001-shaq',   year:'2001', nameCN:'奥尼尔', playerName:"Shaquille O'Neal", team:'Lakers',   imgUrl:'https://i5.hoopchina.com.cn/newsPost/4fa787b20b5fa55db985135eca8a510a_w_235_h_219_.png', finalsPPG:33.0, finalsRPG:15.8, finalsAPG:4.8, story:'OK 组合的巅峰之作！湖人季后赛 15 胜 1 负创历史最佳战绩，奥尼尔在内线如同洪荒巨兽，场均 33 分 15.8 篮板，76 人用穆托姆博（当季最佳防守球员）来防他，结果大鲨鱼场均 16 次罚球笑纳一切。湖人三连冠第一冠，一个王朝的开端。' },
+  { id:'2002-shaq',  year:'2002', nameCN:'奥尼尔', playerName:"Shaquille O'Neal", team:'Lakers',   imgUrl:'https://i5.hoopchina.com.cn/newsPost/954b70cd2657a34ad5762fff79b2cd79_w_290_h_258_.png', finalsPPG:36.3, finalsRPG:12.3, finalsAPG:3.8, story:'三连冠！总决赛场均 36.3 分 12.3 篮板，奥尼尔在篮下的统治力已臻化境。面对篮网的弱侧内线，鲨鱼打出了个人总决赛场均得分最高的一轮系列赛。从 2000 到 2002，奥尼尔连续三年包揽常规赛 MVP、全明星 MVP 和总决赛 MVP，乔丹后第一人。' },
+  { id:'2003-duncan', year:'2003', nameCN:'邓肯',   playerName:'Tim Duncan',       team:'Spurs',    imgUrl:'https://i1.hoopchina.com.cn/newsPost/2f8dda91a544ea64625dd49de87a4fe8_w_190_h_190_.png', finalsPPG:24.2, finalsRPG:17.0, finalsAPG:5.3, story:'历史级的单核夺冠！邓肯在总决赛第六场打出 21 分 20 篮板 10 助攻 8 盖帽的准四双，距史上第一个总决赛四双仅差 2 个盖帽。马刺淘汰了三连冠的湖人，又击败了基德率领的篮网。这一年也是「海军上将」罗宾逊的退役巡礼，邓肯用冠军送别了老搭档。' },
+  { id:'2004-billups',year:'2004', nameCN:'比卢普斯', playerName:'Chauncey Billups', team:'Pistons', imgUrl:'https://i1.hoopchina.com.cn/newsPost/41c0ee72ef42a2505d2c28a645f5fb06_w_204_h_231_.png', finalsPPG:21.0, finalsRPG:3.2,  finalsAPG:5.2, story:'草根逆袭的终极剧本！活塞没有超级巨星，却用铁血防守把拥有「四巨头」（奥尼尔+科比+马龙+佩顿）的湖人防到只场均 81.8 分。比卢普斯作为平民活塞的大脑，以 5 场解决战斗，捧走 FMVP。他是 1997 年探花秀，生涯辗转多队才在底特律找到归宿——一个关于「团队篮球」的完美故事。' },
+  { id:'2005-duncan', year:'2005', nameCN:'邓肯',   playerName:'Tim Duncan',       team:'Spurs',    imgUrl:'https://i1.hoopchina.com.cn/newsPost/a18b42775875d57236e09452a6fe0ff5_w_114_h_119_.png', finalsPPG:20.6, finalsRPG:14.1, finalsAPG:2.1, story:'史上最沉闷也最绞肉机式的总决赛之一！吉诺比利和霍里的关键发挥功不可没，但邓肯的 14.1 篮板和场均 2.1 盖帽才是防守基石。抢七大战邓肯砍下 25 分 11 篮板，第三节那记打板中投锁定胜局。马刺 7 年 3 冠，一个属于邓肯的低调王朝悄然成型。' },
+  { id:'2006-wade',   year:'2006', nameCN:'韦德',   playerName:'Dwyane Wade',      team:'Heat',     imgUrl:'https://i5.hoopchina.com.cn/newsPost/c53d63cd0bcb68be967920d0cb861a42_w_105_h_124_.png', finalsPPG:34.7, finalsRPG:7.8,  finalsAPG:3.8, story:'闪电侠的封神之作！0-2 落后小牛，随后连扳四场，韦德在后四场场均轰下 39.3 分——就像 2006 年的乔丹。整个系列赛场均 34.7 分，效率值高达 33.8，总决赛历史上最伟大的个人表演之一。韦德用这轮系列赛宣告：我不是「鲨鱼的小弟」，我是迈阿密的国王。' },
+  { id:'2007-parker', year:'2007', nameCN:'帕克',   playerName:'Tony Parker',      team:'Spurs',    imgUrl:'https://i3.hoopchina.com.cn/newsPost/809141ee6e6b1b5cb2fedb64e7ec7033_w_206_h_193_.png', finalsPPG:24.5, finalsRPG:5.0,  finalsAPG:3.3, story:'NBA 历史上第一位欧洲出生的总决赛 MVP！法国跑车的速度让骑士防线无法招架，场均 24.5 分命中率高达 56.8%，以突破撕裂了骑士的年轻防线。GDP 组合的第三冠，马刺四年三冠建立了真正的王朝。而年仅 22 岁的詹姆斯，第一次感受到总决赛的残酷。' },
+  { id:'2008-pierce', year:'2008', nameCN:'皮尔斯', playerName:'Paul Pierce',      team:'Celtics',  imgUrl:'https://i5.hoopchina.com.cn/newsPost/a04d9cded6b2f197e33acb4ad2fef07f_w_126_h_154_.png', finalsPPG:21.8, finalsRPG:4.5,  finalsAPG:6.3, story:'「真理归来」的名场面！总决赛第一场皮尔斯膝盖受伤被抬出场，片刻后竟王者归来，连中两记三分，全场拿下 22 分。凯尔特人三巨头（皮尔斯+加内特+雷阿伦）组建第一年就夺冠，在主场以 131-92 的屠杀死敌湖人，皮尔斯当选 FMVP 后被浇了一桶佳得乐——这是他 10 年绿军生涯最荣耀的时刻。' },
+  { id:'2009-kobe',   year:'2009', nameCN:'科比',   playerName:'Kobe Bryant',      team:'Lakers',   imgUrl:'https://i5.hoopchina.com.cn/newsPost/34e32c0088a7d78424d87ce5629466a8_w_171_h_198_.png', finalsPPG:32.4, finalsRPG:5.6,  finalsAPG:7.4, story:'科比终于证明了自己！没有奥尼尔，他是老大。总决赛场均 32.4 分 5.6 篮板 7.4 助攻，面对魔术以 4-1 绅士横扫。第四场命中的那记制胜打板三分，冷血至極。这一年科比拿到了唯一的常规赛 MVP，加上全明星 MVP 和 FMVP，完成个人荣誉大满贯。曼巴精神，自此成为一代人的信仰。' },
+  { id:'2010-kobe',   year:'2010', nameCN:'科比',   playerName:'Kobe Bryant',      team:'Lakers',   imgUrl:'https://i5.hoopchina.com.cn/newsPost/9f041da8df0b5f58b8711786e85b91f4_w_170_h_188_.png', finalsPPG:28.6, finalsRPG:8.0,  finalsAPG:3.9, story:'复仇之战！2008 年湖人被凯尔特人血洗，两年后科比在抢七大战中复仇成功。虽然那场他 24 投仅 6 中，但抢下 15 个篮板——用最不「科比」的方式赢下了最想要的一个冠军。赛后科比跳上技术台张开双臂的画面，成为洛杉矶永恒的记忆。第五冠到手，追平魔术师，距离乔丹还差一步。' },
+  { id:'2011-dirk',   year:'2011', nameCN:'诺维茨基', playerName:'Dirk Nowitzki', team:'Mavericks',imgUrl:'https://i1.hoopchina.com.cn/newsPost/4e82e3e8080389bd2390c7aef08b2c83_w_193_h_234_.png', finalsPPG:26.0, finalsRPG:9.7,  finalsAPG:2.0, story:'史上最伟大的单核冠军之一！德克顶着举世皆敌的压力，击败了拥有「三巨头」的热火。他高烧 39 度在客场投进绝杀球，总决赛最后三战场均 32.3 分，用无解的金鸡独立告诉世界——篮球不只有天赋，还有坚守。这是小牛队史首冠，也是诺维茨基对 2006 年噩梦的最完美救赎。' },
+  { id:'2012-lebron', year:'2012', nameCN:'詹姆斯', playerName:'LeBron James',     team:'Heat',     imgUrl:'https://i3.hoopchina.com.cn/newsPost/4c064b68227d52241a2826bd62f11fb4_w_410_h_493_.png', finalsPPG:28.6, finalsRPG:10.2, finalsAPG:7.4, story:'等了九年！詹姆斯终于拿到第一座总冠军。2011 年总决赛的低迷让他背负巨大压力，面对年轻的雷霆三少，他场均 28.6 分 10.2 篮板 7.4 助攻——几乎每场准三双。系列赛第五场，他砍下 26 分 11 篮板 13 助攻的三双，在美航中心捧起生涯首冠。属于勒布朗的时代，正式拉开帷幕。' },
+  { id:'2013-lebron', year:'2013', nameCN:'詹姆斯', playerName:'LeBron James',     team:'Heat',     imgUrl:'https://i1.hoopchina.com.cn/newsPost/c09c85458d68088e65ed23c33a75284b_w_138_h_170_.png', finalsPPG:25.3, finalsRPG:10.9, finalsAPG:7.0, story:'最惊险的卫冕！雷阿伦在 G6 命中了那记载入史册的底角三分，将比赛拖入加时。詹姆斯在 G7 砍下 37 分 12 篮板，包括那记杀死比赛的中投——他没有逃避，在最关键的时刻接管了比赛。这是詹姆斯生涯第二个 FMVP，也是热火两连冠的巅峰。' },
+  { id:'2014-kawhi',  year:'2014', nameCN:'伦纳德', playerName:'Kawhi Leonard',    team:'Spurs',    imgUrl:'https://i3.hoopchina.com.cn/newsPost/76d614212dd2db8f22663eef853abf64_w_153_h_212_.png', finalsPPG:17.8, finalsRPG:6.4,  finalsAPG:2.0, story:'最年轻的 FMVP 之一（22 岁），仅次于魔术师！伦纳德用一双大手锁死了詹姆斯，同时以 61.2% 的命中率场均 17.8 分。马刺打出了史上最漂亮的团队篮球——场均 25.3 次助攻、净胜 70 分创总决赛纪录。GDP 组合的最后一冠，也是伦纳德从角色球员向巨星进化的起点。' },
+  { id:'2015-iguodala',year:'2015',nameCN:'伊戈达拉', playerName:'Andre Iguodala', team:'Warriors', imgUrl:'https://i5.hoopchina.com.cn/newsPost/4b06b170866df5a40d0c39b7467a259c_w_164_h_183_.png', finalsPPG:16.3, finalsRPG:5.8,  finalsAPG:4.0, story:'史上第一个常规赛零首发、总决赛拿 FMVP 的球员！科尔在 1-2 落后时将伊戈达拉提上首发，此后勇士连胜三场。他场均 16.3 分 5.8 篮板 4 助攻，关键时刻对詹姆斯的防守堪称教科书。伊戈达拉牺牲了首发位置，却在最需要他的时候站了出来——勇士王朝的起点，来自一个替补的奉献。' },
+  { id:'2016-lebron', year:'2016', nameCN:'詹姆斯', playerName:'LeBron James',     team:'Cavaliers',imgUrl:'https://i5.hoopchina.com.cn/newsPost/c5dd95f29d6736badd45e9c2eb688eaa_w_140_h_149_.png', finalsPPG:29.7, finalsRPG:11.3, finalsAPG:8.9, story:'史上最伟大的总决赛翻盘！1-3 落后于常规赛 73 胜的勇士，詹姆斯率队连扳三场。G5 和 G6 背靠背 41 分，G7 的「The Block」封盖伊戈达拉、欧文的「The Shot」三分——克利夫兰 52 年首冠。詹姆斯跪地痛哭的画面，是一个男人兑现了对家乡的承诺。全票 FMVP，实至名归。' },
+  { id:'2017-kd',     year:'2017', nameCN:'杜兰特', playerName:'Kevin Durant',     team:'Warriors', imgUrl:'https://i5.hoopchina.com.cn/newsPost/1502f5c7e6064e21d589c2fb0a7ac342_w_128_h_158_.png', finalsPPG:35.2, finalsRPG:8.2,  finalsAPG:5.4, story:'死神降临！杜兰特在加盟勇士的第一年就以场均 35.2 分拿下 FMVP，面对詹姆斯的三分线外一步干拔，是这轮系列赛最无解的武器。最致命的是 G3 那记三分——在左侧 45 度迎着詹姆斯命中，几乎杀死了悬念。杜兰特用最「杜兰特」的方式，拿到了渴望已久的第一冠。' },
+  { id:'2018-kd',     year:'2018', nameCN:'杜兰特', playerName:'Kevin Durant',     team:'Warriors', imgUrl:'https://i3.hoopchina.com.cn/newsPost/bb4446bed00af8f13dc5db6b7e034923_w_174_h_159_.png', finalsPPG:28.8, finalsRPG:10.8, finalsAPG:7.5, story:'连续第二年斩获 FMVP！G3 杜兰特命中那记在相同位置的三分——又是左侧 45 度迎射詹姆斯——勇士横扫骑士。如果说 2017 年是杜兰特证明自己，2018 年则是他巩固历史地位的注脚。只可惜总决赛 G5 的跟腱断裂成为转折，让勇士的王朝之路戛然而止。' },
+  { id:'2019-kawhi',  year:'2019', nameCN:'伦纳德', playerName:'Kawhi Leonard',    team:'Raptors',  imgUrl:'https://i5.hoopchina.com.cn/newsPost/ff666329ab93f6835703dfd0ff581e07_w_136_h_158_.png', finalsPPG:28.5, finalsRPG:9.8,  finalsAPG:4.2, story:'北境之王！伦纳德在猛龙的第一年就带回了总冠军——加拿大史上第一座 NBA 冠军。他拖着一条伤腿，击败了伤兵满营的勇士王朝。那一季他的中距离稳如磐石，东部半决赛 G7 那记颠进篮筐的绝杀，是 2019 年季后赛最戏剧化的瞬间。从多伦多到全世界，都在喊「Kawhi」！' },
+  { id:'2020-lebron', year:'2020', nameCN:'詹姆斯', playerName:'LeBron James',     team:'Lakers',   imgUrl:'https://i1.hoopchina.com.cn/newsPost/3029ef4f7c61ca4d5806570a67767110_w_219_h_301_.png', finalsPPG:29.8, finalsRPG:11.8, finalsAPG:8.5, story:'历史第一人：在三支不同球队拿到 FMVP！迪士尼泡泡园区，詹姆斯带领湖人以 4-2 击败热火。他场均 29.8 分 11.8 篮板 8.5 助攻，在 35 岁的年纪打出 MVP 级别表现。这一年也是科比的离世之年，湖人全队「为科比而战」——捧起奖杯的那一刻，「Kobe, this is for you!」响彻全场。' },
+  { id:'2021-giannis',year:'2021', nameCN:'字母哥', playerName:'Giannis Antetokounmpo', team:'Bucks', imgUrl:'https://i5.hoopchina.com.cn/newsPost/cadd140f7834dde88d8a569d6da653d1_w_164_h_202_.png', finalsPPG:35.2, finalsRPG:13.2, finalsAPG:5.0, story:'总决赛 50 分！字母哥在 G6 封神战中砍下 50 分 14 篮板 5 盖帽——历史总决赛抢七战之外的最高分。更令人动容的是，他曾在东决 G4 膝盖反关节受伤，所有人都以为他赛季报销了，他却休息了两场就火线复出。从瘦弱的希腊少年到扛着雄鹿夺冠的希腊怪物，字母哥的故事本身就是一部励志电影。' },
+  { id:'2022-curry',  year:'2022', nameCN:'库里',   playerName:'Stephen Curry',    team:'Warriors', imgUrl:'https://i3.hoopchina.com.cn/newsPost/684e1d77952aabf049195d716a6c807b_w_206_h_281_.png', finalsPPG:31.2, finalsRPG:6.0,  finalsAPG:5.0, story:'终于拿到了！库里职业生涯第一座 FMVP。尽管已经手握三个总冠军和两个 MVP，但 FMVP 的缺失一直是质疑者的口实。2022 年总决赛他场均 31.2 分，G4 砍下 43 分 10 篮板，彻底击碎了所有质疑。捧杯时他说：「他们现在还能说什么？」——一个完美主义者的终极证明。' },
+  { id:'2023-jokic',  year:'2023', nameCN:'约基奇', playerName:'Nikola Jokic',     team:'Nuggets',  imgUrl:'https://i5.hoopchina.com.cn/newsPost/53a6d9347dde9e66dc7ce4c6cf20da67_w_181_h_180_.png', finalsPPG:30.2, finalsRPG:14.0, finalsAPG:7.2, story:'史上最独特的 FMVP——一个打中锋的控卫！约基奇场均 30.2 分 14 篮板 7.2 助攻，率掘金绅士横扫热火。他是 NBA 历史上选秀顺位最低（第 41 顺位）的总决赛 MVP，诠释了「技术可以超越天赋」。总决赛中那记跨越全场的精准长传助攻戈登，是他独特球风的完美缩影。约基奇改变了篮球世界对中锋的全部想象。' },
+  { id:'2024-brown',  year:'2024', nameCN:'布朗',   playerName:'Jaylen Brown',     team:'Celtics',  imgUrl:'https://i1.hoopchina.com.cn/newsPost/268a61aecee52381a39b398d4a336b4b_w_141_h_169_.png', finalsPPG:20.8, finalsRPG:5.4,  finalsAPG:5.0, story:'凯尔特人第 18 冠！杰伦·布朗拿下东决 MVP + 总决赛 MVP 大满贯。他在总决赛攻防一体的表现——首战 22 分 6 篮板、关键时刻的单防锁定胜局，证明了他是波士顿真正的核心。从 2018 年东决抢七失利到如今登顶，布朗走过了六年磨一剑的奋斗路。他和塔图姆的「双探花」组合，终于修成正果。' },
+  { id:'2025-shai',   year:'2025', nameCN:'亚历山大', playerName:'Shai Gilgeous-Alexander', team:'Thunder', imgUrl:'https://i3.hoopchina.com.cn/newsPost/e830ec0d898e7e7954611cd0263666be_w_129_h_152_.png', finalsPPG:32.5, finalsRPG:6.2, finalsAPG:7.8, story:'雷霆的新王！亚历山大在 2025 年率领俄克拉荷马重返巅峰，用无解的中距离和犀利的突破撕裂了对手防线。从快船的弃将到雷霆的基石，SGA 一步步成长为 MVP 级别的超级巨星。总决赛场均 32.5 分 7.8 助攻，打得像身材更高大的保罗——冷静、致命、不可阻挡。雷霆上一次夺冠还是 2012 年，SGA 让蓝色风暴再次席卷联盟。' }
+];
+
+// 为没有 story 的生成默认
+FMVP_DATA.forEach(function(p){
+  if (!p.story) {
+    p.story = p.playerName + ' 在 ' + p.year + ' 年总决赛中率领 ' + p.team + ' 夺得总冠军，以场均 ' + p.finalsPPG + ' 分 ' + p.finalsRPG + ' 篮板 ' + p.finalsAPG + ' 助攻的杰出表现荣获总决赛MVP（FMVP），书写了属于自己的传奇篇章。';
+  }
+});
+
+/* ===== 全局状态 ===== */
+var state = { currentScreen: 'home' };
+
+/* ===== 渲染函数 ===== */
+function renderHome() {
+  state.currentScreen = 'home';
+  document.getElementById('app').innerHTML =
+    '<section class="home-screen"><div class="home-inner">' +
+    '<h1 class="home-title">🏆 FMVP 25年评级排行</h1>' +
+    '<p class="home-subtitle">从 2000–2025 年的 25 位总决赛MVP中，<br>选出你心中的 Top 10 放入金字塔之巅！</p>' +
+    '<button class="home-btn" onclick="startGame()">开始挑战</button>' +
+    '<div class="home-note">拖拽 · 点击 · 长按查看球员故事</div>' +
+    '</div></section>';
+}
+
+function showToast(msg) {
+  var t = document.createElement('div');
+  t.className = 'float-toast'; t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(function(){ t.classList.add('show'); },10);
+  setTimeout(function(){ t.classList.remove('show'); setTimeout(function(){ t.remove(); },300); },2000);
+}
+
+function showFinal() {
+  var slots = document.querySelectorAll('.slot');
+  var pc = 0;
+  for (var i=0;i<slots.length;i++){ if(slots[i].querySelector('.item')) pc++; }
+  if (pc<slots.length){ showToast('请将金字塔中所有选项填满'); return; }
+
+  state.currentScreen = 'final';
+  var app = document.getElementById('app');
+  var sHTML = '';
+  for (var i=0;i<slots.length;i++){
+    var s=slots[i], it=s.querySelector('.item');
+    var posCls = s.className.replace('slot ','');
+    if(it){
+      var av = it.querySelector('.item-avatar').outerHTML;
+      var txt = it.querySelector('.item-text').textContent;
+      sHTML += '<div class="final-slot '+posCls+'"><div class="slot-circle-backer"></div><div class="item">'+av+'<div class="item-text">'+txt+'</div></div></div>';
+    } else {
+      sHTML += '<div class="final-slot '+posCls+'"><div class="slot-circle-backer"></div></div>';
+    }
+  }
+
+  app.innerHTML =
+    '<section class="final-screen"><div class="final-pyramid-area"><div class="final-pyramid-header"><h2>🏆 我的 FMVP Top 10</h2></div>' +
+    '<div class="final-pyramid-stage"><div class="final-pyramid-bg"></div>' +
+    '<div class="final-triangle-skeleton">' +
+    '<svg><defs><linearGradient id="goldGradFinal" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFD700"/><stop offset="50%" stop-color="#FFE55C"/><stop offset="100%" stop-color="#FFA500"/></linearGradient>' +
+    '<linearGradient id="flowGradFinal" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0"/><stop offset="35%" stop-color="#ffffff" stop-opacity="0"/><stop offset="50%" stop-color="#FFD700" stop-opacity="0.8"/><stop offset="65%" stop-color="#ffffff" stop-opacity="0"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></linearGradient>' +
+    '<filter id="softGlowFinal" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b1"/><feGaussianBlur in="SourceGraphic" stdDeviation="8" result="b2"/><feGaussianBlur in="SourceGraphic" stdDeviation="14" result="b3"/><feMerge><feMergeNode in="b3"/><feMergeNode in="b2"/><feMergeNode in="b1"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>' +
+    '<polygon id="glow-far-final" fill="none" stroke="#8B6914" stroke-width="8" stroke-opacity="0.15" stroke-linejoin="round" filter="url(#softGlowFinal)"/>' +
+    '<polygon id="glow-mid-final" fill="none" stroke="url(#goldGradFinal)" stroke-width="4" stroke-opacity="0.55" stroke-linejoin="round" filter="url(#softGlowFinal)" class="gold-pulse"/>' +
+    '<polygon id="glow-flow-final" fill="none" stroke="url(#flowGradFinal)" stroke-width="3" stroke-opacity="0.6" stroke-linejoin="round" stroke-dasharray="20 20" class="gold-flow"/>' +
+    '<polygon id="glow-core-final" fill="none" stroke="url(#goldGradFinal)" stroke-width="2" stroke-opacity="1" stroke-linejoin="round"/></svg></div>' +
+    sHTML + '</div></div>' +
+    '<div class="final-result-area"><div class="final-panel"><div class="final-result">🏆 排行完成！</div>' +
+    '<div class="final-btns"><button class="btn-gold" onclick="generatePoster()">🎨 生成海报</button>' +
+    '<button class="btn-gold" onclick="startGame()">🔄 再来一次</button>' +
+    '<button class="btn-gray" onclick="renderHome()">🏠 返回首页</button></div></div></div></section>';
+  initFinalTriangleSVG();
+}
+
+/* ===== 游戏初始化 ===== */
+function startGame() {
+  state.currentScreen = 'game';
+  var app = document.getElementById('app');
+
+  // 生成金字塔槽位
+  var slotHTML = '';
+  var tierConfig = [
+    { cls:'s-r1-c1', tier:1 },
+    { cls:'s-r2-c1', tier:2 }, { cls:'s-r2-c2', tier:2 },
+    { cls:'s-r3-c1', tier:3 }, { cls:'s-r3-c2', tier:3 }, { cls:'s-r3-c3', tier:3 },
+    { cls:'s-r4-c1', tier:4 }, { cls:'s-r4-c2', tier:4 }, { cls:'s-r4-c3', tier:4 }, { cls:'s-r4-c4', tier:4 }
+  ];
+  for (var i=0;i<tierConfig.length;i++){
+    slotHTML += '<div class="slot '+tierConfig[i].cls+'" data-tier="'+tierConfig[i].tier+'"><div class="slot-circle-backer"></div></div>';
+  }
+
+  // 生成候选区（25个FMVP）
+  var poolHTML = '';
+  for (var j=0;j<FMVP_DATA.length;j++){
+    var p = FMVP_DATA[j];
+    var displayName = p.year.slice(2)+p.nameCN;
+    var imgTag = p.imgUrl ? '<img src="'+p.imgUrl+'" alt="'+p.playerName+'" onerror="this.style.display=\'none\';this.parentNode.classList.add(\'img-fail\')">' : '';
+    var fallback = '<span class="initials-fallback">'+(p.playerName.charAt(0)||'?')+'</span>';
+    poolHTML +=
+      '<div class="pool-grid-slot" data-playerid="'+p.id+'"><div class="pool-grid-backer"></div>' +
+      '<div class="item" draggable="true" data-playerid="'+p.id+'">' +
+      '<div class="item-avatar">'+imgTag+fallback+'</div>' +
+      '<div class="item-text">'+displayName+'</div></div></div>';
+  }
+
+  app.innerHTML =
+    '<section class="game-screen">' +
+    '<div class="game-header"><h2>🏆 FMVP 25年评级排行</h2><div class="subtitle">拖拽或点击球员放入金字塔 — 长按查看球员信息</div></div>' +
+    '<div class="pyramid-stage"><div class="pyramid-bg"></div>' +
+    '<div class="triangle-skeleton">' +
+    '<svg><defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFD700"/><stop offset="50%" stop-color="#FFE55C"/><stop offset="100%" stop-color="#FFA500"/></linearGradient>' +
+    '<linearGradient id="flowGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0"/><stop offset="35%" stop-color="#ffffff" stop-opacity="0"/><stop offset="50%" stop-color="#FFD700" stop-opacity="0.8"/><stop offset="65%" stop-color="#ffffff" stop-opacity="0"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></linearGradient>' +
+    '<filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b1"/><feGaussianBlur in="SourceGraphic" stdDeviation="8" result="b2"/><feGaussianBlur in="SourceGraphic" stdDeviation="14" result="b3"/><feMerge><feMergeNode in="b3"/><feMergeNode in="b2"/><feMergeNode in="b1"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>' +
+    '<polygon id="glow-far" fill="none" stroke="#8B6914" stroke-width="5" stroke-opacity="0.12" stroke-linejoin="round" filter="url(#softGlow)"/>' +
+    '<polygon id="glow-mid" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" stroke-opacity="0.55" stroke-linejoin="round" filter="url(#softGlow)" class="gold-pulse"/>' +
+    '<polygon id="glow-flow" fill="none" stroke="url(#flowGrad)" stroke-width="2" stroke-opacity="0.6" stroke-linejoin="round" stroke-dasharray="20 20" class="gold-flow"/>' +
+    '<polygon id="glow-core" fill="none" stroke="url(#goldGrad)" stroke-width="1.2" stroke-opacity="1" stroke-linejoin="round"/></svg></div>' +
+    slotHTML + '</div>' +
+    '<div class="pool-container"><div class="pool-title">— 候选球员（长按查看详情） —</div>' +
+    '<div class="options-box" id="options-pool">'+poolHTML+'</div></div>' +
+    '<div style="text-align:center;margin-top:22px;"><button class="home-btn" onclick="showFinal()">🏆 查看排行结果</button></div>' +
+    '</section>';
+
+  initGame();
+}
+
+/* ===== 游戏核心逻辑 ===== */
+function initGame() {
+  initTriangleSVG();
+  bindDragEvents();
+}
+
+/* ===== SVG 三角形 ===== */
+function initTriangleSVG() {
+  if (window.requestAnimationFrame) {
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ updateTriangleSVG(); }); });
+  } else { setTimeout(updateTriangleSVG,50); }
+  window.addEventListener('resize', updateTriangleSVG);
+}
+
+function updateTriangleSVG() {
+  var stage = document.querySelector('.pyramid-stage');
+  var svg = document.querySelector('.triangle-skeleton svg');
+  if (!stage||!svg) return;
+  var w=stage.offsetWidth, h=stage.offsetHeight;
+  svg.setAttribute('viewBox',w+' '+h);
+  var pos=[], all=document.querySelectorAll('.slot'), sr=stage.getBoundingClientRect();
+  for(var i=0;i<all.length;i++){ var r=all[i].getBoundingClientRect(); pos.push({cx:r.left+r.width/2-sr.left,cy:r.top+r.height/2-sr.top}); }
+  if(!pos.length) return;
+  var fs=document.querySelector('.slot .slot-circle-backer');
+  var sz=fs?fs.offsetWidth:82, r2=sz/2;
+  var mnX=Infinity,mxX=-Infinity,mnY=0,mxY=0;
+  for(var j=0;j<pos.length;j++){ var p=pos[j]; if(p.cx<mnX){mnX=p.cx;mnY=p.cy;} if(p.cx>mxX){mxX=p.cx;mxY=p.cy;} }
+  var tpY=Infinity,tpX=0;
+  for(var k=0;k<pos.length;k++){ var p2=pos[k]; if(p2.cy<tpY){tpY=p2.cy;tpX=p2.cx;} }
+  var pts=tpX+','+(tpY-r2)+' '+(mnX-r2)+','+mnY+' '+(mxX+r2)+','+mxY;
+  ['glow-far','glow-mid','glow-flow','glow-core'].forEach(function(id){ var el=document.getElementById(id); if(el)el.setAttribute('points',pts); });
+}
+
+function initFinalTriangleSVG() {
+  if(window.requestAnimationFrame){ requestAnimationFrame(function(){ requestAnimationFrame(function(){ updateFinalTriangleSVG(); }); }); }
+  else { setTimeout(updateFinalTriangleSVG,50); }
+  window.addEventListener('resize', updateFinalTriangleSVG);
+}
+
+function updateFinalTriangleSVG() {
+  var stage = document.querySelector('.final-pyramid-stage');
+  var svg = document.querySelector('.final-triangle-skeleton svg');
+  if(!stage||!svg) return;
+  var w=stage.offsetWidth, h=stage.offsetHeight;
+  svg.setAttribute('viewBox','0 0 '+w+' '+h);
+  var pos=[], all=document.querySelectorAll('.final-slot'), sr=stage.getBoundingClientRect();
+  for(var i=0;i<all.length;i++){ var r=all[i].getBoundingClientRect(); pos.push({cx:r.left+r.width/2-sr.left,cy:r.top+r.height/2-sr.top}); }
+  if(!pos.length) return;
+  var fs=document.querySelector('.final-slot .slot-circle-backer');
+  var sz=fs?fs.offsetWidth:82, r2=sz/2;
+  var mnX=Infinity,mxX=-Infinity,mnY=0,mxY=0;
+  for(var j=0;j<pos.length;j++){ var p=pos[j]; if(p.cx<mnX){mnX=p.cx;mnY=p.cy;} if(p.cx>mxX){mxX=p.cx;mxY=p.cy;} }
+  var tpY=Infinity,tpX=0;
+  for(var k=0;k<pos.length;k++){ var p2=pos[k]; if(p2.cy<tpY){tpY=p2.cy;tpX=p2.cx;} }
+  var pts=tpX+','+Math.max(6,tpY-r2*1.08)+' '+(mnX-r2*1.05)+','+(mnY+r2*0.18)+' '+(mxX+r2*1.05)+','+(mxY+r2*0.18);
+  ['glow-far-final','glow-mid-final','glow-flow-final','glow-core-final'].forEach(function(id){ var el=document.getElementById(id); if(el)el.setAttribute('points',pts); });
+}
+
+/* ===== 拖拽 & 点击 & 长按 ===== */
+var draggedItem = null;
+var touchGhost = null;
+var touchOffsetX = 0, touchOffsetY = 0;
+var originalParentSlot = null;
+var selectedItem = null;
+var touchStartX = 0, touchStartY = 0, touchStartTime = 0;
+var touchMoved = false;
+var cachedSlots = null, cachedSlotRects = null, cachedGridSlotRects = null;
+var lastHighlightSlot = null;
+var lastTouchClientX = 0, lastTouchClientY = 0;
+var pendingGhostX = 0, pendingGhostY = 0, pendingHitX = 0, pendingHitY = 0;
+var dragRafId = null;
+var longPressTimer = null;
+var longPressActive = false;
+
+function getPlayerDataById(id) {
+  for (var i=0;i<FMVP_DATA.length;i++){ if(FMVP_DATA[i].id===id) return FMVP_DATA[i]; }
+  return null;
+}
+
+function showPlayerModal(playerId) {
+  var p = getPlayerDataById(playerId);
+  if (!p) return;
+  var imgTag = p.imgUrl ? '<img src="'+p.imgUrl+'" alt="'+p.playerName+'" onerror="this.style.display=\'none\';this.parentNode.classList.add(\'img-fail\')">' : '';
+  var fallback = '<span class="initials-fallback">'+(p.playerName.charAt(0)||'?')+'</span>';
+
+  var overlay = document.createElement('div');
+  overlay.className = 'player-modal-overlay';
+  overlay.innerHTML =
+    '<div class="player-modal">' +
+    '<button class="modal-close">&times;</button>' +
+    '<div class="modal-body">' +
+    '<div class="modal-avatar">'+imgTag+fallback+'</div>' +
+    '<div class="modal-fmvp-badge">🏆 '+p.year+' 总决赛MVP</div>' +
+    '<div class="modal-name">'+p.playerName+'</div>' +
+    '<div class="modal-year-team">'+p.team+'</div>' +
+    '<div class="modal-stats">' +
+    '<div class="modal-stat"><div class="modal-stat-value">'+p.finalsPPG+'</div><div class="modal-stat-label">场均得分</div></div>' +
+    '<div class="modal-stat"><div class="modal-stat-value">'+p.finalsRPG+'</div><div class="modal-stat-label">场均篮板</div></div>' +
+    '<div class="modal-stat"><div class="modal-stat-value">'+p.finalsAPG+'</div><div class="modal-stat-label">场均助攻</div></div>' +
+    '</div>' +
+    '<div class="modal-story">'+p.story+'</div>' +
+    '</div></div>';
+
+  document.body.appendChild(overlay);
+  requestAnimationFrame(function(){ overlay.classList.add('active'); });
+
+  // 关闭
+  var closeModal = function(){
+    overlay.classList.remove('active');
+    setTimeout(function(){ overlay.remove(); }, 250);
+  };
+  overlay.querySelector('.modal-close').addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e){ if(e.target===overlay) closeModal(); });
+  document.addEventListener('keydown', function onEsc(e){ if(e.key==='Escape'){ closeModal(); document.removeEventListener('keydown',onEsc); } });
+}
+
+function setSelectedItem(item) {
+  clearSelection();
+  selectedItem = item; item.classList.add('selected');
+  var slots = document.querySelectorAll('.slot');
+  for(var i=0;i<slots.length;i++) slots[i].classList.add('clickable');
+}
+
+function clearSelection() {
+  if(selectedItem){ selectedItem.classList.remove('selected'); selectedItem=null; }
+  var slots = document.querySelectorAll('.slot');
+  for(var i=0;i<slots.length;i++) slots[i].classList.remove('clickable');
+}
+
+function bindDragEvents() {
+  // 金字塔槽位事件
+  document.querySelectorAll('.slot').forEach(function(slot){
+    slot.addEventListener('dragover',function(e){ e.preventDefault(); slot.classList.add('drag-over'); });
+    slot.addEventListener('dragleave',function(){ slot.classList.remove('drag-over'); });
+    slot.addEventListener('drop',function(e){ e.preventDefault(); slot.classList.remove('drag-over'); if(draggedItem) handleItemPlacement(slot,draggedItem); });
+    slot.addEventListener('click',function(){
+      if(selectedItem){ handleItemPlacement(slot,selectedItem); clearSelection(); }
+      else { var si=slot.querySelector('.item'); if(si) setSelectedItem(si); }
+    });
+  });
+
+  // 候选区槽位事件
+  document.querySelectorAll('.pool-grid-slot').forEach(function(gSlot){
+    gSlot.addEventListener('dragover',function(e){ e.preventDefault(); });
+    gSlot.addEventListener('drop',function(e){ e.preventDefault(); if(draggedItem) handleItemPlacement(gSlot,draggedItem); });
+    gSlot.addEventListener('click',function(){
+      if(selectedItem){ handleItemPlacement(gSlot,selectedItem); clearSelection(); }
+    });
+  });
+
+  // 每个 item 绑定事件
+  document.querySelectorAll('.item').forEach(function(item){ bindItemEvents(item); });
+}
+
+function findCachedRectHit(rects, x, y, pad) {
+  if (!rects) return null;
+  pad = pad||0;
+  for(var i=0;i<rects.length;i++){ var r=rects[i]; if(x>=r.left-pad&&x<=r.right+pad&&y>=r.top-pad&&y<=r.bottom+pad) return r.el; }
+  return null;
+}
+
+function scheduleTouchDragFrame() {
+  if(dragRafId!==null) return;
+  dragRafId = requestAnimationFrame(function(){
+    dragRafId=null;
+    if(!touchGhost) return;
+    touchGhost.style.transform = 'translate3d('+pendingGhostX+'px,'+pendingGhostY+'px,0) scale(1.05)';
+    var hitSlot = findCachedRectHit(cachedSlotRects, pendingHitX, pendingHitY, 10);
+    if(hitSlot!==lastHighlightSlot){
+      if(lastHighlightSlot) lastHighlightSlot.classList.remove('drag-over');
+      if(hitSlot) hitSlot.classList.add('drag-over');
+      lastHighlightSlot = hitSlot;
+    }
+  });
+}
+
+function refreshCachedRects() {
+  cachedSlots = document.querySelectorAll('.slot');
+  cachedSlotRects = [];
+  for(var si=0;si<cachedSlots.length;si++){ var sr=cachedSlots[si].getBoundingClientRect(); cachedSlotRects.push({el:cachedSlots[si],left:sr.left,top:sr.top,right:sr.right,bottom:sr.bottom}); }
+  var gridSlots = document.querySelectorAll('.pool-grid-slot');
+  cachedGridSlotRects = [];
+  for(var gi=0;gi<gridSlots.length;gi++){ var gr=gridSlots[gi].getBoundingClientRect(); cachedGridSlotRects.push({el:gridSlots[gi],left:gr.left,top:gr.top,right:gr.right,bottom:gr.bottom}); }
+}
+
+function resetTouchDragState() {
+  if(dragRafId!==null){ cancelAnimationFrame(dragRafId); dragRafId=null; }
+  if(lastHighlightSlot) lastHighlightSlot.classList.remove('drag-over');
+  cachedSlots=null; cachedSlotRects=null; cachedGridSlotRects=null; lastHighlightSlot=null;
+  document.body.classList.remove('is-touch-dragging');
+}
+
+function initDragState(item, touch) {
+  draggedItem = item;
+  originalParentSlot = item.parentNode;
+  document.body.classList.add('is-touch-dragging');
+  var rect = item.getBoundingClientRect();
+  var avatar = item.querySelector('.item-avatar');
+  var avatarRect = avatar ? avatar.getBoundingClientRect() : rect;
+  touchOffsetX = touch.clientX - avatarRect.left;
+  touchOffsetY = touch.clientY - avatarRect.top;
+
+  cachedSlots = document.querySelectorAll('.slot');
+  cachedSlotRects = [];
+  for(var si=0;si<cachedSlots.length;si++){ var sr=cachedSlots[si].getBoundingClientRect(); cachedSlotRects.push({el:cachedSlots[si],left:sr.left,top:sr.top,right:sr.right,bottom:sr.bottom}); }
+  var gridSlots = document.querySelectorAll('.pool-grid-slot');
+  cachedGridSlotRects = [];
+  for(var gi=0;gi<gridSlots.length;gi++){ var gr=gridSlots[gi].getBoundingClientRect(); cachedGridSlotRects.push({el:gridSlots[gi],left:gr.left,top:gr.top,right:gr.right,bottom:gr.bottom}); }
+  lastHighlightSlot = null;
+
+  touchGhost = avatar ? avatar.cloneNode(true) : item.cloneNode(true);
+  touchGhost.classList.add('touch-ghost');
+  touchGhost.style.width = avatarRect.width+'px';
+  touchGhost.style.height = avatarRect.height+'px';
+  var initX = avatarRect.left, initY = avatarRect.top;
+  pendingGhostX = initX; pendingGhostY = initY;
+  pendingHitX = touch.clientX; pendingHitY = touch.clientY;
+  touchGhost.style.transform = 'translate3d('+initX+'px,'+initY+'px,0) scale(1.05)';
+  touchGhost.style.display = 'none';
+  document.body.appendChild(touchGhost);
+  item.classList.add('dragging');
+}
+
+function bindItemEvents(item) {
+  // HTML5 拖拽（桌面端）
+  item.addEventListener('dragstart', function(){
+    clearSelection();
+    draggedItem = this; originalParentSlot = this.parentNode;
+    this.longPressCancelled = true; // 桌面端不触发长按
+    setTimeout(function(){ item.classList.add('dragging'); },0);
+  });
+  item.addEventListener('dragend', function(){ item.classList.remove('dragging'); draggedItem=null; });
+
+  // 桌面端点击
+  item.addEventListener('click', function(e){
+    if(draggedItem) return;
+    e.stopPropagation();
+    if(this.classList.contains('selected')){ clearSelection(); }
+    else { setSelectedItem(this); }
+  });
+
+  // ----- 触摸事件（手机端：区分点击/拖拽/长按）-----
+  item.addEventListener('touchstart', function(e){
+    if(e.touches.length>1) return;
+    e.preventDefault();
+    var touch = e.touches[0];
+    touchStartX = touch.clientX; touchStartY = touch.clientY;
+    touchStartTime = Date.now();
+    touchMoved = false; longPressActive = false;
+    lastTouchClientX = touch.clientX; lastTouchClientY = touch.clientY;
+
+    // 设置 600ms 长按定时器
+    var self = this;
+    longPressTimer = setTimeout(function(){
+      longPressTimer = null;
+      if(touchMoved) return; // 已经移动，不触发长按
+      longPressActive = true;
+      // 如果正在进行拖拽准备，取消
+      if(touchGhost){ touchGhost.remove(); touchGhost=null; }
+      resetTouchDragState();
+      self.classList.remove('dragging');
+      draggedItem = null;
+      // 显示弹窗
+      var pid = self.dataset.playerid;
+      if(pid) showPlayerModal(pid);
+    }, 600);
+
+    // 不清除选择、不立即进入拖拽
+  }, { passive: false });
+
+  item.addEventListener('touchmove', function(e){
+    if(longPressActive) return;
+    var touch = e.touches[0];
+    lastTouchClientX = touch.clientX; lastTouchClientY = touch.clientY;
+    var dx = touch.clientX - touchStartX;
+    var dy = touch.clientY - touchStartY;
+
+    if (!touchMoved) {
+      if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+        if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer = null; }
+        touchMoved = true;
+        initDragState(this, touch);
+        if (touchGhost) touchGhost.style.display = '';
+      } else {
+        return;
+      }
+    }
+
+    // 自动上滚：拖拽靠近屏幕顶部时自动滚动
+    var scrollZone = 60;
+    if (touch.clientY < scrollZone) {
+      window.scrollBy(0, -12);
+      refreshCachedRects();
+    } else if (touch.clientY < scrollZone * 1.8) {
+      window.scrollBy(0, -6);
+      refreshCachedRects();
+    }
+
+    pendingGhostX = touch.clientX - touchOffsetX;
+    pendingGhostY = touch.clientY - touchOffsetY;
+    pendingHitX = touch.clientX;
+    pendingHitY = touch.clientY;
+    scheduleTouchDragFrame();
+  }, { passive: false });
+
+  item.addEventListener('touchend', function(e){
+    if(longPressActive) { // 长按已触发，不做拖拽操作
+      this.classList.remove('dragging');
+      if(touchGhost){ touchGhost.remove(); touchGhost=null; }
+      resetTouchDragState();
+      draggedItem = null;
+      return;
+    }
+
+    // 取消长按定时器
+    if(longPressTimer){ clearTimeout(longPressTimer); longPressTimer=null; }
+
+    if(!draggedItem) {
+      // 没有进入拖拽状态 → 可能是一次点击
+      this.classList.remove('dragging');
+      var elapsed = Date.now() - touchStartTime;
+      if(!touchMoved && elapsed < 400) {
+        // 短按 → 选择模式
+        if(this.classList.contains('selected')){ clearSelection(); }
+        else { setSelectedItem(this); }
+      }
+      resetTouchDragState();
+      return;
+    }
+
+    this.classList.remove('dragging');
+
+    if(touchGhost){
+      if(dragRafId!==null){ cancelAnimationFrame(dragRafId); dragRafId=null; }
+      var endTouch = e.changedTouches&&e.changedTouches[0] ? e.changedTouches[0] : null;
+      var endX = endTouch ? endTouch.clientX : lastTouchClientX;
+      var endY = endTouch ? endTouch.clientY : lastTouchClientY;
+      var currentSlot = lastHighlightSlot || findCachedRectHit(cachedSlotRects, endX, endY, 10);
+      var currentGridSlot = currentSlot ? null : findCachedRectHit(cachedGridSlotRects, endX, endY, 8);
+
+      if(currentSlot){ currentSlot.classList.remove('drag-over'); handleItemPlacement(currentSlot, draggedItem); }
+      else if(currentGridSlot){ handleItemPlacement(currentGridSlot, draggedItem); }
+      else {
+        if(endY > window.innerHeight*0.6){ var eg=findFirstEmptyGridSlot(); if(eg) eg.appendChild(draggedItem); }
+        else { originalParentSlot.appendChild(draggedItem); }
+      }
+      touchGhost.remove(); touchGhost=null;
+    }
+    resetTouchDragState();
+    draggedItem = null;
+  });
+
+  item.addEventListener('touchcancel', function(){
+    if(longPressTimer){ clearTimeout(longPressTimer); longPressTimer=null; }
+    this.classList.remove('dragging');
+    if(touchGhost){ touchGhost.remove(); touchGhost=null; }
+    resetTouchDragState();
+    draggedItem = null;
+  });
+}
+
+/* ===== 放置逻辑 ===== */
+function handleItemPlacement(container, item) {
+  var src = item.parentNode;
+  var existing = container.querySelector('.item');
+  if(existing && existing!==item) src.appendChild(existing);
+  container.appendChild(item);
+  if(container.classList.contains('slot')) updateSlotGlow(container);
+  if(src.classList.contains('slot')) updateSlotGlow(src);
+}
+
+function updateSlotGlow(slot) {
+  var backer = slot.querySelector('.slot-circle-backer');
+  var item = slot.querySelector('.item');
+  if(!backer||!item) return;
+  backer.style.setProperty('--flash-color','#FFD700');
+  backer.style.setProperty('--flash-glow','rgba(255,215,0,0.6)');
+  backer.classList.remove('flash-active');
+  void backer.offsetWidth;
+  backer.classList.add('flash-active');
+  setTimeout(function(){ backer.classList.remove('flash-active'); },800);
+  item.classList.remove('flash-active');
+  void item.offsetWidth;
+  item.classList.add('flash-active');
+  setTimeout(function(){ item.classList.remove('flash-active'); },800);
+}
+
+function findFirstEmptyGridSlot() {
+  var gs = document.querySelectorAll('.pool-grid-slot');
+  for(var i=0;i<gs.length;i++){ if(!gs[i].querySelector('.item')) return gs[i]; }
+  return null;
+}
+
+/* ====== 海报生成 & 一键发帖 ====== */
+const POSTER_W = 600, POSTER_H = 800, POSTER_SCALE = 2;
+const TAG_ID = 148087;
+const TAG_NAME = '21世纪fmvp金字塔排行';
+const TOPIC_NAME = '湿乎乎的话题';
+const TOPIC_ID = 177;
+
+window.require = window.require || function(name) {
+    if (name === 'ali-oss') return window.OSS;
+    if (name === '@hupu/kaleido-fed-sdk') return window.KaleidoOSS;
+    return null;
+};
+window.webGuard = window.webGuard || window.WebGuard || { hupuLog: function() {} };
+
+var _ossClient = null;
+function getOssClient() {
+    if (_ossClient) return _ossClient;
+    var K = window.KaleidoOSS || (typeof require === 'function' ? require('@hupu/kaleido-fed-sdk') : null);
+    if (K) {
+        _ossClient = new K({
+            appId: 'b1AcxWKA1u0hyDYv5kXgImZBRSQ=',
+            module: 'activity-screenshot-fed',
+            path: '/screenshot/activity/fed',
+            sk: 'HioGpkmGe9bsW0iqRLJEyGoLr4Q=',
+            action: '1',
+        });
+        if (typeof _ossClient.start === 'function') _ossClient.start();
+    }
+    return _ossClient;
+}
+
+function getPyramidPlayers() {
+    var tiers = [];
+    var slots = document.querySelectorAll('.final-slot');
+    slots.forEach(function(slot) {
+        var cls = slot.className;
+        var tier = 1;
+        if (cls.indexOf('s-r2-') >= 0) tier = 2;
+        else if (cls.indexOf('s-r3-') >= 0) tier = 3;
+        else if (cls.indexOf('s-r4-') >= 0) tier = 4;
+        var item = slot.querySelector('.item');
+        if (item) {
+            var imgEl = item.querySelector('.item-avatar img');
+            var txt = item.querySelector('.item-text');
+            tiers.push({
+                tier: tier,
+                name: txt ? txt.textContent : '',
+                imgSrc: imgEl ? imgEl.src : '',
+                imgEl: imgEl
+            });
+        }
+    });
+    tiers.sort(function(a,b){ return a.tier - b.tier; });
+    return tiers;
+}
+
+function roundRectC(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+}
+
+function drawCircularImage(ctx, img, cx, cy, radius) {
+    var iw = img.naturalWidth || img.width;
+    var ih = img.naturalHeight || img.height;
+    var target = radius * 2;
+    var scale = Math.max(target / iw, target / ih);
+    var dw = iw * scale;
+    var dh = ih * scale;
+    var dx = cx - dw / 2;
+    var dy = cy - dh / 2;
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.clip();
+    ctx.drawImage(img, dx, dy, dw, dh);
+    ctx.restore();
+}
+
+function loadPosterImages(players) {
+    var loadTasks = [];
+    players.forEach(function(p) {
+        if (!p.imgSrc) return;
+        var task = new Promise(function(resolve) {
+            var img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = function() { p.loadedImg = img; resolve(); };
+            img.onerror = function() { resolve(); };
+            img.src = p.imgSrc;
+        });
+        loadTasks.push(task);
+    });
+    return Promise.all(loadTasks);
+}
+
+function drawPoster(ctx, w, h, players) {
+    if (!players) players = getPyramidPlayers();
+
+    // 背景
+    var grad = ctx.createLinearGradient(0, 0, 0, h);
+    grad.addColorStop(0, '#1a0e08');
+    grad.addColorStop(0.5, '#2f1a10');
+    grad.addColorStop(1, '#1a0e08');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h);
+
+    // 金色装饰线（顶）
+    ctx.fillStyle = 'rgba(255,215,0,0.18)';
+    ctx.fillRect(0, 0, w, 4);
+    ctx.fillStyle = 'rgba(255,215,0,0.08)';
+    ctx.fillRect(0, 4, w, 2);
+
+    // 标题
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillStyle = '#FFD700';
+    ctx.font = 'bold 28px -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif';
+    ctx.fillText('🏆 FMVP 金字塔排行', w / 2, 26);
+
+    // 副标题
+    ctx.fillStyle = '#a09080';
+    ctx.font = '15px -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif';
+    ctx.fillText('我的 Top 10 排名', w / 2, 72);
+
+    // 分隔线
+    ctx.fillStyle = 'rgba(255,215,0,0.1)';
+    ctx.fillRect(40, 108, w - 80, 1);
+
+    // --- 金字塔排布：1-2-3-4 ---
+    var R = 56;
+    var TIER_CONFIG = [
+        { count: 1, startIdx: 0 },
+        { count: 2, startIdx: 1 },
+        { count: 3, startIdx: 3 },
+        { count: 4, startIdx: 6 }
+    ];
+    var GAP_BETWEEN = 14;
+    var NAME_GAP = 6;
+    var ROW_GAP = 18;
+    var rowH = R * 2 + NAME_GAP + 18;
+
+    // 计算起始Y（垂直居中）
+    var headerH = 110;
+    var totalContentH = TIER_CONFIG.length * rowH + (TIER_CONFIG.length - 1) * ROW_GAP;
+    var startY = headerH + (h - headerH - 38 - totalContentH) / 2;
+
+    for (var ti = 0; ti < TIER_CONFIG.length; ti++) {
+        var cfg = TIER_CONFIG[ti];
+        var cnt = cfg.count;
+        var startIdx = cfg.startIdx;
+        var rowW = cnt * (R * 2) + (cnt - 1) * GAP_BETWEEN;
+        var startX = (w - rowW) / 2 + R;
+        var py = startY + ti * (rowH + ROW_GAP) + R;
+
+        for (var j = 0; j < cnt; j++) {
+            var idx = startIdx + j;
+            if (idx >= players.length) break;
+            var px = startX + j * (R * 2 + GAP_BETWEEN);
+            var pData = players[idx];
+
+            // 金色边框
+            ctx.beginPath();
+            ctx.arc(px, py, R + 3, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.fillStyle = '#FFD700';
+            ctx.fill();
+
+            // 头像
+            if (pData.loadedImg) {
+                drawCircularImage(ctx, pData.loadedImg, px, py, R);
+            } else {
+                ctx.beginPath();
+                ctx.arc(px, py, R, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fillStyle = '#333';
+                ctx.fill();
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 24px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                if (pData.name) ctx.fillText(pData.name.slice(-2), px, py);
+            }
+
+            // 名字
+            ctx.fillStyle = '#d0c0b0';
+            ctx.font = '13px -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.fillText(pData.name, px, py + R + NAME_GAP);
+        }
+    }
+
+    // 底部金色装饰
+    ctx.fillStyle = 'rgba(255,215,0,0.1)';
+    ctx.fillRect(40, h - 38, w - 80, 1);
+
+    // 水印
+    ctx.fillStyle = 'rgba(255,255,255,0.15)';
+    ctx.font = '13px -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    ctx.fillText('21世纪FMVP金字塔排行 · 虎扑JRs出品', w / 2, h - 8);
+}
+
+function calcPosterHeight(players) {
+    return POSTER_H;
+}
+
+function createPosterCanvasAsync() {
+    var players = getPyramidPlayers();
+    return loadPosterImages(players).then(function() {
+        var canvas = document.getElementById('posterCanvas');
+        canvas.width = POSTER_W * POSTER_SCALE;
+        canvas.height = POSTER_H * POSTER_SCALE;
+        var ctx = canvas.getContext('2d');
+        ctx.scale(POSTER_SCALE, POSTER_SCALE);
+        drawPoster(ctx, POSTER_W, POSTER_H, players);
+        canvas._corsSafe = true;
+        return canvas;
+    });
+}
+
+function generatePoster() {
+    createPosterCanvasAsync().then(function(canvas) {
+        var dataURL = canvas.toDataURL('image/png');
+        var img = document.getElementById('posterPreviewImg');
+        img.src = dataURL;
+        document.getElementById('posterOverlay').classList.add('active');
+    }).catch(function(err) {
+        console.error('Poster generation failed:', err);
+    });
+}
+
+function closePoster() {
+    document.getElementById('posterOverlay').classList.remove('active');
+}
+
+function dataURLToBlob(dataURL) {
+    var parts = dataURL.split(',');
+    var mime = parts[0].match(/:(.*?);/)[1];
+    var bytes = atob(parts[1]);
+    var ab = new ArrayBuffer(bytes.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < bytes.length; i++) ia[i] = bytes.charCodeAt(i);
+    return new Blob([ab], { type: mime });
+}
+
+function uploadToOSS(file, filename) {
+    return new Promise(function(resolve, reject) {
+        if (window.ColorboxAI && window.ColorboxAI.oss && typeof window.ColorboxAI.oss.uploadFile === 'function') {
+            window.ColorboxAI.oss.uploadFile({ file: file, filename: filename })
+                .then(function(res) { resolve(res.downloadUrl || ''); })
+                .catch(reject);
+            return;
+        }
+        if (window.parent && window.parent !== window) {
+            var callbackId = '_cb_up_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+            var timer = setTimeout(function() { cleanup(); reject(new Error('上传超时')); }, 30000);
+            var handler = function(e) {
+                var d = e.data;
+                if (d && d.protocol === 'colorbox-ai-bridge' && d.type === 'oss.upload.callback' && d.payload && d.payload.callbackId === callbackId) {
+                    clearTimeout(timer); cleanup();
+                    d.payload.error ? reject(new Error(d.payload.error)) : resolve(d.payload.downloadUrl || '');
+                }
+            };
+            var cleanup = function() { window.removeEventListener('message', handler); };
+            window.addEventListener('message', handler);
+            window.parent.postMessage({
+                protocol: 'colorbox-ai-bridge', version: 1, direction: 'frame-to-host',
+                type: 'oss.upload',
+                payload: { file: file, filename: filename, callbackId: callbackId }
+            }, '*');
+            return;
+        }
+        var client = getOssClient();
+        if (client) {
+            var ext = filename.lastIndexOf('.') >= 0 ? filename.slice(filename.lastIndexOf('.')) : '.png';
+            var now = new Date();
+            var key = 'user-upload/' + (now.getFullYear() % 100) + (now.getMonth() + 1) + now.getDate() + '-' + Math.random().toString(36).slice(-6) + ext;
+            client.multipartUpload(key, file, {})
+                .then(function(res) { resolve(res.downloadUrl || 'https://activity-static.hoopchina.com.cn/' + res.name); })
+                .catch(reject);
+            return;
+        }
+        reject(new Error('No upload capability'));
+    });
+}
+
+function safeNavigate(url, target, eventName) {
+    if (window.ColorboxAI && typeof window.ColorboxAI.track === 'function') {
+        try { window.ColorboxAI.track({ event: eventName || 'navigate', url: url, target: target || '_blank' }); } catch(_) {}
+    }
+    if (window.ColorboxAI && typeof window.ColorboxAI.navigateTo === 'function') {
+        try { window.ColorboxAI.navigateTo(url, target || '_blank'); return; } catch(e) {}
+    }
+    if (window.ColorboxAI && typeof window.ColorboxAI.openUrl === 'function') {
+        try { window.ColorboxAI.openUrl(url); return; } catch(e) {}
+    }
+    try { window.open(url, target || '_blank'); } catch(e) {}
+}
+
+async function sharePoster(btn) {
+    var canvas = document.getElementById('posterCanvas');
+    if (!canvas.width || !canvas._corsSafe) {
+        canvas = await createPosterCanvasAsync();
+    }
+    var dataURL = canvas.toDataURL('image/png');
+    var blob = dataURLToBlob(dataURL);
+    if (blob.size === 0) {
+        console.error('[OSS] Generated blob is empty');
+        throw new Error('海报图片为空');
+    }
+    var filename = 'poster_fmvp_' + Date.now() + '.png';
+
+    var origText = btn.innerHTML;
+    btn.innerHTML = '⏳ 上传中...';
+    btn.disabled = true;
+
+    try {
+        var imageUrl = await uploadToOSS(blob, filename);
+        var initialValue = {
+            syncPost: true,
+            appJsonV3: {
+                activeTab: 'thread',
+                data: {
+                    title: '',
+                    imageList: imageUrl ? [imageUrl] : [],
+                    content: ''
+                }
+            }
+        };
+
+        var postUrl = 'huputiyu://bbs/postImg?tagName=' + encodeURIComponent(TAG_NAME) +
+            '&tagId=' + TAG_ID +
+            '&topicName=' + encodeURIComponent(TOPIC_NAME) +
+            '&topicId=' + TOPIC_ID +
+            '&initialValue=' + encodeURIComponent(JSON.stringify(initialValue));
+        safeNavigate(postUrl, '_self', 'poster_share');
+        closePoster();
+    } catch (e) {
+        console.warn('Poster upload failed, fallback to text-only post', e);
+        var fallbackInitialValue = {
+            syncPost: true,
+            appJsonV3: {
+                activeTab: 'thread',
+                data: { title: '', imageList: [], content: '' }
+            }
+        };
+        var fallbackUrl = 'huputiyu://bbs/postImg?tagName=' + encodeURIComponent(TAG_NAME) +
+            '&tagId=' + TAG_ID +
+            '&topicName=' + encodeURIComponent(TOPIC_NAME) +
+            '&topicId=' + TOPIC_ID +
+            '&initialValue=' + encodeURIComponent(JSON.stringify(fallbackInitialValue));
+        safeNavigate(fallbackUrl, '_self', 'poster_share_fallback');
+        closePoster();
+    } finally {
+        btn.innerHTML = origText;
+        btn.disabled = false;
+    }
+}
+
+/* ===== 启动 ===== */
+window.startGame = startGame;
+window.showFinal = showFinal;
+window.showToast = showToast;
+window.renderHome = renderHome;
+renderHome();
+</script>
+
+<!-- 海报生成 -->
+<canvas id="posterCanvas" style="display:none"></canvas>
+<div id="posterOverlay">
+    <img id="posterPreviewImg" alt="海报预览">
+    <div class="poster-actions">
+        <button class="btn btn-poster btn-share" onclick="sharePoster(this)">📤 一键发帖</button>
+        <button class="btn poster-close" style="background:#555;color:#fff" onclick="closePoster()">✕ 取消</button>
+    </div>
+</div>
+
+</body>
+</html>
