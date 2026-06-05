@@ -335,66 +335,6 @@ html, body {
 .faction-modal-close:active {
   color: #888;
 }
-/* ---- 正反方占比 ---- */
-.faction-ratio {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0 0 10px 4px;
-  padding: 10px 12px;
-  background: #f8f8f8;
-  border-radius: 10px;
-}
-.faction-ratio-item {
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-.faction-ratio-item.pro { color: #c9102a; }
-.faction-ratio-item.con { color: #1a6cfb; }
-.faction-ratio-bar {
-  flex: 1;
-  height: 8px;
-  border-radius: 4px;
-  background: #e0e0e0;
-  overflow: hidden;
-  display: flex;
-  min-width: 60px;
-}
-.faction-ratio-bar-inner {
-  height: 100%;
-  transition: width .5s ease;
-}
-.faction-ratio-bar-inner.pro { background: #ee0a26; border-radius: 4px 0 0 4px; }
-.faction-ratio-bar-inner.con { background: #1a7afb; border-radius: 0 4px 4px 0; }
-.faction-ratio-bar-inner.pro.full { border-radius: 4px; }
-.faction-ratio-bar-inner.con.full { border-radius: 4px; }
-/* ---- 正反方筛选页签 ---- */
-.faction-tabs {
-  display: flex;
-  gap: 6px;
-  margin: 0 0 14px 4px;
-}
-.faction-tab {
-  padding: 6px 16px;
-  border-radius: 99px;
-  font-size: 13px;
-  font-weight: 700;
-  border: 1.5px solid #ddd;
-  background: transparent;
-  color: #888;
-  cursor: pointer;
-  transition: all .2s;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-  outline: none;
-}
-.faction-tab:active { transform: scale(.95); }
-.faction-tab.active { background: #000; color: #fff; border-color: #000; }
-.faction-tab.active.pro { background: #c9102a; border-color: #c9102a; color: #fff; }
-.faction-tab.active.con { background: #1a6cfb; border-color: #1a6cfb; color: #fff; }
-/* ---- 隐藏（筛选用） ---- */
-.thread-card.hidden { display: none; }
 </style>
 </head>
 <body>
@@ -413,21 +353,6 @@ html, body {
   <!-- 话题讨论区（学习.html 风格） -->
   <div class="thread-section">
     <h2 class="thread-title">热议讨论区</h2>
-    <!-- 正反方占比 -->
-    <div class="faction-ratio" id="factionRatio" style="display:none">
-      <span class="faction-ratio-item pro" id="ratioProLabel">正方 0</span>
-      <div class="faction-ratio-bar">
-        <div class="faction-ratio-bar-inner pro" id="ratioPro" style="width:50%"></div>
-        <div class="faction-ratio-bar-inner con" id="ratioCon" style="width:50%"></div>
-      </div>
-      <span class="faction-ratio-item con" id="ratioConLabel">反方 0</span>
-    </div>
-    <!-- 正反方筛选页签 -->
-    <div class="faction-tabs" id="factionTabs">
-      <button class="faction-tab active" data-filter="all">全部</button>
-      <button class="faction-tab pro" data-filter="pro">正方</button>
-      <button class="faction-tab con" data-filter="con">反方</button>
-    </div>
     <div class="thread-list" id="threadList"></div>
     <div class="list-status" id="listStatus">JR们的内容正在路上...</div>
     <button class="load-more-btn" id="loadMoreBtn">加载更多讨论</button>
@@ -533,56 +458,6 @@ async function fetchTopicThreads() {
   } finally { isRequesting = false; }
 }
 
-/* ---- 正反方计数和占比更新 ---- */
-window._factionCounts = { pro: 0, con: 0 };
-
-function updateFactionRatio() {
-  var counts = window._factionCounts;
-  var total = counts.pro + counts.con;
-  var ratioEl = document.getElementById('factionRatio');
-  var proBar = document.getElementById('ratioPro');
-  var conBar = document.getElementById('ratioCon');
-  var proLabel = document.getElementById('ratioProLabel');
-  var conLabel = document.getElementById('ratioConLabel');
-  if (total === 0) { ratioEl.style.display = 'none'; return; }
-  ratioEl.style.display = 'flex';
-  var pctPro = (counts.pro / total * 100).toFixed(1);
-  var pctCon = (counts.con / total * 100).toFixed(1);
-  proBar.style.width = pctPro + '%';
-  conBar.style.width = pctCon + '%';
-  proBar.className = 'faction-ratio-bar-inner pro' + (pctPro >= 100 ? ' full' : '');
-  conBar.className = 'faction-ratio-bar-inner con' + (pctCon >= 100 ? ' full' : '');
-  proLabel.textContent = '正方 ' + counts.pro;
-  conLabel.textContent = '反方 ' + counts.con;
-}
-
-/* ---- 正反方筛选页签 ---- */
-function applyCurrentFilter() {
-  var activeTab = document.querySelector('#factionTabs .faction-tab.active');
-  if (!activeTab) return;
-  var filter = activeTab.dataset.filter;
-  document.querySelectorAll('#threadList .thread-card').forEach(function(card) {
-    if (filter === 'all' || card.dataset.faction === filter) {
-      card.classList.remove('hidden');
-    } else {
-      card.classList.add('hidden');
-    }
-  });
-  document.querySelectorAll('#threadList .post-prompt-wrap').forEach(function(w) {
-    w.style.display = (filter === 'all') ? '' : 'none';
-  });
-}
-(function() {
-  var tabContainer = document.getElementById('factionTabs');
-  tabContainer.addEventListener('click', function(e) {
-    var tab = e.target.closest('.faction-tab');
-    if (!tab) return;
-    tabContainer.querySelectorAll('.faction-tab').forEach(function(t) { t.className = 'faction-tab'; });
-    tab.className = 'faction-tab active' + (tab.dataset.filter !== 'all' ? ' ' + tab.dataset.filter : '');
-    applyCurrentFilter();
-  });
-})();
-
 /* ---- 等差数列发帖按钮计数器 ---- */
 var totalPostCount = 0;    // 全局已渲染帖子总数
 var nextPromptAt = 5;      // 下一次出现按钮的位置
@@ -590,10 +465,6 @@ var promptGap = 5;         // 当前间隔（每次+5）
 
 function renderThreads(list) {
   var fragment = document.createDocumentFragment();
-  // 按回复数倒序排列
-  list.sort(function(a, b) {
-    return (b.replies || 0) - (a.replies || 0);
-  });
   var posIndex = 1;
   list.forEach(function(item) {
     var title = item.title || "无标题";
@@ -617,16 +488,11 @@ function renderThreads(list) {
     // 判断阵营：API 数据 > 封面图颜色分析 > 奇偶模拟
     var side = item.tagName || item.side || '';
     var useColorDetect = false;
-    var factionKey = '';
     if (!side && coverImgUrl) {
       useColorDetect = true;
-      factionKey = '';
       // 先用空标签，分析完成后更新
     } else if (!side) {
       side = (posIndex % 2 === 1) ? '正方' : '反方';
-      factionKey = (side === '正方') ? 'pro' : 'con';
-    } else {
-      factionKey = (side === '正方' || side === 'pro') ? 'pro' : 'con';
     }
     // 生成阵营标签 HTML（颜色分析时先隐藏）
     var factionBadgeHtml = '';
@@ -650,12 +516,6 @@ function renderThreads(list) {
       + coverImgHtml
       + '<p class="thread-card-text">' + title + '</p>'
       + '</div>';
-
-    // 设置 data-faction 用于筛选
-    if (factionKey) {
-      card.dataset.faction = factionKey;
-      window._factionCounts[factionKey]++;
-    }
 
     // 点击埋点
     var pos = "T" + posIndex;
@@ -689,7 +549,6 @@ function renderThreads(list) {
               if (b > r + 30 && b > g + 15) blue++;
             }
             var result = red >= blue ? '正方' : '反方';
-            var resultKey = (result === '正方') ? 'pro' : 'con';
             var badge = cardEl.querySelector('.thread-card-faction');
             if (badge) {
               var cls = (result === '正方') ? 'pro' : 'con';
@@ -697,10 +556,6 @@ function renderThreads(list) {
               badge.className = 'thread-card-faction ' + cls;
               badge.style.display = '';
             }
-            // 设置 data-faction 并更新计数
-            cardEl.dataset.faction = resultKey;
-            window._factionCounts[resultKey]++;
-            updateFactionRatio();
           } catch(e) {
             // CORS 受限，忽略
           }
@@ -731,9 +586,6 @@ function renderThreads(list) {
     posIndex++;
   });
   threadListEl.appendChild(fragment);
-  updateFactionRatio();
-  // 如果有激活的筛选，对新卡片也应用筛选
-  applyCurrentFilter();
 
   // 曝光监听（IntersectionObserver）
   if (!window._threadObserver) {
