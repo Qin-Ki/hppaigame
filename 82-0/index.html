@@ -9,7 +9,7 @@
 
   :root {
     --court-orange: #d35400;
-    --court-dark: #1a1a2e;
+    --court-dark: #110427;
     --court-mid: #16213e;
     --court-light: #0f3460;
     --gold: #f39c12;
@@ -46,36 +46,49 @@
     position: relative; z-index: 1;
     max-width: 1100px; margin: 0 auto; padding: 8px 20px 20px;
   }
+  .app-container.game-active {
+    padding-top: 0;
+  }
 
   /* --- HEADER --- */
   .header {
     text-align: center; padding: 48px 0 4px;
     position: relative;
   }
-  .header h1 {
-    font-family: 'Oswald', sans-serif;
-    font-size: 72px;
-    font-weight: 700;
-    letter-spacing: 4px;
-    line-height: 1;
-    background: linear-gradient(135deg, var(--gold-light), var(--court-orange), var(--gold-light));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: none;
-    filter: drop-shadow(0 2px 20px rgba(243,156,18,0.3));
+  .header .header-img {
+    display: block;
+    max-width: 340px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
   }
-  .header .subtitle {
-    font-size: 24px; color: var(--text-muted);
-    font-weight: 700;
-    letter-spacing: 6px; text-transform: uppercase;
-    margin-top: 8px;
+  .header .header-img.game {
+    display: none;
   }
-  .header .subtitle span { color: var(--gold); font-weight: 700; }
+  .header .header-img.small {
+    max-width: 120px;
+  }
+  @font-face {
+    font-family: 'GameFont';
+    src: url('https://activity-static.hoopchina.com.cn/files/2665-4ey65lrc-upload-1780649092804-12.otf') format('opentype');
+  }
+  .header-text {
+    display: none;
+    font-family: 'GameFont', 'Oswald', sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    color: #ffffff;
+    white-space: nowrap;
+    text-align: center;
+    padding: 20px 0;
+  }
 
   /* --- SCREENS --- */
   .screen { display: none; }
   .screen.active { display: block; animation: fadeIn 0.5s ease; }
-  #screen-game.active, #screen-result.active { display: flex; flex-direction: column; justify-content: center; min-height: calc(100vh - 80px); }
+  #screen-game.active { display: flex; flex-direction: column; }
+  #screen-result.active { display: flex; flex-direction: column; justify-content: center; min-height: calc(100vh - 80px); }
 
   @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -111,6 +124,7 @@
   .menu-content {
     display: flex; flex-direction: column; align-items: center;
     justify-content: center; min-height: 65vh; text-align: center; gap: 30px;
+    margin-top: -255px;
   }
   .menu-content .logo-large {
     font-family: 'Oswald', sans-serif;
@@ -200,11 +214,13 @@
     transition: all 0.2s ease; position: relative;
     min-height: 52px;
   }
-  .player-card:hover {
-    border-color: var(--gold);
-    background: rgba(255,255,255,0.08);
-    transform: translateX(4px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  @media (hover: hover) {
+    .player-card:hover {
+      border-color: var(--gold);
+      background: rgba(255,255,255,0.08);
+      transform: translateX(4px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
   }
   .player-card.selected {
     border-color: var(--success); background: rgba(39,174,96,0.08);
@@ -242,7 +258,7 @@
   /* --- POSITION SLOTS (取代原来的 roster-bar) --- */
   .pos-slots {
     display: flex; flex-direction: column; gap: 8px;
-    margin: 15px auto; max-width: 420px;
+    margin: 0 auto; max-width: 420px;
   }
   .pos-slots-row {
     display: flex; gap: 8px; justify-content: center;
@@ -304,17 +320,26 @@
   .player-card.disabled:hover {
     transform: none; border-color: var(--card-border);
   }
-  /* Drag ghost */
-  .drag-ghost {
-    position: fixed; pointer-events: none; z-index: 999;
-    font-family: 'Oswald', sans-serif;
-    background: var(--court-mid); border: 2px solid var(--gold);
-    border-radius: 8px; padding: 6px 12px;
-    color: var(--white); font-size: 0.8rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    transform: translate(-50%, -50%);
-  }
+  /* Drag ghost (unused — click-to-move only) */
 
+  /* --- STICKY TOP (header text + roster bar) --- */
+  .sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 49;
+    background: var(--court-dark);
+    margin: 0 -20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .sticky-top .roster-bar {
+    margin: 0;
+    box-shadow: none;
+  }
+  .sticky-top .pos-slots {
+    margin: 0 auto;
+    max-width: 420px;
+    padding: 0 20px 8px;
+  }
   /* --- SIMULATION --- */
   .sim-results {
     text-align: center; padding: 20px 0;
@@ -403,6 +428,26 @@
     100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
   }
 
+  /* --- FILTER TABS --- */
+  .filter-tabs {
+    display: flex; gap: 6px; margin-bottom: 12px;
+  }
+  .filter-tab {
+    display: inline-block;
+    padding: 4px 16px; border-radius: 99px;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px;
+    cursor: pointer; transition: all 0.2s ease;
+    background: rgba(255,255,255,0.06);
+    color: var(--text-muted);
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+  }
+  .filter-tab:hover { background: rgba(255,255,255,0.12); color: var(--text-light); }
+  .filter-tab.active {
+    background: var(--accent); color: #fff;
+    box-shadow: 0 2px 12px rgba(155,89,182,0.4);
+  }
+
   /* --- NO PLAYERS STATE --- */
   .no-players {
     text-align: center; padding: 40px 20px; color: var(--text-muted);
@@ -466,8 +511,7 @@
 <div class="app-container">
   <!-- HEADER -->
   <header class="header">
-    <h1>82-0</h1>
-    <div class="subtitle"><span>完美赛季</span>大挑战</div>
+    <img class="header-img" src="https://i1.hoopchina.com.cn/newsPost/a96122c379b6e7410ebe2c15a7e78619_w_2000_h_3000_.png" alt="82-0 完美赛季">
   </header>
 
   <!-- ========== MENU SCREEN ========== -->
@@ -499,8 +543,11 @@
 
   <!-- ========== GAME SCREEN ========== -->
   <div id="screen-game" class="screen">
-    <!-- ROSTER BAR -->
-    <div class="roster-bar" id="rosterBar"></div>
+    <!-- STICKY TOP (header text + roster bar) -->
+    <div class="sticky-top">
+      <div class="header-text" id="gameHeaderText">82-0 完美赛季大挑战</div>
+      <div class="roster-bar" id="rosterBar"></div>
+    </div>
 
     <!-- SLOT SECTION -->
     <div class="slot-section" id="slotSection">
@@ -541,6 +588,12 @@
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
         <h3 style="font-family:'Oswald', sans-serif; color:var(--gold);">选择你的球员</h3>
         <span style="font-size:0.85rem; color:var(--text-muted);" id="selectionHint">点击球员卡片将他选入阵容</span>
+      </div>
+      <div class="filter-tabs">
+        <span class="filter-tab active" data-tab="all" onclick="setFilterTab('all')">全部</span>
+        <span class="filter-tab" data-tab="g" onclick="setFilterTab('g')">后卫</span>
+        <span class="filter-tab" data-tab="f" onclick="setFilterTab('f')">前锋</span>
+        <span class="filter-tab" data-tab="c" onclick="setFilterTab('c')">中锋</span>
       </div>
 
       <div class="player-grid" id="playerGrid"></div>
@@ -601,7 +654,7 @@
   </div>
 </div>
 
-<script src="nba-data.js"></script>
+<script src="https://activity-static.hoopchina.com.cn/files/2667-a1702crc-upload-1780797928751-13.js"></script>
 
 <script>
 // ===================================================================
@@ -620,19 +673,35 @@ let DATA_READY = Promise.resolve();
     if (!result[era]) result[era] = {};
     if (!result[era][team]) result[era][team] = [];
     result[era][team].push({
-      name: p.player,
+      name: p.cname || p.player,
       pos: p.pos,
       positions: p.positions || [],
       stats: {
         pts: p.ppg,
         reb: p.rpg,
-        ast: p.apg
+        ast: p.apg,
+        stl: p.spg,
+        blk: p.bpg
       }
     });
   });
   NBA_DATA = result;
   console.log('NBA_DATA loaded from nba-data.js:', Object.keys(NBA_DATA).length, 'decades, total players:', data.length);
 })();
+
+// Filter tab for player selection
+let _filterTab = 'all';
+
+function setFilterTab(tab) {
+  _filterTab = tab;
+  document.querySelectorAll('.filter-tab').forEach(el => {
+    el.classList.toggle('active', el.dataset.tab === tab);
+  });
+  // Re-render current player list with new filter
+  if (game.currentTeam && game.currentDecade) {
+    renderPlayerGrid(game.currentTeam, game.currentDecade);
+  }
+}
 
 // Helper: get players for a team in a decade
 function getPlayers(decade, team) {
@@ -677,18 +746,70 @@ let game = {
 // ===================================================================
 const TEAM_COLORS = {
   "ATL": ["#b42b33","#c76169"],"BKN": ["#c6c6c6","#505050"],"BOS": ["#488a50","#223425"],
-  "CHA": ["#25225a","#384a7b"],"CHI": ["#d93831","#da2f2e"],"CLE": ["#0e2a5c","#ebbc5b"],
-  "DAL": ["#2d6ab7","#c5cdd4"],"DEN": ["#142040","#753435"],"DET": ["#c42e47","#254f9d"],
-  "GSW": ["#eeba4b","#283f85"],"HOU": ["#05173f","#ad342c"],"IND": ["#eac962","#142356"],
+  "CHA": ["#25225a","#384a7b"],"CHI": ["#d93831","#da2f2e"],"CLE": ["#860038","#BC945C"],
+  "DAL": ["#2d6ab7","#c5cdd4"],"DEN": ["#418fde","#418fde"],"DET": ["#c42e47","#254f9d"],
+  "GSW": ["#eeba4b","#283f85"],"HOU": ["#ad342c","#ffffff"],"IND": ["#eac962","#142356"],
   "LAC": ["#002650","#0b3666"],"LAL": ["#f1bc4b","#50247c"],"MEM": ["#14163b","#5d75ad"],
   "MIA": ["#a32a2e","#261c22"],"MIL": ["#dcd4b4","#304c38"],"MIN": ["#b6c8d3","#244f7d"],
-  "NOP": ["#0e2459","#ae9b6d"],"NYK": ["#d86a34","#1c399f"],"OKC": ["#4876b6","#1c233d"],
+  "NOP": ["#ae9b6d","#ae9b6d"],"NYK": ["#d86a34","#1c399f"],"OKC": ["#4876b6","#1c233d"],
   "ORL": ["#3053ad","#3053ae"],"PHI": ["#3063b0","#2f61af"],"PHX": ["#f6ca57","#c86d36"],
   "POR": ["#ab2f32","#6a1d1f"],"SAC": ["#55277f","#3a0e63"],"SAS": ["#c7cdd4","#34393d"],
   "TOR": ["#a2a2a4","#b12a32"],"UTA": ["#15203e","#14223e"],"WAS": ["#16213d","#bd2a33"]
 };
 
 
+
+// ===================================================================
+//  ERA BENCHMARKS & POSITION WEIGHTS (from sim.ts / constants.ts)
+// ===================================================================
+const ERA_BENCHMARKS = {
+  "1960s": { pts: 30, reb: 18, ast: 8, stl: 1.8, blk: 1.8 },
+  "1970s": { pts: 28, reb: 13, ast: 9, stl: 2,   blk: 2 },
+  "1980s": { pts: 28, reb: 11, ast: 11, stl: 2.2, blk: 2 },
+  "1990s": { pts: 27, reb: 11, ast: 9,  stl: 2,   blk: 2 },
+  "2000s": { pts: 27, reb: 11, ast: 9,  stl: 2,   blk: 2 },
+  "2010s": { pts: 28, reb: 11, ast: 9,  stl: 1.8, blk: 1.8 },
+  "2020s": { pts: 28, reb: 11, ast: 9,  stl: 1.8, blk: 1.8 },
+};
+
+const POSITION_WEIGHTS = {
+  PG: { pts: 0.4, reb: 0.1, ast: 0.35, stl: 0.1, blk: 0.05 },
+  SG: { pts: 0.45, reb: 0.1, ast: 0.2,  stl: 0.2, blk: 0.05 },
+  SF: { pts: 0.45, reb: 0.15, ast: 0.2, stl: 0.15, blk: 0.05 },
+  PF: { pts: 0.4,  reb: 0.3, ast: 0.1,  stl: 0.1, blk: 0.1 },
+  C:  { pts: 0.4,  reb: 0.35, ast: 0.1, stl: 0.05, blk: 0.1 },
+};
+
+// Chinese team names (不带地名)
+const TEAM_CN = {
+  ATL:"老鹰",BKN:"篮网",BOS:"凯尔特人",CHA:"黄蜂",CHI:"公牛",
+  CLE:"骑士",DAL:"独行侠",DEN:"掘金",DET:"活塞",GSW:"勇士",
+  HOU:"火箭",IND:"步行者",LAC:"快船",LAL:"湖人",MEM:"灰熊",
+  MIA:"热火",MIL:"雄鹿",MIN:"森林狼",NOP:"鹈鹕",NYK:"尼克斯",
+  OKC:"雷霆",ORL:"魔术",PHI:"76人",PHX:"太阳",POR:"开拓者",
+  SAC:"国王",SAS:"马刺",TOR:"猛龙",UTA:"爵士",WAS:"奇才"
+};
+function teamCN(abbr) { return TEAM_CN[abbr] || abbr; }
+
+const STAT_KEYS = ['pts','reb','ast','stl','blk'];
+
+const TEAM_GRADE_BANDS = [
+  { min: 80, grade: "S",  label: "完美赛季", color: "#a855f7" },
+  { min: 72, grade: "A+", label: "历史级强队", color: "#22c55e" },
+  { min: 62, grade: "A",  label: "王朝球队", color: "#22c55e" },
+  { min: 57, grade: "B",  label: "有力竞争者", color: "#3b82f6" },
+  { min: 50, grade: "C",  label: "季后赛球队", color: "#f59e0b" },
+  { min: 40, grade: "D",  label: "乐透球队", color: "#64748b" },
+  { min: 0,  grade: "F",  label: "摆烂大军", color: "#ef4444" },
+];
+
+const INTANGIBLES = new Set([
+  "larry bird","tim duncan","kevin durant","magic johnson",
+  "shaquille o'neal","hakeem olajuwon","bill russell","kobe bryant",
+  "oscar robertson","karl malone","kevin garnett","isiah thomas",
+  "tony parker","manu ginobili","draymond green","scottie pippen",
+  "dennis rodman","stephen curry","nikola jokic","dirk nowitzki",
+]);
 
 // ===================================================================
 //  PARTICLES
@@ -742,8 +863,22 @@ function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   const header = document.querySelector('.header');
+  const img = header.querySelector('.header-img');
   header.style.display = id === 'screen-result' ? 'none' : '';
-  header.style.padding = id === 'screen-menu' ? '48px 0 4px' : '8px 0 4px';
+  if (id === 'screen-menu') {
+    header.style.padding = '24px 0 4px';
+    if (img) img.style.display = '';
+    document.getElementById('gameHeaderText').style.display = 'none';
+  } else if (id === 'screen-game') {
+    header.style.padding = '4px 0';
+    if (img) img.style.display = 'none';
+    document.getElementById('gameHeaderText').style.display = 'block';
+  } else {
+    header.style.padding = '8px 0 4px';
+    if (img) img.style.display = 'none';
+  }
+  const container = document.querySelector('.app-container');
+  container.classList.toggle('game-active', id === 'screen-game');
 }
 
 function showMenu() {
@@ -827,21 +962,14 @@ function renderRosterBar() {
       const mainColor = colors[0];
       const color2 = colors[1] || mainColor;
       const style = `background:linear-gradient(135deg, ${mainColor}, ${color2});border-color:${mainColor};box-shadow:0 0 12px ${mainColor}66;`;
-      return `<div class="${cls}" draggable="true" style="${style}"
-                onclick="onFilledSlotClick('${pos}')"
-                ondragstart="onDragStart(event, '${p.name.replace(/'/g, "\\'")}')"
-                ondrop="onDrop(event, '${pos}')"
-                ondragover="onDragOver(event)"
-                ondragleave="onDragLeave(event)">
+      return `<div class="${cls}" style="${style}" data-pos="${pos}"
+                onclick="onFilledSlotClick('${pos}')">
         <span class="slot-player-name">${p.name.split('-').pop()}</span>
-        <span class="slot-team-decade">${p.team} · ${p.decade}</span>
+        <span class="slot-team-decade">${teamCN(p.team)} · ${p.decade}</span>
       </div>`;
     } else {
-      return `<div class="${cls}"
-                onclick="onEmptySlotClick('${pos}')"
-                ondrop="onDrop(event, '${pos}')"
-                ondragover="onDragOver(event)"
-                ondragleave="onDragLeave(event)">
+      return `<div class="${cls}" data-pos="${pos}"
+                onclick="onEmptySlotClick('${pos}')">
         <span class="pos-label">${pos}</span>
       </div>`;
     }
@@ -860,57 +988,7 @@ function renderRosterBar() {
   updateSkipBadges();
 }
 
-// ===================================================================
-//  DRAG & DROP
-// ===================================================================
-let draggedPlayerName = null;
 
-function onDragStart(e, playerName) {
-  draggedPlayerName = playerName;
-  e.dataTransfer.effectAllowed = 'move';
-  e.dataTransfer.setData('text/plain', playerName);
-}
-
-function onDragOver(e) {
-  e.preventDefault();
-  e.dataTransfer.dropEffect = 'move';
-  e.currentTarget.classList.add('dragover');
-}
-
-function onDragLeave(e) {
-  e.currentTarget.classList.remove('dragover');
-}
-
-function onDrop(e, targetPos) {
-  e.preventDefault();
-  e.currentTarget.classList.remove('dragover');
-  const playerName = e.dataTransfer.getData('text/plain') || draggedPlayerName;
-  if (!playerName) return;
-  
-  // Find the player in roster
-  const player = game.roster.find(p => p.name === playerName);
-  if (!player) return;
-  
-  const eligiblePositions = player.positions || getPositions(player.pos);
-  // Check if target position is eligible and empty
-  if (!eligiblePositions.includes(targetPos)) return;
-  if (game.slots[targetPos]) return; // already filled
-  
-  // Find current slot
-  let currentSlot = null;
-  for (const [pos, p] of Object.entries(game.slots)) {
-    if (p && p.name === playerName) { currentSlot = pos; break; }
-  }
-  
-  if (currentSlot) {
-    // Move: swap or just reassign
-    game.slots[targetPos] = player;
-    game.slots[currentSlot] = null;
-    player.assignedPos = targetPos;
-    renderRosterBar();
-  }
-  draggedPlayerName = null;
-}
 
 // ===================================================================
 //  ROUND PROGRESSION
@@ -958,7 +1036,7 @@ function spinSlot() {
   teamReel.classList.add('spinning');
   decadeReel.classList.add('spinning');
 
-  const allDecades = Object.keys(NBA_DATA);
+  const allDecades = Object.keys(NBA_DATA).filter(d => d !== '1950s');
 
   let spinCount = 0;
   const spinInterval = setInterval(() => {
@@ -966,7 +1044,7 @@ function spinSlot() {
     const randDecade = allDecades[Math.floor(Math.random() * allDecades.length)];
     const decadeTeams = Object.keys(NBA_DATA[randDecade] || {});
     const randTeam = decadeTeams[Math.floor(Math.random() * decadeTeams.length)];
-    teamText.textContent = randTeam;
+    teamText.textContent = teamCN(randTeam);
     decadeText.textContent = randDecade;
     spinCount++;
     if (spinCount > 20) {
@@ -977,7 +1055,7 @@ function spinSlot() {
       game.currentDecade = result.decade;
       game.usedCombos.push(result.decade + '|' + result.team);
 
-      teamText.textContent = result.team;
+      teamText.textContent = teamCN(result.team);
       decadeText.textContent = result.decade;
       teamReel.classList.remove('spinning');
       decadeReel.classList.remove('spinning');
@@ -987,7 +1065,7 @@ function spinSlot() {
       game.spun = true;
       spinBtn.textContent = '✓ 锁定';
       document.getElementById('roundDesc').textContent =
-        `球队: ${result.team}     年代: ${result.decade}`;
+        `球队: ${teamCN(result.team)}     年代: ${result.decade}`;
 
       // Enable skips
       document.getElementById('skipTeamBtn').disabled = game.skipTeam <= 0;
@@ -1000,19 +1078,20 @@ function spinSlot() {
 }
 
 function getSlotResult() {
-  // Collect all possible (decade, team) combos, excluding already used ones
+  // Collect all possible (decade, team) combos, excluding 1950s and already used ones
   const usedSet = new Set(game.usedCombos || []);
   const allCombos = [];
-  for (const decade of Object.keys(NBA_DATA)) {
+  for (const decade of Object.keys(NBA_DATA).filter(d => d !== '1950s')) {
     for (const team of Object.keys(NBA_DATA[decade])) {
       if (!usedSet.has(decade + '|' + team)) {
         allCombos.push({ team, decade });
       }
     }
   }
-  // If all combos used (unlikely), pick any
+  // If all combos used (unlikely), pick any non-1950s combo
   if (allCombos.length === 0) {
-    const d = Object.keys(NBA_DATA)[0];
+    const decades = Object.keys(NBA_DATA).filter(d => d !== '1950s');
+    const d = decades[0];
     const t = Object.keys(NBA_DATA[d])[0];
     return { team: t, decade: d };
   }
@@ -1089,12 +1168,12 @@ function executeSkip() {
     teamReel.classList.add('spinning');
     let count = 0;
     const interval = setInterval(() => {
-      teamText.textContent = decadeTeams[Math.floor(Math.random() * decadeTeams.length)];
+      teamText.textContent = teamCN(decadeTeams[Math.floor(Math.random() * decadeTeams.length)]);
       count++;
       if (count > 15) {
         clearInterval(interval);
         game.currentTeam = finalTeam;
-        teamText.textContent = finalTeam;
+        teamText.textContent = teamCN(finalTeam);
         teamReel.classList.remove('spinning');
         teamReel.style.borderColor = 'var(--success)';
         finishSkip();
@@ -1106,7 +1185,7 @@ function executeSkip() {
     // Keep same team, change to a different decade where this team exists (avoid already-used combos)
     const teamName = game.currentTeam;
     const teamDecades = Object.keys(NBA_DATA).filter(d =>
-      NBA_DATA[d] && NBA_DATA[d][teamName]
+      d !== '1950s' && NBA_DATA[d] && NBA_DATA[d][teamName]
     );
     const usedSet = new Set(game.usedCombos || []);
     const otherDecades = teamDecades.filter(d => !usedSet.has(d + '|' + teamName));
@@ -1142,7 +1221,7 @@ function executeSkip() {
     document.getElementById('skipTeamBtn').disabled = game.skipTeam <= 0;
     document.getElementById('skipDecadeBtn').disabled = game.skipDecade <= 0;
     document.getElementById('roundDesc').textContent =
-      `${game.currentTeam} · ${game.currentDecade} (已跳过)`;
+      `${teamCN(game.currentTeam)} · ${game.currentDecade} (已跳过)`;
     showPlayers(game.currentTeam, game.currentDecade);
   }
 }
@@ -1155,44 +1234,66 @@ function updateSkipBadges() {
 // ===================================================================
 //  PLAYER SELECTION
 // ===================================================================
-function showPlayers(team, decade) {
-  const section = document.getElementById('playerSection');
+let _topPool = [];
+
+function renderPlayerGrid(team, decade) {
   const grid = document.getElementById('playerGrid');
-  section.style.display = 'block';
 
-  const players = NBA_DATA[decade] ? (NBA_DATA[decade][team] || []) : [];
-  // Remove already-drafted players (by name only, across all decades/teams)
-  const draftedNames = game.roster.map(r => r.name);
+  // On first render (tab === 'all'), build the top-20 pool
+  if (_filterTab === 'all') {
+    const players = NBA_DATA[decade] ? (NBA_DATA[decade][team] || []) : [];
+    const draftedNames = game.roster.map(r => r.name);
+    let all = players.filter(p => !draftedNames.includes(p.name));
+    // Sort by combined PTS+REB+AST, take top 20
+    all.sort((a, b) => (b.stats.pts + b.stats.reb + b.stats.ast) - (a.stats.pts + a.stats.reb + a.stats.ast));
+    _topPool = all.slice(0, 20);
+  }
 
-  let filtered = players.filter(p => !draftedNames.includes(p.name));
+  // G/F/C tabs filter from the top-20 pool
+  let display = _filterTab === 'all' ? _topPool : _topPool.filter(p => {
+    const posList = p.positions && p.positions.length > 0 ? p.positions : (p.pos ? p.pos.split('/') : []);
+    if (_filterTab === 'g') return posList.some(pos => pos === 'PG' || pos === 'SG');
+    if (_filterTab === 'f') return posList.some(pos => pos === 'SF' || pos === 'PF');
+    if (_filterTab === 'c') return posList.some(pos => pos === 'C');
+    return false;
+  });
 
-  if (filtered.length === 0) {
+  if (display.length === 0) {
     grid.innerHTML = `<div class="no-players">
       <div class="icon">😅</div>
-      <p>${team}（${decade}）没有剩余球员可选。</p>
-      <p style="margin-top:8px;font-size:0.85rem;">使用跳过或重新旋转试试手气！</p>
+      <p>该位置没有可用球员。</p>
     </div>`;
-    document.getElementById('selectionHint').textContent = '没有可用球员 — 尝试跳过！';
+    document.getElementById('selectionHint').textContent = '该位置没有可用球员';
     return;
   }
 
-  // Sort by combined PTS+REB+AST, take top 10, then shuffle
-  filtered.sort((a, b) => (b.stats.pts + b.stats.reb + b.stats.ast) - (a.stats.pts + a.stats.reb + a.stats.ast));
-  filtered = filtered.slice(0, 10).sort(() => Math.random() - 0.5);
+  // Shuffle for display
+  display = [...display].sort(() => Math.random() - 0.5);
 
   document.getElementById('selectionHint').textContent = `点击球员加入阵容`;
 
-  grid.innerHTML = filtered.map(p => {
+  grid.innerHTML = display.map(p => {
     const posDisplay = p.pos || '??';
     const positionsArr = p.positions && p.positions.length > 0 ? p.positions : [posDisplay];
     const posBadges = positionsArr.map(pos => `<span class="pos-badge">${pos}</span>`).join('');
     const posDataAttr = encodeURIComponent(JSON.stringify(positionsArr));
-    return `<div class="player-card" data-positions='${posDataAttr}' onclick="selectPlayer(this, '${p.name.replace(/'/g, "\\'")}', '${posDisplay}', ${p.stats.pts}, ${p.stats.reb}, ${p.stats.ast}, 0, 0)">
+    return `<div class="player-card" data-positions='${posDataAttr}' onclick="selectPlayer(this, '${p.name.replace(/'/g, "\\'")}', '${posDisplay}', ${p.stats.pts}, ${p.stats.reb}, ${p.stats.ast}, ${p.stats.stl ?? 0}, ${p.stats.blk ?? 0})">
       <div class="player-name">${p.name}</div>
       <div class="player-positions">${posBadges}</div>
-      <div class="player-team">${team} · ${decade}</div>
+      <div class="player-team">${teamCN(team)} · ${decade}</div>
     </div>`;
   }).join('');
+}
+
+function showPlayers(team, decade) {
+  const section = document.getElementById('playerSection');
+  section.style.display = 'block';
+  // Reset filter tab to all
+  _filterTab = 'all';
+  document.querySelectorAll('.filter-tab').forEach(el => {
+    el.classList.toggle('active', el.dataset.tab === 'all');
+  });
+  renderPlayerGrid(team, decade);
 }
 
 // ===================================================================
@@ -1322,63 +1423,98 @@ function confirmDraftWith(pick) {
 }
 
 // ===================================================================
-//  SIMULATION ENGINE
+//  SIMULATION ENGINE (HoopIQ mode — geometric mean of positional ratings)
 // ===================================================================
+
+/** Check if a value is a non-null number. */
+function isNum(v) {
+  return typeof v === 'number' && !Number.isNaN(v);
+}
+
+/** Steals/blocks adjustment for rosters with null defensive data. */
+function adjustDefensive(roster) {
+  const scale = (vals) =>
+    vals.reduce((a, b) => a + b, 0) * (vals.length > 0 ? 5 / vals.length : 1);
+  const stls = roster.filter(p => isNum(p.stl) && p.stl > 0).map(p => p.stl);
+  const blks = roster.filter(p => isNum(p.blk) && p.blk > 0).map(p => p.blk);
+  return { stl: scale(stls), blk: scale(blks) };
+}
+
+/**
+ * Individual player rating on a 0–100 scale using positional weighting
+ * against era benchmarks.
+ */
+function playerRating(p) {
+  const bench = ERA_BENCHMARKS[p.decade] || ERA_BENCHMARKS["2020s"];
+  const baseKey = p.positions?.[0] || p.pos || "SF";
+  const weights = { ...(POSITION_WEIGHTS[baseKey] || POSITION_WEIGHTS.SF) };
+
+  // Older eras lack steals/blocks — redistribute that weight to categories we have
+  const missing = ['stl', 'blk'].filter(k => !isNum(p[k]));
+  if (missing.length > 0) {
+    const kept = STAT_KEYS.filter(k => !missing.includes(k))
+      .reduce((sum, k) => sum + weights[k], 0);
+    const scale = kept > 0 ? 1 / kept : 1;
+    ['pts','reb','ast'].forEach(k => { weights[k] *= scale; });
+    missing.forEach(k => { weights[k] = 0; });
+  }
+
+  let n = 0;
+  STAT_KEYS.forEach(k => {
+    const v = p[k];
+    if (isNum(v)) {
+      let ratio = v / bench[k];
+      if (ratio > 1) ratio = Math.pow(ratio, 1.25);
+      n += weights[k] * ratio;
+    }
+  });
+
+  const base = 60 + 40 * n;
+  const posCount = p.positions?.length || 1;
+  const versatility = (posCount - 1) * 3;
+  const intangibles = INTANGIBLES.has((p.player ?? p.name ?? '').toLowerCase()) ? 2.5 : 0;
+
+  return Math.min(100, Math.round((base + versatility + intangibles) * 10) / 10);
+}
+
 function runSimulation() {
   showScreen('screen-result');
 
-  // Calculate aggregate stats
-  const totals = { pts: 0, reb: 0, ast: 0, stl: 0, blk: 0 };
-  game.roster.forEach(p => {
-    totals.pts += p.pts;
-    totals.reb += p.reb;
-    totals.ast += p.ast;
-    totals.stl += p.stl;
-    totals.blk += p.blk;
-  });
+  // Calculate player ratings using positional HoopIQ method
+  const roster = ['PG','SG','SF','PF','C']
+    .map(pos => game.slots[pos])
+    .filter(Boolean);
 
-  // Era-adjustment factors (relative to 2020s baseline = 1.0)
-  const ERA_FACTORS = {
-    "1960s": { pts: 1.05, reb: 1.05, ast: 1.05, stl: 1.05, blk: 1.05 },
-    "1970s": { pts: 1.04, reb: 1.04, ast: 1.04, stl: 1.04, blk: 1.04 },
-    "1980s": { pts: 1.02, reb: 1.02, ast: 1.02, stl: 1.02, blk: 1.02 },
-    "1990s": { pts: 1.00, reb: 1.00, ast: 1.00, stl: 1.00, blk: 1.00 },
-    "2000s": { pts: 0.98, reb: 0.98, ast: 0.98, stl: 0.98, blk: 0.98 },
-    "2010s": { pts: 0.96, reb: 0.96, ast: 0.96, stl: 0.96, blk: 0.96 },
-    "2020s": { pts: 0.94, reb: 0.94, ast: 0.94, stl: 0.94, blk: 0.94 },
-  };
+  if (roster.length === 0) {
+    document.getElementById('finalRecord').textContent = '0-82';
+    document.getElementById('resultGrade').textContent = 'F';
+    document.getElementById('resultGrade').style.color = '#ef4444';
+    document.getElementById('resultTier').textContent = '摆烂大军';
+    document.getElementById('resultTier').style.color = '#ef4444';
+    return;
+  }
 
-  // Calculate era-adjusted strength rating
-  let adjTotals = { pts: 0, reb: 0, ast: 0, stl: 0, blk: 0 };
-  game.roster.forEach(p => {
-    const f = ERA_FACTORS[p.decade];
-    adjTotals.pts += p.pts * f.pts;
-    adjTotals.reb += p.reb * f.reb;
-    adjTotals.ast += p.ast * f.ast;
-    adjTotals.stl += p.stl * f.stl;
-    adjTotals.blk += p.blk * f.blk;
-  });
+  // Geometric mean of positional player ratings × 1.1
+  const ratings = roster.map(p => playerRating(p));
+  const product = ratings.reduce((a, b) => a * b, 1);
+  const geoMean = Math.pow(product, 1 / ratings.length);
+  const teamOvr = Math.round(geoMean * 1.1 * 10) / 10;
 
-  const totalRaw = totals.pts + totals.reb + totals.ast + totals.stl + totals.blk;
-  const totalAdj = adjTotals.pts + adjTotals.reb + adjTotals.ast + adjTotals.stl + adjTotals.blk;
-
-  // Win projection: logistic S-curve + REB/AST gates
-  const wins = calculateWins(adjTotals);
+  // Win curve: wins = round(82 · min(rating / 110, 1) ^ 2.2)
+  const wins = Math.round(82 * Math.pow(Math.min(teamOvr / 110, 1), 2.2));
   const losses = 82 - wins;
 
   // Display results
   const record = document.getElementById('finalRecord');
   record.textContent = `${wins}-${losses}`;
 
-  // Grade & tier based on wins
-  let grade, tier, tierColor;
-  if (wins >= 82)       { grade='S+'; tier='终极答案'; tierColor='#f1c40f'; launchConfetti(); }
-  else if (wins >= 70)  { grade='S';  tier='历史级强队'; tierColor='#f1c40f'; }
-  else if (wins >= 60)  { grade='A';  tier='冠军大热'; tierColor='#27ae60'; }
-  else if (wins >= 50)  { grade='B';  tier='有力竞争者'; tierColor='#60a5fa'; }
-  else if (wins >= 40)  { grade='C'; tier='季后赛边缘'; tierColor='#e67e22'; }
-  else if (wins >= 30)  { grade='D';  tier='乐透球队'; tierColor='#e67e22'; }
-  else                  { grade='F';  tier='摆烂大军'; tierColor='#e74c3c'; }
+  // Grade & tier based on wins (from TEAM_GRADE_BANDS)
+  const band = TEAM_GRADE_BANDS.find(b => wins >= b.min) || TEAM_GRADE_BANDS[TEAM_GRADE_BANDS.length - 1];
+  const grade = band.grade;
+  const tier = band.label;
+  const tierColor = band.color;
+
+  if (wins >= 80) launchConfetti();
 
   // Save for poster generation
   game._posterGrade = grade;
@@ -1389,9 +1525,9 @@ function runSimulation() {
   document.getElementById('resultGrade').style.color = tierColor;
   document.getElementById('resultTier').textContent = tier;
   document.getElementById('resultTier').style.color = tierColor;
+
   // Roster final — 2-3 slot layout with team colors
   const rosterDiv = document.getElementById('rosterFinal');
-  const posOrder = ['PG','SG','SF','PF','C'];
   const topRow = ['PG','SG'];
   const bottomRow = ['SF','PF','C'];
 
@@ -1404,7 +1540,7 @@ function runSimulation() {
     const style = `background:linear-gradient(135deg, ${mainColor}, ${color2});border-color:${mainColor};box-shadow:0 0 12px ${mainColor}66;`;
     return `<div class="pos-slot filled" style="${style}">
       <span class="slot-player-name">${p.name.split('-').pop()}</span>
-      <span class="slot-team-decade">${p.team} · ${p.decade}</span>
+      <span class="slot-team-decade">${teamCN(p.team)} · ${p.decade}</span>
     </div>`;
   }
 
@@ -1417,29 +1553,6 @@ function runSimulation() {
   html += '</div>';
   html += '</div>';
   rosterDiv.innerHTML = html;
-}
-
-// ===================================================================
-//  WIN CALCULATION — Logistic curve + REB/AST gates
-//  Base: logistic S-curve from combined PTS+REB+AST
-//  Gate1: REB < 38 caps at ~78 wins
-//  Gate2: AST < 34 caps at ~80 wins
-//  Perfect: requires REB ≥ 42 AND AST ≥ 38
-// ===================================================================
-function calculateWins(adjTotals) {
-  const { pts: P, reb: R, ast: A } = adjTotals;
-  const combined = P + R + A;
-
-  // Quadratic curve: progressive difficulty, fine-grained 0-82
-  // Below 50 combined → 0 wins, above 250 combined → 82 wins
-  // ~90 → ~30 wins, ~130 → ~53 wins, ~170 → ~69 wins, ~200 → ~77 wins
-  const c = Math.max(50, Math.min(250, combined));
-  const raw = 82 * (1 - ((250 - c) / 200) ** 2);
-
-  // Tiny jitter (±0.4) ensures every integer 0-82 is reachable
-  const wins = raw + (Math.random() * 0.8 - 0.4);
-
-  return Math.round(wins);
 }
 
 // ===================================================================
@@ -1495,11 +1608,12 @@ function testBestPlayers() {
         allPlayers.push({
           name: p.name,
           pos: p.pos,
+          positions: p.positions,
           pts: p.stats.pts,
           reb: p.stats.reb,
           ast: p.stats.ast,
-          stl: 0,
-          blk: 0,
+          stl: p.stats.stl,
+          blk: p.stats.blk,
           team,
           decade,
           total: p.stats.pts + p.stats.reb + p.stats.ast
@@ -1519,14 +1633,15 @@ function testBestPlayers() {
     game.slots[pos] = {
       name: p.name,
       pos: p.pos,
+      positions: p.positions,
       assignedPos: pos,
       team: p.team,
       decade: p.decade,
       pts: p.pts,
       reb: p.reb,
       ast: p.ast,
-      stl: 0,
-      blk: 0
+      stl: p.stl,
+      blk: p.blk
     };
     game.roster.push(game.slots[pos]);
     game.usedDecades.push(p.decade);
@@ -1551,7 +1666,7 @@ function testBestPlayers() {
     const style = `background:linear-gradient(135deg, ${mainColor}, ${color2});border-color:${mainColor};box-shadow:0 0 12px ${mainColor}66;`;
     return `<div class="pos-slot filled" style="${style}">
       <span class="slot-player-name">${p.name.split('-').pop()}</span>
-      <span class="slot-team-decade">${p.team} · ${p.decade}</span>
+      <span class="slot-team-decade">${teamCN(p.team)} · ${p.decade}</span>
     </div>`;
   }
 
@@ -1714,7 +1829,7 @@ function drawPoster(ctx, w, h, players, record, grade, tier) {
     ctx.font = '15px -apple-system, "PingFang SC", sans-serif';
     ctx.textAlign = 'right';
     ctx.textBaseline = 'middle';
-    ctx.fillText(p.team, x + cardW - 22, cy - 10);
+    ctx.fillText(teamCN(p.team), x + cardW - 22, cy - 10);
 
     // Decade — right, second line
     ctx.fillStyle = 'rgba(255,255,255,0.4)';
