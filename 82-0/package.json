@@ -2,7 +2,7 @@
   "name": "82-0",
   "version": "1.0.0",
   "description": "**82-0** is a browser-based NBA roster-building game. Draft five legends across different eras via a slot machine, then simulate an 82-game season to see if your team can achieve a perfect undefeated record.",
-  "main": "nba-data-10s-20s.js",
+  "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

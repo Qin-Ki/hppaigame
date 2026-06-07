@@ -216,11 +216,14 @@
   }
   .player-card .pos-badge {
     display: inline-block;
-    padding: 1px 8px; border-radius: 8px;
-    font-size: 0.65rem; font-weight: 700;
+    padding: 2px 12px; border-radius: 99px;
+    font-size: 0.7rem; font-weight: 700;
     letter-spacing: 0.5px;
     background: var(--accent); color: #fff;
-    line-height: 1.6;
+    line-height: 1.5;
+  }
+  .player-card .player-positions {
+    display: flex; gap: 4px; align-items: center; flex-shrink: 0;
   }
   .player-card .player-team {
     font-size: 0.72rem; color: var(--text-muted); min-width: 140px;
@@ -256,6 +259,7 @@
   .pos-slot .pos-label {
     font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;
     opacity: 0.6; font-family: 'Oswald', sans-serif;
+    margin-top: 4px;
   }
   .pos-slot.filled {
     border-color: var(--success); border-style: solid;
@@ -273,6 +277,22 @@
     background: rgba(243,156,18,0.1);
     box-shadow: 0 0 20px rgba(243,156,18,0.3);
   }
+  .pos-slot.clickable { cursor: pointer; }
+  .pos-slot.highlight {
+    animation: slotBlink 0.8s ease-in-out infinite;
+    cursor: pointer !important;
+    border-color: var(--gold) !important;
+  }
+  .pos-slot.highlight:hover {
+    transform: scale(1.08);
+    background: rgba(243,156,18,0.2);
+    box-shadow: 0 0 30px rgba(243,156,18,0.5);
+  }
+  @keyframes slotBlink {
+    0%, 100% { box-shadow: 0 0 10px rgba(243,156,18,0.3); }
+    50% { box-shadow: 0 0 25px rgba(243,156,18,0.7); }
+  }
+  .pos-slot.move-source { border-color: var(--accent-light); background: rgba(155,89,182,0.1); }
   .pos-slot .slot-pos-badge {
     font-size: 0.5rem; padding: 1px 5px; border-radius: 4px;
     background: var(--accent); color: #fff; font-weight: 700;
@@ -581,17 +601,38 @@
   </div>
 </div>
 
-<script src="https://activity-static.hoopchina.com.cn/files/2665-dlka8brc-upload-1780635830941-14.js"></script>
-<script src="https://activity-static.hoopchina.com.cn/files/2665-dxdasfrc-upload-1780635830941-16.js"></script>
-<script src="https://activity-static.hoopchina.com.cn/files/2665-q8o4asrc-upload-1780635830941-12.js"></script>
+<script src="nba-data.js"></script>
 
 <script>
 // ===================================================================
-//  NBA_DATA — 合并本地数据文件 (1960s-2020s)
+//  NBA_DATA — 从 nba-data.js 加载数据
 // ===================================================================
 
 let NBA_DATA = null;
 let DATA_READY = Promise.resolve();
+
+(function() {
+  const data = NBA_DATA_RAW;
+  const result = {};
+  data.forEach(p => {
+    const era = p.era;
+    const team = p.team;
+    if (!result[era]) result[era] = {};
+    if (!result[era][team]) result[era][team] = [];
+    result[era][team].push({
+      name: p.player,
+      pos: p.pos,
+      positions: p.positions || [],
+      stats: {
+        pts: p.ppg,
+        reb: p.rpg,
+        ast: p.apg
+      }
+    });
+  });
+  NBA_DATA = result;
+  console.log('NBA_DATA loaded from nba-data.js:', Object.keys(NBA_DATA).length, 'decades, total players:', data.length);
+})();
 
 // Helper: get players for a team in a decade
 function getPlayers(decade, team) {
@@ -601,17 +642,6 @@ function getPlayers(decade, team) {
 function getTeams(decade) {
   return Object.keys(NBA_DATA?.[decade] || {});
 }
-
-// Merge all data files into a single NBA_DATA object
-(function() {
-  NBA_DATA = Object.assign(
-    {},
-    typeof NBA_DATA_60S_80S !== 'undefined' ? NBA_DATA_60S_80S : {},
-    typeof NBA_DATA_90S_00S !== 'undefined' ? NBA_DATA_90S_00S : {},
-    typeof NBA_DATA_10S_20S !== 'undefined' ? NBA_DATA_10S_20S : {}
-  );
-  console.log('NBA_DATA loaded:', Object.keys(NBA_DATA).length, 'decades');
-})();
 
 // Team names - no longer needed as we use full names directly
 const TEAM_NAMES = {};
@@ -658,27 +688,7 @@ const TEAM_COLORS = {
   "TOR": ["#a2a2a4","#b12a32"],"UTA": ["#15203e","#14223e"],"WAS": ["#16213d","#bd2a33"]
 };
 
-const CHINESE_TEAM_TO_ABBR = {
-  "亚特兰大老鹰":"ATL","波士顿凯尔特人":"BOS","布鲁克林篮网":"BKN","夏洛特黄蜂":"CHA",
-  "芝加哥公牛":"CHI","克里夫兰骑士":"CLE","达拉斯独行侠":"DAL","丹佛掘金":"DEN",
-  "底特律活塞":"DET","金州勇士":"GSW","休斯顿火箭":"HOU","印第安纳步行者":"IND",
-  "洛杉矶快船":"LAC","洛杉矶湖人":"LAL","孟菲斯灰熊":"MEM","迈阿密热火":"MIA",
-  "密尔沃基雄鹿":"MIL","明尼苏达森林狼":"MIN","新奥尔良鹈鹕":"NOP","纽约尼克斯":"NYK",
-  "俄克拉荷马雷霆":"OKC","奥兰多魔术":"ORL","费城76人":"PHI","菲尼克斯太阳":"PHX",
-  "波特兰开拓者":"POR","萨克拉门托国王":"SAC","圣安东尼奥马刺":"SAS","多伦多猛龙":"TOR",
-  "犹他爵士":"UTA","华盛顿奇才":"WAS"
-};
 
-const TEAM_SHORT_NAMES = {
-  "亚特兰大老鹰":"老鹰","波士顿凯尔特人":"凯尔特人","布鲁克林篮网":"篮网","夏洛特黄蜂":"黄蜂",
-  "芝加哥公牛":"公牛","克里夫兰骑士":"骑士","达拉斯独行侠":"独行侠","丹佛掘金":"掘金",
-  "底特律活塞":"活塞","金州勇士":"勇士","休斯顿火箭":"火箭","印第安纳步行者":"步行者",
-  "洛杉矶快船":"快船","洛杉矶湖人":"湖人","孟菲斯灰熊":"灰熊","迈阿密热火":"热火",
-  "密尔沃基雄鹿":"雄鹿","明尼苏达森林狼":"森林狼","新奥尔良鹈鹕":"鹈鹕","纽约尼克斯":"尼克斯",
-  "俄克拉荷马雷霆":"雷霆","奥兰多魔术":"魔术","费城76人":"76人","菲尼克斯太阳":"太阳",
-  "波特兰开拓者":"开拓者","萨克拉门托国王":"国王","圣安东尼奥马刺":"马刺","多伦多猛龙":"猛龙",
-  "犹他爵士":"爵士","华盛顿奇才":"奇才"
-};
 
 // ===================================================================
 //  PARTICLES
@@ -766,6 +776,8 @@ async function startGame() {
     spun: false,
     skipPending: null,
   };
+  pendingPick = null;
+  moveState = null;
   showScreen('screen-game');
   renderRosterBar();
   nextRound();
@@ -798,27 +810,39 @@ function renderRosterBar() {
   function renderSlot(pos) {
     const p = game.slots[pos];
     const filled = !!p;
-    const cls = filled ? 'pos-slot filled' : 'pos-slot';
+    let extraCls = '';
+    
+    // Check if this slot should be highlighted (pendingPick or moveState)
+    const isHighlightTarget = (!filled && pendingPick && pendingPick.positions.includes(pos)) ||
+                              (!filled && moveState && moveState.targetPositions.includes(pos));
+    const isMoveSource = (filled && moveState && moveState.currentPos === pos);
+    if (isHighlightTarget) extraCls += ' highlight';
+    if (isMoveSource) extraCls += ' move-source';
+    if (isHighlightTarget || isMoveSource) extraCls += ' clickable';
+    
+    const cls = (filled ? 'pos-slot filled' : 'pos-slot') + extraCls;
+    
     if (p) {
-      const abbr = CHINESE_TEAM_TO_ABBR[p.team] || '';
-      const colors = TEAM_COLORS[abbr] || ['#333','#555'];
+      const colors = TEAM_COLORS[p.team] || ['#333','#555'];
       const mainColor = colors[0];
       const color2 = colors[1] || mainColor;
       const style = `background:linear-gradient(135deg, ${mainColor}, ${color2});border-color:${mainColor};box-shadow:0 0 12px ${mainColor}66;`;
       return `<div class="${cls}" draggable="true" style="${style}"
+                onclick="onFilledSlotClick('${pos}')"
                 ondragstart="onDragStart(event, '${p.name.replace(/'/g, "\\'")}')"
                 ondrop="onDrop(event, '${pos}')"
                 ondragover="onDragOver(event)"
                 ondragleave="onDragLeave(event)">
         <span class="slot-player-name">${p.name.split('-').pop()}</span>
-        <span class="slot-team-decade">${TEAM_SHORT_NAMES[p.team] || p.team} · ${p.decade}</span>
+        <span class="slot-team-decade">${p.team} · ${p.decade}</span>
       </div>`;
     } else {
       return `<div class="${cls}"
+                onclick="onEmptySlotClick('${pos}')"
                 ondrop="onDrop(event, '${pos}')"
                 ondragover="onDragOver(event)"
                 ondragleave="onDragLeave(event)">
-        <span style="font-size:1.2rem;opacity:0.2;">?</span>
+        <span class="pos-label">${pos}</span>
       </div>`;
     }
   }
@@ -867,7 +891,7 @@ function onDrop(e, targetPos) {
   const player = game.roster.find(p => p.name === playerName);
   if (!player) return;
   
-  const eligiblePositions = getPositions(player.pos);
+  const eligiblePositions = player.positions || getPositions(player.pos);
   // Check if target position is eligible and empty
   if (!eligiblePositions.includes(targetPos)) return;
   if (game.slots[targetPos]) return; // already filled
@@ -1029,9 +1053,8 @@ function closeSkipModal() {
   if (arguments.length === 0) {
     if (game.skipPending) {
       game.skipPending = null;
-    } else if (pendingPick) {
-      pendingPick = null;
-      document.querySelectorAll('.player-card.selected').forEach(c => c.classList.remove('selected'));
+    } else {
+      clearPending();
     }
   }
 }
@@ -1161,8 +1184,12 @@ function showPlayers(team, decade) {
 
   grid.innerHTML = filtered.map(p => {
     const posDisplay = p.pos || '??';
-    return `<div class="player-card" onclick="selectPlayer(this, '${p.name.replace(/'/g, "\\'")}', '${posDisplay}', ${p.stats.pts}, ${p.stats.reb}, ${p.stats.ast}, 0, 0)">
+    const positionsArr = p.positions && p.positions.length > 0 ? p.positions : [posDisplay];
+    const posBadges = positionsArr.map(pos => `<span class="pos-badge">${pos}</span>`).join('');
+    const posDataAttr = encodeURIComponent(JSON.stringify(positionsArr));
+    return `<div class="player-card" data-positions='${posDataAttr}' onclick="selectPlayer(this, '${p.name.replace(/'/g, "\\'")}', '${posDisplay}', ${p.stats.pts}, ${p.stats.reb}, ${p.stats.ast}, 0, 0)">
       <div class="player-name">${p.name}</div>
+      <div class="player-positions">${posBadges}</div>
       <div class="player-team">${team} · ${decade}</div>
     </div>`;
   }).join('');
@@ -1171,73 +1198,105 @@ function showPlayers(team, decade) {
 // ===================================================================
 //  SELECT PLAYER
 // ===================================================================
+let pendingPick = null;
+let moveState = null;
+
+function clearPending() {
+  pendingPick = null;
+  moveState = null;
+  document.querySelectorAll('.player-card.selected').forEach(c => c.classList.remove('selected'));
+  renderRosterBar();
+  const hint = document.getElementById('selectionHint');
+  if (hint) hint.textContent = '点击球员加入阵容';
+}
+
 function selectPlayer(el, name, pos, pts, reb, ast, stl, blk) {
-  // Deselect others
+  // If there's a pending pick or move, cancel it
+  if (pendingPick || moveState) { clearPending(); }
+  
   document.querySelectorAll('.player-card').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
 
-  // Log player data to console
-  console.log('=== 选中球员 ===');
-  console.log('姓名:', name);
-  console.log('位置:', pos);
-  console.log('数据:', { pts, reb, ast, stl, blk });
-  console.log('场均得分:', pts);
-  console.log('场均篮板:', reb);
-  console.log('场均助攻:', ast);
-  console.log('================');
+  // Get eligible positions from data attribute
+  let positions;
+  try { positions = JSON.parse(decodeURIComponent(el.dataset.positions)); } catch(e) { positions = null; }
+  if (!positions || positions.length === 0) positions = getPositions(pos);
 
-  // Auto-assign to first empty position slot
-  const emptyPos = POS_ORDER.find(p => !game.slots[p]);
-  if (!emptyPos) return; // roster full, shouldn't happen
+  // Find which eligible positions are empty
+  const emptyEligible = positions.filter(p => !game.slots[p]);
 
-  confirmDraftWith({ name, pos, pts, reb, ast, stl, blk, assignedPos: emptyPos });
+  if (emptyEligible.length === 0) {
+    el.classList.remove('selected');
+    document.getElementById('selectionHint').textContent = `⚠️ ${name} 的可选位置 (${positions.join('/')}) 已满！`;
+    return;
+  }
+
+  // Highlight empty eligible slots for the user to click
+  pendingPick = { name, pos, pts, reb, ast, stl, blk, positions };
+  const posNames = emptyEligible.join('/');
+  document.getElementById('selectionHint').textContent = `点击上方闪烁的方框将 ${name} 放入 (${posNames})`;
+  renderRosterBar();
 }
 
-let pendingPick = null;
-
-function showPositionPicker(name, pos, pts, reb, ast, stl, blk, emptyPos) {
-  const modal = document.getElementById('skipModal');
-  document.getElementById('skipModalTitle').innerHTML = `✍️ 选择 ${name}`;
-  
-  const posButtons = emptyPos.map(p => 
-    `<button class="btn btn-sm btn-primary" style="min-width:60px;" 
-       onclick="confirmDraftWith({name:'${name.replace(/'/g, "\\'")}',pos:'${pos}',pts:${pts},reb:${reb},ast:${ast},stl:${stl},blk:${blk},assignedPos:'${p}'})">
-       ${p}
-     </button>`
-  ).join('');
-  
-  document.getElementById('skipModalDesc').innerHTML = `
-    <div style="margin:10px 0;">
-      <div style="font-size:1.1rem;font-weight:600;color:var(--text-light);margin-bottom:4px;">${name}</div>
-      <div style="color:var(--gold);font-size:0.9rem;">${game.currentTeam} · ${game.currentDecade}</div>
-      <div style="color:var(--accent);font-size:0.9rem;margin:8px 0;">📍 ${pos}</div>
-      <div style="color:var(--text-muted);font-size:0.85rem;margin-bottom:12px;">安排到哪个位置？</div>
-      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-        ${posButtons}
-      </div>
-    </div>
-  `;
-  modal.style.display = 'flex';
-
-  pendingPick = { name, pos, pts, reb, ast, stl, blk, emptyPos };
-  // Remove the old confirm button action
-  document.getElementById('skipConfirmBtn').textContent = '取消';
-  document.getElementById('skipConfirmBtn').onclick = function() {
-    pendingPick = null;
-    document.querySelectorAll('.player-card.selected').forEach(c => c.classList.remove('selected'));
-    document.getElementById('skipModal').style.display = 'none';
-  };
+function onEmptySlotClick(pos) {
+  if (pendingPick && pendingPick.positions.includes(pos)) {
+    // Place the player here
+    confirmDraftWith({ ...pendingPick, assignedPos: pos });
+    return;
+  }
+  if (moveState && moveState.targetPositions.includes(pos)) {
+    // Move the player here
+    const player = moveState.player;
+    game.slots[pos] = player;
+    game.slots[moveState.currentPos] = null;
+    player.assignedPos = pos;
+    moveState = null;
+    renderRosterBar();
+    document.getElementById('selectionHint').textContent = `已移动 ${player.name} 到 ${pos}`;
+    return;
+  }
+  // Clicked a non-highlighted slot — cancel
+  clearPending();
 }
+
+function onFilledSlotClick(pos) {
+  const player = game.slots[pos];
+  if (!player) return;
+  
+  // If there's a pending pick, cancel it
+  if (pendingPick) { clearPending(); return; }
+  
+  // If already in move mode and clicking the source, cancel
+  if (moveState) {
+    if (moveState.currentPos === pos) { clearPending(); return; }
+    // Clicking a different filled slot — start new move
+  }
+  
+  // Find other eligible empty positions for this player
+  const playerPositions = player.positions || getPositions(player.pos);
+  const emptyEligible = playerPositions.filter(p => p !== pos && !game.slots[p]);
+  
+  if (emptyEligible.length === 0) return; // nowhere to move
+  
+  moveState = { player, currentPos: pos, targetPositions: emptyEligible };
+  document.getElementById('selectionHint').textContent = `点击闪烁的方框移动 ${player.name.split('-').pop()}`;
+  renderRosterBar();
+}
+
+// Legacy alias for drag-drop compatibility
+function showPositionPicker() {}
 
 function confirmDraftWith(pick) {
   const { name, pos, pts, reb, ast, stl, blk, assignedPos } = pick;
   pendingPick = null;
+  moveState = null;
 
   document.querySelectorAll('.player-card.selected').forEach(c => c.classList.remove('selected'));
   document.getElementById('skipModal').style.display = 'none';
 
   // Place in the assigned position slot
-  game.slots[assignedPos] = { name, pos: pos, assignedPos, team: game.currentTeam, decade: game.currentDecade, pts, reb, ast, stl, blk };
+  const playerPositions = pick.positions || getPositions(pos);
+  game.slots[assignedPos] = { name, pos, positions: playerPositions, assignedPos, team: game.currentTeam, decade: game.currentDecade, pts, reb, ast, stl, blk };
   game.roster.push(game.slots[assignedPos]);
   game.usedDecades.push(game.currentDecade);
   game.round++;
@@ -1339,14 +1398,13 @@ function runSimulation() {
   function renderFinalSlot(pos) {
     const p = game.slots[pos];
     if (!p) return '';
-    const abbr = CHINESE_TEAM_TO_ABBR[p.team] || '';
-    const colors = TEAM_COLORS[abbr] || ['#333','#555'];
+    const colors = TEAM_COLORS[p.team] || ['#333','#555'];
     const mainColor = colors[0];
     const color2 = colors[1] || mainColor;
     const style = `background:linear-gradient(135deg, ${mainColor}, ${color2});border-color:${mainColor};box-shadow:0 0 12px ${mainColor}66;`;
     return `<div class="pos-slot filled" style="${style}">
       <span class="slot-player-name">${p.name.split('-').pop()}</span>
-      <span class="slot-team-decade">${TEAM_SHORT_NAMES[p.team] || p.team} · ${p.decade}</span>
+      <span class="slot-team-decade">${p.team} · ${p.decade}</span>
     </div>`;
   }
 
@@ -1487,14 +1545,13 @@ function testBestPlayers() {
   function renderFinalSlot(pos) {
     const p = game.slots[pos];
     if (!p) return '';
-    const abbr = CHINESE_TEAM_TO_ABBR[p.team] || '';
-    const colors = TEAM_COLORS[abbr] || ['#333','#555'];
+    const colors = TEAM_COLORS[p.team] || ['#333','#555'];
     const mainColor = colors[0];
     const color2 = colors[1] || mainColor;
     const style = `background:linear-gradient(135deg, ${mainColor}, ${color2});border-color:${mainColor};box-shadow:0 0 12px ${mainColor}66;`;
     return `<div class="pos-slot filled" style="${style}">
       <span class="slot-player-name">${p.name.split('-').pop()}</span>
-      <span class="slot-team-decade">${TEAM_SHORT_NAMES[p.team] || p.team} · ${p.decade}</span>
+      <span class="slot-team-decade">${p.team} · ${p.decade}</span>
     </div>`;
   }
 
@@ -1541,8 +1598,7 @@ function getPosterPlayers() {
   return posOrder.map(pos => {
     const p = game.slots[pos];
     if (!p) return null;
-    const abbr = CHINESE_TEAM_TO_ABBR[p.team] || '';
-    const colors = TEAM_COLORS[abbr] || ['#333','#555'];
+    const colors = TEAM_COLORS[p.team] || ['#333','#555'];
     return {
       name: p.name,
       shortName: p.name.split('-').pop(),
