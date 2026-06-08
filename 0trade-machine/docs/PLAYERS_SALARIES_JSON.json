@@ -1,0 +1,5302 @@
+[
+  {
+    "player": "Stephen Curry",
+    "team": "GSW",
+    "salary_2025_26": 59606817,
+    "salary_2026_27": 62587158,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Joel Embiid",
+    "team": "PHI",
+    "salary_2025_26": 55224526,
+    "salary_2026_27": 58100000,
+    "salary_2027_28": 62748000,
+    "salary_2028_29": 67396000,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Nikola Jokić",
+    "team": "DEN",
+    "salary_2025_26": 55224526,
+    "salary_2026_27": 59033114,
+    "salary_2027_28": 62841702,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kevin Durant",
+    "team": "HOU",
+    "salary_2025_26": 54708609,
+    "salary_2026_27": 43902439,
+    "salary_2027_28": 46097561,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jayson Tatum",
+    "team": "BOS",
+    "salary_2025_26": 54126450,
+    "salary_2026_27": 58456566,
+    "salary_2027_28": 62786682,
+    "salary_2028_29": 67116798,
+    "salary_2029_30": 71446914,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Anthony Davis",
+    "team": "WAS",
+    "salary_2025_26": 54126450,
+    "salary_2026_27": 58456566,
+    "salary_2027_28": 62786682,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Giannis Antetokounmpo",
+    "team": "MIL",
+    "salary_2025_26": 54126450,
+    "salary_2026_27": 58456566,
+    "salary_2027_28": 62786682,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jimmy Butler",
+    "team": "GSW",
+    "salary_2025_26": 54126450,
+    "salary_2026_27": 56832773,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jaylen Brown",
+    "team": "BOS",
+    "salary_2025_26": 53142264,
+    "salary_2026_27": 57078728,
+    "salary_2027_28": 61015192,
+    "salary_2028_29": 64951656,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Devin Booker",
+    "team": "PHO",
+    "salary_2025_26": 53142264,
+    "salary_2026_27": 57078728,
+    "salary_2027_28": 61015192,
+    "salary_2028_29": 64065952,
+    "salary_2029_30": 69191228,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Karl-Anthony Towns",
+    "team": "NYK",
+    "salary_2025_26": 53142264,
+    "salary_2026_27": 57078728,
+    "salary_2027_28": 61015192,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "LeBron James",
+    "team": "LAL",
+    "salary_2025_26": 52627153,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Paul George",
+    "team": "PHI",
+    "salary_2025_26": 51666090,
+    "salary_2026_27": 54126380,
+    "salary_2027_28": 56586670,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kawhi Leonard",
+    "team": "LAC",
+    "salary_2025_26": 50000000,
+    "salary_2026_27": 50300000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Zach LaVine",
+    "team": "SAC",
+    "salary_2025_26": 47499660,
+    "salary_2026_27": 48967380,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Cade Cunningham",
+    "team": "DET",
+    "salary_2025_26": 46394100,
+    "salary_2026_27": 50105628,
+    "salary_2027_28": 53817156,
+    "salary_2028_29": 57528684,
+    "salary_2029_30": 61240212,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Evan Mobley",
+    "team": "CLE",
+    "salary_2025_26": 46394100,
+    "salary_2026_27": 50105628,
+    "salary_2027_28": 53817156,
+    "salary_2028_29": 57528684,
+    "salary_2029_30": 61240212,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jamal Murray",
+    "team": "DEN",
+    "salary_2025_26": 46394100,
+    "salary_2026_27": 50105628,
+    "salary_2027_28": 53817156,
+    "salary_2028_29": 57528684,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Lauri Markkanen",
+    "team": "UTA",
+    "salary_2025_26": 46394100,
+    "salary_2026_27": 46113154,
+    "salary_2027_28": 49824681,
+    "salary_2028_29": 53536209,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Donovan Mitchell",
+    "team": "CLE",
+    "salary_2025_26": 46394100,
+    "salary_2026_27": 50105628,
+    "salary_2027_28": 53817156,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Trae Young",
+    "team": "WAS",
+    "salary_2025_26": 46394100,
+    "salary_2026_27": 48967380,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Luka Dončić",
+    "team": "LAL",
+    "salary_2025_26": 45999660,
+    "salary_2026_27": 49800000,
+    "salary_2027_28": 53784000,
+    "salary_2028_29": 57768000,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Anthony Edwards",
+    "team": "MIN",
+    "salary_2025_26": 45550512,
+    "salary_2026_27": 48924624,
+    "salary_2027_28": 52298736,
+    "salary_2028_29": 55672848,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tyrese Haliburton",
+    "team": "IND",
+    "salary_2025_26": 45550512,
+    "salary_2026_27": 48924624,
+    "salary_2027_28": 52298736,
+    "salary_2028_29": 55672848,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Pascal Siakam",
+    "team": "IND",
+    "salary_2025_26": 45550512,
+    "salary_2026_27": 48924624,
+    "salary_2027_28": 52298736,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Domantas Sabonis",
+    "team": "SAC",
+    "salary_2025_26": 42336000,
+    "salary_2026_27": 45472000,
+    "salary_2027_28": 48608000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "OG Anunoby",
+    "team": "NYK",
+    "salary_2025_26": 39568966,
+    "salary_2026_27": 42500000,
+    "salary_2027_28": 45431034,
+    "salary_2028_29": 48362068,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Zion Williamson",
+    "team": "NOP",
+    "salary_2025_26": 39446090,
+    "salary_2026_27": 42166510,
+    "salary_2027_28": 44886930,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ja Morant",
+    "team": "MEM",
+    "salary_2025_26": 39446090,
+    "salary_2026_27": 42166510,
+    "salary_2027_28": 44886930,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Darius Garland",
+    "team": "LAC",
+    "salary_2025_26": 39446090,
+    "salary_2026_27": 42166510,
+    "salary_2027_28": 44886930,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "James Harden",
+    "team": "CLE",
+    "salary_2025_26": 39182693,
+    "salary_2026_27": 42317307,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Scottie Barnes",
+    "team": "TOR",
+    "salary_2025_26": 38661750,
+    "salary_2026_27": 41754690,
+    "salary_2027_28": 44847630,
+    "salary_2028_29": 47940570,
+    "salary_2029_30": 51033510,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Franz Wagner",
+    "team": "ORL",
+    "salary_2025_26": 38661750,
+    "salary_2026_27": 41754690,
+    "salary_2027_28": 44847630,
+    "salary_2028_29": 47940570,
+    "salary_2029_30": 51033510,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Shai Gilgeous-Alexander",
+    "team": "OKC",
+    "salary_2025_26": 38333050,
+    "salary_2026_27": 40806150,
+    "salary_2027_28": 61005000,
+    "salary_2028_29": 65885400,
+    "salary_2029_30": 70765800,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Michael Porter Jr.",
+    "team": "BRK",
+    "salary_2025_26": 38333050,
+    "salary_2026_27": 40806150,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Brandon Ingram",
+    "team": "TOR",
+    "salary_2025_26": 38095238,
+    "salary_2026_27": 40000000,
+    "salary_2027_28": 41904762,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tyrese Maxey",
+    "team": "PHI",
+    "salary_2025_26": 37958760,
+    "salary_2026_27": 40770520,
+    "salary_2027_28": 43582280,
+    "salary_2028_29": 46394040,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "LaMelo Ball",
+    "team": "CHO",
+    "salary_2025_26": 37958760,
+    "salary_2026_27": 40770520,
+    "salary_2027_28": 43582280,
+    "salary_2028_29": 46394040,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "De'Aaron Fox",
+    "team": "SAS",
+    "salary_2025_26": 37096620,
+    "salary_2026_27": 49800000,
+    "salary_2027_28": 53784000,
+    "salary_2028_29": 57768000,
+    "salary_2029_30": 61752000,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Bam Adebayo",
+    "team": "MIA",
+    "salary_2025_26": 37096620,
+    "salary_2026_27": 49800000,
+    "salary_2027_28": 53784000,
+    "salary_2028_29": 57768000,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Desmond Bane",
+    "team": "ORL",
+    "salary_2025_26": 36725670,
+    "salary_2026_27": 39446090,
+    "salary_2027_28": 42166510,
+    "salary_2028_29": 44886930,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kyrie Irving",
+    "team": "DAL",
+    "salary_2025_26": 36566002,
+    "salary_2026_27": 39491282,
+    "salary_2027_28": 42416562,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jaren Jackson Jr.",
+    "team": "UTA",
+    "salary_2025_26": 35000000,
+    "salary_2026_27": 49000000,
+    "salary_2027_28": 50500000,
+    "salary_2028_29": 52000000,
+    "salary_2029_30": 53500000,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jalen Suggs",
+    "team": "ORL",
+    "salary_2025_26": 35000000,
+    "salary_2026_27": 32400000,
+    "salary_2027_28": 29600000,
+    "salary_2028_29": 26800000,
+    "salary_2029_30": 26700000,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Rudy Gobert",
+    "team": "MIN",
+    "salary_2025_26": 35000000,
+    "salary_2026_27": 36500000,
+    "salary_2027_28": 38000000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jalen Brunson",
+    "team": "NYK",
+    "salary_2025_26": 34944001,
+    "salary_2026_27": 37739521,
+    "salary_2027_28": 40535041,
+    "salary_2028_29": 43330561,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Alperen Şengün",
+    "team": "HOU",
+    "salary_2025_26": 33944954,
+    "salary_2026_27": 35642202,
+    "salary_2027_28": 37339450,
+    "salary_2028_29": 39036697,
+    "salary_2029_30": 39036697,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jalen Green",
+    "team": "PHO",
+    "salary_2025_26": 33584499,
+    "salary_2026_27": 36251166,
+    "salary_2027_28": 36000000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Khris Middleton",
+    "team": "DAL",
+    "salary_2025_26": 33296296,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Immanuel Quickley",
+    "team": "TOR",
+    "salary_2025_26": 32500000,
+    "salary_2026_27": 32500000,
+    "salary_2027_28": 32500000,
+    "salary_2028_29": 32500000,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jrue Holiday",
+    "team": "POR",
+    "salary_2025_26": 32400000,
+    "salary_2026_27": 34800000,
+    "salary_2027_28": 37200000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jerami Grant",
+    "team": "POR",
+    "salary_2025_26": 32000001,
+    "salary_2026_27": 34206898,
+    "salary_2027_28": 36413790,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jordan Poole",
+    "team": "NOP",
+    "salary_2025_26": 31848215,
+    "salary_2026_27": 34044642,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tyler Herro",
+    "team": "MIA",
+    "salary_2025_26": 31000000,
+    "salary_2026_27": 33000000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Julius Randle",
+    "team": "MIN",
+    "salary_2025_26": 30864198,
+    "salary_2026_27": 33333334,
+    "salary_2027_28": 35802468,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Dejounte Murray",
+    "team": "NOP",
+    "salary_2025_26": 30801103,
+    "salary_2026_27": 32785071,
+    "salary_2027_28": 30751504,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kristaps Porziņģis",
+    "team": "GSW",
+    "salary_2025_26": 30731707,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "CJ McCollum",
+    "team": "ATL",
+    "salary_2025_26": 30666666,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jalen Johnson",
+    "team": "ATL",
+    "salary_2025_26": 30000000,
+    "salary_2026_27": 30000000,
+    "salary_2027_28": 30000000,
+    "salary_2028_29": 30000000,
+    "salary_2029_30": 30000000,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Isaiah Hartenstein",
+    "team": "OKC",
+    "salary_2025_26": 28500000,
+    "salary_2026_27": 28500000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Andrew Wiggins",
+    "team": "MIA",
+    "salary_2025_26": 28223215,
+    "salary_2026_27": 30169644,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Derrick White",
+    "team": "BOS",
+    "salary_2025_26": 28100000,
+    "salary_2026_27": 30348000,
+    "salary_2027_28": 32596000,
+    "salary_2028_29": 34844000,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "RJ Barrett",
+    "team": "TOR",
+    "salary_2025_26": 27705357,
+    "salary_2026_27": 29616071,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Anfernee Simons",
+    "team": "CHI",
+    "salary_2025_26": 27678571,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Devin Vassell",
+    "team": "SAS",
+    "salary_2025_26": 27000000,
+    "salary_2026_27": 27000000,
+    "salary_2027_28": 24652174,
+    "salary_2028_29": 27000000,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Terry Rozier",
+    "team": "MIA",
+    "salary_2025_26": 26643031,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tobias Harris",
+    "team": "DET",
+    "salary_2025_26": 26634146,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "John Collins",
+    "team": "LAC",
+    "salary_2025_26": 26580000,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Draymond Green",
+    "team": "GSW",
+    "salary_2025_26": 25892857,
+    "salary_2026_27": 27678571,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Deandre Ayton",
+    "team": "POR",
+    "salary_2025_26": 33654814,
+    "salary_2026_27": 8104000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Nic Claxton",
+    "team": "BRK",
+    "salary_2025_26": 25352272,
+    "salary_2026_27": 23147727,
+    "salary_2027_28": 20943184,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Myles Turner",
+    "team": "MIL",
+    "salary_2025_26": 25318251,
+    "salary_2026_27": 26584164,
+    "salary_2027_28": 27850077,
+    "salary_2028_29": 29115990,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Trey Murphy III",
+    "team": "NOP",
+    "salary_2025_26": 25000000,
+    "salary_2026_27": 27000000,
+    "salary_2027_28": 29000000,
+    "salary_2028_29": 31000000,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Josh Giddey",
+    "team": "CHI",
+    "salary_2025_26": 25000000,
+    "salary_2026_27": 25000000,
+    "salary_2027_28": 25000000,
+    "salary_2028_29": 25000000,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Miles Bridges",
+    "team": "CHO",
+    "salary_2025_26": 25000000,
+    "salary_2026_27": 22826087,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Fred VanVleet",
+    "team": "HOU",
+    "salary_2025_26": 25000000,
+    "salary_2026_27": 25000000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Mikal Bridges",
+    "team": "NYK",
+    "salary_2025_26": 24900000,
+    "salary_2026_27": 33482145,
+    "salary_2027_28": 36160714,
+    "salary_2028_29": 38839285,
+    "salary_2029_30": 41517856,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "DeMar DeRozan",
+    "team": "SAC",
+    "salary_2025_26": 24570000,
+    "salary_2026_27": 25740000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jaden McDaniels",
+    "team": "MIN",
+    "salary_2025_26": 24393104,
+    "salary_2026_27": 26200001,
+    "salary_2027_28": 28006898,
+    "salary_2028_29": 29813790,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jonathan Kuminga",
+    "team": "ATL",
+    "salary_2025_26": 23799569,
+    "salary_2026_27": 24300000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "De'Andre Hunter",
+    "team": "SAC",
+    "salary_2025_26": 23303571,
+    "salary_2026_27": 24910714,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Aaron Gordon",
+    "team": "DEN",
+    "salary_2025_26": 22841455,
+    "salary_2026_27": 33658037,
+    "salary_2027_28": 36350680,
+    "salary_2028_29": 39043323,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Damian Lillard",
+    "team": "MIL",
+    "salary_2025_26": 36620603,
+    "salary_2026_27": 35915403,
+    "salary_2027_28": 36620603,
+    "salary_2028_29": 22516603,
+    "salary_2029_30": 22516603,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kyle Kuzma",
+    "team": "MIL",
+    "salary_2025_26": 22410605,
+    "salary_2026_27": 20345152,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kentavious Caldwell-Pope",
+    "team": "MEM",
+    "salary_2025_26": 21621500,
+    "salary_2026_27": 21621500,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Naz Reid",
+    "team": "MIN",
+    "salary_2025_26": 21551724,
+    "salary_2026_27": 23275862,
+    "salary_2027_28": 25000000,
+    "salary_2028_29": 26724138,
+    "salary_2029_30": 28448276,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Nikola Vučević",
+    "team": "BOS",
+    "salary_2025_26": 21481481,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Dillon Brooks",
+    "team": "PHO",
+    "salary_2025_26": 21124110,
+    "salary_2026_27": 19992727,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Cameron Johnson",
+    "team": "DEN",
+    "salary_2025_26": 21057065,
+    "salary_2026_27": 23062500,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Norman Powell",
+    "team": "MIA",
+    "salary_2025_26": 20482758,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jarrett Allen",
+    "team": "CLE",
+    "salary_2025_26": 20000000,
+    "salary_2026_27": 28000000,
+    "salary_2027_28": 30240000,
+    "salary_2028_29": 32480000,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jakob Poeltl",
+    "team": "TOR",
+    "salary_2025_26": 19500000,
+    "salary_2026_27": 19500000,
+    "salary_2027_28": 27300000,
+    "salary_2028_29": 29484000,
+    "salary_2029_30": 27300000,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Josh Hart",
+    "team": "NYK",
+    "salary_2025_26": 19472240,
+    "salary_2026_27": 20923760,
+    "salary_2027_28": 22375280,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Bradley Beal",
+    "team": "PHO",
+    "salary_2025_26": 24737010,
+    "salary_2026_27": 25004710,
+    "salary_2027_28": 19383010,
+    "salary_2028_29": 19383010,
+    "salary_2029_30": 19383010,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jusuf Nurkić",
+    "team": "UTA",
+    "salary_2025_26": 19375000,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Harrison Barnes",
+    "team": "SAS",
+    "salary_2025_26": 19000000,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Collin Sexton",
+    "team": "CHI",
+    "salary_2025_26": 18975000,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ivica Zubac",
+    "team": "IND",
+    "salary_2025_26": 18893980,
+    "salary_2026_27": 20342140,
+    "salary_2027_28": 21790300,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Malik Monk",
+    "team": "SAC",
+    "salary_2025_26": 18797619,
+    "salary_2026_27": 20190035,
+    "salary_2027_28": 21582451,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Santi Aldama",
+    "team": "MEM",
+    "salary_2025_26": 18485916,
+    "salary_2026_27": 17007043,
+    "salary_2027_28": 17007043,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Rui Hachimura",
+    "team": "LAL",
+    "salary_2025_26": 18259259,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Luguentz Dort",
+    "team": "OKC",
+    "salary_2025_26": 18222222,
+    "salary_2026_27": 18222222,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Alex Caruso",
+    "team": "OKC",
+    "salary_2025_26": 18102000,
+    "salary_2026_27": 19550160,
+    "salary_2027_28": 20998320,
+    "salary_2028_29": 22446480,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Andrew Nembhard",
+    "team": "IND",
+    "salary_2025_26": 18102000,
+    "salary_2026_27": 19550160,
+    "salary_2027_28": 20998320,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Zach Collins",
+    "team": "CHI",
+    "salary_2025_26": 18080496,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Patrick Williams",
+    "team": "CHI",
+    "salary_2025_26": 18000000,
+    "salary_2026_27": 18000000,
+    "salary_2027_28": 18000000,
+    "salary_2028_29": 18000000,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kevin Huerter",
+    "team": "DET",
+    "salary_2025_26": 17991071,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Keldon Johnson",
+    "team": "SAS",
+    "salary_2025_26": 17500000,
+    "salary_2026_27": 17500000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Grayson Allen",
+    "team": "PHO",
+    "salary_2025_26": 16875000,
+    "salary_2026_27": 18125000,
+    "salary_2027_28": 19375000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Duncan Robinson",
+    "team": "DET",
+    "salary_2025_26": 16834692,
+    "salary_2026_27": 15992957,
+    "salary_2027_28": 15151222,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Klay Thompson",
+    "team": "DAL",
+    "salary_2025_26": 16666667,
+    "salary_2026_27": 17460317,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Bogdan Bogdanović",
+    "team": "LAC",
+    "salary_2025_26": 16020000,
+    "salary_2026_27": 16020000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Max Strus",
+    "team": "CLE",
+    "salary_2025_26": 15936452,
+    "salary_2026_27": 16660836,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Terance Mann",
+    "team": "BRK",
+    "salary_2025_26": 15500000,
+    "salary_2026_27": 15500000,
+    "salary_2027_28": 16000000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Paolo Banchero",
+    "team": "ORL",
+    "salary_2025_26": 15334769,
+    "salary_2026_27": 41500000,
+    "salary_2027_28": 44820000,
+    "salary_2028_29": 48140000,
+    "salary_2029_30": 51460000,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Nickeil Alexander-Walker",
+    "team": "ATL",
+    "salary_2025_26": 15161800,
+    "salary_2026_27": 14403710,
+    "salary_2027_28": 15161800,
+    "salary_2028_29": 15919890,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Onyeka Okongwu",
+    "team": "ATL",
+    "salary_2025_26": 15000000,
+    "salary_2026_27": 16120000,
+    "salary_2027_28": 16880000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jonathan Isaac",
+    "team": "ORL",
+    "salary_2025_26": 15000000,
+    "salary_2026_27": 14500000,
+    "salary_2027_28": 14500000,
+    "salary_2028_29": 15000000,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Isaiah Stewart",
+    "team": "DET",
+    "salary_2025_26": 15000000,
+    "salary_2026_27": 15000000,
+    "salary_2027_28": 15000000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Marcus Smart",
+    "team": "WAS",
+    "salary_2025_26": 19920855,
+    "salary_2026_27": 5390700,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Daniel Gafford",
+    "team": "DAL",
+    "salary_2025_26": 14386320,
+    "salary_2026_27": 17263584,
+    "salary_2027_28": 18126763,
+    "salary_2028_29": 18989942,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Deni Avdija",
+    "team": "POR",
+    "salary_2025_26": 14375000,
+    "salary_2026_27": 13125000,
+    "salary_2027_28": 11875000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "P.J. Washington",
+    "team": "DAL",
+    "salary_2025_26": 14152174,
+    "salary_2026_27": 19813044,
+    "salary_2027_28": 21398088,
+    "salary_2028_29": 22983132,
+    "salary_2029_30": 24568176,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Steven Adams",
+    "team": "HOU",
+    "salary_2025_26": 14130434,
+    "salary_2026_27": 13000000,
+    "salary_2027_28": 11869566,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Caris LeVert",
+    "team": "DET",
+    "salary_2025_26": 14104000,
+    "salary_2026_27": 14809200,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Dennis Schröder",
+    "team": "CLE",
+    "salary_2025_26": 14104000,
+    "salary_2026_27": 14809200,
+    "salary_2027_28": 15514400,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Damian Lillard",
+    "team": "POR",
+    "salary_2025_26": 36620603,
+    "salary_2026_27": 35915403,
+    "salary_2027_28": 36620603,
+    "salary_2028_29": 22516603,
+    "salary_2029_30": 22516603,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Obi Toppin",
+    "team": "IND",
+    "salary_2025_26": 14000000,
+    "salary_2026_27": 15000000,
+    "salary_2027_28": 16025000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Corey Kispert",
+    "team": "ATL",
+    "salary_2025_26": 13975000,
+    "salary_2026_27": 13975000,
+    "salary_2027_28": 13050000,
+    "salary_2028_29": 13050000,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Herbert Jones",
+    "team": "NOP",
+    "salary_2025_26": 13937574,
+    "salary_2026_27": 14898786,
+    "salary_2027_28": 20858300,
+    "salary_2028_29": 22526964,
+    "salary_2029_30": 24195628,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Austin Reaves",
+    "team": "LAL",
+    "salary_2025_26": 13937574,
+    "salary_2026_27": 14898786,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Cooper Flagg",
+    "team": "DAL",
+    "salary_2025_26": 13825920,
+    "salary_2026_27": 14517480,
+    "salary_2027_28": 15208680,
+    "salary_2028_29": 19178146,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Chet Holmgren",
+    "team": "OKC",
+    "salary_2025_26": 13731368,
+    "salary_2026_27": 41500000,
+    "salary_2027_28": 44820000,
+    "salary_2028_29": 48140000,
+    "salary_2029_30": 51460000,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Josh Green",
+    "team": "CHO",
+    "salary_2025_26": 13666667,
+    "salary_2026_27": 14679012,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Grant Williams",
+    "team": "CHO",
+    "salary_2025_26": 13645500,
+    "salary_2026_27": 14265750,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Bobby Portis",
+    "team": "MIL",
+    "salary_2025_26": 13445754,
+    "salary_2026_27": 14521414,
+    "salary_2027_28": 15597074,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kelly Olynyk",
+    "team": "SAS",
+    "salary_2025_26": 13445122,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Victor Wembanyama",
+    "team": "SAS",
+    "salary_2025_26": 13376880,
+    "salary_2026_27": 16868246,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Robert Williams",
+    "team": "POR",
+    "salary_2025_26": 13285713,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Zaccharie Risacher",
+    "team": "ATL",
+    "salary_2025_26": 13197720,
+    "salary_2026_27": 13826040,
+    "salary_2027_28": 17434637,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Mitchell Robinson",
+    "team": "NYK",
+    "salary_2025_26": 12954546,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Coby White",
+    "team": "CHO",
+    "salary_2025_26": 12888889,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Dorian Finney-Smith",
+    "team": "HOU",
+    "salary_2025_26": 12700000,
+    "salary_2026_27": 13335000,
+    "salary_2027_28": 13335000,
+    "salary_2028_29": 13335000,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Brandon Clarke",
+    "team": "MEM",
+    "salary_2025_26": 12500000,
+    "salary_2026_27": 12500000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Dylan Harper",
+    "team": "SAS",
+    "salary_2025_26": 12370320,
+    "salary_2026_27": 12989040,
+    "salary_2027_28": 13607760,
+    "salary_2028_29": 17172994,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Isaiah Joe",
+    "team": "OKC",
+    "salary_2025_26": 12362338,
+    "salary_2026_27": 11323006,
+    "salary_2027_28": 11323006,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jabari Smith Jr.",
+    "team": "HOU",
+    "salary_2025_26": 12350392,
+    "salary_2026_27": 23643411,
+    "salary_2027_28": 21751940,
+    "salary_2028_29": 23643411,
+    "salary_2029_30": 25534883,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Donte DiVincenzo",
+    "team": "MIN",
+    "salary_2025_26": 11990000,
+    "salary_2026_27": 12535000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Brandon Miller",
+    "team": "CHO",
+    "salary_2025_26": 11968800,
+    "salary_2026_27": 15104626,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Alex Sarr",
+    "team": "WAS",
+    "salary_2025_26": 11808240,
+    "salary_2026_27": 12370680,
+    "salary_2027_28": 15611798,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Davion Mitchell",
+    "team": "MIA",
+    "salary_2025_26": 11600000,
+    "salary_2026_27": 12400000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Moses Moody",
+    "team": "GSW",
+    "salary_2025_26": 11574075,
+    "salary_2026_27": 12500000,
+    "salary_2027_28": 13425925,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jarred Vanderbilt",
+    "team": "LAL",
+    "salary_2025_26": 11571429,
+    "salary_2026_27": 12428571,
+    "salary_2027_28": 13285714,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Matisse Thybulle",
+    "team": "POR",
+    "salary_2025_26": 11550000,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Gabe Vincent",
+    "team": "ATL",
+    "salary_2025_26": 11500000,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Keegan Murray",
+    "team": "SAC",
+    "salary_2025_26": 11144093,
+    "salary_2026_27": 24137936,
+    "salary_2027_28": 26068965,
+    "salary_2028_29": 27999999,
+    "salary_2029_30": 29931033,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "VJ Edgecombe",
+    "team": "PHI",
+    "salary_2025_26": 11108880,
+    "salary_2026_27": 11663880,
+    "salary_2027_28": 12219720,
+    "salary_2028_29": 15445727,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Aaron Nesmith",
+    "team": "IND",
+    "salary_2025_26": 11000000,
+    "salary_2026_27": 11000000,
+    "salary_2027_28": 19418000,
+    "salary_2028_29": 20971440,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Luke Kornet",
+    "team": "SAS",
+    "salary_2025_26": 11000000,
+    "salary_2026_27": 10450000,
+    "salary_2027_28": 9900000,
+    "salary_2028_29": 9350000,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Isaac Okoro",
+    "team": "CHI",
+    "salary_2025_26": 11000000,
+    "salary_2026_27": 11814814,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Luke Kennard",
+    "team": "LAL",
+    "salary_2025_26": 11000000,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Maxi Kleber",
+    "team": "LAL",
+    "salary_2025_26": 11000000,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Wendell Carter Jr.",
+    "team": "ORL",
+    "salary_2025_26": 10850000,
+    "salary_2026_27": 18102000,
+    "salary_2027_28": 19550160,
+    "salary_2028_29": 20998320,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Mike Conley",
+    "team": "CHO",
+    "salary_2025_26": 11499872,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Scoot Henderson",
+    "team": "POR",
+    "salary_2025_26": 10748040,
+    "salary_2026_27": 13585523,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jordan Clarkson",
+    "team": "UTA",
+    "salary_2025_26": 12947835,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Reed Sheppard",
+    "team": "HOU",
+    "salary_2025_26": 10603560,
+    "salary_2026_27": 11108880,
+    "salary_2027_28": 14041625,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jonas Valančiūnas",
+    "team": "DEN",
+    "salary_2025_26": 10395000,
+    "salary_2026_27": 10000000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "T.J. McConnell",
+    "team": "IND",
+    "salary_2025_26": 10200000,
+    "salary_2026_27": 11000000,
+    "salary_2027_28": 11800000,
+    "salary_2028_29": 11800000,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Royce O'Neale",
+    "team": "PHO",
+    "salary_2025_26": 10125000,
+    "salary_2026_27": 10875000,
+    "salary_2027_28": 11625000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jaden Ivey",
+    "team": "CHI",
+    "salary_2025_26": 10107163,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Aaron Wiggins",
+    "team": "OKC",
+    "salary_2025_26": 10102803,
+    "salary_2026_27": 9224300,
+    "salary_2027_28": 8345797,
+    "salary_2028_29": 8345797,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Sam Hauser",
+    "team": "BOS",
+    "salary_2025_26": 10044644,
+    "salary_2026_27": 10848215,
+    "salary_2027_28": 11651785,
+    "salary_2028_29": 12455356,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kon Knueppel",
+    "team": "CHO",
+    "salary_2025_26": 10015680,
+    "salary_2026_27": 10516560,
+    "salary_2027_28": 11017560,
+    "salary_2028_29": 13937214,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Derrick Jones Jr.",
+    "team": "LAC",
+    "salary_2025_26": 10000000,
+    "salary_2026_27": 10476190,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Lonzo Ball",
+    "team": "UTA",
+    "salary_2025_26": 10000000,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Amen Thompson",
+    "team": "HOU",
+    "salary_2025_26": 9690600,
+    "salary_2026_27": 12258609,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Caleb Martin",
+    "team": "DAL",
+    "salary_2025_26": 9594044,
+    "salary_2026_27": 10001493,
+    "salary_2027_28": 9371351,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Stephon Castle",
+    "team": "SAS",
+    "salary_2025_26": 9560520,
+    "salary_2026_27": 10015920,
+    "salary_2027_28": 12670139,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Pat Connaughton",
+    "team": "CHO",
+    "salary_2025_26": 10739683,
+    "salary_2026_27": 3815861,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Buddy Hield",
+    "team": "ATL",
+    "salary_2025_26": 9219512,
+    "salary_2026_27": 9658536,
+    "salary_2027_28": 10097560,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kyle Anderson",
+    "team": "MEM",
+    "salary_2025_26": 9219512,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Bennedict Mathurin",
+    "team": "LAC",
+    "salary_2025_26": 9187573,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ace Bailey",
+    "team": "UTA",
+    "salary_2025_26": 9069840,
+    "salary_2026_27": 9523080,
+    "salary_2027_28": 9976560,
+    "salary_2028_29": 12640302,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Naji Marshall",
+    "team": "DAL",
+    "salary_2025_26": 9000000,
+    "salary_2026_27": 9428571,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jalen Smith",
+    "team": "CHI",
+    "salary_2025_26": 9000000,
+    "salary_2026_27": 9428571,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ty Jerome",
+    "team": "MEM",
+    "salary_2025_26": 8781000,
+    "salary_2026_27": 9220050,
+    "salary_2027_28": 9659100,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ausar Thompson",
+    "team": "DET",
+    "salary_2025_26": 8775000,
+    "salary_2026_27": 11117925,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Brook Lopez",
+    "team": "LAC",
+    "salary_2025_26": 8750000,
+    "salary_2026_27": 9187500,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Quentin Grimes",
+    "team": "PHI",
+    "salary_2025_26": 8741209,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ron Holland",
+    "team": "DET",
+    "salary_2025_26": 8657280,
+    "salary_2026_27": 9069600,
+    "salary_2027_28": 11491183,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Sam Merrill",
+    "team": "CLE",
+    "salary_2025_26": 8482144,
+    "salary_2026_27": 9160715,
+    "salary_2027_28": 9839285,
+    "salary_2028_29": 10517856,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jaylin Williams",
+    "team": "OKC",
+    "salary_2025_26": 8450704,
+    "salary_2026_27": 7774648,
+    "salary_2027_28": 7774648,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Shaedon Sharpe",
+    "team": "POR",
+    "salary_2025_26": 8399983,
+    "salary_2026_27": 20089287,
+    "salary_2027_28": 21696429,
+    "salary_2028_29": 23303571,
+    "salary_2029_30": 24910713,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kelly Oubre Jr.",
+    "team": "PHI",
+    "salary_2025_26": 8382150,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Goga Bitadze",
+    "team": "ORL",
+    "salary_2025_26": 8333333,
+    "salary_2026_27": 7608696,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Simone Fontecchio",
+    "team": "MIA",
+    "salary_2025_26": 8307692,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tre Johnson",
+    "team": "WAS",
+    "salary_2025_26": 8237640,
+    "salary_2026_27": 8649600,
+    "salary_2027_28": 9061680,
+    "salary_2028_29": 11490211,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Georges Niang",
+    "team": "MEM",
+    "salary_2025_26": 8200000,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Zeke Nnaji",
+    "team": "DEN",
+    "salary_2025_26": 8177778,
+    "salary_2026_27": 7466667,
+    "salary_2027_28": 7466667,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Deandre Ayton",
+    "team": "LAL",
+    "salary_2025_26": 33654814,
+    "salary_2026_27": 8104000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tre Mann",
+    "team": "CHO",
+    "salary_2025_26": 8000000,
+    "salary_2026_27": 8000000,
+    "salary_2027_28": 8000000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tre Jones",
+    "team": "CHI",
+    "salary_2025_26": 8000000,
+    "salary_2026_27": 8000000,
+    "salary_2027_28": 8000000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kevon Looney",
+    "team": "NOP",
+    "salary_2025_26": 8000000,
+    "salary_2026_27": 8000000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Anthony Black",
+    "team": "ORL",
+    "salary_2025_26": 7970280,
+    "salary_2026_27": 10106316,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tidjane Salaün",
+    "team": "CHO",
+    "salary_2025_26": 7863240,
+    "salary_2026_27": 8237880,
+    "salary_2027_28": 10445633,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Max Christie",
+    "team": "DAL",
+    "salary_2025_26": 7714286,
+    "salary_2026_27": 8285714,
+    "salary_2027_28": 8857143,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Dyson Daniels",
+    "team": "ATL",
+    "salary_2025_26": 7707709,
+    "salary_2026_27": 25000000,
+    "salary_2027_28": 25000000,
+    "salary_2028_29": 25000000,
+    "salary_2029_30": 25000000,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Isaiah Jackson",
+    "team": "LAC",
+    "salary_2025_26": 7600000,
+    "salary_2026_27": 7000000,
+    "salary_2027_28": 6400000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jeremiah Fears",
+    "team": "NOP",
+    "salary_2025_26": 7520040,
+    "salary_2026_27": 7896240,
+    "salary_2027_28": 8271960,
+    "salary_2028_29": 10505389,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ayo Dosunmu",
+    "team": "MIN",
+    "salary_2025_26": 7518518,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Bilal Coulibaly",
+    "team": "WAS",
+    "salary_2025_26": 7275600,
+    "salary_2026_27": 9240012,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Payton Pritchard",
+    "team": "BOS",
+    "salary_2025_26": 7232143,
+    "salary_2026_27": 7767857,
+    "salary_2027_28": 8303571,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Donovan Clingan",
+    "team": "POR",
+    "salary_2025_26": 7178400,
+    "salary_2026_27": 7519920,
+    "salary_2027_28": 9550298,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kenrich Williams",
+    "team": "OKC",
+    "salary_2025_26": 7163000,
+    "salary_2026_27": 7163000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jeremy Sochan",
+    "team": "SAS",
+    "salary_2025_26": 7874853,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tyus Jones",
+    "team": "DAL",
+    "salary_2025_26": 7000000,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Egor Dёmin",
+    "team": "BRK",
+    "salary_2025_26": 6889200,
+    "salary_2026_27": 7233720,
+    "salary_2027_28": 7578240,
+    "salary_2028_29": 9639522,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jevon Carter",
+    "team": "CHI",
+    "salary_2025_26": 7680524,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Clint Capela",
+    "team": "HOU",
+    "salary_2025_26": 6700000,
+    "salary_2026_27": 7035000,
+    "salary_2027_28": 7370000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ousmane Dieng",
+    "team": "MIL",
+    "salary_2025_26": 6670882,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jarace Walker",
+    "team": "IND",
+    "salary_2025_26": 6665520,
+    "salary_2026_27": 8478542,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Dean Wade",
+    "team": "CLE",
+    "salary_2025_26": 6623456,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jalen Williams",
+    "team": "OKC",
+    "salary_2025_26": 6580997,
+    "salary_2026_27": 41500000,
+    "salary_2027_28": 44820000,
+    "salary_2028_29": 48140000,
+    "salary_2029_30": 51460000,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Rob Dillingham",
+    "team": "CHI",
+    "salary_2025_26": 6576120,
+    "salary_2026_27": 6889320,
+    "salary_2027_28": 8763216,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jalen Duren",
+    "team": "DET",
+    "salary_2025_26": 6483144,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ochai Agbaji",
+    "team": "BRK",
+    "salary_2025_26": 6383525,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Collin Murray-Boyles",
+    "team": "TOR",
+    "salary_2025_26": 6332520,
+    "salary_2026_27": 6649560,
+    "salary_2027_28": 6966000,
+    "salary_2028_29": 8874684,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Mark Williams",
+    "team": "PHO",
+    "salary_2025_26": 6276531,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Day'Ron Sharpe",
+    "team": "BRK",
+    "salary_2025_26": 6250000,
+    "salary_2026_27": 6250000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ziaire Williams",
+    "team": "BRK",
+    "salary_2025_26": 6250000,
+    "salary_2026_27": 6250000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "John Konchar",
+    "team": "UTA",
+    "salary_2025_26": 6165000,
+    "salary_2026_27": 6165000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Taylor Hendricks",
+    "team": "MEM",
+    "salary_2025_26": 6127080,
+    "salary_2026_27": 7805900,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Saddiq Bey",
+    "team": "NOP",
+    "salary_2025_26": 6118644,
+    "salary_2026_27": 6440678,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Zach Edey",
+    "team": "MEM",
+    "salary_2025_26": 6045000,
+    "salary_2026_27": 6332760,
+    "salary_2027_28": 8067937,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Khaman Maluach",
+    "team": "PHO",
+    "salary_2025_26": 6016080,
+    "salary_2026_27": 6316680,
+    "salary_2027_28": 6617160,
+    "salary_2028_29": 8436880,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jaden Hardy",
+    "team": "WAS",
+    "salary_2025_26": 6000000,
+    "salary_2026_27": 6000000,
+    "salary_2027_28": 6000000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jake LaRavia",
+    "team": "LAL",
+    "salary_2025_26": 6000000,
+    "salary_2026_27": 6000000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Cam Thomas",
+    "team": "BRK",
+    "salary_2025_26": 6837779,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Cason Wallace",
+    "team": "OKC",
+    "salary_2025_26": 5820240,
+    "salary_2026_27": 7420806,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Cody Williams",
+    "team": "UTA",
+    "salary_2025_26": 5742480,
+    "salary_2026_27": 6015600,
+    "salary_2027_28": 7669890,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Cedric Coward",
+    "team": "MEM",
+    "salary_2025_26": 5715120,
+    "salary_2026_27": 6001080,
+    "salary_2027_28": 6286920,
+    "salary_2028_29": 8342743,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "D'Angelo Russell",
+    "team": "WAS",
+    "salary_2025_26": 5685000,
+    "salary_2026_27": 5969250,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Al Horford",
+    "team": "GSW",
+    "salary_2025_26": 5685000,
+    "salary_2026_27": 5969250,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tari Eason",
+    "team": "HOU",
+    "salary_2025_26": 5675766,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Haywood Highsmith",
+    "team": "BRK",
+    "salary_2025_26": 6443984,
+    "salary_2026_27": 3018158,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Nicolas Batum",
+    "team": "LAC",
+    "salary_2025_26": 5601600,
+    "salary_2026_27": 5881680,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jett Howard",
+    "team": "ORL",
+    "salary_2025_26": 5529720,
+    "salary_2026_27": 7337939,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Guerschon Yabusele",
+    "team": "CHI",
+    "salary_2025_26": 5500000,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Matas Buzelis",
+    "team": "CHI",
+    "salary_2025_26": 5455560,
+    "salary_2026_27": 5715360,
+    "salary_2027_28": 7584283,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Noa Essengue",
+    "team": "CHI",
+    "salary_2025_26": 5429520,
+    "salary_2026_27": 5701200,
+    "salary_2027_28": 5972760,
+    "salary_2028_29": 8230464,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kris Dunn",
+    "team": "LAC",
+    "salary_2025_26": 5426400,
+    "salary_2026_27": 5684800,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Dario Šarić",
+    "team": "DET",
+    "salary_2025_26": 5426400,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Dalen Terry",
+    "team": "NOP",
+    "salary_2025_26": 5399118,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Bradley Beal",
+    "team": "LAC",
+    "salary_2025_26": 24737010,
+    "salary_2026_27": 25004710,
+    "salary_2027_28": 19383010,
+    "salary_2028_29": 19383010,
+    "salary_2029_30": 19383010,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Paul Reed",
+    "team": "DET",
+    "salary_2025_26": 5335894,
+    "salary_2026_27": 5602689,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Dereck Lively II",
+    "team": "DAL",
+    "salary_2025_26": 5253360,
+    "salary_2026_27": 7239131,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Nikola Topić",
+    "team": "OKC",
+    "salary_2025_26": 5182920,
+    "salary_2026_27": 5429760,
+    "salary_2027_28": 7482210,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Derik Queen",
+    "team": "NOP",
+    "salary_2025_26": 5157960,
+    "salary_2026_27": 5416080,
+    "salary_2027_28": 5673840,
+    "salary_2028_29": 8107918,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kevin Porter Jr.",
+    "team": "MIL",
+    "salary_2025_26": 5134000,
+    "salary_2026_27": 5390700,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Marcus Smart",
+    "team": "LAL",
+    "salary_2025_26": 19920855,
+    "salary_2026_27": 5390700,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Andre Drummond",
+    "team": "PHI",
+    "salary_2025_26": 5000000,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Moritz Wagner",
+    "team": "ORL",
+    "salary_2025_26": 5000000,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Nick Richards",
+    "team": "CHI",
+    "salary_2025_26": 5000000,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Gradey Dick",
+    "team": "TOR",
+    "salary_2025_26": 4990560,
+    "salary_2026_27": 7131511,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Malaki Branham",
+    "team": "CHO",
+    "salary_2025_26": 4962033,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Devin Carter",
+    "team": "SAC",
+    "salary_2025_26": 4923720,
+    "salary_2026_27": 5158080,
+    "salary_2027_28": 7370897,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Christian Braun",
+    "team": "DEN",
+    "salary_2025_26": 4921797,
+    "salary_2026_27": 21551726,
+    "salary_2027_28": 23275863,
+    "salary_2028_29": 25000000,
+    "salary_2029_30": 26724137,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Carter Bryant",
+    "team": "SAS",
+    "salary_2025_26": 4900320,
+    "salary_2026_27": 5145360,
+    "salary_2027_28": 5390640,
+    "salary_2028_29": 7983539,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Walker Kessler",
+    "team": "UTA",
+    "salary_2025_26": 4878938,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jordan Hawkins",
+    "team": "NOP",
+    "salary_2025_26": 4741320,
+    "salary_2026_27": 7021895,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Bub Carrington",
+    "team": "WAS",
+    "salary_2025_26": 4677600,
+    "salary_2026_27": 4900560,
+    "salary_2027_28": 7257730,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Thomas Sorber",
+    "team": "OKC",
+    "salary_2025_26": 4655040,
+    "salary_2026_27": 4887720,
+    "salary_2027_28": 5120400,
+    "salary_2028_29": 7849573,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kobe Bufkin",
+    "team": "BRK",
+    "salary_2025_26": 5480297,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jose Alvarado",
+    "team": "NYK",
+    "salary_2025_26": 4500000,
+    "salary_2026_27": 4500000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Nikola Jović",
+    "team": "MIA",
+    "salary_2025_26": 4445417,
+    "salary_2026_27": 16200000,
+    "salary_2027_28": 14904000,
+    "salary_2028_29": 15096000,
+    "salary_2029_30": 16200000,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kel'el Ware",
+    "team": "MIA",
+    "salary_2025_26": 4443360,
+    "salary_2026_27": 4654920,
+    "salary_2027_28": 7135992,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Yang Hansen",
+    "team": "POR",
+    "salary_2025_26": 4422360,
+    "salary_2026_27": 4643520,
+    "salary_2027_28": 4864920,
+    "salary_2028_29": 7462788,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Peyton Watson",
+    "team": "DEN",
+    "salary_2025_26": 4356476,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Miles McBride",
+    "team": "NYK",
+    "salary_2025_26": 4333333,
+    "salary_2026_27": 3956523,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Keyonte George",
+    "team": "UTA",
+    "salary_2025_26": 4278960,
+    "salary_2026_27": 6563925,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jared McCain",
+    "team": "OKC",
+    "salary_2025_26": 4221360,
+    "salary_2026_27": 4422600,
+    "salary_2027_28": 6784268,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Joan Beringer",
+    "team": "MIN",
+    "salary_2025_26": 4201080,
+    "salary_2026_27": 4411200,
+    "salary_2027_28": 4621200,
+    "salary_2028_29": 7098163,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kevin Love",
+    "team": "UTA",
+    "salary_2025_26": 4150000,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Dalton Knecht",
+    "team": "LAL",
+    "salary_2025_26": 4010160,
+    "salary_2026_27": 4201080,
+    "salary_2027_28": 6452860,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ryan Rollins",
+    "team": "MIL",
+    "salary_2025_26": 4000000,
+    "salary_2026_27": 4000000,
+    "salary_2027_28": 4000000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Dwight Powell",
+    "team": "DAL",
+    "salary_2025_26": 4000000,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Walter Clayton",
+    "team": "MEM",
+    "salary_2025_26": 3991320,
+    "salary_2026_27": 4190520,
+    "salary_2027_28": 4390320,
+    "salary_2028_29": 6752312,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jaime Jaquez Jr.",
+    "team": "MIA",
+    "salary_2025_26": 3861600,
+    "salary_2026_27": 5939141,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Nolan Traoré",
+    "team": "BRK",
+    "salary_2025_26": 3811560,
+    "salary_2026_27": 4002000,
+    "salary_2027_28": 4193040,
+    "salary_2028_29": 6457282,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Daniss Jenkins",
+    "team": "DET",
+    "salary_2025_26": 3809524,
+    "salary_2026_27": 4000000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tristan Da Silva",
+    "team": "ORL",
+    "salary_2025_26": 3809520,
+    "salary_2026_27": 3991200,
+    "salary_2027_28": 6138466,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Cole Anthony",
+    "team": "MEM",
+    "salary_2025_26": 5996274,
+    "salary_2026_27": 3700000,
+    "salary_2027_28": 3700000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Gary Trent Jr.",
+    "team": "MIL",
+    "salary_2025_26": 3697105,
+    "salary_2026_27": 3881960,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Brandin Podziemski",
+    "team": "GSW",
+    "salary_2025_26": 3687960,
+    "salary_2026_27": 5679459,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Svi Mykhailiuk",
+    "team": "UTA",
+    "salary_2025_26": 3675000,
+    "salary_2026_27": 3850000,
+    "salary_2027_28": 4025000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kasparas Jakučionis",
+    "team": "MIA",
+    "salary_2025_26": 3658800,
+    "salary_2026_27": 3841680,
+    "salary_2027_28": 4024440,
+    "salary_2028_29": 6205687,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ja'Kobe Walter",
+    "team": "TOR",
+    "salary_2025_26": 3638160,
+    "salary_2026_27": 3811800,
+    "salary_2027_28": 5870172,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Gary Harris",
+    "team": "MIL",
+    "salary_2025_26": 3634153,
+    "salary_2026_27": 3815861,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Cam Whitmore",
+    "team": "WAS",
+    "salary_2025_26": 3539760,
+    "salary_2026_27": 5458310,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Will Riley",
+    "team": "WAS",
+    "salary_2025_26": 3512520,
+    "salary_2026_27": 3688320,
+    "salary_2027_28": 3864000,
+    "salary_2028_29": 6155352,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jaylon Tyson",
+    "team": "CLE",
+    "salary_2025_26": 3492480,
+    "salary_2026_27": 3658560,
+    "salary_2027_28": 5641500,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jaxson Hayes",
+    "team": "LAL",
+    "salary_2025_26": 3449323,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Dominick Barlow",
+    "team": "PHI",
+    "salary_2025_26": 3415000,
+    "salary_2026_27": 3415000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Noah Clowney",
+    "team": "BRK",
+    "salary_2025_26": 3398640,
+    "salary_2026_27": 5414034,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Drake Powell",
+    "team": "BRK",
+    "salary_2025_26": 3372240,
+    "salary_2026_27": 3540600,
+    "salary_2027_28": 3709320,
+    "salary_2028_29": 6101832,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Yves Missi",
+    "team": "NOP",
+    "salary_2025_26": 3353040,
+    "salary_2026_27": 3512760,
+    "salary_2027_28": 5595827,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Blake Wesley",
+    "team": "WAS",
+    "salary_2025_26": 5643732,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Taurean Prince",
+    "team": "MIL",
+    "salary_2025_26": 3303774,
+    "salary_2026_27": 3815861,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Dariq Whitehead",
+    "team": "BRK",
+    "salary_2025_26": 3262560,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Asa Newell",
+    "team": "ATL",
+    "salary_2025_26": 3237480,
+    "salary_2026_27": 3399480,
+    "salary_2027_28": 3560880,
+    "salary_2028_29": 6042814,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "DaRon Holmes",
+    "team": "DEN",
+    "salary_2025_26": 3218760,
+    "salary_2026_27": 3372120,
+    "salary_2027_28": 5547138,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kris Murray",
+    "team": "POR",
+    "salary_2025_26": 3132000,
+    "salary_2026_27": 5315004,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Nique Clifford",
+    "team": "SAC",
+    "salary_2025_26": 3108120,
+    "salary_2026_27": 3263400,
+    "salary_2027_28": 3418800,
+    "salary_2028_29": 5979481,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Nassir Little",
+    "team": "PHO",
+    "salary_2025_26": 3107143,
+    "salary_2026_27": 3107143,
+    "salary_2027_28": 3107143,
+    "salary_2028_29": 3107143,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "AJ Johnson",
+    "team": "DAL",
+    "salary_2025_26": 3090480,
+    "salary_2026_27": 3237120,
+    "salary_2027_28": 5493394,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "De'Anthony Melton",
+    "team": "GSW",
+    "salary_2025_26": 3080921,
+    "salary_2026_27": 3451779,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kyle Filipowski",
+    "team": "UTA",
+    "salary_2025_26": 3000000,
+    "salary_2026_27": 3000000,
+    "salary_2027_28": 3000000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ajay Mitchell",
+    "team": "OKC",
+    "salary_2025_26": 3000000,
+    "salary_2026_27": 2850000,
+    "salary_2027_28": 2850000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Julian Champagnie",
+    "team": "SAS",
+    "salary_2025_26": 3000000,
+    "salary_2026_27": 3000000,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jase Richardson",
+    "team": "ORL",
+    "salary_2025_26": 2983320,
+    "salary_2026_27": 3132360,
+    "salary_2027_28": 3282000,
+    "salary_2028_29": 5910882,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kyshawn George",
+    "team": "WAS",
+    "salary_2025_26": 2966760,
+    "salary_2026_27": 3108000,
+    "salary_2027_28": 5435892,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tony Bradley",
+    "team": "IND",
+    "salary_2025_26": 3204816,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Marcus Sasser",
+    "team": "DET",
+    "salary_2025_26": 2886720,
+    "salary_2026_27": 5198983,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ben Saraf",
+    "team": "BRK",
+    "salary_2025_26": 2884560,
+    "salary_2026_27": 3028560,
+    "salary_2027_28": 3172920,
+    "salary_2028_29": 5720776,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Pacôme Dadiet",
+    "team": "NYK",
+    "salary_2025_26": 2847600,
+    "salary_2026_27": 2983680,
+    "salary_2027_28": 5373608,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Danny Wolf",
+    "team": "BRK",
+    "salary_2025_26": 2801280,
+    "salary_2026_27": 2941440,
+    "salary_2027_28": 3081840,
+    "salary_2028_29": 5559640,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ben Sheppard",
+    "team": "IND",
+    "salary_2025_26": 2790720,
+    "salary_2026_27": 5031669,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Hugo González",
+    "team": "BOS",
+    "salary_2025_26": 2783880,
+    "salary_2026_27": 2923560,
+    "salary_2027_28": 3062640,
+    "salary_2028_29": 5528065,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Liam McNeeley",
+    "team": "CHO",
+    "salary_2025_26": 2763960,
+    "salary_2026_27": 2902080,
+    "salary_2027_28": 3040320,
+    "salary_2028_29": 5487778,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Dillon Jones",
+    "team": "WAS",
+    "salary_2025_26": 2753280,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Yanic Konan Niederhäuser",
+    "team": "LAC",
+    "salary_2025_26": 2743800,
+    "salary_2026_27": 2880960,
+    "salary_2027_28": 3018480,
+    "salary_2028_29": 5448356,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Nick Smith Jr.",
+    "team": "CHO",
+    "salary_2025_26": 2710680,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Brice Sensabaugh",
+    "team": "UTA",
+    "salary_2025_26": 2693760,
+    "salary_2026_27": 4862237,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Julian Strawther",
+    "team": "DEN",
+    "salary_2025_26": 2674200,
+    "salary_2026_27": 4826931,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Terrence Shannon Jr.",
+    "team": "MIN",
+    "salary_2025_26": 2674080,
+    "salary_2026_27": 2801640,
+    "salary_2027_28": 5054159,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ryan Dunn",
+    "team": "PHO",
+    "salary_2025_26": 2657760,
+    "salary_2026_27": 2784240,
+    "salary_2027_28": 5025553,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kobe Brown",
+    "team": "IND",
+    "salary_2025_26": 2654880,
+    "salary_2026_27": 4792059,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Isaiah Collier",
+    "team": "UTA",
+    "salary_2025_26": 2638200,
+    "salary_2026_27": 2763960,
+    "salary_2027_28": 4988948,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Baylor Scheierman",
+    "team": "BOS",
+    "salary_2025_26": 2619000,
+    "salary_2026_27": 2744040,
+    "salary_2027_28": 4952993,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Xavier Tillman Sr.",
+    "team": "CHO",
+    "salary_2025_26": 2546675,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Cam Spencer",
+    "team": "MEM",
+    "salary_2025_26": 2537989,
+    "salary_2026_27": 2411090,
+    "salary_2027_28": 2616754,
+    "salary_2028_29": 2830685,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Luka Garza",
+    "team": "BOS",
+    "salary_2025_26": 2461463,
+    "salary_2026_27": 2801346,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Sandro Mamukelashvili",
+    "team": "TOR",
+    "salary_2025_26": 2461463,
+    "salary_2026_27": 2801346,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Trendon Watford",
+    "team": "PHI",
+    "salary_2025_26": 2461463,
+    "salary_2026_27": 2801346,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jericho Sims",
+    "team": "MIL",
+    "salary_2025_26": 2461463,
+    "salary_2026_27": 2801346,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Dru Smith",
+    "team": "MIA",
+    "salary_2025_26": 2378870,
+    "salary_2026_27": 2584539,
+    "salary_2027_28": 2934742,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Josh Minott",
+    "team": "BRK",
+    "salary_2025_26": 2378870,
+    "salary_2026_27": 2584539,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Justin Champagnie",
+    "team": "WAS",
+    "salary_2025_26": 2349578,
+    "salary_2026_27": 2667944,
+    "salary_2027_28": 3005085,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jordan Goodwin",
+    "team": "PHO",
+    "salary_2025_26": 2349578,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jay Huff",
+    "team": "IND",
+    "salary_2025_26": 2349578,
+    "salary_2026_27": 2667944,
+    "salary_2027_28": 3005085,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Keon Johnson",
+    "team": "BRK",
+    "salary_2025_26": 2349578,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Vít Krejčí",
+    "team": "POR",
+    "salary_2025_26": 2349578,
+    "salary_2026_27": 2667944,
+    "salary_2027_28": 3005085,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Neemias Queta",
+    "team": "BOS",
+    "salary_2025_26": 2349578,
+    "salary_2026_27": 2667944,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "A.J. Green",
+    "team": "MIL",
+    "salary_2025_26": 2301587,
+    "salary_2026_27": 10044644,
+    "salary_2027_28": 10848215,
+    "salary_2028_29": 11651786,
+    "salary_2029_30": 12455355,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Vince Williams Jr.",
+    "team": "UTA",
+    "salary_2025_26": 2301587,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Keon Ellis",
+    "team": "CLE",
+    "salary_2025_26": 2301587,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ryan Kalkbrenner",
+    "team": "CHO",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": 2411090,
+    "salary_2027_28": 2525901,
+    "salary_2028_29": 2735698,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Sion James",
+    "team": "CHO",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": 2411090,
+    "salary_2027_28": 2525901,
+    "salary_2028_29": 2735698,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Danté Exum",
+    "team": "WAS",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Anthony Gill",
+    "team": "WAS",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Chris Boucher",
+    "team": "UTA",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Chris Paul",
+    "team": "TOR",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Garrett Temple",
+    "team": "TOR",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Bismack Biyombo",
+    "team": "SAS",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Lindy Waters III",
+    "team": "SAS",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jordan McLaughlin",
+    "team": "SAS",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Russell Westbrook",
+    "team": "SAC",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Doug McDermott",
+    "team": "SAC",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Drew Eubanks",
+    "team": "SAC",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Blake Wesley",
+    "team": "POR",
+    "salary_2025_26": 5643732,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Cole Anthony",
+    "team": "PHO",
+    "salary_2025_26": 5996274,
+    "salary_2026_27": 3700000,
+    "salary_2027_28": 3700000,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Amir Coffey",
+    "team": "PHO",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Collin Gillespie",
+    "team": "PHO",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kyle Lowry",
+    "team": "PHI",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Mason Plumlee",
+    "team": "OKC",
+    "salary_2025_26": 3022108,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Landry Shamet",
+    "team": "NYK",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jordan Clarkson",
+    "team": "NYK",
+    "salary_2025_26": 12947835,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Bones Hyland",
+    "team": "MIN",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Joe Ingles",
+    "team": "MIN",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Chris Livingston",
+    "team": "MIL",
+    "salary_2025_26": null,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Thanasis Antetokounmpo",
+    "team": "MIL",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Eric Gordon",
+    "team": "MEM",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Josh Okogie",
+    "team": "HOU",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jeff Green",
+    "team": "HOU",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Aaron Holiday",
+    "team": "HOU",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jae'Sean Tate",
+    "team": "HOU",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Gary Payton II",
+    "team": "GSW",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Javonte Green",
+    "team": "DET",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tim Hardaway Jr.",
+    "team": "DEN",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Bruce Brown",
+    "team": "DEN",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Marvin Bagley III",
+    "team": "DAL",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Thomas Bryant",
+    "team": "CLE",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Larry Nance Jr.",
+    "team": "CLE",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Keaton Wallace",
+    "team": "ATL",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jock Landale",
+    "team": "ATL",
+    "salary_2025_26": 2296274,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Scotty Pippen Jr.",
+    "team": "MEM",
+    "salary_2025_26": 2270735,
+    "salary_2026_27": 2461462,
+    "salary_2027_28": 2789215,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "JD Davison",
+    "team": "BOS",
+    "salary_2025_26": 2270735,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Brandon Williams",
+    "team": "DAL",
+    "salary_2025_26": 2270735,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Moussa Diabaté",
+    "team": "CHO",
+    "salary_2025_26": 2270735,
+    "salary_2026_27": 2461462,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "DeAndre Jordan",
+    "team": "NOP",
+    "salary_2025_26": 2269880,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Toumani Camara",
+    "team": "POR",
+    "salary_2025_26": 2221677,
+    "salary_2026_27": 18080358,
+    "salary_2027_28": 19526786,
+    "salary_2028_29": 20973214,
+    "salary_2029_30": 22419642,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Gui Santos",
+    "team": "GSW",
+    "salary_2025_26": 2221677,
+    "salary_2026_27": 4629630,
+    "salary_2027_28": 5000000,
+    "salary_2028_29": 5370370,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Rayan Rupert",
+    "team": "POR",
+    "salary_2025_26": 2353647,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Julian Phillips",
+    "team": "MIN",
+    "salary_2025_26": 2221677,
+    "salary_2026_27": 2406205,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "GG Jackson II",
+    "team": "MEM",
+    "salary_2025_26": 2221677,
+    "salary_2026_27": 2406205,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jalen Pickett",
+    "team": "DEN",
+    "salary_2025_26": 2221677,
+    "salary_2026_27": 2406205,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Hunter Tyson",
+    "team": "BRK",
+    "salary_2025_26": 2221677,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jalen Wilson",
+    "team": "BRK",
+    "salary_2025_26": 2221677,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jordan Walsh",
+    "team": "BOS",
+    "salary_2025_26": 2221677,
+    "salary_2026_27": 2406205,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Trayce Jackson-Davis",
+    "team": "TOR",
+    "salary_2025_26": 2221677,
+    "salary_2026_27": 2406205,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Andre Jackson Jr.",
+    "team": "MIL",
+    "salary_2025_26": 2221677,
+    "salary_2026_27": 2406205,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Craig Porter Jr.",
+    "team": "CLE",
+    "salary_2025_26": 2221677,
+    "salary_2026_27": 2406205,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Leonard Miller",
+    "team": "CHI",
+    "salary_2025_26": 2221677,
+    "salary_2026_27": 2406205,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Duop Reath",
+    "team": "ATL",
+    "salary_2025_26": 2221677,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Mouhamed Gueye",
+    "team": "ATL",
+    "salary_2025_26": 2221677,
+    "salary_2026_27": 2406205,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "JaVale McGee",
+    "team": "DAL",
+    "salary_2025_26": 2208856,
+    "salary_2026_27": 2208856,
+    "salary_2027_28": 2208856,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tyler Kolek",
+    "team": "NYK",
+    "salary_2025_26": 2191897,
+    "salary_2026_27": 2296271,
+    "salary_2027_28": 2486995,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jaylen Clark",
+    "team": "MIN",
+    "salary_2025_26": 2191897,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tyrese Martin",
+    "team": "BRK",
+    "salary_2025_26": 2191897,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Precious Achiuwa",
+    "team": "SAC",
+    "salary_2025_26": 2111516,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Justin Edwards",
+    "team": "PHI",
+    "salary_2025_26": 2048494,
+    "salary_2026_27": 2411090,
+    "salary_2027_28": 2616754,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Nigel Hayes-Davis",
+    "team": "MIL",
+    "salary_2025_26": 2048494,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "N'Faly Dante",
+    "team": "ATL",
+    "salary_2025_26": 2048494,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Johnny Furphy",
+    "team": "IND",
+    "salary_2025_26": 1955377,
+    "salary_2026_27": 2296271,
+    "salary_2027_28": 2486995,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jonathan Mogbo",
+    "team": "TOR",
+    "salary_2025_26": 1955377,
+    "salary_2026_27": 2296271,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jamal Shead",
+    "team": "TOR",
+    "salary_2025_26": 1955377,
+    "salary_2026_27": 2296271,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Oso Ighodaro",
+    "team": "PHO",
+    "salary_2025_26": 1955377,
+    "salary_2026_27": 2296271,
+    "salary_2027_28": 2486995,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ariel Hukporti",
+    "team": "NYK",
+    "salary_2025_26": 1955377,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Karlo Matković",
+    "team": "NOP",
+    "salary_2025_26": 1955377,
+    "salary_2026_27": 2296271,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tyler Smith",
+    "team": "MIL",
+    "salary_2025_26": 1955377,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Keshad Johnson",
+    "team": "MIA",
+    "salary_2025_26": 1955377,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jaylen Wells",
+    "team": "MEM",
+    "salary_2025_26": 1955377,
+    "salary_2026_27": 2296271,
+    "salary_2027_28": 2486995,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Bronny James",
+    "team": "LAL",
+    "salary_2025_26": 1955377,
+    "salary_2026_27": 2296271,
+    "salary_2027_28": 2486995,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Cam Christie",
+    "team": "LAC",
+    "salary_2025_26": 1955377,
+    "salary_2026_27": 2296271,
+    "salary_2027_28": 2486995,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Quinten Post",
+    "team": "GSW",
+    "salary_2025_26": 1955377,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Bobi Klintman",
+    "team": "DET",
+    "salary_2025_26": 1955377,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Isaac Jones",
+    "team": "DET",
+    "salary_2025_26": 1955377,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Drew Timme",
+    "team": "BRK",
+    "salary_2025_26": 1955377,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jamison Battle",
+    "team": "TOR",
+    "salary_2025_26": 1955377,
+    "salary_2026_27": 2296271,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Adem Bona",
+    "team": "PHI",
+    "salary_2025_26": 1955377,
+    "salary_2026_27": 2296271,
+    "salary_2027_28": 2486995,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Pelle Larsson",
+    "team": "MIA",
+    "salary_2025_26": 1955377,
+    "salary_2026_27": 2296271,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Seth Curry",
+    "team": "GSW",
+    "salary_2025_26": 1755198,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Micah Potter",
+    "team": "IND",
+    "salary_2025_26": 1527805,
+    "salary_2026_27": 2801346,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Chaz Lanier",
+    "team": "DET",
+    "salary_2025_26": 1372870,
+    "salary_2026_27": 2150917,
+    "salary_2027_28": 2525901,
+    "salary_2028_29": 2735698,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Pat Connaughton",
+    "team": "CHO",
+    "salary_2025_26": 10739683,
+    "salary_2026_27": 3815861,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Rasheer Fleming",
+    "team": "PHO",
+    "salary_2025_26": 1272870,
+    "salary_2026_27": 2150917,
+    "salary_2027_28": 2525901,
+    "salary_2028_29": 2735698,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Maxime Raynaud",
+    "team": "SAC",
+    "salary_2025_26": 1272870,
+    "salary_2026_27": 2150917,
+    "salary_2027_28": 2525901,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Johni Broome",
+    "team": "PHI",
+    "salary_2025_26": 1272870,
+    "salary_2026_27": 2150917,
+    "salary_2027_28": 2525901,
+    "salary_2028_29": 2735698,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Noah Penda",
+    "team": "ORL",
+    "salary_2025_26": 1272870,
+    "salary_2026_27": 2150917,
+    "salary_2027_28": 2525901,
+    "salary_2028_29": 2735698,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Micah Peavy",
+    "team": "NOP",
+    "salary_2025_26": 1272870,
+    "salary_2026_27": 2150917,
+    "salary_2027_28": 2525901,
+    "salary_2028_29": 2735698,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Adou Thiero",
+    "team": "LAL",
+    "salary_2025_26": 1272870,
+    "salary_2026_27": 2150917,
+    "salary_2027_28": 2525901,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Will Richard",
+    "team": "GSW",
+    "salary_2025_26": 1272870,
+    "salary_2026_27": 2150917,
+    "salary_2027_28": 2525901,
+    "salary_2028_29": 2735698,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tyrese Proctor",
+    "team": "CLE",
+    "salary_2025_26": 1272870,
+    "salary_2026_27": 2150917,
+    "salary_2027_28": 2525901,
+    "salary_2028_29": 2735698,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Mohamed Diawara",
+    "team": "NYK",
+    "salary_2025_26": 1272870,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kam Jones",
+    "team": "IND",
+    "salary_2025_26": 1272870,
+    "salary_2026_27": 2150917,
+    "salary_2027_28": 2525901,
+    "salary_2028_29": 2735698,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Nikola Djurisic",
+    "team": "ATL",
+    "salary_2025_26": 1272870,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Olivier-Maxence Prosper",
+    "team": "DAL",
+    "salary_2025_26": 1002360,
+    "salary_2026_27": 1002360,
+    "salary_2027_28": 1002360,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "James Wiseman",
+    "team": "IND",
+    "salary_2025_26": 1131970,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jevon Carter",
+    "team": "ORL",
+    "salary_2025_26": 7680524,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Pat Spencer",
+    "team": "GSW",
+    "salary_2025_26": 857804,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kobe Bufkin",
+    "team": "LAL",
+    "salary_2025_26": 5480297,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Cam Thomas",
+    "team": "MIL",
+    "salary_2025_26": 6837779,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Haywood Highsmith",
+    "team": "PHO",
+    "salary_2025_26": 6443984,
+    "salary_2026_27": 3018158,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jeremy Sochan",
+    "team": "NYK",
+    "salary_2025_26": 7874853,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Mike Conley",
+    "team": "MIN",
+    "salary_2025_26": 11499872,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Bryce McGowens",
+    "team": "NOP",
+    "salary_2025_26": 724598,
+    "salary_2026_27": 2584539,
+    "salary_2027_28": 2934742,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jabari Walker",
+    "team": "PHI",
+    "salary_2025_26": 724598,
+    "salary_2026_27": 2584539,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Nae'Qwan Tomlin",
+    "team": "CLE",
+    "salary_2025_26": 718150,
+    "salary_2026_27": 2411090,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jordan Miller",
+    "team": "LAC",
+    "salary_2025_26": 712637,
+    "salary_2026_27": 2497812,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Cameron Payne",
+    "team": "PHI",
+    "salary_2025_26": 712637,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "E.J. Liddell",
+    "team": "PHO",
+    "salary_2025_26": 706898,
+    "salary_2026_27": 706898,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Caleb Houstan",
+    "team": "ATL",
+    "salary_2025_26": 699440,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Sidy Cissoko",
+    "team": "POR",
+    "salary_2025_26": 686243,
+    "salary_2026_27": 2497812,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Vasilije Micić",
+    "team": "MIL",
+    "salary_2025_26": 666667,
+    "salary_2026_27": 666667,
+    "salary_2027_28": 666667,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Spencer Jones",
+    "team": "DEN",
+    "salary_2025_26": 623967,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Mason Plumlee",
+    "team": "SAS",
+    "salary_2025_26": 3022108,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Amari Williams",
+    "team": "BOS",
+    "salary_2025_26": 490128,
+    "salary_2026_27": 2150917,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kobe Sanders",
+    "team": "LAC",
+    "salary_2025_26": 475497,
+    "salary_2026_27": 2150917,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Mamadi Diakite",
+    "team": "MEM",
+    "salary_2025_26": 464050,
+    "salary_2026_27": 464050,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Ricky Rubio",
+    "team": "CLE",
+    "salary_2025_26": 424672,
+    "salary_2026_27": 424672,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Myron Gardner",
+    "team": "MIA",
+    "salary_2025_26": 395029,
+    "salary_2026_27": 2150917,
+    "salary_2027_28": 2525901,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jeremiah Robinson-Earl",
+    "team": "IND",
+    "salary_2025_26": 131970,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Monte Morris",
+    "team": "IND",
+    "salary_2025_26": 321184,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Garrison Mathews",
+    "team": "IND",
+    "salary_2025_26": 429325,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Didi Louzada",
+    "team": "POR",
+    "salary_2025_26": 268032,
+    "salary_2026_27": 268032,
+    "salary_2027_28": 268032,
+    "salary_2028_29": 268032,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Mo Bamba",
+    "team": "TOR",
+    "salary_2025_26": 458711,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Mac McClung",
+    "team": "IND",
+    "salary_2025_26": 164060,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tony Bradley",
+    "team": "IND",
+    "salary_2025_26": 3204816,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tony Bradley",
+    "team": "IND",
+    "salary_2025_26": 3204816,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "James Wiseman",
+    "team": "IND",
+    "salary_2025_26": 1131970,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kobe Bufkin",
+    "team": "LAL",
+    "salary_2025_26": 5480297,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Mason Plumlee",
+    "team": "SAS",
+    "salary_2025_26": 3022108,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jeremiah Robinson-Earl",
+    "team": "IND",
+    "salary_2025_26": 131970,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jeremiah Robinson-Earl",
+    "team": "IND",
+    "salary_2025_26": 131970,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Garrison Mathews",
+    "team": "IND",
+    "salary_2025_26": 429325,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Garrison Mathews",
+    "team": "IND",
+    "salary_2025_26": 429325,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Mo Bamba",
+    "team": "UTA",
+    "salary_2025_26": 458711,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Mo Bamba",
+    "team": "UTA",
+    "salary_2025_26": 458711,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Killian Hayes",
+    "team": "SAC",
+    "salary_2025_26": 263940,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Killian Hayes",
+    "team": "SAC",
+    "salary_2025_26": 263940,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Charles Bassey",
+    "team": "PHI",
+    "salary_2025_26": 263940,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Charles Bassey",
+    "team": "PHI",
+    "salary_2025_26": 263940,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Christian Koloko",
+    "team": "MEM",
+    "salary_2025_26": 263940,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Christian Koloko",
+    "team": "MEM",
+    "salary_2025_26": 263940,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Alondes Williams",
+    "team": "WAS",
+    "salary_2025_26": 131970,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Skal Labissière",
+    "team": "WAS",
+    "salary_2025_26": 131970,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Patrick Baldwin Jr.",
+    "team": "PHI",
+    "salary_2025_26": 263940,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kobe Bufkin",
+    "team": "MEM",
+    "salary_2025_26": 5480297,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Rayan Rupert",
+    "team": "MEM",
+    "salary_2025_26": 2353647,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Charles Bassey",
+    "team": "MEM",
+    "salary_2025_26": 263940,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Dalano Banton",
+    "team": "LAC",
+    "salary_2025_26": 263940,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Patrick Baldwin Jr.",
+    "team": "LAC",
+    "salary_2025_26": 263940,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jeremiah Robinson-Earl",
+    "team": "DAL",
+    "salary_2025_26": 131970,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Dalano Banton",
+    "team": "BOS",
+    "salary_2025_26": 263940,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tre Scott",
+    "team": "BRK",
+    "salary_2025_26": 129503,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Lawson Lovering",
+    "team": "MEM",
+    "salary_2025_26": 87784,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Adama-Alpha Bal",
+    "team": "MEM",
+    "salary_2025_26": 117045,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Malachi Smith",
+    "team": "BRK",
+    "salary_2025_26": 73153,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Kadary Richmond",
+    "team": "WAS",
+    "salary_2025_26": 73153,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Keshon Gilbert",
+    "team": "WAS",
+    "salary_2025_26": 73153,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Gabe McGlothan",
+    "team": "IND",
+    "salary_2025_26": 73153,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Grant Nelson",
+    "team": "BRK",
+    "salary_2025_26": 73153,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "John Tonje",
+    "team": "BOS",
+    "salary_2025_26": 73153,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Jaden Springer",
+    "team": "NOP",
+    "salary_2025_26": 70732,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tre Scott",
+    "team": "BRK",
+    "salary_2025_26": 129503,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Adama-Alpha Bal",
+    "team": "MEM",
+    "salary_2025_26": 117045,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Malachi Smith",
+    "team": "BRK",
+    "salary_2025_26": 73153,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Lucas Williamson",
+    "team": "MEM",
+    "salary_2025_26": 21946,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  },
+  {
+    "player": "Tre Scott",
+    "team": "BRK",
+    "salary_2025_26": 129503,
+    "salary_2026_27": null,
+    "salary_2027_28": null,
+    "salary_2028_29": null,
+    "salary_2029_30": null,
+    "source": "Basketball Reference"
+  }
+]
