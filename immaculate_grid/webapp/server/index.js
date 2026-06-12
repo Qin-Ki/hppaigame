@@ -257,6 +257,11 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', players: SL.length });
 });
 
+// API: 返回全部数据（客户端加载用，完全复原 index.html 行为）
+app.get('/api/data/all', (req, res) => {
+  res.json({ TD, TL, SL, PD, CN, RR, SB, PB });
+});
+
 // ─── 启动 ───
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
