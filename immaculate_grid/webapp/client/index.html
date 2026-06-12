@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Immaculate Grid</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Start Screen -->
+  <div class="start-screen" id="startScreen">
+    <div class="title-icon">🏀</div>
+    <h1>Immaculate Grid</h1>
+    <p class="subtitle">NBA 知识挑战</p>
+    <p class="desc">在3×3的网格中，填入同时满足行和列条件的NBA球员。考验你的NBA知识！</p>
+    <button class="start-btn" onclick="document.getElementById('startScreen').classList.add('hidden'); window._appInit(true);">▶ 开始游戏</button>
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-num" id="statPlayers">—</div>
+        <div class="stat-label">球员库</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <h1 class="header-title">🏀 梦幻九宫格</h1>
+      <div class="header-actions">
+        <button class="btn-icon" id="btnRules" title="规则">?</button>
+        <button class="btn-icon" id="btnNewGame" title="新游戏">↻</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mode Selector -->
+  <div class="mode-selector">
+    <button class="mode-btn active" data-mode="today">今日</button>
+    <button class="mode-btn" data-mode="random">随机</button>
+  </div>
+
+  <!-- Main Game -->
+  <main class="game-container" id="gameContainer">
+    <div class="game-loading" id="gameLoading">
+      <div class="spinner"></div>
+      <p>加载中...</p>
+    </div>
+    <div class="game-error hidden" id="gameError">
+      <p>加载失败，请检查服务器是否运行</p>
+      <button class="btn-primary" onclick="location.reload()">重试</button>
+    </div>
+    <div class="game-board hidden" id="gameBoard">
+      <div class="grid-wrapper" id="grid"></div>
+      <div class="guesses-bar">已使用: <span id="guesses">0/9</span></div>
+    </div>
+  </main>
+
+  <!-- Search Modal -->
+  <div class="modal-overlay hidden" id="searchModal">
+    <div class="search-modal">
+      <div class="search-header">
+        <input type="text" id="searchInput" placeholder="输入球员名..." autocomplete="off">
+        <button class="search-close" id="searchClose">✕</button>
+      </div>
+      <div id="searchResults"></div>
+    </div>
+  </div>
+
+  <!-- Results Overlay -->
+  <div class="results-overlay" id="resultsOverlay">
+    <div class="results-poster">
+      <div class="poster-score" id="posterScore"></div>
+      <img class="poster-preview" id="posterPreviewImg" alt="海报">
+      <div class="poster-actions">
+        <button class="btn btn-poster btn-share" id="btnPostShare">📤 一键发帖</button>
+        <button class="btn btn-poster btn-share jrs-btn" id="btnViewOther">👥 查看其他JRs的结果</button>
+        <button class="btn poster-close" id="btnCloseResults">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rules Modal -->
+  <div class="modal-overlay hidden" id="rulesModal">
+    <div class="rules-modal">
+      <h2>🎯 规则</h2>
+      <div class="rule-section">
+        <h3>目标</h3>
+        <p>在3×3网格中填入同时满足行和列条件的NBA球员。</p>
+      </div>
+      <div class="rule-section">
+        <h3>操作</h3>
+        <ol>
+          <li>点击空格搜索球员</li>
+          <li>每个格子有1次猜测机会</li>
+          <li>每位球员只能使用一次</li>
+        </ol>
+      </div>
+      <div class="rule-section">
+        <h3>计分</h3>
+        <p>稀有度 = 其他玩家选择同一答案的百分比，越低越好。</p>
+      </div>
+      <button class="rules-close" onclick="UI.closeRules()">知道了</button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast hidden" id="toast"></div>
+
+  <!-- Canvas for poster -->
+  <canvas id="posterCanvas"></canvas>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/poster.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
