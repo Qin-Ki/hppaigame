@@ -1,0 +1,2003 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+<title>本世纪FMVP含金量金字塔排行 🏆</title>
+<script src="https://gosspublic.alicdn.com/aliyun-oss-sdk-6.17.1.min.js"></script>
+<script src="https://activity-static.hoopchina.com.cn/colorbox-activities/js/kaleido-fed-sdk.js"></script>
+<style>
+  :root {
+    --item-size: 82px;
+    --item-height: 112px;
+    --font-size-text: 11px;
+    --gold: #FFD700;
+    --gold-light: #FFE55C;
+    --gold-dark: #B8860B;
+    --champagne: #F7E7CE;
+    --crimson: #8B0000;
+    --bg-warm: #5a3020;
+    --bg-deep: #3a1e12;
+    --trophy-glow: rgba(255, 215, 0, 0.5);
+  }
+
+  @media (max-width: 640px) {
+    :root {
+      --item-size: 64px;
+      --item-height: 98px;
+      --font-size-text: 10px;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg-deep);
+    color: var(--champagne);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  #app { width: 100%; }
+
+  /* ===== 首页 ===== */
+  .home-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background-image: url('https://i1.hoopchina.com.cn/newsPost/714cdf3ae0b2836623b5ab170670e9ec_w_848_h_1264_.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .home-screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(circle at 20% 0%, rgba(255, 215, 0, 0.15), transparent 40%),
+      radial-gradient(circle at 80% 10%, rgba(255, 165, 0, 0.10), transparent 35%),
+      linear-gradient(180deg, rgba(90, 48, 32, 0.6) 0%, rgba(58, 30, 18, 0.8) 60%, rgba(42, 20, 16, 0.95));
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .home-screen .home-inner {
+    position: relative;
+    z-index: 2;
+  }
+
+
+
+  .home-inner {
+    width: 100%;
+    max-width: 500px;
+    padding: 30px 16px;
+    border-radius: 28px;
+  }
+
+  .home-title {
+    font-size: clamp(28px, 8vw, 42px);
+    font-weight: 1000;
+    line-height: 1.15;
+    margin: 0 0 8px 0;
+    letter-spacing: -.02em;
+    background: linear-gradient(135deg, #FFD700 0%, #FFE55C 40%, #FFA500 70%, #FFD700 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 4px 18px rgba(255, 215, 0, 0.4));
+  }
+
+  .home-subtitle {
+    color: #a09080;
+    font-size: 14px;
+    margin: 12px 0 28px 0;
+    line-height: 1.6;
+  }
+
+  .home-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    border: none;
+    border-radius: 999px;
+    padding: 14px 36px;
+    color: #1a0f0a;
+    font-size: 17px;
+    font-weight: 1000;
+    cursor: pointer;
+    background: linear-gradient(135deg, #FFD700, #FFA500 50%, #FF8C00);
+    box-shadow: 0 12px 32px rgba(255, 215, 0, 0.35), 0 0 20px rgba(255, 215, 0, 0.15);
+    text-decoration: none;
+    letter-spacing: .02em;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .home-btn:active { transform: scale(.97); }
+
+  .home-note {
+    margin-top: 18px;
+    color: #5a4a3a;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  /* ===== 结果页 ===== */
+  .final-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    text-align: center;
+    background:
+      radial-gradient(circle at 20% 0%, rgba(255, 215, 0, 0.15), transparent 40%),
+      radial-gradient(circle at 80% 10%, rgba(255, 165, 0, 0.10), transparent 35%),
+      linear-gradient(180deg, rgba(90, 48, 32, 0.85) 0%, rgba(58, 30, 18, 0.9) 60%, rgba(42, 20, 16, 0.95));
+    --final-item-size: clamp(64px, 10.5vw, 96px);
+    --final-item-height: calc(var(--final-item-size) + 30px);
+  }
+
+  .final-pyramid-area {
+    width: 100%;
+    max-width: 900px;
+    height: 72vh;
+    min-height: 500px;
+    margin: 0 auto;
+    padding: 16px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .final-pyramid-header {
+    text-align: center;
+    height: 64px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .final-pyramid-header h2 {
+    font-size: clamp(24px, 4.8vw, 34px);
+    font-weight: 900;
+    margin: 0;
+    transform: translateY(16px);
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .final-pyramid-stage {
+    position: relative;
+    width: min(100vw, 860px, calc((72vh - 82px) * 1.12));
+    height: min(calc(72vh - 104px), calc(100vw * 1.18), 720px);
+    margin: auto auto;
+  }
+  .final-pyramid-stage::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 80%;
+    background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.06) 0%, rgba(255, 165, 0, 0.03) 40%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .final-pyramid-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .final-pyramid-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    opacity: 0.4;
+    filter: blur(0.25px);
+    border-radius: 8px;
+  }
+
+  .final-triangle-skeleton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .final-triangle-skeleton svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+  }
+
+  .final-slot {
+    position: absolute;
+    width: var(--final-item-size);
+    height: var(--final-item-height);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .final-slot .item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: var(--final-item-size);
+    height: var(--final-item-height);
+  }
+  .final-slot .item-avatar {
+    width: var(--final-item-size);
+    height: var(--final-item-size);
+  }
+  .final-slot .item-text {
+    font-size: clamp(10px, 1.7vw, 13px);
+  }
+  .final-slot .slot-circle-backer {
+    width: var(--final-item-size);
+    height: var(--final-item-size);
+    border-radius: 50%;
+    border: 2px solid rgba(255, 215, 0, 0.45);
+    background: var(--bg-deep);
+    box-shadow: inset 0 0 8px rgba(255, 215, 0, 0.15);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  .final-screen .s-r1-c1 { top: 13%; margin-left: 0; }
+  .final-screen .s-r2-c1 { top: 36.5%; margin-left: -11.8%; }
+  .final-screen .s-r2-c2 { top: 36.5%; margin-left: 11.8%; }
+  .final-screen .s-r3-c1 { top: 60%; margin-left: -23.6%; }
+  .final-screen .s-r3-c2 { top: 60%; margin-left: 0; }
+  .final-screen .s-r3-c3 { top: 60%; margin-left: 23.6%; }
+  .final-screen .s-r4-c1 { top: 83.5%; margin-left: -35.4%; }
+  .final-screen .s-r4-c2 { top: 83.5%; margin-left: -11.8%; }
+  .final-screen .s-r4-c3 { top: 83.5%; margin-left: 11.8%; }
+  .final-screen .s-r4-c4 { top: 83.5%; margin-left: 35.4%; }
+
+  @media (max-width: 640px) {
+    .final-screen {
+      --final-item-size: clamp(60px, 15.8vw, 76px);
+      --final-item-height: calc(var(--final-item-size) + 26px);
+    }
+    .final-pyramid-area {
+      height: 72vh;
+      min-height: 0;
+      padding-top: 12px;
+    }
+    .final-pyramid-header {
+      height: 60px;
+      margin-bottom: 12px;
+    }
+    .final-pyramid-stage {
+      width: 100vw;
+      height: min(calc(72vh - 108px), calc(100vw * 1.2));
+      margin: auto auto;
+    }
+  }
+
+  .final-result-area {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 20px 20px;
+  }
+
+  .final-panel {
+    width: 100%;
+    padding: 28px 20px;
+    border-radius: 28px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    background: linear-gradient(145deg, rgba(255, 215, 0, 0.10), rgba(255, 165, 0, 0.06)), rgba(40, 22, 14, 0.95);
+    box-shadow: 0 22px 56px rgba(0,0,0,0.5);
+  }
+
+  .final-result {
+    font-size: clamp(18px, 5vw, 24px);
+    font-weight: 1000;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .final-btns { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+  .final-btns a, .final-btns button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    border-radius: 999px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 1000;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: transform .15s;
+  }
+  .final-btns a:active, .final-btns button:active { transform: scale(.97); }
+  .btn-gold { color: #1a0f0a; background: linear-gradient(135deg, #FFD700, #FFA500); box-shadow: 0 8px 20px rgba(255, 215, 0, 0.35); }
+  .btn-gray { color: var(--champagne); background: linear-gradient(135deg, #3a2a1a, #2a1a0a); border: 1px solid rgba(255, 215, 0, 0.15); }
+
+  /* ===== 游戏页 ===== */
+  .game-screen { width: 100%; max-width: 680px; margin: 0 auto; padding: 16px 8px 40px 8px; }
+  .game-header { text-align: center; margin-bottom: 16px; }
+  .game-header h2 {
+    font-size: 24px;
+    font-weight: 900;
+    margin: 0 0 5px 0;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .subtitle { color: #6a5a4a; font-size: 11px; text-align: center; letter-spacing: 2px; }
+
+  .pyramid-stage {
+    position: relative;
+    width: 540px;
+    height: 460px;
+    margin: 0 auto;
+  }
+  .pyramid-stage::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 80%;
+    background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.06) 0%, rgba(255, 165, 0, 0.03) 40%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  @media (max-width: 640px) { .pyramid-stage { width: 400px; height: 400px; } }
+
+  .pyramid-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .pyramid-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    opacity: 0.25;
+    filter: blur(0.5px);
+    border-radius: 8px;
+  }
+
+  .triangle-skeleton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .triangle-skeleton svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+  }
+
+  .slot {
+    position: absolute;
+    width: var(--item-size);
+    height: var(--item-height);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    z-index: 1;
+  }
+  .slot .item { position: absolute; top: 0; left: 0; z-index: 2; }
+  .slot .slot-circle-backer {
+    width: var(--item-size);
+    height: var(--item-size);
+    border-radius: 50%;
+    border: 2px solid rgba(255, 215, 0, 0.4);
+    background: var(--bg-deep);
+    box-shadow: inset 0 0 8px rgba(255, 215, 0, 0.1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transition: all 0.15s ease-out;
+  }
+  .slot.drag-over .slot-circle-backer {
+    border-color: #FFD700;
+    background: rgba(255, 215, 0, 0.12);
+    box-shadow: 0 0 20px var(--trophy-glow), inset 0 0 10px var(--trophy-glow);
+  }
+  body.is-touch-dragging .slot.drag-over .slot-circle-backer {
+    border-color: #FFD700;
+    background: rgba(255, 215, 0, 0.15);
+    box-shadow: inset 0 0 0 2px rgba(255, 215, 0, 0.35);
+  }
+
+  .s-r1-c1 { top: 12.5%; margin-left: 0; }
+  .s-r2-c1 { top: 38%; margin-left: -53px; }
+  .s-r2-c2 { top: 38%; margin-left: 53px; }
+  .s-r3-c1 { top: 63.5%; margin-left: -108px; }
+  .s-r3-c2 { top: 63.5%; margin-left: 0; }
+  .s-r3-c3 { top: 63.5%; margin-left: 108px; }
+  .s-r4-c1 { top: 89%; margin-left: -163px; }
+  .s-r4-c2 { top: 89%; margin-left: -54px; }
+  .s-r4-c3 { top: 89%; margin-left: 54px; }
+  .s-r4-c4 { top: 89%; margin-left: 163px; }
+
+  @media (max-width: 640px) {
+    .s-r2-c1 { margin-left: -35px; }
+    .s-r2-c2 { margin-left: 35px; }
+    .s-r3-c1 { margin-left: -72px; }
+    .s-r3-c3 { margin-left: 72px; }
+    .s-r4-c1 { margin-left: -109px; }
+    .s-r4-c2 { margin-left: -36px; }
+    .s-r4-c3 { margin-left: 36px; }
+    .s-r4-c4 { margin-left: 109px; }
+  }
+
+  .pool-container {
+    width: 100%;
+    max-width: 440px;
+    margin: 36px auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    z-index: 10;
+  }
+  @media (max-width: 640px) { .pool-container { max-width: 360px; margin-top: 6px; } }
+
+  .pool-title {
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #6a5a4a;
+    margin-bottom: 10px;
+  }
+
+  .options-box {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, var(--item-height));
+    justify-items: center;
+    align-items: center;
+    gap: 10px 6px;
+    width: 100%;
+    padding: 14px 8px;
+    border-radius: 16px;
+    background: rgba(40, 22, 14, 0.85);
+    border: 1.5px solid rgba(255, 215, 0, 0.12);
+    box-sizing: border-box;
+  }
+  @media (max-width: 640px) { .options-box { gap: 8px 4px; padding: 10px 4px; } }
+
+  .pool-grid-slot {
+    width: var(--item-size);
+    height: var(--item-height);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .pool-grid-backer {
+    width: var(--item-size);
+    height: var(--item-size);
+    border-radius: 50%;
+    border: 1px dashed rgba(255, 255, 255, 0.06);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  .pool-grid-slot .item { position: absolute; top: 0; left: 0; z-index: 2; }
+
+  .item {
+    width: var(--item-size);
+    height: var(--item-height);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: grab;
+    user-select: none;
+    box-sizing: border-box;
+    touch-action: none;
+  }
+  .item-avatar {
+    width: var(--item-size);
+    height: var(--item-size);
+    border-radius: 50%;
+    background: #0a0605;
+    border: 2px solid rgba(255, 215, 0, 0.55);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+    overflow: hidden;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 900;
+    color: rgba(255, 215, 0, 0.3);
+    position: relative;
+  }
+  .item:hover .item-avatar { border-color: #FFD700; box-shadow: 0 0 15px var(--trophy-glow); }
+  .item-text {
+    margin-top: 4px;
+    font-size: var(--font-size-text);
+    font-weight: 700;
+    color: #a09080;
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.3s;
+  }
+
+  @keyframes slotFlash {
+    0% { border-color: rgba(255,215,0,0.4); box-shadow: inset 0 0 6px rgba(255,215,0,0.1); }
+    15% { border-color: #FFD700; box-shadow: 0 0 25px rgba(255,215,0,0.5), inset 0 0 10px rgba(255,215,0,0.2); }
+    35% { border-color: rgba(255,215,0,0.4); box-shadow: inset 0 0 6px rgba(255,215,0,0.1); }
+    55% { border-color: #FFD700; box-shadow: 0 0 30px rgba(255,215,0,0.6), inset 0 0 12px rgba(255,215,0,0.25); }
+    100% { border-color: rgba(255,215,0,0.4); box-shadow: inset 0 0 6px rgba(255,215,0,0.1); }
+  }
+  .slot-circle-backer.flash-active { animation: slotFlash 0.75s ease-out forwards; }
+  @keyframes avatarFlash {
+    0% { filter: brightness(1); }
+    15% { filter: brightness(1.5); }
+    35% { filter: brightness(1); }
+    55% { filter: brightness(1.8); }
+    100% { filter: brightness(1); }
+  }
+  .item.flash-active .item-avatar { animation: avatarFlash 0.75s ease-out forwards; }
+  .item.selected { opacity: 1; }
+  .item.selected .item-avatar {
+    border-color: #FFD700;
+    box-shadow: 0 0 20px var(--trophy-glow), 0 0 40px rgba(255, 215, 0, 0.3);
+  }
+  .item.dragging { opacity: 0.18; }
+
+  .touch-ghost {
+    position: fixed !important;
+    z-index: 9999 !important;
+    pointer-events: none !important;
+    opacity: 0.94;
+    transform: translate3d(0, 0, 0) scale(1.05);
+    filter: none !important;
+    will-change: transform;
+    contain: strict;
+    left: 0 !important;
+    top: 0 !important;
+    transition: none !important;
+  }
+  .touch-ghost .item-text { display: none !important; }
+  .touch-ghost.item-avatar,
+  .touch-ghost .item-avatar {
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.65) !important;
+    transition: none !important;
+  }
+  .touch-ghost.item-avatar img,
+  .touch-ghost .item-avatar img { transform: translateZ(0); }
+
+  .slot.clickable { cursor: pointer; }
+  .slot.clickable .slot-circle-backer {
+    border-color: #FFD700;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4), inset 0 0 8px rgba(255, 215, 0, 0.15);
+    animation: slotPulse 1.2s ease-in-out infinite;
+  }
+  @keyframes slotPulse {
+    0%, 100% { box-shadow: 0 0 15px rgba(255,215,0,0.4), inset 0 0 8px rgba(255,215,0,0.15); }
+    50% { box-shadow: 0 0 25px rgba(255,215,0,0.6), inset 0 0 12px rgba(255,215,0,0.25); }
+  }
+
+  .item-avatar img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    display: block;
+  }
+  .item-avatar .initials-fallback {
+    font-size: 24px;
+    font-weight: 900;
+    color: rgba(255, 215, 0, 0.4);
+    line-height: 1;
+  }
+
+  @keyframes goldPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+  @keyframes flowGlow { 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -40; } }
+  .gold-pulse { animation: goldPulse 3s ease-in-out infinite; }
+  .gold-flow { animation: flowGlow 1.5s linear infinite; }
+
+  body.is-touch-dragging .gold-pulse,
+  body.is-touch-dragging .gold-flow,
+  body.is-touch-dragging .slot.clickable .slot-circle-backer {
+    animation: none !important;
+  }
+  @media (prefers-reduced-motion: reduce) { .gold-pulse, .gold-flow { animation: none; } }
+
+  .float-toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(139, 0, 0, 0.92);
+    color: var(--champagne);
+    font-size: 15px;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(139, 0, 0, 0.5);
+    z-index: 99999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-align: center;
+  }
+  .float-toast.show { opacity: 1; }
+
+  /* ===== 长按弹窗 ===== */
+  .player-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.75);
+    z-index: 99998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+  }
+  .player-modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .player-modal {
+    width: 88%;
+    max-width: 380px;
+    max-height: 85vh;
+    overflow-y: auto;
+    background: linear-gradient(160deg, #5a3020 0%, #3a1e12 100%);
+    border: 2px solid rgba(255, 215, 0, 0.5);
+    border-radius: 24px;
+    padding: 28px 24px 24px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.7), 0 0 40px rgba(255, 215, 0, 0.1);
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.25s ease;
+  }
+  .player-modal-overlay.active .player-modal {
+    transform: scale(1);
+  }
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: rgba(255, 215, 0, 0.5);
+    font-size: 28px;
+    cursor: pointer;
+    padding: 4px 8px;
+    line-height: 1;
+    transition: color 0.2s;
+    z-index: 1;
+  }
+  .modal-close:hover { color: #FFD700; }
+  .modal-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 3px solid #FFD700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    margin: 0 auto 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0a0605;
+    position: relative;
+  }
+  .modal-avatar img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .modal-avatar .initials-fallback {
+    font-size: 36px;
+    font-weight: 900;
+    color: rgba(255, 215, 0, 0.4);
+  }
+  .modal-title {
+    font-size: 15px;
+    font-weight: 900;
+    color: #FFA500;
+    text-align: center;
+    margin: 4px 0 4px;
+    letter-spacing: 1px;
+  }
+  .modal-name {
+    font-size: 22px;
+    font-weight: 900;
+    color: #FFD700;
+    text-align: center;
+    margin: 0 0 2px;
+  }
+  .modal-year-team {
+    font-size: 14px;
+    color: #a09080;
+    text-align: center;
+    margin: 0 0 16px;
+  }
+  .modal-stats {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 16px;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255, 215, 0, 0.15);
+    border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+    flex-wrap: wrap;
+  }
+  .modal-stat {
+    text-align: center;
+  }
+  .modal-stat-value {
+    font-size: 20px;
+    font-weight: 900;
+    color: #FFD700;
+  }
+  .modal-stat-label {
+    font-size: 11px;
+    color: #6a5a4a;
+    margin-top: 2px;
+    font-weight: 700;
+  }
+  .modal-story {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #c0b0a0;
+    text-align: center;
+  }
+  .modal-fmvp-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #1a0f0a;
+    font-size: 11px;
+    font-weight: 900;
+    padding: 3px 12px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  .modal-body {
+    text-align: center;
+  }
+
+  /* ====== 海报弹窗样式 ====== */
+  #posterOverlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,.92);
+    z-index: 99999; display: none; flex-direction: column;
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  #posterOverlay.active { display: flex; }
+  #posterOverlay img {
+    max-width: 100%; max-height: 75vh; border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+  .poster-actions {
+    display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;
+    justify-content: center;
+  }
+  .btn-poster {
+    background: linear-gradient(135deg,#7c3aed,#a855f7); color: #fff;
+    border-radius: 50px; border: none;
+  }
+  .btn-share {
+    min-height: 44px; padding: 12px 24px;
+    font-size: 15px; font-weight: 700;
+    cursor: pointer; display: inline-flex;
+    align-items: center; justify-content: center;
+    box-shadow: 0 8px 20px rgba(124,58,237,0.35);
+    transition: transform 0.14s ease, filter 0.14s ease;
+  }
+  .btn-share:active { transform: scale(0.97); filter: brightness(0.92); }
+  .btn-share:disabled { opacity: 0.6; pointer-events: none; }
+  .poster-close {
+    min-height: 44px; padding: 12px 24px;
+    border-radius: 50px; border: none;
+    font-size: 15px; font-weight: 700;
+    cursor: pointer;
+  }
+
+  /* ====== 悬浮球 ====== */
+  #scrollBottomBtn {
+    display: none;
+    position: fixed;
+    right: 16px;
+    bottom: 25vh;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 20px;
+    line-height: 44px;
+    text-align: center;
+    z-index: 9999;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    touch-action: manipulation;
+    transition: background 0.2s ease, transform 0.15s ease;
+    backdrop-filter: blur(4px);
+  }
+  #scrollBottomBtn:active {
+    background: rgba(255, 255, 255, 0.18);
+    transform: scale(0.92);
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* ===== FMVP 数据（请填入真实数据） ===== */
+var FMVP_DATA = [
+  { id:'2001-shaq',   year:'2001', nameCN:'奥尼尔', playerName:"Shaquille O'Neal", team:'Lakers',   imgUrl:'https://i5.hoopchina.com.cn/newsPost/4fa787b20b5fa55db985135eca8a510a_w_235_h_219_.png', finalsPPG:33.0, finalsRPG:15.8, finalsAPG:4.8, title:'禁区暴君', story:'湖人季后赛15胜1负，奥尼尔场均33分15.8篮板统治内线，76人用当季DPOY穆托姆博也拦不住他。三连冠的第一块基石，一个王朝的开端。' },
+  { id:'2002-shaq',  year:'2002', nameCN:'奥尼尔', playerName:"Shaquille O'Neal", team:'Lakers',   imgUrl:'https://i5.hoopchina.com.cn/newsPost/954b70cd2657a34ad5762fff79b2cd79_w_290_h_258_.png', finalsPPG:36.3, finalsRPG:12.3, finalsAPG:3.8, title:'恐怖统治', story:'总决赛场均36.3分12.3篮板，奥尼尔完成FMVP三连庄。面对篮网弱侧内线，鲨鱼打出个人总决赛场均得分最高的一轮系列赛，乔丹后第一人。' },
+  { id:'2003-duncan', year:'2003', nameCN:'邓肯',   playerName:'Tim Duncan',       team:'Spurs',    imgUrl:'https://i1.hoopchina.com.cn/newsPost/2f8dda91a544ea64625dd49de87a4fe8_w_190_h_190_.png', finalsPPG:24.2, finalsRPG:17.0, finalsAPG:5.3, title:'准四双石佛', story:'邓肯在G6打出21分20篮板10助攻8盖帽的准四双，距总决赛四双仅差2帽。马刺淘汰三连冠湖人，单核击败篮网，用冠军送别退役的「海军上将」罗宾逊。', stats:[{label:'场均得分',value:24.2},{label:'场均篮板',value:17.0},{label:'场均盖帽',value:5.3}] },
+  { id:'2004-billups',year:'2004', nameCN:'比卢普斯', playerName:'Chauncey Billups', team:'Pistons', imgUrl:'https://i1.hoopchina.com.cn/newsPost/41c0ee72ef42a2505d2c28a645f5fb06_w_204_h_231_.png', finalsPPG:21.0, finalsRPG:3.2,  finalsAPG:5.2, title:'平民王朝核心', story:'活塞用近乎完美的团队防守击溃湖人F4。没有超级巨星，却人人都能成为关键先生。比卢普斯捧起FMVP，也让世界重新认识团队篮球的力量。', stats:[{label:'场均得分',value:21.0},{label:'场均助攻',value:5.2},{label:'三分命中率',value:'50.0%'}] },
+  { id:'2005-duncan', year:'2005', nameCN:'邓肯',   playerName:'Tim Duncan',       team:'Spurs',    imgUrl:'https://i1.hoopchina.com.cn/newsPost/a18b42775875d57236e09452a6fe0ff5_w_114_h_119_.png', finalsPPG:20.6, finalsRPG:14.1, finalsAPG:2.1, title:'坚如磐石', story:'史上最绞肉机式的防守大战，吉诺比利和霍里的关键发挥功不可没，但邓肯场均14.1篮板2.1盖帽才是防守基石。抢七25分11篮板，打板中投锁定胜局，马刺7年3冠。', stats:[{label:'场均得分',value:20.6},{label:'场均篮板',value:14.1},{label:'场均盖帽',value:2.1}] },
+  { id:'2006-wade',   year:'2006', nameCN:'韦德',   playerName:'Dwyane Wade',      team:'Heat',     imgUrl:'https://i5.hoopchina.com.cn/newsPost/c53d63cd0bcb68be967920d0cb861a42_w_105_h_124_.png', finalsPPG:34.7, finalsRPG:7.8,  finalsAPG:3.8, title:'孤胆英雄', story:'从0-2到4-2，韦德用历史级个人表演完成逆转。闪电侠正式接过迈阿密的王冠。' },
+  { id:'2007-parker', year:'2007', nameCN:'帕克',   playerName:'Tony Parker',      team:'Spurs',    imgUrl:'https://i3.hoopchina.com.cn/newsPost/809141ee6e6b1b5cb2fedb64e7ec7033_w_206_h_193_.png', finalsPPG:24.5, finalsRPG:5.0,  finalsAPG:3.3, title:'欧洲首位FMVP', story:'NBA首位欧洲出身FMVP，法国跑车场均24.5分命中率56.8%，用突破彻底打穿骑士年轻防线。GDP第三冠，马刺四年三冠建立王朝，22岁的詹姆斯第一次感受总决赛残酷。', stats:[{label:'场均得分',value:24.5},{label:'场均篮板',value:5.0},{label:'命中率',value:'56.8%'}] },
+  { id:'2008-pierce', year:'2008', nameCN:'皮尔斯', playerName:'Paul Pierce',      team:'Celtics',  imgUrl:'https://i5.hoopchina.com.cn/newsPost/a04d9cded6b2f197e33acb4ad2fef07f_w_126_h_154_.png', finalsPPG:21.8, finalsRPG:4.5,  finalsAPG:6.3, title:'真理归来', story:'「真理归来」名场面！总决赛G1皮尔斯膝盖受伤被抬出场，片刻后王者归来连中两记三分。绿军三巨头组建第一年即夺冠，主场131-92屠杀死敌湖人，皮尔斯当选FMVP后被浇一桶佳得乐。' },
+  { id:'2009-kobe',   year:'2009', nameCN:'科比',   playerName:'Kobe Bryant',      team:'Lakers',   imgUrl:'https://i5.hoopchina.com.cn/newsPost/5ef0cb2f31fb06bde3e92a6cd0ed5aa9_w_285_h_301_.png', finalsPPG:32.4, finalsRPG:5.6,  finalsAPG:7.4, title:'证明之冠', story:'场均32.4分5.6篮板7.4助攻，终于证明自己也能作为绝对核心登顶。等待七年后，FMVP奖杯终于刻上了科比的名字。' },
+  { id:'2010-kobe',   year:'2010', nameCN:'科比',   playerName:'Kobe Bryant',      team:'Lakers',   imgUrl:'https://i5.hoopchina.com.cn/newsPost/31ce21e6782cedaa54d97587c285c3f1_w_401_h_396_.png', finalsPPG:28.6, finalsRPG:8.0,  finalsAPG:3.9, title:'终极复仇', story:'抢七大战手感冰冷，却抢下15个篮板死磕到底。用最不科比的方式，赢下了最科比的一冠。' },
+  { id:'2011-dirk',   year:'2011', nameCN:'诺维茨基', playerName:'Dirk Nowitzki', team:'Mavericks',imgUrl:'https://i1.hoopchina.com.cn/newsPost/4e82e3e8080389bd2390c7aef08b2c83_w_193_h_234_.png', finalsPPG:26.0, finalsRPG:9.7,  finalsAPG:2.0, title:'单核神话', story:'被无数球迷视为最伟大的单核夺冠征程之一。德克顶着举世皆敌的压力击败热火三巨头。高烧39度客场投进绝杀，用金鸡独立告诉世界——篮球不只有天赋，还有坚守。' },
+  { id:'2012-lebron', year:'2012', nameCN:'詹姆斯', playerName:'LeBron James',     team:'Heat',     imgUrl:'https://i3.hoopchina.com.cn/newsPost/4c064b68227d52241a2826bd62f11fb4_w_410_h_493_.png', finalsPPG:28.6, finalsRPG:10.2, finalsAPG:7.4, title:'王冠初戴', story:'等了九年，詹姆斯终于拿到第一座总冠军！场均28.6分10.2篮板7.4助攻，面对雷霆三少几乎每场准三双。G5砍下26分11篮板13助攻的三双，在美航中心捧起生涯首冠，「终于跨过那道门」。' },
+  { id:'2013-lebron', year:'2013', nameCN:'詹姆斯', playerName:'LeBron James',     team:'Heat',     imgUrl:'https://i1.hoopchina.com.cn/newsPost/c09c85458d68088e65ed23c33a75284b_w_138_h_170_.png', finalsPPG:25.3, finalsRPG:10.9, finalsAPG:7.0, title:'绝地逆袭', story:'最惊险的卫冕！雷阿伦G6底角三分载入史册将比赛拖入加时。詹姆斯G7砍下37分12篮板，那记杀死比赛的中投——他没有逃避，在最关键的时刻接管了比赛。生涯第二座FMVP，热火两连冠巅峰。' },
+  { id:'2014-kawhi',  year:'2014', nameCN:'伦纳德', playerName:'Kawhi Leonard',    team:'Spurs',    imgUrl:'https://i3.hoopchina.com.cn/newsPost/76d614212dd2db8f22663eef853abf64_w_153_h_212_.png', finalsPPG:17.8, finalsRPG:6.4,  finalsAPG:2.0, title:'新王初现', story:'在防守詹姆斯的同时高效输出，成为马刺体系中最耀眼的新星。马刺打出史上最漂亮团队篮球——场均25.3次助攻净胜70分创纪录。22岁最年轻FMVP之一，从角色球员向巨星进化的起点。', stats:[{label:'场均得分',value:17.8},{label:'场均篮板',value:6.4},{label:'命中率',value:'61.2%'}] },
+  { id:'2015-iguodala',year:'2015',nameCN:'伊戈达拉', playerName:'Andre Iguodala', team:'Warriors', imgUrl:'https://i5.hoopchina.com.cn/newsPost/4b06b170866df5a40d0c39b7467a259c_w_164_h_183_.png', finalsPPG:16.3, finalsRPG:5.8,  finalsAPG:4.0, title:'奇兵夺帅', story:'死亡五小横空出世，伊戈达拉改变了整个系列赛走势。即便FMVP归属至今仍有争议，但没人否认他是勇士逆转的关键拼图。' },
+  { id:'2016-lebron', year:'2016', nameCN:'詹姆斯', playerName:'LeBron James',     team:'Cavaliers',imgUrl:'https://i5.hoopchina.com.cn/newsPost/c5dd95f29d6736badd45e9c2eb688eaa_w_140_h_149_.png', finalsPPG:29.7, finalsRPG:11.3, finalsAPG:8.9, title:'克城奇迹', story:'史上最伟大总决赛翻盘！1-3落后73胜勇士，詹姆斯率队连扳三场。G5+G6背靠背41分，G7「The Block」封盖伊戈达拉——克利夫兰52年首冠。五项数据领跑两队，全票FMVP，兑现了对家乡的承诺。' },
+  { id:'2017-kd',     year:'2017', nameCN:'杜兰特', playerName:'Kevin Durant',     team:'Warriors', imgUrl:'https://i5.hoopchina.com.cn/newsPost/1502f5c7e6064e21d589c2fb0a7ac342_w_128_h_158_.png', finalsPPG:35.2, finalsRPG:8.2,  finalsAPG:5.4, title:'死神降临', story:'死神降临！杜兰特加盟勇士第一年场均35.2分拿下FMVP，面对詹姆斯三分线外一步干拔是无解武器。G3左侧45度迎着詹姆斯命中关键三分几乎杀死悬念。用最「杜兰特」的方式拿到渴望已久的第一冠。' },
+  { id:'2018-kd',     year:'2018', nameCN:'杜兰特', playerName:'Kevin Durant',     team:'Warriors', imgUrl:'https://i3.hoopchina.com.cn/newsPost/bb4446bed00af8f13dc5db6b7e034923_w_174_h_159_.png', finalsPPG:28.8, finalsRPG:10.8, finalsAPG:7.5, title:'降维打击', story:'连续第二年斩获FMVP！G3杜兰特在相同位置命中超远三分复刻2017经典——又是左侧45度迎射詹姆斯，勇士横扫骑士。场均28.8分10.8篮板7.5助攻，2017年是证明自己，2018年是巩固历史地位。' },
+  { id:'2019-kawhi',  year:'2019', nameCN:'伦纳德', playerName:'Kawhi Leonard',    team:'Raptors',  imgUrl:'https://i5.hoopchina.com.cn/newsPost/ff666329ab93f6835703dfd0ff581e07_w_136_h_158_.png', finalsPPG:28.5, finalsRPG:9.8,  finalsAPG:4.2, title:'北境之王', story:'在加盟猛龙的第一年便率队夺冠，为加拿大带来首座NBA总冠军奖杯。东部半决赛G7那记颠进篮筐的绝杀是2019年最戏剧化的瞬间，北境之王当之无愧。' },
+  { id:'2020-lebron', year:'2020', nameCN:'詹姆斯', playerName:'LeBron James',     team:'Lakers',   imgUrl:'https://i1.hoopchina.com.cn/newsPost/3029ef4f7c61ca4d5806570a67767110_w_219_h_301_.png', finalsPPG:29.8, finalsRPG:11.8, finalsAPG:8.5, title:'宝刀未老', story:'历史第一人：在三支不同球队夺冠并获FMVP！迪士尼泡泡园区，詹姆斯率湖人在35岁年纪打出MVP级表现，场均29.8分11.8篮板8.5助攻，4-2击败热火。这一年科比离世，湖人「为科比而战」捧起奖杯。' },
+  { id:'2021-giannis',year:'2021', nameCN:'字母哥', playerName:'Giannis Antetokounmpo', team:'Bucks', imgUrl:'https://i5.hoopchina.com.cn/newsPost/cadd140f7834dde88d8a569d6da653d1_w_164_h_202_.png', finalsPPG:35.2, finalsRPG:13.2, finalsAPG:5.0, title:'势不可挡', story:'G6封神战50分14篮板5盖帽——总决赛抢七战之外的历史最高分。字母哥曾在东决G4膝盖反关节受伤，所有人都以为他赛季报销，他却休息两场火线复出。从瘦弱希腊少年到扛着雄鹿夺冠的希腊怪物。' },
+  { id:'2022-curry',  year:'2022', nameCN:'库里',   playerName:'Stephen Curry',    team:'Warriors', imgUrl:'https://i3.hoopchina.com.cn/newsPost/190aa83f86e32d80f2569bb769aab07f_w_308_h_327_.png', finalsPPG:31.2, finalsRPG:6.0,  finalsAPG:5.0, title:'力挽狂澜', story:'终于拿到了！库里职业生涯第一座FMVP。场均31.2分，G4砍下43分10篮板彻底击碎质疑。尽管已手握三个总冠军和两个MVP，但FMVP的缺失一直是心结。捧杯时他说：「他们现在还能说什么？」', stats:[{label:'场均得分',value:31.2},{label:'场均篮板',value:6.0},{label:'场均助攻',value:5.0},{label:'场均三分',value:5.2}] },
+  { id:'2023-jokic',  year:'2023', nameCN:'约基奇', playerName:'Nikola Jokic',     team:'Nuggets',  imgUrl:'https://i5.hoopchina.com.cn/newsPost/53a6d9347dde9e66dc7ce4c6cf20da67_w_181_h_180_.png', finalsPPG:30.2, finalsRPG:14.0, finalsAPG:7.2, title:'全能之神', story:'史上最独特FMVP——一个打中锋的控卫！约基奇场均30.2分14篮板7.2助攻率掘金绅士横扫热火。季后赛得分+篮板+助攻三项联盟第一，第41顺位出身诠释「技术超越天赋」。总决赛跨越全场长传助攻戈登是他独特球风的缩影。' },
+  { id:'2024-brown',  year:'2024', nameCN:'布朗',   playerName:'Jaylen Brown',     team:'Celtics',  imgUrl:'https://i1.hoopchina.com.cn/newsPost/c32985d9a78bff11bae51d48126b658b_w_654_h_652_.png', finalsPPG:20.8, finalsRPG:5.4,  finalsAPG:5.0, title:'脱胎换骨', story:'凯尔特人第18冠！杰伦·布朗东决MVP与总决赛MVP双收，用攻防两端的稳定表现证明自己已是联盟顶级锋线。从2018年东决抢七失利到如今登顶，六年磨一剑终修成正果。' },
+  { id:'2025-shai',   year:'2025', nameCN:'亚历山大', playerName:'Shai Gilgeous-Alexander', team:'Thunder', imgUrl:'https://i1.hoopchina.com.cn/newsPost/511fa280c8ca5df430e129131a4873c3_w_393_h_351_.png', finalsPPG:30.3, finalsRPG:4.6, finalsAPG:5.6, title:'雷霆新王', story:'从重建核心成长为冠军领袖，SGA率领年轻雷霆完成登顶。总决赛打得像身材更高大的保罗——冷静、致命、不可阻挡。雷霆上一次夺冠还是2012年，SGA让蓝色风暴再次席卷联盟。' }
+];
+
+// 为没有 story 的生成默认
+FMVP_DATA.forEach(function(p){
+  if (!p.story) {
+    p.story = p.playerName + '在' + p.year + '年总决赛中率领' + p.team + '夺得总冠军，以场均' + p.finalsPPG + '分' + p.finalsRPG + '篮板' + p.finalsAPG + '助攻的杰出表现荣获总决赛MVP（FMVP），书写了属于自己的传奇篇章。';
+  }
+});
+
+// 虎扑中文译名映射
+var CN_NAMES = {
+  '2001-shaq':{nameCNFull:'沙奎尔-奥尼尔',teamCN:'湖人'},
+  '2002-shaq':{nameCNFull:'沙奎尔-奥尼尔',teamCN:'湖人'},
+  '2003-duncan':{nameCNFull:'蒂姆-邓肯',teamCN:'马刺'},
+  '2004-billups':{nameCNFull:'昌西-比卢普斯',teamCN:'活塞'},
+  '2005-duncan':{nameCNFull:'蒂姆-邓肯',teamCN:'马刺'},
+  '2006-wade':{nameCNFull:'德维恩-韦德',teamCN:'热火'},
+  '2007-parker':{nameCNFull:'托尼-帕克',teamCN:'马刺'},
+  '2008-pierce':{nameCNFull:'保罗-皮尔斯',teamCN:'凯尔特人'},
+  '2009-kobe':{nameCNFull:'科比-布莱恩特',teamCN:'湖人'},
+  '2010-kobe':{nameCNFull:'科比-布莱恩特',teamCN:'湖人'},
+  '2011-dirk':{nameCNFull:'德克-诺维茨基',teamCN:'独行侠'},
+  '2012-lebron':{nameCNFull:'勒布朗-詹姆斯',teamCN:'热火'},
+  '2013-lebron':{nameCNFull:'勒布朗-詹姆斯',teamCN:'热火'},
+  '2014-kawhi':{nameCNFull:'科怀-伦纳德',teamCN:'马刺'},
+  '2015-iguodala':{nameCNFull:'安德烈-伊戈达拉',teamCN:'勇士'},
+  '2016-lebron':{nameCNFull:'勒布朗-詹姆斯',teamCN:'骑士'},
+  '2017-kd':{nameCNFull:'凯文-杜兰特',teamCN:'勇士'},
+  '2018-kd':{nameCNFull:'凯文-杜兰特',teamCN:'勇士'},
+  '2019-kawhi':{nameCNFull:'科怀-伦纳德',teamCN:'猛龙'},
+  '2020-lebron':{nameCNFull:'勒布朗-詹姆斯',teamCN:'湖人'},
+  '2021-giannis':{nameCNFull:'扬尼斯-阿德托昆博',teamCN:'雄鹿'},
+  '2022-curry':{nameCNFull:'斯蒂芬-库里',teamCN:'勇士'},
+  '2023-jokic':{nameCNFull:'尼古拉-约基奇',teamCN:'掘金'},
+  '2024-brown':{nameCNFull:'杰伦-布朗',teamCN:'凯尔特人'},
+  '2025-shai':{nameCNFull:'谢伊-吉尔杰斯-亚历山大',teamCN:'雷霆'}
+};
+FMVP_DATA.forEach(function(p){
+  var cn = CN_NAMES[p.id];
+  if (cn) { p.nameCNFull = cn.nameCNFull; p.teamCN = cn.teamCN; }
+});
+
+/* ===== 全局状态 ===== */
+var state = { currentScreen: 'home' };
+
+/* ===== 渲染函数 ===== */
+function renderHome() {
+  state.currentScreen = 'home';
+  var sb = document.getElementById('scrollBottomBtn');
+  if (sb) sb.style.display = 'none';
+  document.getElementById('app').innerHTML =
+    '<section class="home-screen">' +
+    '<div class="home-inner">' +
+    '<h1 class="home-title">🏆本世纪FMVP含金量金字塔</h1>' +
+    '<p class="home-subtitle">从2001–2025年的25位总决赛MVP中，<br>选出你心中的Top10放入金字塔之巅！</p>' +
+    '<button class="home-btn" style="min-width:220px;" onclick="startGame()">开始挑战</button>' +
+    '<button class="home-btn" style="margin-top:12px;min-width:220px;background:linear-gradient(135deg,#4a6cf7,#3b5de7);box-shadow:0 8px 24px rgba(74,108,247,0.35);" onclick="safeNavigate(\'huputiyu://bbs/topicTag?tagId=' + TAG_ID + '\', \'_self\', \'click_view_ranking\')">查看其他JRs的排行</button>' +
+    '<div class="home-note">将球员拖入金字塔排行<br>长按查看各位FMVP的故事</div>' +
+    '</div></section>';
+}
+
+function showToast(msg) {
+  var t = document.createElement('div');
+  t.className = 'float-toast'; t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(function(){ t.classList.add('show'); },10);
+  setTimeout(function(){ t.classList.remove('show'); setTimeout(function(){ t.remove(); },300); },2000);
+}
+
+function showFinal() {
+  var sb = document.getElementById('scrollBottomBtn');
+  if (sb) sb.style.display = 'none';
+  var slots = document.querySelectorAll('.slot');
+  var pc = 0;
+  for (var i=0;i<slots.length;i++){ if(slots[i].querySelector('.item')) pc++; }
+  if (pc<slots.length){ showToast('请将金字塔中所有选项填满'); return; }
+
+  state.currentScreen = 'final';
+  var app = document.getElementById('app');
+  var sHTML = '';
+  for (var i=0;i<slots.length;i++){
+    var s=slots[i], it=s.querySelector('.item');
+    var posCls = s.className.replace('slot ','');
+    if(it){
+      var av = it.querySelector('.item-avatar').outerHTML;
+      var txt = it.querySelector('.item-text').textContent;
+      sHTML += '<div class="final-slot '+posCls+'"><div class="slot-circle-backer"></div><div class="item">'+av+'<div class="item-text">'+txt+'</div></div></div>';
+    } else {
+      sHTML += '<div class="final-slot '+posCls+'"><div class="slot-circle-backer"></div></div>';
+    }
+  }
+
+  app.innerHTML =
+    '<section class="final-screen" style="position:relative">' +
+    '<div class="final-pyramid-area"><div class="final-pyramid-header"><h2>🏆本世纪FMVP含金量金字塔</h2></div>' +
+    '<div class="final-pyramid-stage"><div class="final-pyramid-bg"><img src="https://i1.hoopchina.com.cn/newsPost/714cdf3ae0b2836623b5ab170670e9ec_w_848_h_1264_.png" alt="背景"></div>' +
+    '<div class="final-triangle-skeleton">' +
+    '<svg><defs><linearGradient id="goldGradFinal" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFD700"/><stop offset="50%" stop-color="#FFE55C"/><stop offset="100%" stop-color="#FFA500"/></linearGradient>' +
+    '<linearGradient id="flowGradFinal" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0"/><stop offset="35%" stop-color="#ffffff" stop-opacity="0"/><stop offset="50%" stop-color="#FFD700" stop-opacity="0.8"/><stop offset="65%" stop-color="#ffffff" stop-opacity="0"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></linearGradient>' +
+    '<filter id="softGlowFinal" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b1"/><feGaussianBlur in="SourceGraphic" stdDeviation="8" result="b2"/><feGaussianBlur in="SourceGraphic" stdDeviation="14" result="b3"/><feMerge><feMergeNode in="b3"/><feMergeNode in="b2"/><feMergeNode in="b1"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>' +
+    '<polygon id="glow-far-final" fill="none" stroke="#8B6914" stroke-width="8" stroke-opacity="0.15" stroke-linejoin="round" filter="url(#softGlowFinal)"/>' +
+    '<polygon id="glow-mid-final" fill="none" stroke="url(#goldGradFinal)" stroke-width="4" stroke-opacity="0.55" stroke-linejoin="round" filter="url(#softGlowFinal)" class="gold-pulse"/>' +
+    '<polygon id="glow-flow-final" fill="none" stroke="url(#flowGradFinal)" stroke-width="3" stroke-opacity="0.6" stroke-linejoin="round" stroke-dasharray="20 20" class="gold-flow"/>' +
+    '<polygon id="glow-core-final" fill="none" stroke="url(#goldGradFinal)" stroke-width="2" stroke-opacity="1" stroke-linejoin="round"/></svg></div>' +
+    sHTML + '</div></div>' +
+    '<div class="final-result-area"><div class="final-panel"><div class="final-result">🏆排行完成！</div>' +
+    '<div class="final-btns"><button class="btn-gold" onclick="generatePoster()">📷生成海报</button>' +
+    '<button class="btn-gold" onclick="startGame()">🔄再来一次</button>' +
+    '<button class="btn-gray" onclick="safeNavigate(\'huputiyu://bbs/topicTag?tagId=' + TAG_ID + '\', \'_self\', \'click_view_ranking\')">👥查看其他JRs的排行</button>' +
+    '<button class="btn-gray" onclick="renderHome()">🏠返回首页</button></div></div></div></section>';
+  initFinalTriangleSVG();
+}
+
+/* ===== 游戏初始化 ===== */
+function startGame() {
+  state.currentScreen = 'game';
+  var app = document.getElementById('app');
+
+  // 生成金字塔槽位
+  var slotHTML = '';
+  var tierConfig = [
+    { cls:'s-r1-c1', tier:1 },
+    { cls:'s-r2-c1', tier:2 }, { cls:'s-r2-c2', tier:2 },
+    { cls:'s-r3-c1', tier:3 }, { cls:'s-r3-c2', tier:3 }, { cls:'s-r3-c3', tier:3 },
+    { cls:'s-r4-c1', tier:4 }, { cls:'s-r4-c2', tier:4 }, { cls:'s-r4-c3', tier:4 }, { cls:'s-r4-c4', tier:4 }
+  ];
+  for (var i=0;i<tierConfig.length;i++){
+    slotHTML += '<div class="slot '+tierConfig[i].cls+'" data-tier="'+tierConfig[i].tier+'"><div class="slot-circle-backer"></div></div>';
+  }
+
+  // 生成候选区（25个FMVP）
+  var poolHTML = '';
+  for (var j=0;j<FMVP_DATA.length;j++){
+    var p = FMVP_DATA[j];
+    var displayName = p.year.slice(2)+p.nameCN;
+    var imgTag = p.imgUrl ? '<img src="'+p.imgUrl+'" alt="'+p.playerName+'" onerror="this.style.display=\'none\';this.parentNode.classList.add(\'img-fail\')">' : '';
+    var fallback = '<span class="initials-fallback">'+(p.playerName.charAt(0)||'?')+'</span>';
+    poolHTML +=
+      '<div class="pool-grid-slot" data-playerid="'+p.id+'"><div class="pool-grid-backer"></div>' +
+      '<div class="item" draggable="true" data-playerid="'+p.id+'">' +
+      '<div class="item-avatar">'+imgTag+fallback+'</div>' +
+      '<div class="item-text">'+displayName+'</div></div></div>';
+  }
+
+  app.innerHTML =
+    '<section class="game-screen" style="position:relative">' +
+    '<div class="game-header"><h2>🏆本世纪FMVP含金量金字塔</h2><div class="subtitle">拖拽或点击球员放入金字塔—长按查看球员该年数据</div></div>' +
+    '<div class="pyramid-stage"><div class="pyramid-bg"><img src="https://i1.hoopchina.com.cn/newsPost/714cdf3ae0b2836623b5ab170670e9ec_w_848_h_1264_.png" alt="背景"></div>' +
+    '<div class="triangle-skeleton">' +
+    '<svg><defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFD700"/><stop offset="50%" stop-color="#FFE55C"/><stop offset="100%" stop-color="#FFA500"/></linearGradient>' +
+    '<linearGradient id="flowGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0"/><stop offset="35%" stop-color="#ffffff" stop-opacity="0"/><stop offset="50%" stop-color="#FFD700" stop-opacity="0.8"/><stop offset="65%" stop-color="#ffffff" stop-opacity="0"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></linearGradient>' +
+    '<filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b1"/><feGaussianBlur in="SourceGraphic" stdDeviation="8" result="b2"/><feGaussianBlur in="SourceGraphic" stdDeviation="14" result="b3"/><feMerge><feMergeNode in="b3"/><feMergeNode in="b2"/><feMergeNode in="b1"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>' +
+    '<polygon id="glow-far" fill="none" stroke="#8B6914" stroke-width="5" stroke-opacity="0.12" stroke-linejoin="round" filter="url(#softGlow)"/>' +
+    '<polygon id="glow-mid" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" stroke-opacity="0.55" stroke-linejoin="round" filter="url(#softGlow)" class="gold-pulse"/>' +
+    '<polygon id="glow-flow" fill="none" stroke="url(#flowGrad)" stroke-width="2" stroke-opacity="0.6" stroke-linejoin="round" stroke-dasharray="20 20" class="gold-flow"/>' +
+    '<polygon id="glow-core" fill="none" stroke="url(#goldGrad)" stroke-width="1.2" stroke-opacity="1" stroke-linejoin="round"/></svg></div>' +
+    slotHTML + '</div>' +
+    '<button id="scrollBottomBtn">⬇️</button>' +
+    '<div class="pool-container"><div class="pool-title">—候选球员（长按查看球员该年数据）—</div>' +
+    '<div class="options-box" id="options-pool">'+poolHTML+'</div></div>' +
+    '<div style="text-align:center;margin-top:22px;"><button class="home-btn" id="submitBtn" onclick="showFinal()">🏆生成我的排行结果</button></div>' +
+    '</section>';
+
+  initGame();
+}
+
+/* ===== 游戏核心逻辑 ===== */
+function initGame() {
+  initTriangleSVG();
+  bindDragEvents();
+}
+
+/* ===== SVG 三角形 ===== */
+function initTriangleSVG() {
+  if (window.requestAnimationFrame) {
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ updateTriangleSVG(); }); });
+  } else { setTimeout(updateTriangleSVG,50); }
+  window.addEventListener('resize', updateTriangleSVG);
+}
+
+function updateTriangleSVG() {
+  var stage = document.querySelector('.pyramid-stage');
+  var svg = document.querySelector('.triangle-skeleton svg');
+  if (!stage||!svg) return;
+  var w=stage.offsetWidth, h=stage.offsetHeight;
+  svg.setAttribute('viewBox',w+' '+h);
+  var pos=[], all=document.querySelectorAll('.slot'), sr=stage.getBoundingClientRect();
+  for(var i=0;i<all.length;i++){ var r=all[i].getBoundingClientRect(); pos.push({cx:r.left+r.width/2-sr.left,cy:r.top+r.height/2-sr.top}); }
+  if(!pos.length) return;
+  var fs=document.querySelector('.slot .slot-circle-backer');
+  var sz=fs?fs.offsetWidth:82, r2=sz/2;
+  var mnX=Infinity,mxX=-Infinity,mnY=0,mxY=0;
+  for(var j=0;j<pos.length;j++){ var p=pos[j]; if(p.cx<mnX){mnX=p.cx;mnY=p.cy;} if(p.cx>mxX){mxX=p.cx;mxY=p.cy;} }
+  var tpY=Infinity,tpX=0;
+  for(var k=0;k<pos.length;k++){ var p2=pos[k]; if(p2.cy<tpY){tpY=p2.cy;tpX=p2.cx;} }
+  var pts=tpX+','+(tpY-r2)+' '+(mnX-r2)+','+mnY+' '+(mxX+r2)+','+mxY;
+  ['glow-far','glow-mid','glow-flow','glow-core'].forEach(function(id){ var el=document.getElementById(id); if(el)el.setAttribute('points',pts); });
+}
+
+function initFinalTriangleSVG() {
+  if(window.requestAnimationFrame){ requestAnimationFrame(function(){ requestAnimationFrame(function(){ updateFinalTriangleSVG(); }); }); }
+  else { setTimeout(updateFinalTriangleSVG,50); }
+  window.addEventListener('resize', updateFinalTriangleSVG);
+}
+
+function updateFinalTriangleSVG() {
+  var stage = document.querySelector('.final-pyramid-stage');
+  var svg = document.querySelector('.final-triangle-skeleton svg');
+  if(!stage||!svg) return;
+  var w=stage.offsetWidth, h=stage.offsetHeight;
+  svg.setAttribute('viewBox','0 0 '+w+' '+h);
+  var pos=[], all=document.querySelectorAll('.final-slot'), sr=stage.getBoundingClientRect();
+  for(var i=0;i<all.length;i++){ var r=all[i].getBoundingClientRect(); pos.push({cx:r.left+r.width/2-sr.left,cy:r.top+r.height/2-sr.top}); }
+  if(!pos.length) return;
+  var fs=document.querySelector('.final-slot .slot-circle-backer');
+  var sz=fs?fs.offsetWidth:82, r2=sz/2;
+  var mnX=Infinity,mxX=-Infinity,mnY=0,mxY=0;
+  for(var j=0;j<pos.length;j++){ var p=pos[j]; if(p.cx<mnX){mnX=p.cx;mnY=p.cy;} if(p.cx>mxX){mxX=p.cx;mxY=p.cy;} }
+  var tpY=Infinity,tpX=0;
+  for(var k=0;k<pos.length;k++){ var p2=pos[k]; if(p2.cy<tpY){tpY=p2.cy;tpX=p2.cx;} }
+  var pts=tpX+','+Math.max(6,tpY-r2*1.08)+' '+(mnX-r2*1.05)+','+(mnY+r2*0.18)+' '+(mxX+r2*1.05)+','+(mxY+r2*0.18);
+  ['glow-far-final','glow-mid-final','glow-flow-final','glow-core-final'].forEach(function(id){ var el=document.getElementById(id); if(el)el.setAttribute('points',pts); });
+}
+
+/* ===== 拖拽 & 点击 & 长按 ===== */
+var draggedItem = null;
+var touchGhost = null;
+var touchOffsetX = 0, touchOffsetY = 0;
+var originalParentSlot = null;
+var selectedItem = null;
+var touchStartX = 0, touchStartY = 0, touchStartTime = 0;
+var touchMoved = false;
+var cachedSlots = null, cachedSlotRects = null, cachedGridSlotRects = null;
+var lastHighlightSlot = null;
+var lastTouchClientX = 0, lastTouchClientY = 0;
+var pendingGhostX = 0, pendingGhostY = 0, pendingHitX = 0, pendingHitY = 0;
+var dragRafId = null;
+var longPressTimer = null;
+var longPressActive = false;
+
+function getPlayerDataById(id) {
+  for (var i=0;i<FMVP_DATA.length;i++){ if(FMVP_DATA[i].id===id) return FMVP_DATA[i]; }
+  return null;
+}
+
+function buildStatsHTML(p) {
+  var stats = p.stats || [
+    {label:'场均得分', value:p.finalsPPG},
+    {label:'场均篮板', value:p.finalsRPG},
+    {label:'场均助攻', value:p.finalsAPG}
+  ];
+  var html = '';
+  for (var i=0;i<stats.length;i++) {
+    var v = stats[i].value;
+    if (typeof v === 'number') v = v.toFixed(1);
+    html += '<div class="modal-stat"><div class="modal-stat-value">'+v+'</div><div class="modal-stat-label">'+stats[i].label+'</div></div>';
+  }
+  return html;
+}
+
+function showPlayerModal(playerId) {
+  var p = getPlayerDataById(playerId);
+  if (!p) return;
+  var imgTag = p.imgUrl ? '<img src="'+p.imgUrl+'" alt="'+p.playerName+'" onerror="this.style.display=\'none\';this.parentNode.classList.add(\'img-fail\')">' : '';
+  var fallback = '<span class="initials-fallback">'+(p.playerName.charAt(0)||'?')+'</span>';
+
+  var overlay = document.createElement('div');
+  overlay.className = 'player-modal-overlay';
+  overlay.innerHTML =
+    '<div class="player-modal">' +
+    '<button class="modal-close">&times;</button>' +
+    '<div class="modal-body">' +
+    '<div class="modal-avatar">'+imgTag+fallback+'</div>' +
+    '<div class="modal-fmvp-badge">🏆'+p.year+'总决赛MVP</div>' +
+    '<div class="modal-title">「'+(p.title||'传奇')+'」</div>' +
+    '<div class="modal-name">'+(p.nameCNFull||p.playerName)+'</div>' +
+    '<div class="modal-year-team">'+(p.teamCN||p.team)+'</div>' +
+    '<div class="modal-stats" id="modal-stats-'+playerId+'">' +
+    buildStatsHTML(p) +
+    '</div>' +
+    '<div class="modal-story">'+p.story+'</div>' +
+    '</div></div>';
+
+  document.body.appendChild(overlay);
+  requestAnimationFrame(function(){ overlay.classList.add('active'); });
+
+  // 关闭
+  var closeModal = function(){
+    overlay.classList.remove('active');
+    setTimeout(function(){ overlay.remove(); }, 250);
+  };
+  overlay.querySelector('.modal-close').addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e){ if(e.target===overlay) closeModal(); });
+  document.addEventListener('keydown', function onEsc(e){ if(e.key==='Escape'){ closeModal(); document.removeEventListener('keydown',onEsc); } });
+}
+
+function setSelectedItem(item) {
+  clearSelection();
+  selectedItem = item; item.classList.add('selected');
+  var slots = document.querySelectorAll('.slot');
+  for(var i=0;i<slots.length;i++) slots[i].classList.add('clickable');
+}
+
+function clearSelection() {
+  if(selectedItem){ selectedItem.classList.remove('selected'); selectedItem=null; }
+  var slots = document.querySelectorAll('.slot');
+  for(var i=0;i<slots.length;i++) slots[i].classList.remove('clickable');
+}
+
+function bindDragEvents() {
+  // 金字塔槽位事件
+  document.querySelectorAll('.slot').forEach(function(slot){
+    slot.addEventListener('dragover',function(e){ e.preventDefault(); slot.classList.add('drag-over'); });
+    slot.addEventListener('dragleave',function(){ slot.classList.remove('drag-over'); });
+    slot.addEventListener('drop',function(e){ e.preventDefault(); slot.classList.remove('drag-over'); if(draggedItem) handleItemPlacement(slot,draggedItem); });
+    slot.addEventListener('click',function(){
+      if(selectedItem){ handleItemPlacement(slot,selectedItem); clearSelection(); }
+      else { var si=slot.querySelector('.item'); if(si) setSelectedItem(si); }
+    });
+  });
+
+  // 候选区槽位事件
+  document.querySelectorAll('.pool-grid-slot').forEach(function(gSlot){
+    gSlot.addEventListener('dragover',function(e){ e.preventDefault(); });
+    gSlot.addEventListener('drop',function(e){ e.preventDefault(); if(draggedItem) handleItemPlacement(gSlot,draggedItem); });
+    gSlot.addEventListener('click',function(){
+      if(selectedItem){ handleItemPlacement(gSlot,selectedItem); clearSelection(); }
+    });
+  });
+
+  // 每个 item 绑定事件
+  document.querySelectorAll('.item').forEach(function(item){ bindItemEvents(item); });
+}
+
+function findCachedRectHit(rects, x, y, pad) {
+  if (!rects) return null;
+  pad = pad||0;
+  for(var i=0;i<rects.length;i++){ var r=rects[i]; if(x>=r.left-pad&&x<=r.right+pad&&y>=r.top-pad&&y<=r.bottom+pad) return r.el; }
+  return null;
+}
+
+function scheduleTouchDragFrame() {
+  if(dragRafId!==null) return;
+  dragRafId = requestAnimationFrame(function(){
+    dragRafId=null;
+    if(!touchGhost) return;
+    touchGhost.style.transform = 'translate3d('+pendingGhostX+'px,'+pendingGhostY+'px,0) scale(1.05)';
+    var hitSlot = findCachedRectHit(cachedSlotRects, pendingHitX, pendingHitY, 10);
+    if(hitSlot!==lastHighlightSlot){
+      if(lastHighlightSlot) lastHighlightSlot.classList.remove('drag-over');
+      if(hitSlot) hitSlot.classList.add('drag-over');
+      lastHighlightSlot = hitSlot;
+    }
+  });
+}
+
+function refreshCachedRects() {
+  cachedSlots = document.querySelectorAll('.slot');
+  cachedSlotRects = [];
+  for(var si=0;si<cachedSlots.length;si++){ var sr=cachedSlots[si].getBoundingClientRect(); cachedSlotRects.push({el:cachedSlots[si],left:sr.left,top:sr.top,right:sr.right,bottom:sr.bottom}); }
+  var gridSlots = document.querySelectorAll('.pool-grid-slot');
+  cachedGridSlotRects = [];
+  for(var gi=0;gi<gridSlots.length;gi++){ var gr=gridSlots[gi].getBoundingClientRect(); cachedGridSlotRects.push({el:gridSlots[gi],left:gr.left,top:gr.top,right:gr.right,bottom:gr.bottom}); }
+}
+
+function resetTouchDragState() {
+  if(dragRafId!==null){ cancelAnimationFrame(dragRafId); dragRafId=null; }
+  if(lastHighlightSlot) lastHighlightSlot.classList.remove('drag-over');
+  cachedSlots=null; cachedSlotRects=null; cachedGridSlotRects=null; lastHighlightSlot=null;
+  document.body.classList.remove('is-touch-dragging');
+}
+
+function initDragState(item, touch) {
+  draggedItem = item;
+  originalParentSlot = item.parentNode;
+  document.body.classList.add('is-touch-dragging');
+  var rect = item.getBoundingClientRect();
+  var avatar = item.querySelector('.item-avatar');
+  var avatarRect = avatar ? avatar.getBoundingClientRect() : rect;
+  touchOffsetX = touch.clientX - avatarRect.left;
+  touchOffsetY = touch.clientY - avatarRect.top;
+
+  cachedSlots = document.querySelectorAll('.slot');
+  cachedSlotRects = [];
+  for(var si=0;si<cachedSlots.length;si++){ var sr=cachedSlots[si].getBoundingClientRect(); cachedSlotRects.push({el:cachedSlots[si],left:sr.left,top:sr.top,right:sr.right,bottom:sr.bottom}); }
+  var gridSlots = document.querySelectorAll('.pool-grid-slot');
+  cachedGridSlotRects = [];
+  for(var gi=0;gi<gridSlots.length;gi++){ var gr=gridSlots[gi].getBoundingClientRect(); cachedGridSlotRects.push({el:gridSlots[gi],left:gr.left,top:gr.top,right:gr.right,bottom:gr.bottom}); }
+  lastHighlightSlot = null;
+
+  touchGhost = avatar ? avatar.cloneNode(true) : item.cloneNode(true);
+  touchGhost.classList.add('touch-ghost');
+  touchGhost.style.width = avatarRect.width+'px';
+  touchGhost.style.height = avatarRect.height+'px';
+  var initX = avatarRect.left, initY = avatarRect.top;
+  pendingGhostX = initX; pendingGhostY = initY;
+  pendingHitX = touch.clientX; pendingHitY = touch.clientY;
+  touchGhost.style.transform = 'translate3d('+initX+'px,'+initY+'px,0) scale(1.05)';
+  touchGhost.style.display = 'none';
+  document.body.appendChild(touchGhost);
+  item.classList.add('dragging');
+}
+
+function bindItemEvents(item) {
+  // HTML5拖拽（桌面端）
+  item.addEventListener('dragstart', function(){
+    clearSelection();
+    draggedItem = this; originalParentSlot = this.parentNode;
+    this.longPressCancelled = true; // 桌面端不触发长按
+    setTimeout(function(){ item.classList.add('dragging'); },0);
+  });
+  item.addEventListener('dragend', function(){ item.classList.remove('dragging'); draggedItem=null; });
+
+  // 桌面端点击
+  item.addEventListener('click', function(e){
+    if(draggedItem) return;
+    e.stopPropagation();
+    if(this.classList.contains('selected')){ clearSelection(); }
+    else { setSelectedItem(this); }
+  });
+
+  // ----- 触摸事件（手机端：区分点击/拖拽/长按）-----
+  item.addEventListener('touchstart', function(e){
+    if(e.touches.length>1) return;
+    e.preventDefault();
+    var touch = e.touches[0];
+    touchStartX = touch.clientX; touchStartY = touch.clientY;
+    touchStartTime = Date.now();
+    touchMoved = false; longPressActive = false;
+    lastTouchClientX = touch.clientX; lastTouchClientY = touch.clientY;
+
+    // 设置600ms 长按定时器
+    var self = this;
+    longPressTimer = setTimeout(function(){
+      longPressTimer = null;
+      if(touchMoved) return; // 已经移动，不触发长按
+      longPressActive = true;
+      // 如果正在进行拖拽准备，取消
+      if(touchGhost){ touchGhost.remove(); touchGhost=null; }
+      resetTouchDragState();
+      self.classList.remove('dragging');
+      draggedItem = null;
+      // 显示弹窗
+      var pid = self.dataset.playerid;
+      if(pid) showPlayerModal(pid);
+    }, 600);
+
+    // 不清除选择、不立即进入拖拽
+  }, { passive: false });
+
+  item.addEventListener('touchmove', function(e){
+    if(longPressActive) return;
+    var touch = e.touches[0];
+    lastTouchClientX = touch.clientX; lastTouchClientY = touch.clientY;
+    var dx = touch.clientX - touchStartX;
+    var dy = touch.clientY - touchStartY;
+
+    if (!touchMoved) {
+      if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+        if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer = null; }
+        touchMoved = true;
+        initDragState(this, touch);
+        if (touchGhost) touchGhost.style.display = '';
+      } else {
+        return;
+      }
+    }
+
+    // 自动上滚：拖拽靠近屏幕顶部时自动滚动
+    var scrollZone = 60;
+    if (touch.clientY < scrollZone) {
+      window.scrollBy(0, -12);
+      refreshCachedRects();
+    } else if (touch.clientY < scrollZone * 1.8) {
+      window.scrollBy(0, -6);
+      refreshCachedRects();
+    }
+
+    pendingGhostX = touch.clientX - touchOffsetX;
+    pendingGhostY = touch.clientY - touchOffsetY;
+    pendingHitX = touch.clientX;
+    pendingHitY = touch.clientY;
+    scheduleTouchDragFrame();
+  }, { passive: false });
+
+  item.addEventListener('touchend', function(e){
+    if(longPressActive) { // 长按已触发，不做拖拽操作
+      this.classList.remove('dragging');
+      if(touchGhost){ touchGhost.remove(); touchGhost=null; }
+      resetTouchDragState();
+      draggedItem = null;
+      return;
+    }
+
+    // 取消长按定时器
+    if(longPressTimer){ clearTimeout(longPressTimer); longPressTimer=null; }
+
+    if(!draggedItem) {
+      // 没有进入拖拽状态 → 可能是一次点击
+      this.classList.remove('dragging');
+      var elapsed = Date.now() - touchStartTime;
+      if(!touchMoved && elapsed < 400) {
+        // 短按 → 选择模式
+        if(this.classList.contains('selected')){ clearSelection(); }
+        else { setSelectedItem(this); }
+      }
+      resetTouchDragState();
+      return;
+    }
+
+    this.classList.remove('dragging');
+
+    if(touchGhost){
+      if(dragRafId!==null){ cancelAnimationFrame(dragRafId); dragRafId=null; }
+      var endTouch = e.changedTouches&&e.changedTouches[0] ? e.changedTouches[0] : null;
+      var endX = endTouch ? endTouch.clientX : lastTouchClientX;
+      var endY = endTouch ? endTouch.clientY : lastTouchClientY;
+      var currentSlot = lastHighlightSlot || findCachedRectHit(cachedSlotRects, endX, endY, 10);
+      var currentGridSlot = currentSlot ? null : findCachedRectHit(cachedGridSlotRects, endX, endY, 8);
+
+      if(currentSlot){ currentSlot.classList.remove('drag-over'); handleItemPlacement(currentSlot, draggedItem); }
+      else if(currentGridSlot){ handleItemPlacement(currentGridSlot, draggedItem); }
+      else {
+        // 候选区或空白区域释放→回到自己的原始候选槽位
+        var homeSlot = document.querySelector('.pool-grid-slot[data-playerid="'+draggedItem.dataset.playerid+'"]');
+        if (homeSlot) { homeSlot.appendChild(draggedItem); }
+        else { originalParentSlot.appendChild(draggedItem); }
+      }
+      touchGhost.remove(); touchGhost=null;
+    }
+    resetTouchDragState();
+    draggedItem = null;
+  });
+
+  item.addEventListener('touchcancel', function(){
+    if(longPressTimer){ clearTimeout(longPressTimer); longPressTimer=null; }
+    this.classList.remove('dragging');
+    if(touchGhost){ touchGhost.remove(); touchGhost=null; }
+    resetTouchDragState();
+    draggedItem = null;
+  });
+}
+
+/* ===== 放置逻辑 ===== */
+function handleItemPlacement(container, item) {
+  var src = item.parentNode;
+
+  // 候选区：只允许球员回到自己的原始槽位，禁止换位
+  if (container.classList.contains('pool-grid-slot')) {
+    if (item.dataset.playerid === container.dataset.playerid) {
+      container.appendChild(item);
+    } else {
+      src.appendChild(item);
+    }
+    if (container.classList.contains('slot')) updateSlotGlow(container);
+    if (src.classList.contains('slot')) updateSlotGlow(src);
+    return;
+  }
+
+  // 金字塔槽位
+  var existing = container.querySelector('.item');
+  if (existing && existing !== item) {
+    // 被替换的球员回到自己的候选槽位
+    var existingPlayerId = existing.dataset.playerid;
+    if (existingPlayerId) {
+      var homeSlot = document.querySelector('.pool-grid-slot[data-playerid="'+existingPlayerId+'"]');
+      if (homeSlot) {
+        homeSlot.appendChild(existing);
+      } else {
+        src.appendChild(existing);
+      }
+    } else {
+      src.appendChild(existing);
+    }
+  }
+  container.appendChild(item);
+  updateSlotGlow(container);
+  if (src.classList.contains('slot')) updateSlotGlow(src);
+  // 方案2：选满10人后按钮移到金字塔正下方
+  moveSubmitBtnUnderPyramid();
+}
+
+function moveSubmitBtnUnderPyramid() {
+  var slots = document.querySelectorAll('.slot');
+  var filled = 0;
+  for (var i = 0; i < slots.length; i++) {
+    if (slots[i].querySelector('.item')) filled++;
+  }
+  if (filled !== slots.length) return;
+
+  var btn = document.getElementById('submitBtn');
+  if (!btn || btn.dataset.moved === '1') return;
+
+  var pyramidStage = document.querySelector('.pyramid-stage');
+  var poolContainer = document.querySelector('.pool-container');
+  if (pyramidStage && poolContainer) {
+    pyramidStage.parentNode.insertBefore(btn.parentNode, poolContainer);
+    btn.dataset.moved = '1';
+  }
+}
+
+function updateSlotGlow(slot) {
+  var backer = slot.querySelector('.slot-circle-backer');
+  var item = slot.querySelector('.item');
+  if(!backer||!item) return;
+  backer.style.setProperty('--flash-color','#FFD700');
+  backer.style.setProperty('--flash-glow','rgba(255,215,0,0.6)');
+  backer.classList.remove('flash-active');
+  void backer.offsetWidth;
+  backer.classList.add('flash-active');
+  setTimeout(function(){ backer.classList.remove('flash-active'); },800);
+  item.classList.remove('flash-active');
+  void item.offsetWidth;
+  item.classList.add('flash-active');
+  setTimeout(function(){ item.classList.remove('flash-active'); },800);
+}
+
+function findFirstEmptyGridSlot() {
+  var gs = document.querySelectorAll('.pool-grid-slot');
+  for(var i=0;i<gs.length;i++){ if(!gs[i].querySelector('.item')) return gs[i]; }
+  return null;
+}
+
+/* ====== 海报生成 & 一键发帖 ====== */
+const POSTER_W = 600, POSTER_H = 800, POSTER_SCALE = 2;
+const TAG_ID = 148087;
+const TAG_NAME = '本世纪fmvp含金量金字塔排行';
+const TOPIC_NAME = '湿乎乎的话题';
+const TOPIC_ID = 177;
+
+window.require = window.require || function(name) {
+    if (name === 'ali-oss') return window.OSS;
+    if (name === '@hupu/kaleido-fed-sdk') return window.KaleidoOSS;
+    return null;
+};
+window.webGuard = window.webGuard || window.WebGuard || { hupuLog: function() {} };
+
+var _ossClient = null;
+function getOssClient() {
+    if (_ossClient) return _ossClient;
+    var K = window.KaleidoOSS || (typeof require === 'function' ? require('@hupu/kaleido-fed-sdk') : null);
+    if (K) {
+        _ossClient = new K({
+            appId: 'b1AcxWKA1u0hyDYv5kXgImZBRSQ=',
+            module: 'activity-screenshot-fed',
+            path: '/screenshot/activity/fed',
+            sk: 'HioGpkmGe9bsW0iqRLJEyGoLr4Q=',
+            action: '1',
+        });
+        if (typeof _ossClient.start === 'function') _ossClient.start();
+    }
+    return _ossClient;
+}
+
+function getPyramidPlayers() {
+    var tiers = [];
+    var slots = document.querySelectorAll('.final-slot');
+    slots.forEach(function(slot) {
+        var cls = slot.className;
+        var tier = 1;
+        if (cls.indexOf('s-r2-') >= 0) tier = 2;
+        else if (cls.indexOf('s-r3-') >= 0) tier = 3;
+        else if (cls.indexOf('s-r4-') >= 0) tier = 4;
+        var item = slot.querySelector('.item');
+        if (item) {
+            var imgEl = item.querySelector('.item-avatar img');
+            var txt = item.querySelector('.item-text');
+            tiers.push({
+                tier: tier,
+                name: txt ? txt.textContent : '',
+                imgSrc: imgEl ? imgEl.src : '',
+                imgEl: imgEl
+            });
+        }
+    });
+    tiers.sort(function(a,b){ return a.tier - b.tier; });
+    return tiers;
+}
+
+function roundRectC(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+}
+
+function drawCircularImage(ctx, img, cx, cy, radius) {
+    var iw = img.naturalWidth || img.width;
+    var ih = img.naturalHeight || img.height;
+    var target = radius * 2;
+    var scale = Math.max(target / iw, target / ih);
+    var dw = iw * scale;
+    var dh = ih * scale;
+    var dx = cx - dw / 2;
+    var dy = cy - dh / 2;
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.clip();
+    ctx.drawImage(img, dx, dy, dw, dh);
+    ctx.restore();
+}
+
+function loadPosterImages(players) {
+    var loadTasks = [];
+    players.forEach(function(p) {
+        if (!p.imgSrc) return;
+        var task = new Promise(function(resolve) {
+            var img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = function() { p.loadedImg = img; resolve(); };
+            img.onerror = function() { resolve(); };
+            img.src = p.imgSrc;
+        });
+        loadTasks.push(task);
+    });
+    return Promise.all(loadTasks);
+}
+
+function drawPoster(ctx, w, h, players, bgImg) {
+    if (!players) players = getPyramidPlayers();
+
+    // 背景图片（与首页一致）
+    if (bgImg) {
+        var iw = bgImg.naturalWidth || bgImg.width;
+        var ih = bgImg.naturalHeight || bgImg.height;
+        var scale = Math.max(w / iw, h / ih);
+        var dw = iw * scale;
+        var dh = ih * scale;
+        var dx = (w - dw) / 2;
+        var dy = 0;
+        ctx.drawImage(bgImg, dx, dy, dw, dh);
+    }
+
+    // 背景渐变覆盖（与首页 ::before 一致）
+    // 径向光晕 + 深色渐变
+    var grd = ctx.createRadialGradient(w * 0.2, 0, 0, w * 0.2, 0, w * 0.5);
+    grd.addColorStop(0, 'rgba(255, 215, 0, 0.15)');
+    grd.addColorStop(1, 'transparent');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, 0, w, h);
+
+    var grd2 = ctx.createRadialGradient(w * 0.8, h * 0.1, 0, w * 0.8, h * 0.1, w * 0.4);
+    grd2.addColorStop(0, 'rgba(255, 165, 0, 0.10)');
+    grd2.addColorStop(1, 'transparent');
+    ctx.fillStyle = grd2;
+    ctx.fillRect(0, 0, w, h);
+
+    var grd3 = ctx.createLinearGradient(0, 0, 0, h);
+    grd3.addColorStop(0, 'rgba(90, 48, 32, 0.6)');
+    grd3.addColorStop(0.6, 'rgba(58, 30, 18, 0.8)');
+    grd3.addColorStop(1, 'rgba(42, 20, 16, 0.95)');
+    ctx.fillStyle = grd3;
+    ctx.fillRect(0, 0, w, h);
+
+    // 金色装饰线（顶）
+    ctx.fillStyle = 'rgba(255,215,0,0.18)';
+    ctx.fillRect(0, 0, w, 4);
+    ctx.fillStyle = 'rgba(255,215,0,0.08)';
+    ctx.fillRect(0, 4, w, 2);
+
+    // 标题
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillStyle = '#FFD700';
+    ctx.font = 'bold 28px -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif';
+    ctx.fillText('🏆本世纪FMVP含金量金字塔排行', w / 2, 26);
+
+    // 副标题
+    ctx.fillStyle = '#a09080';
+    ctx.font = '15px -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif';
+    ctx.fillText('我的Top10排名', w / 2, 72);
+
+    // 分隔线
+    ctx.fillStyle = 'rgba(255,215,0,0.1)';
+    ctx.fillRect(40, 108, w - 80, 1);
+
+    // --- 金字塔排布：1-2-3-4 ---
+    var R = 56;
+    var TIER_CONFIG = [
+        { count: 1, startIdx: 0 },
+        { count: 2, startIdx: 1 },
+        { count: 3, startIdx: 3 },
+        { count: 4, startIdx: 6 }
+    ];
+    var GAP_BETWEEN = 14;
+    var NAME_GAP = 6;
+    var ROW_GAP = 18;
+    var rowH = R * 2 + NAME_GAP + 18;
+
+    // 计算起始Y（垂直居中）
+    var headerH = 110;
+    var totalContentH = TIER_CONFIG.length * rowH + (TIER_CONFIG.length - 1) * ROW_GAP;
+    var startY = headerH + (h - headerH - 38 - totalContentH) / 2;
+
+    for (var ti = 0; ti < TIER_CONFIG.length; ti++) {
+        var cfg = TIER_CONFIG[ti];
+        var cnt = cfg.count;
+        var startIdx = cfg.startIdx;
+        var rowW = cnt * (R * 2) + (cnt - 1) * GAP_BETWEEN;
+        var startX = (w - rowW) / 2 + R;
+        var py = startY + ti * (rowH + ROW_GAP) + R;
+
+        for (var j = 0; j < cnt; j++) {
+            var idx = startIdx + j;
+            if (idx >= players.length) break;
+            var px = startX + j * (R * 2 + GAP_BETWEEN);
+            var pData = players[idx];
+
+            // 金色边框
+            ctx.beginPath();
+            ctx.arc(px, py, R + 3, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.fillStyle = '#FFD700';
+            ctx.fill();
+
+            // 头像
+            if (pData.loadedImg) {
+                drawCircularImage(ctx, pData.loadedImg, px, py, R);
+            } else {
+                ctx.beginPath();
+                ctx.arc(px, py, R, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fillStyle = '#333';
+                ctx.fill();
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 24px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                if (pData.name) ctx.fillText(pData.name.slice(-2), px, py);
+            }
+
+            // 名字
+            ctx.fillStyle = '#d0c0b0';
+            ctx.font = '13px -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.fillText(pData.name, px, py + R + NAME_GAP);
+        }
+    }
+
+    // 底部金色装饰
+    ctx.fillStyle = 'rgba(255,215,0,0.1)';
+    ctx.fillRect(40, h - 38, w - 80, 1);
+
+    // 水印
+    ctx.fillStyle = 'rgba(255,255,255,0.15)';
+    ctx.font = '13px -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    ctx.fillText('本世纪FMVP含金量金字塔排行·虎扑JRs出品', w / 2, h - 8);
+
+    // 虎扑Logo（左上角，清晰可见）
+    if (window._hupuLogoImg && window._hupuLogoImg.complete && window._hupuLogoImg.naturalWidth > 0) {
+      var logoSize = 90;
+      var logoX = 24;
+      var logoY = 78;
+      ctx.save();
+      ctx.shadowColor = 'rgba(0,0,0,0.5)';
+      ctx.shadowBlur = 6;
+      ctx.drawImage(window._hupuLogoImg, logoX, logoY, logoSize, logoSize);
+      ctx.restore();
+    }
+}
+
+function calcPosterHeight(players) {
+    return POSTER_H;
+}
+
+function createPosterCanvasAsync() {
+    var players = getPyramidPlayers();
+    // 加载海报背景图片
+    var bgLoadTask = new Promise(function(resolve) {
+        var img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = function() { resolve(img); };
+        img.onerror = function() { resolve(null); };
+        img.src = 'https://i1.hoopchina.com.cn/newsPost/714cdf3ae0b2836623b5ab170670e9ec_w_848_h_1264_.png';
+    });
+    // 加载虎扑Logo
+    var logoLoadTask = new Promise(function(resolve) {
+        if (window._hupuLogoImg && window._hupuLogoImg.complete && window._hupuLogoImg.naturalWidth > 0) {
+            resolve(window._hupuLogoImg);
+            return;
+        }
+        var img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = function() { window._hupuLogoImg = img; resolve(img); };
+        img.onerror = function() { resolve(null); };
+        img.src = 'https://i3.hoopchina.com.cn/newsPost/de00f9a83014c2b3196d831d4be1adb9_w_300_h_300_.png';
+    });
+    return Promise.all([loadPosterImages(players), bgLoadTask, logoLoadTask]).then(function(results) {
+        var bgImg = results[1];
+        var canvas = document.getElementById('posterCanvas');
+        canvas.width = POSTER_W * POSTER_SCALE;
+        canvas.height = POSTER_H * POSTER_SCALE;
+        var ctx = canvas.getContext('2d');
+        ctx.scale(POSTER_SCALE, POSTER_SCALE);
+        drawPoster(ctx, POSTER_W, POSTER_H, players, bgImg);
+        canvas._corsSafe = true;
+        return canvas;
+    });
+}
+
+function generatePoster() {
+    createPosterCanvasAsync().then(function(canvas) {
+        var dataURL = canvas.toDataURL('image/png');
+        var img = document.getElementById('posterPreviewImg');
+        img.src = dataURL;
+        document.getElementById('posterOverlay').classList.add('active');
+    }).catch(function(err) {
+        console.error('Poster generation failed:', err);
+    });
+}
+
+function closePoster() {
+    document.getElementById('posterOverlay').classList.remove('active');
+}
+
+function dataURLToBlob(dataURL) {
+    var parts = dataURL.split(',');
+    var mime = parts[0].match(/:(.*?);/)[1];
+    var bytes = atob(parts[1]);
+    var ab = new ArrayBuffer(bytes.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < bytes.length; i++) ia[i] = bytes.charCodeAt(i);
+    return new Blob([ab], { type: mime });
+}
+
+function uploadToOSS(file, filename) {
+    return new Promise(function(resolve, reject) {
+        if (window.ColorboxAI && window.ColorboxAI.oss && typeof window.ColorboxAI.oss.uploadFile === 'function') {
+            window.ColorboxAI.oss.uploadFile({ file: file, filename: filename })
+                .then(function(res) { resolve(res.downloadUrl || ''); })
+                .catch(reject);
+            return;
+        }
+        if (window.parent && window.parent !== window) {
+            var callbackId = '_cb_up_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+            var timer = setTimeout(function() { cleanup(); reject(new Error('上传超时')); }, 30000);
+            var handler = function(e) {
+                var d = e.data;
+                if (d && d.protocol === 'colorbox-ai-bridge' && d.type === 'oss.upload.callback' && d.payload && d.payload.callbackId === callbackId) {
+                    clearTimeout(timer); cleanup();
+                    d.payload.error ? reject(new Error(d.payload.error)) : resolve(d.payload.downloadUrl || '');
+                }
+            };
+            var cleanup = function() { window.removeEventListener('message', handler); };
+            window.addEventListener('message', handler);
+            window.parent.postMessage({
+                protocol: 'colorbox-ai-bridge', version: 1, direction: 'frame-to-host',
+                type: 'oss.upload',
+                payload: { file: file, filename: filename, callbackId: callbackId }
+            }, '*');
+            return;
+        }
+        var client = getOssClient();
+        if (client) {
+            var ext = filename.lastIndexOf('.') >= 0 ? filename.slice(filename.lastIndexOf('.')) : '.png';
+            var now = new Date();
+            var key = 'user-upload/' + (now.getFullYear() % 100) + (now.getMonth() + 1) + now.getDate() + '-' + Math.random().toString(36).slice(-6) + ext;
+            client.multipartUpload(key, file, {})
+                .then(function(res) { resolve(res.downloadUrl || 'https://activity-static.hoopchina.com.cn/' + res.name); })
+                .catch(reject);
+            return;
+        }
+        reject(new Error('No upload capability'));
+    });
+}
+
+function safeNavigate(url, target, eventName) {
+    if (window.ColorboxAI && typeof window.ColorboxAI.track === 'function') {
+        try { window.ColorboxAI.track({ event: eventName || 'navigate', url: url, target: target || '_blank' }); } catch(_) {}
+    }
+    if (window.ColorboxAI && typeof window.ColorboxAI.navigateTo === 'function') {
+        try { window.ColorboxAI.navigateTo(url, target || '_blank'); return; } catch(e) {}
+    }
+    if (window.ColorboxAI && typeof window.ColorboxAI.openUrl === 'function') {
+        try { window.ColorboxAI.openUrl(url); return; } catch(e) {}
+    }
+    try { window.open(url, target || '_blank'); } catch(e) {}
+}
+
+async function sharePoster(btn) {
+    var canvas = document.getElementById('posterCanvas');
+    if (!canvas.width || !canvas._corsSafe) {
+        canvas = await createPosterCanvasAsync();
+    }
+    var dataURL = canvas.toDataURL('image/png');
+    var blob = dataURLToBlob(dataURL);
+    if (blob.size === 0) {
+        console.error('[OSS] Generated blob is empty');
+        throw new Error('海报图片为空');
+    }
+    var filename = 'poster_fmvp_' + Date.now() + '.png';
+
+    var origText = btn.innerHTML;
+    btn.innerHTML = '⏳ 上传中...';
+    btn.disabled = true;
+
+    try {
+        var imageUrl = await uploadToOSS(blob, filename);
+        var initialValue = {
+            syncPost: true,
+            appJsonV3: {
+                activeTab: 'thread',
+                data: {
+                    title: '',
+                    imageList: imageUrl ? [imageUrl] : [],
+                    content: ''
+                }
+            }
+        };
+
+        var postUrl = 'huputiyu://bbs/postImg?tagName=' + encodeURIComponent(TAG_NAME) +
+            '&tagId=' + TAG_ID +
+            '&topicName=' + encodeURIComponent(TOPIC_NAME) +
+            '&topicId=' + TOPIC_ID +
+            '&initialValue=' + encodeURIComponent(JSON.stringify(initialValue));
+        safeNavigate(postUrl, '_self', 'poster_share');
+        closePoster();
+    } catch (e) {
+        console.warn('Poster upload failed, fallback to text-only post', e);
+        var fallbackInitialValue = {
+            syncPost: true,
+            appJsonV3: {
+                activeTab: 'thread',
+                data: { title: '', imageList: [], content: '' }
+            }
+        };
+        var fallbackUrl = 'huputiyu://bbs/postImg?tagName=' + encodeURIComponent(TAG_NAME) +
+            '&tagId=' + TAG_ID +
+            '&topicName=' + encodeURIComponent(TOPIC_NAME) +
+            '&topicId=' + TOPIC_ID +
+            '&initialValue=' + encodeURIComponent(JSON.stringify(fallbackInitialValue));
+        safeNavigate(fallbackUrl, '_self', 'poster_share_fallback');
+        closePoster();
+    } finally {
+        btn.innerHTML = origText;
+        btn.disabled = false;
+    }
+}
+
+/* ===== 启动 ===== */
+window.startGame = startGame;
+window.showFinal = showFinal;
+window.showToast = showToast;
+window.renderHome = renderHome;
+renderHome();
+</script>
+
+<!-- 海报生成 -->
+<canvas id="posterCanvas" style="display:none"></canvas>
+<div id="posterOverlay">
+    <img id="posterPreviewImg" alt="海报预览">
+    <div class="poster-actions">
+        <button class="btn btn-poster btn-share" onclick="sharePoster(this)">📤一键发帖</button>
+        <button class="btn poster-close" style="background:#555;color:#fff" onclick="closePoster()">✕取消</button>
+    </div>
+</div>
+
+</body>
+</html>

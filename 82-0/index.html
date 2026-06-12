@@ -59,13 +59,12 @@
     width: 100%;
     max-width: 1100px;
     text-align: center;
-    padding: 48px 20px 4px;
+    padding: 0 0 4px;
     z-index: 1;
     background: var(--court-dark);
   }
   .header .header-img {
     display: block;
-    max-width: 340px;
     width: 100%;
     height: auto;
     margin: 0 auto;
@@ -154,18 +153,41 @@
     font-size: 1.1rem; color: var(--text-muted); max-width: 500px; line-height: 1.6;
   }
   .menu-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
-  .how-to-box {
-    background: var(--card-bg); border: 1px solid var(--card-border);
-    border-radius: 12px; padding: 30px; max-width: 650px;
-    text-align: left; margin-top: 10px;
+  /* --- How-to Modal --- */
+  .howto-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+    z-index: 999999; display: none;
+    flex-direction: column; align-items: center; justify-content: center;
+    padding: 20px;
   }
-  .how-to-box h3 { font-family: 'Oswald', sans-serif; color: var(--gold); margin-bottom: 16px; font-size: 1.2rem; }
-  .how-to-box ul { list-style: none; display: grid; gap: 10px; }
-  .how-to-box ul li { padding-left: 28px; position: relative; color: var(--text-muted); font-size: 0.92rem; line-height: 1.5; }
-  .how-to-box ul li::before {
+  .howto-overlay.show { display: flex; }
+  .howto-box {
+    background: var(--court-dark);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 32px 28px;
+    max-width: 480px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  .howto-box h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .howto-box ul { list-style: none; display: grid; gap: 14px; }
+  .howto-box ul li {
+    padding-left: 32px; position: relative;
+    color: var(--text-muted); font-size: 0.92rem; line-height: 1.6;
+  }
+  .howto-box ul li::before {
     content: '🏀'; position: absolute; left: 0; top: 0; font-size: 0.9rem;
   }
-  .how-to-box ul li strong { color: var(--text-light); }
+  .howto-box ul li strong { color: var(--text-light); }
+  .howto-box .btn { width: 100%; margin-top: 20px; }
 
   /* --- SLOT MACHINE --- */
   .slot-section {
@@ -512,6 +534,42 @@
   .modal-box p { color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem; }
   .modal-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 
+  /* --- App Intercept Modal --- */
+  .app-intercept-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+    z-index: 999999; display: none;
+    flex-direction: column; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .app-intercept-overlay.show { display: flex; }
+  .app-intercept-box {
+    background: var(--court-dark);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 40px 32px;
+    max-width: 360px;
+    width: 100%;
+    text-align: center;
+  }
+  .app-intercept-box .icon {
+    font-size: 48px; margin-bottom: 16px;
+  }
+  .app-intercept-box h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .app-intercept-box p {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .app-intercept-box .btn {
+    width: 100%;
+  }
+
   /* Loading spinner for slot */
   .slot-spinner {
     display: none; font-size: 2rem; animation: spin 0.6s linear infinite;
@@ -538,21 +596,12 @@
         谁能创造出82-0的完美阵容？
       </div>
       <div class="menu-buttons">
-        <button class="btn btn-primary" onclick="window.ColorboxAI&&window.ColorboxAI.track({act:'click',blk:'BMC098',pos:'TC1',label:'开始游戏'});startGame()" style="width:260px;justify-content:center;">▶&nbsp; 开始游戏</button>
+        <button class="btn btn-primary" onclick="try{window.ColorboxAI&&window.ColorboxAI.track({act:'click',blk:'BMC098',pos:'TC1',label:'开始游戏'})}catch(e){};handleStartGame()" style="width:260px;justify-content:center;">▶&nbsp; 开始游戏</button>
         <button class="btn btn-secondary" onclick="window.ColorboxAI&&window.ColorboxAI.track({act:'click',blk:'BMC098',pos:'TC2',label:'玩法说明'});toggleHowTo()" style="width:260px;justify-content:center;">📖 &nbsp;玩法说明</button>
         <button class="btn btn-secondary" onclick="window.ColorboxAI&&window.ColorboxAI.track({act:'click',blk:'BMC098',pos:'TC3',label:'查看其他JRs的成绩'});safeNavigate('huputiyu://bbs/topicTag?tagId=148405', '_self', 'click_view_ranking')" style="width:260px;justify-content:center;border-color:var(--accent);color:var(--accent-light);">👥 查看其他JRs的成绩</button>
         <button class="btn btn-secondary btn-xs" onclick="testBestPlayers()" style="display:none;">⚡ 最强阵容</button>
       </div>
-      <div class="how-to-box" id="howToBox" style="display:none;">
-        <h3>📋 玩法说明</h3>
-        <ul>
-          <li><strong>5轮选秀，7个年代</strong> — 每轮老虎机会随机抽出一个<strong>NBA球队</strong>和<strong>年代</strong>，你从该球队该年代中挑选一名球员。</li>
-          <li><strong>年代不限，自由选择</strong> — 全部<strong>7个年代</strong>（1960s–2020s）每轮都可出现，可重复选择同一年代。</li>
-          <li><strong>数据为王</strong> — 只有<strong>得分、篮板、助攻</strong> 计入评分。模拟引擎根据这些数据计算球队强度。</li>
-          <li><strong>跳过机会</strong> — 每局有<strong>1次球队跳过</strong>和<strong>1次年代跳过</strong>，遇到弱组合时使用。</li>
-          <li><strong>非线性模拟</strong> — 82场赛季预测采用曲线模型，越接近82胜越难。只有完美平衡的阵容才能82-0。</li>
-        </ul>
-      </div>
+      <!-- 玩法说明已改为弹窗，放在页面底部 -->
     </div>
   </div>
 
@@ -562,6 +611,10 @@
     <div class="sticky-top">
       <div class="header-text" id="gameHeaderText">82-0 完美赛季大挑战</div>
       <div class="roster-bar" id="rosterBar"></div>
+    </div>
+
+    <div style="text-align:center; padding:4px 0;">
+      <span style="font-size:0.7rem; color:var(--text-muted);" id="selectionHint">提示：点击已选择球员可以更改其位置</span>
     </div>
 
     <!-- SLOT SECTION -->
@@ -600,9 +653,9 @@
 
     <!-- PLAYER SELECTION -->
     <div id="playerSection" style="display:none;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
-        <h3 style="font-family:'Oswald', sans-serif; color:var(--gold);">选择你的球员</h3>
-        <span style="font-size:0.85rem; color:var(--text-muted);" id="selectionHint">点击球员卡片将他选入阵容</span>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; gap:10px;">
+        <h3 style="font-family:'Oswald', sans-serif; color:var(--gold); white-space:nowrap;">选择你的球员</h3>
+        <span style="font-size:0.7rem; color:var(--text-muted);" id="playerHint">点击球员加入阵容</span>
       </div>
       <div class="filter-tabs">
         <span class="filter-tab active" data-tab="all" onclick="setFilterTab('all')">全部</span>
@@ -657,6 +710,21 @@
   </div>
 </div>
 
+<!-- How-to Modal -->
+<div class="howto-overlay" id="howtoOverlay">
+  <div class="howto-box">
+    <h3>📋 玩法说明</h3>
+    <ul>
+      <li><strong>5轮选秀，7个年代</strong> — 每轮老虎机会随机抽出一个<strong>NBA球队</strong>和<strong>年代</strong>，你从该球队该年代中挑选一名球员。</li>
+      <li><strong>年代不限，自由选择</strong> — 全部<strong>7个年代</strong>（1960s–2020s）每轮都可出现，可重复选择同一年代。</li>
+      <li><strong>数据为王</strong> — 只有<strong>得分、篮板、助攻</strong> 计入评分。模拟引擎根据这些数据计算球队强度。</li>
+      <li><strong>跳过机会</strong> — 每局有<strong>1次球队跳过</strong>和<strong>1次年代跳过</strong>，遇到弱组合时使用。</li>
+      <li><strong>非线性模拟</strong> — 82场赛季预测采用曲线模型，越接近82胜越难。只有完美平衡的阵容才能82-0。</li>
+    </ul>
+    <button class="btn btn-secondary" onclick="closeHowTo()">我知道了</button>
+  </div>
+</div>
+
 <!-- Skip Confirm Modal -->
 <div id="skipModal" class="modal-overlay" style="display:none;">
   <div class="modal-box">
@@ -669,9 +737,42 @@
   </div>
 </div>
 
+<!-- App Intercept Modal -->
+<div class="app-intercept-overlay" id="appInterceptOverlay">
+  <div class="app-intercept-box">
+    <div class="icon">📱</div>
+    <h3>请使用虎扑App打开</h3>
+    <p>本活动仅支持在虎扑App内参与，请使用虎扑App打开页面后点击开始游戏。</p>
+    <button class="btn btn-primary" onclick="retryOpenApp()" style="margin-bottom:10px;">打开虎扑App</button>
+    <button class="btn btn-secondary" onclick="closeAppIntercept()">我知道了</button>
+  </div>
+</div>
+
 <script src="https://activity-static.hoopchina.com.cn/files/2667-a1702crc-upload-1780797928751-13.js"></script>
 
 <script>
+// ===================================================================
+//  APP CHECK
+// ===================================================================
+function getIsInApp() {
+  return /kanqiu|huputiyu/i.test(window.navigator.userAgent || "");
+}
+
+function closeAppIntercept() {
+  document.getElementById('appInterceptOverlay').classList.remove('show');
+}
+
+function retryOpenApp() {
+  closeAppIntercept();
+  const currentUrl = window.location.href;
+  const schemeUrl = 'huputiyu://webview/openencodeurl?fullscreen=0&url=' + encodeURIComponent(currentUrl);
+  window.location.href = schemeUrl;
+}
+
+function handleStartGame() {
+  startGame();
+}
+
 // ===================================================================
 //  NBA_DATA — 从 nba-data.js 加载数据
 // ===================================================================
@@ -881,15 +982,15 @@ function showScreen(id) {
   const img = header.querySelector('.header-img');
   header.style.display = id === 'screen-result' ? 'none' : '';
   if (id === 'screen-menu') {
-    header.style.padding = '24px 0 4px';
+    header.style.padding = '0 0 4px';
     if (img) img.style.display = '';
     document.getElementById('gameHeaderText').style.display = 'none';
   } else if (id === 'screen-game') {
-    header.style.padding = '4px 0';
+    header.style.padding = '0';
     if (img) img.style.display = 'none';
     document.getElementById('gameHeaderText').style.display = 'block';
   } else {
-    header.style.padding = '8px 0 4px';
+    header.style.padding = '0 0 4px';
     if (img) img.style.display = 'none';
   }
   const container = document.querySelector('.app-container');
@@ -901,8 +1002,11 @@ function showMenu() {
 }
 
 function toggleHowTo() {
-  const box = document.getElementById('howToBox');
-  box.style.display = box.style.display === 'none' ? 'block' : 'none';
+  document.getElementById('howtoOverlay').classList.add('show');
+}
+
+function closeHowTo() {
+  document.getElementById('howtoOverlay').classList.remove('show');
 }
 
 // ===================================================================
@@ -1254,14 +1358,14 @@ let _topPool = [];
 function renderPlayerGrid(team, decade) {
   const grid = document.getElementById('playerGrid');
 
-  // On first render (tab === 'all'), build the top-20 pool
+  // On first render (tab === 'all'), build the pool: top 15 + worst 5
   if (_filterTab === 'all') {
     const players = NBA_DATA[decade] ? (NBA_DATA[decade][team] || []) : [];
     const draftedNames = game.roster.map(r => r.name);
     let all = players.filter(p => !draftedNames.includes(p.name));
-    // Sort by combined PTS+REB+AST, take top 20
+    // Sort by combined PTS+REB+AST, then take top 15 + worst 5
     all.sort((a, b) => (b.stats.pts + b.stats.reb + b.stats.ast) - (a.stats.pts + a.stats.reb + a.stats.ast));
-    _topPool = all.slice(0, 20);
+    _topPool = [...all.slice(0, 15), ...all.slice(-5)];
   }
 
   // G/F/C tabs filter from the top-20 pool
@@ -1278,15 +1382,14 @@ function renderPlayerGrid(team, decade) {
       <div class="icon">😅</div>
       <p>该位置没有可用球员。</p>
     </div>`;
-    document.getElementById('selectionHint').textContent = '该位置没有可用球员';
+    document.getElementById('playerHint').textContent = '该位置没有可用球员';
     return;
   }
 
   // Shuffle for display
   display = [...display].sort(() => Math.random() - 0.5);
 
-  document.getElementById('selectionHint').textContent = `点击球员加入阵容`;
-
+  document.getElementById('playerHint').textContent = '点击球员加入阵容';
   grid.innerHTML = display.map(p => {
     const posDisplay = p.pos || '??';
     const positionsArr = p.positions && p.positions.length > 0 ? p.positions : [posDisplay];
@@ -1322,7 +1425,7 @@ function clearPending() {
   moveState = null;
   document.querySelectorAll('.player-card.selected').forEach(c => c.classList.remove('selected'));
   renderRosterBar();
-  const hint = document.getElementById('selectionHint');
+  const hint = document.getElementById('playerHint');
   if (hint) hint.textContent = '点击球员加入阵容';
 }
 
@@ -1343,14 +1446,14 @@ function selectPlayer(el, name, pos, pts, reb, ast, stl, blk) {
 
   if (emptyEligible.length === 0) {
     el.classList.remove('selected');
-    document.getElementById('selectionHint').textContent = `⚠️ ${name} 的可选位置 (${positions.join('/')}) 已满！`;
+    document.getElementById('playerHint').textContent = `⚠️ ${name} 的可选位置 (${positions.join('/')}) 已满！`;
     return;
   }
 
   // Highlight empty eligible slots for the user to click
   pendingPick = { name, pos, pts, reb, ast, stl, blk, positions };
   const posNames = emptyEligible.join('/');
-  document.getElementById('selectionHint').textContent = `点击上方闪烁的方框将 ${name} 放入 (${posNames})`;
+  document.getElementById('playerHint').textContent = `点击上方闪烁的方框将 ${name} 放入 (${posNames})`;
   renderRosterBar();
 }
 
@@ -1368,7 +1471,7 @@ function onEmptySlotClick(pos) {
     player.assignedPos = pos;
     moveState = null;
     renderRosterBar();
-    document.getElementById('selectionHint').textContent = `已移动 ${player.name} 到 ${pos}`;
+    document.getElementById('playerHint').textContent = `已移动 ${player.name} 到 ${pos}`;
     return;
   }
   // Clicked a non-highlighted slot — cancel
@@ -1395,7 +1498,7 @@ function onFilledSlotClick(pos) {
   if (emptyEligible.length === 0) return; // nowhere to move
   
   moveState = { player, currentPos: pos, targetPositions: emptyEligible };
-  document.getElementById('selectionHint').textContent = `点击闪烁的方框移动 ${player.name.split('-').pop()}`;
+  document.getElementById('playerHint').textContent = `点击闪烁的方框移动 ${player.name.split('-').pop()}`;
   renderRosterBar();
 }
 
@@ -1424,7 +1527,7 @@ function confirmDraftWith(pick) {
   document.getElementById('spinBtn').disabled = true;
   document.getElementById('skipTeamBtn').disabled = true;
   document.getElementById('skipDecadeBtn').disabled = true;
-  document.getElementById('selectionHint').textContent = `✓ ${name} → ${assignedPos} 已选入！`;
+  document.getElementById('playerHint').textContent = `✓ ${name} → ${assignedPos} 已选入！`;
 
   setTimeout(() => {
     if (game.round >= MAX_ROUNDS) {
@@ -1516,8 +1619,14 @@ function runSimulation() {
   const teamOvr = Math.round(geoMean * 1.1 * 10) / 10;
 
   // Win curve: wins = round(82 · min(rating / 110, 1) ^ 2.2)
-  const wins = Math.round(82 * Math.pow(Math.min(teamOvr / 110, 1), 2.2));
-  const losses = 82 - wins;
+  let wins = Math.round(82 * Math.pow(Math.min(teamOvr / 110, 1), 2.2));
+  let losses = 82 - wins;
+
+  // 特殊规则修正
+  if (wins === 64 && losses === 18) { wins = 65; losses = 17; }
+  else if (wins === 18 && losses === 64) { wins = 17; losses = 65; }
+  if (wins === 54) { wins = 55; losses = 27; }
+  else if (losses === 54) { wins = 27; losses = 55; }
 
   // Display results
   const record = document.getElementById('finalRecord');
@@ -1544,7 +1653,7 @@ function runSimulation() {
   // Roster final — 2-3 slot layout with team colors
   const rosterDiv = document.getElementById('rosterFinal');
   const topRow = ['PG','SG'];
-  const bottomRow = ['SF','PF','C'];
+  const bottomRow = ['SF','C','PF'];
 
   function renderFinalSlot(pos) {
     const p = game.slots[pos];
@@ -1670,7 +1779,7 @@ function testBestPlayers() {
   const rosterDiv = document.getElementById('rosterFinal');
   const posOrder = ['PG','SG','SF','PF','C'];
   const topRow = ['PG','SG'];
-  const bottomRow = ['SF','PF','C'];
+  const bottomRow = ['SF','C','PF'];
 
   function renderFinalSlot(pos) {
     const p = game.slots[pos];
@@ -1720,7 +1829,12 @@ function safeNavigate(url, target, eventName) {
   if (window.ColorboxAI && typeof window.ColorboxAI.openUrl === 'function') {
     try { window.ColorboxAI.openUrl(url); return; } catch(e) {}
   }
-  try { window.open(url, target || '_blank'); } catch(e) {}
+  try {
+    if (target === '_self') { window.location.href = url; }
+    else { window.open(url, target || '_blank'); }
+  } catch(e) {
+    window.location.href = url;
+  }
 }
 
 function getPosterPlayers() {

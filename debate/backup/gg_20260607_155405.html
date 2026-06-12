@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=430,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>最后时刻平分抢到后场篮板，此时主教练该叫暂停吗？</title>
+<title>传统的西强东弱格局，近几年是否已被完全打破？</title>
 <link rel="preconnect" href="https://activity-static.hoopchina.com.cn/" crossorigin="">
 <link rel="dns-prefetch" href="https://activity-static.hoopchina.com.cn/">
 <link rel="icon" type="image/png" sizes="32x32" href="https://activity-static.hoopchina.com.cn/images/22818-b1k52arc-upload-1660808654276-2.png">
@@ -29,7 +29,7 @@
 html, body {
   margin: 0; padding: 0;
   width: 100%; min-height: 100%;
-  background: #ffffff;
+  background: #000;
   font-family: 'hupufont-Regular', 'Helvetica Neue', 'PingFang SC', system-ui, -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', sans-serif;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -38,16 +38,18 @@ html, body {
   width: 100%;
   max-width: 430px;
   margin: 0 auto;
+  background: #000;
+  min-height: 100vh;
 }
 .banner-img {
   width: 100%;
   aspect-ratio: 1500 / 630;
-  background: #f5f5f5 url('https://i5.hoopchina.com.cn/newsPost/09901191e42518a31f6381b06c38f398_w_1500_h_630_.png') center/cover no-repeat;
+  background: #f5f5f5 url('https://i5.hoopchina.com.cn/newsPost/78c6cd5a33ca474a36aab1d8a06bce75_w_1500_h_630_.png') center/cover no-repeat;
 }
 .debate-img {
   width: 100%;
   aspect-ratio: 1500 / 840;
-  background: #f5f5f5 url('https://i1.hoopchina.com.cn/newsPost/d5b9c589f17a3d8d55dbf06de32b15d7_w_1500_h_840_.png') center/cover no-repeat;
+  background: #f5f5f5 url('https://i1.hoopchina.com.cn/newsPost/ba901ac69d024ff8beef4c019f623496_w_1500_h_840_.png') center/cover no-repeat;
   position: relative;
   overflow: hidden;
 }
@@ -71,9 +73,8 @@ html, body {
   z-index: 1;
 }
 .thread-section {
-  padding: 0 12px 24px;
-  margin-top: -10px;
-  background: #000;
+  padding: 0 12px 80px;
+  margin-top: -26px;
   position: relative;
   z-index: 2;
 }
@@ -81,131 +82,74 @@ html, body {
 .thread-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 .thread-card {
   display: block;
   text-decoration: none;
   color: inherit;
-  padding: 14px;
-  border-radius: 12px;
-  border: 1px solid #eee;
-  background: #fafafa;
-  transition: background .2s;
+  padding: 24px 14px 12px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  transition: all .2s;
+  position: relative;
 }
 .thread-card:active {
-  background: #f0f0f0;
+  transform: scale(.98);
+  background: #fafafa;
 }
 .thread-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
-}
-.thread-card-author {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.thread-card-avatar {
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid rgba(0,0,0,.08);
 }
 .thread-card-name {
   font-size: 12px;
   color: #999;
-  font-weight: 600;
+  font-weight: 500;
 }
 .thread-card-replies {
-  font-size: 11px;
-  color: #333;
-  background: rgba(0,0,0,.06);
-  padding: 2px 8px;
-  border-radius: 99px;
-  font-weight: 700;
-}
-.thread-card-body {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
+  font-size: 12px;
+  color: #999;
 }
 .thread-card-text {
-  flex: 1;
-  margin: 0;
+  margin: 0 0 8px;
   font-size: 15px;
   font-weight: 700;
   line-height: 1.4;
-  color: #333;
+  color: #222;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.thread-card-cover {
-  width: 64px; height: 64px;
-  object-fit: cover;
-  border-radius: 8px;
-  flex-shrink: 0;
-  border: 1px solid rgba(0,0,0,.06);
-}
 .list-status {
   text-align: center;
-  padding: 20px 0;
+  padding: 30px 0;
   font-size: 13px;
-  color: #999;
-  font-weight: 600;
+  color: #bbb;
+  font-weight: 500;
 }
-/* ---- 阵营标签 ---- */
+/* ---- 阵营标签（左上角） ---- */
 .thread-card-faction {
-  display: inline-block;
-  padding: 1px 7px;
-  border-radius: 4px;
-  font-size: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 3px 10px;
+  border-radius: 10px 0 10px 0;
+  font-size: 11px;
   font-weight: 800;
-  margin-right: 5px;
-  flex-shrink: 0;
-  line-height: 1.6;
+  line-height: 1.4;
+  z-index: 1;
 }
 .thread-card-faction.pro {
-  background: #fff0f0;
-  color: #c9102a;
-  border: 1px solid #ee0a26;
+  background: #ee0a26;
+  color: #fff;
 }
 .thread-card-faction.con {
-  background: #f0f4ff;
-  color: #1a6cfb;
-  border: 1px solid #1a7afb;
-}
-/* ---- 去发帖提示按钮 ---- */
-.post-prompt-wrap {
-  padding: 4px 0;
-}
-.post-prompt-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  padding: 14px;
-  border-radius: 12px;
-  background: #fff;
-  color: #333;
-  font-size: 14px;
-  font-weight: 700;
-  text-decoration: none;
-  cursor: pointer;
-  border: 1px solid #e0e0e0;
-  transition: all .2s;
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
-}
-.post-prompt-btn:active {
-  background: #f5f5f5;
-}
-.post-prompt-btn .icon {
-  font-size: 18px;
-  line-height: 1;
+  background: #1a7afb;
+  color: #fff;
 }
 /* ---- 正反方选择弹窗 ---- */
 .faction-overlay {
@@ -311,12 +255,12 @@ html, body {
 .faction-modal-close:active {
   color: #888;
 }
-/* ---- 正反方占比 ---- */
+/* ---- 支持率对比卡 ---- */
 .faction-ratio {
-  display: none;
+  display: flex;
   flex-direction: column;
   gap: 4px;
-  margin: 0 0 10px 4px;
+  margin-top: 14px;
   padding: 12px 14px;
   background: #f8f8f8;
   border-radius: 10px;
@@ -335,11 +279,9 @@ html, body {
 .faction-ratio-label.pro { color: #c9102a; }
 .faction-ratio-label.con { color: #1a6cfb; }
 .faction-ratio-vs {
-  font-size: 18px;
-  color: #666;
-  font-weight: 500;
-  font-family: 'chuangkit-jingangti', 'hupufont-Regular', 'Helvetica Neue', 'PingFang SC', sans-serif;
-  margin-top: -5px;
+  font-size: 13px;
+  color: #999;
+  font-weight: 600;
 }
 .faction-ratio-pct {
   font-size: 15px;
@@ -366,18 +308,23 @@ html, body {
 /* ---- 正反方筛选页签 ---- */
 .faction-tabs {
   display: flex;
-  gap: 0;
-  margin: 0 0 14px 4px;
+  gap: 8px;
+  margin-top: 10px;
+  margin-bottom: 12px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+.faction-tabs::-webkit-scrollbar { display: none; }
 .faction-tab {
   flex: 1;
-  padding: 6px 4px;
+  padding: 7px 4px;
   border-radius: 99px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  border: 1.5px solid #ddd;
+  border: 1px solid rgba(255,255,255,.12);
   background: transparent;
-  color: #888;
+  color: rgba(255,255,255,.55);
   cursor: pointer;
   transition: all .2s;
   -webkit-tap-highlight-color: transparent;
@@ -385,44 +332,46 @@ html, body {
   outline: none;
   text-align: center;
 }
-.faction-tab + .faction-tab {
-  margin-left: 8px;
-}
 .faction-tab:active { transform: scale(.95); }
-.faction-tab.active { background: #000; color: #fff; border-color: #000; }
-.faction-tab.active.pro { background: #c9102a; border-color: #c9102a; color: #fff; }
-.faction-tab.active.con { background: #1a6cfb; border-color: #1a6cfb; color: #fff; }
+.faction-tab.active { background: rgba(255,255,255,.15); color: #fff; border-color: rgba(255,255,255,.25); }
+.faction-tab.active.pro { background: #ee0a26; color: #fff; }
+.faction-tab.active.con { background: #1a7afb; color: #fff; }
 .tab-count {
   display: inline-block;
   font-size: 10px;
   font-weight: 600;
-  margin-left: 3px;
+  margin-left: 2px;
   opacity: .7;
 }
-/* ---- 帖子正文预览 ---- */
-.thread-card-content {
-  margin: 6px 0 0;
-  font-size: 13px;
-  color: #888;
-  line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  font-weight: 500;
+/* ---- 去发帖提示按钮 ---- */
+.post-prompt-wrap {
+  padding: 4px 0;
 }
-.thread-card-content .highlight-badge {
-  display: inline-block;
-  padding: 1px 5px;
-  border-radius: 3px;
-  background: linear-gradient(135deg, #ffb800, #ff8c00);
-  color: #fff;
-  font-size: 9px;
-  font-weight: 800;
-  margin-right: 4px;
-  line-height: 1.5;
-  vertical-align: middle;
-  flex-shrink: 0;
+.post-prompt-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  background: #fff;
+  color: #333;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid #e0e0e0;
+  transition: all .2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+.post-prompt-btn:active {
+  transform: scale(.98);
+  background: #f5f5f5;
+}
+.post-prompt-btn .icon {
+  font-size: 18px;
+  line-height: 1;
 }
 /* ---- 隐藏（筛选用） ---- */
 .thread-card.hidden { display: none; }
@@ -436,8 +385,8 @@ html, body {
 
   <!-- 正反方图 -->
   <div class="debate-img">
-    <a class="hot-left" href="#" onclick="window.ColorboxAI.track({act:'click',blk:'BMC098',pos:'TC1'}); window.ColorboxAI.navigateTo('huputiyu://bbs/postImg?tagName=最后时刻平分抢到后场篮板，此时主教练该叫暂停吗？&amp;tagId=148447&amp;topicName=湿乎乎的话题&amp;topicId=177&amp;initialValue=%7B%22syncPost%22%3Atrue%2C%22appJsonV3%22%3A%7B%22activeTab%22%3A%22thread%22%2C%22data%22%3A%7B%22title%22%3A%22%22%2C%22imageList%22%3A%5B%22https%3A%2F%2Fi3.hoopchina.com.cn%2FnewsPost%2Ff0a683a3fc71a36d3bd9d656a67ce38e_w_600_h_600_.png%22%5D%2C%22content%22%3A%22%22%7D%7D%7D'); return false;"></a>
-    <a class="hot-right" href="#" onclick="window.ColorboxAI.track({act:'click',blk:'BMC098',pos:'TC2'}); window.ColorboxAI.navigateTo('huputiyu://bbs/postImg?tagName=最后时刻平分抢到后场篮板，此时主教练该叫暂停吗？&amp;tagId=148447&amp;topicName=湿乎乎的话题&amp;topicId=177&amp;initialValue=%7B%22syncPost%22%3Atrue%2C%22appJsonV3%22%3A%7B%22activeTab%22%3A%22thread%22%2C%22data%22%3A%7B%22title%22%3A%22%22%2C%22imageList%22%3A%5B%22https%3A%2F%2Fi5.hoopchina.com.cn%2FnewsPost%2F6136631c336f536125bddfa643464955_w_600_h_600_.png%22%5D%2C%22content%22%3A%22%22%7D%7D%7D'); return false;"></a>
+    <a class="hot-left" href="#" onclick="window.ColorboxAI.track({act:'click',blk:'BMC098',pos:'TC1',label:'正方发帖'}); window.ColorboxAI.navigateTo('huputiyu://bbs/postImg?tagName=传统的西强东弱格局，近几年是否已被完全打破？&amp;tagId=149072&amp;topicName=湿乎乎的话题&amp;topicId=177&amp;initialValue=%7B%22syncPost%22%3Atrue%2C%22appJsonV3%22%3A%7B%22activeTab%22%3A%22thread%22%2C%22data%22%3A%7B%22title%22%3A%22%22%2C%22imageList%22%3A%5B%22https%3A%2F%2Fi1.hoopchina.com.cn%2FnewsPost%2F2fa3dfaa10cadbc157fbee1fec65025a_w_600_h_600_.png%22%5D%2C%22content%22%3A%22%22%7D%7D%7D'); return false;"></a>
+    <a class="hot-right" href="#" onclick="window.ColorboxAI.track({act:'click',blk:'BMC098',pos:'TC2',label:'反方发帖'}); window.ColorboxAI.navigateTo('huputiyu://bbs/postImg?tagName=传统的西强东弱格局，近几年是否已被完全打破？&amp;tagId=149072&amp;topicName=湿乎乎的话题&amp;topicId=177&amp;initialValue=%7B%22syncPost%22%3Atrue%2C%22appJsonV3%22%3A%7B%22activeTab%22%3A%22thread%22%2C%22data%22%3A%7B%22title%22%3A%22%22%2C%22imageList%22%3A%5B%22https%3A%2F%2Fi5.hoopchina.com.cn%2FnewsPost%2Fc1307f2ef8e79855202f7fd3ee6c45b3_w_600_h_600_.png%22%5D%2C%22content%22%3A%22%22%7D%7D%7D'); return false;"></a>
     <div class="hot-bottom hot-zone"></div>
   </div>
 
@@ -527,7 +476,7 @@ html, body {
 
 <script>
 /* ---- 动态抓取讨论区（newtodo 方式） ---- */
-var topicConfig = { tagId: "148447", tabType: "1", maxPages: 100 };
+var topicConfig = { tagId: "149072", tabType: "1", maxPages: 100 };
 var currentPage = 1, currentCursor = "", isRequesting = false;
 var threadListEl = document.getElementById("threadList");
 var listStatusEl = document.getElementById("listStatus");
@@ -716,7 +665,6 @@ function renderThreads(list) {
       var firstPic = item.picList[0];
       coverImgUrl = typeof firstPic === 'object' ? firstPic.url : firstPic;
     }
-    var coverImgHtml = coverImgUrl ? '<img class="thread-card-cover" src="' + coverImgUrl + '" alt="cover" loading="lazy">' : '';
 
     // 判断阵营：API 数据 > 封面图颜色分析 > 奇偶模拟
     var side = item.tagName || item.side || '';
@@ -742,53 +690,12 @@ function renderThreads(list) {
       factionBadgeHtml = '<span class="thread-card-faction ' + fc + '">' + fl + '</span>';
     }
 
-    // 正文预览（截取部分正文）
-    var contentHtml = '';
-    function findText(obj) {
-      if (!obj || typeof obj !== 'object') return '';
-      var candidates = ['content','body','summary','abstract','text','digest','desc','description','intro','message','brief','textContent','plainText'];
-      for (var i = 0; i < candidates.length; i++) {
-        if (typeof obj[candidates[i]] === 'string' && obj[candidates[i]].length > 5) return obj[candidates[i]];
-      }
-      for (var k in obj) {
-        if (obj.hasOwnProperty(k) && typeof obj[k] === 'object' && !Array.isArray(obj[k])) {
-          var r = findText(obj[k]);
-          if (r) return r;
-        }
-      }
-      return '';
-    }
-    var bodyText = findText(item);
-    if (!bodyText) {
-      if (item.picList && item.picList.length > 0 && typeof item.picList[0] === 'object' && item.picList[0].desc) {
-        bodyText = item.picList[0].desc;
-      }
-    }
-    if (bodyText) {
-      var stripped = bodyText.replace(/<[^>]*>/g, '').trim();
-      if (stripped) {
-        var safe = stripped.substring(0, 120)
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;');
-        contentHtml = '<div class="thread-card-content"><span class="highlight-badge">亮评</span>' + safe + '</div>';
-      }
-    }
-
-    card.innerHTML = '<div class="thread-card-header">'
-      + '<div class="thread-card-author">'
-      + factionBadgeHtml
-      + '<img class="thread-card-avatar" src="' + userHeader + '" alt="avatar">'
-      + '<span class="thread-card-name">' + userName + '</span>'
-      + '</div>'
-      + '<span class="thread-card-replies">' + replies + ' 回复</span>'
-      + '</div>'
-      + '<div class="thread-card-body">'
-      + coverImgHtml
+    card.innerHTML = factionBadgeHtml
       + '<p class="thread-card-text">' + title + '</p>'
-      + '</div>'
-      + contentHtml;
+      + '<div class="thread-card-header">'
+      + '<span class="thread-card-name">' + userName + '</span>'
+      + '<span class="thread-card-replies">' + replies + ' 回复</span>'
+      + '</div>';
 
     // 设置 data-faction 用于筛选
     if (factionKey) {
@@ -905,11 +812,11 @@ else fetchTopicThreads();
 
 /* ---- hot-bottom 跳转（URL 由常量配置，先埋点再跳转） ---- */
 (function() {
-  var HOT_BOTTOM_URL = 'huputiyu://bbs/topicTag?tagId=148447';
+  var HOT_BOTTOM_URL = 'huputiyu://bbs/topicTag?tagId=149072';
   var el = document.querySelector('.hot-bottom');
   el.addEventListener('click', function(e) {
     e.preventDefault();
-    try { window.ColorboxAI.track({act:'click', blk:'BMC098', pos:'TC3'}); } catch(ex) {}
+    try { window.ColorboxAI.track({act:'click', blk:'BMC098', pos:'TC3', label:'话题跳转'}); } catch(ex) {}
     try { window.ColorboxAI.navigateTo(HOT_BOTTOM_URL, '_self'); } catch(ex) {}
   });
 })();
@@ -922,9 +829,9 @@ var factionCloseBtn = document.getElementById('factionModalClose');
 // 正方 / 反方发帖链接（取自 debate-img）
 var POST_URLS = {};
 (function() {
-  var base = 'huputiyu://bbs/postImg?tagName=' + encodeURIComponent('最后时刻平分抢到后场篮板，此时主教练该叫暂停吗？') + '&tagId=148447&topicName=' + encodeURIComponent('湿乎乎的话题') + '&topicId=177&';
-  var proImg = 'https://i3.hoopchina.com.cn/newsPost/f0a683a3fc71a36d3bd9d656a67ce38e_w_600_h_600_.png';
-  var conImg = 'https://i5.hoopchina.com.cn/newsPost/6136631c336f536125bddfa643464955_w_600_h_600_.png';
+  var base = 'huputiyu://bbs/postImg?tagName=' + encodeURIComponent('传统的西强东弱格局，近几年是否已被完全打破？') + '&tagId=149072&topicName=' + encodeURIComponent('湿乎乎的话题') + '&topicId=177&';
+  var proImg = 'https://i1.hoopchina.com.cn/newsPost/2fa3dfaa10cadbc157fbee1fec65025a_w_600_h_600_.png';
+  var conImg = 'https://i5.hoopchina.com.cn/newsPost/c1307f2ef8e79855202f7fd3ee6c45b3_w_600_h_600_.png';
   POST_URLS.pro = base + 'initialValue=' + encodeURIComponent(JSON.stringify({syncPost:true,appJsonV3:{activeTab:'thread',data:{title:'',imageList:[proImg],content:''}}}));
   POST_URLS.con = base + 'initialValue=' + encodeURIComponent(JSON.stringify({syncPost:true,appJsonV3:{activeTab:'thread',data:{title:'',imageList:[conImg],content:''}}}));
 })();

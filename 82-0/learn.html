@@ -1,0 +1,1979 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>世界杯红黑榜</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { min-height: 100%; }
+    body {
+      min-height: 100vh;
+      background: #06121c;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    body:before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(28, 180, 102, .38) 0, transparent 28%),
+        radial-gradient(circle at 90% 8%, rgba(0, 96, 255, .34) 0, transparent 30%),
+        radial-gradient(circle at 12% 86%, rgba(237, 44, 55, .35) 0, transparent 30%),
+        radial-gradient(circle at 86% 82%, rgba(255, 201, 37, .32) 0, transparent 26%),
+        linear-gradient(180deg, #071a2b 0%, #0a101b 48%, #05070c 100%);
+    }
+    body:after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: .18;
+      background-image:
+        linear-gradient(120deg, transparent 0 18px, rgba(255,255,255,.18) 19px, transparent 20px),
+        linear-gradient(60deg, transparent 0 26px, rgba(255,255,255,.12) 27px, transparent 28px);
+      background-size: 56px 56px;
+      pointer-events: none;
+    }
+    .app {
+      width: 100%;
+      max-width: 430px;
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: calc(env(safe-area-inset-top) + 20px) 14px calc(env(safe-area-inset-bottom) + 122px);
+    }
+    .hero {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      padding: 18px 16px 16px;
+      border-radius: 28px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.06)),
+        linear-gradient(135deg, rgba(28,180,102,.52), rgba(0,96,255,.4) 46%, rgba(237,44,55,.46));
+      border: 1px solid rgba(255,255,255,.2);
+      box-shadow: 0 20px 46px rgba(0,0,0,.34);
+    }
+    .hero:before {
+      content: "";
+      position: absolute;
+      right: -36px;
+      top: -42px;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, transparent 0 36px, rgba(255,255,255,.22) 37px 41px, transparent 42px),
+        repeating-conic-gradient(from 15deg, rgba(255,255,255,.24) 0 11deg, transparent 11deg 22deg);
+      opacity: .9;
+    }
+    .hero-top {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      z-index: 1;
+    }
+    .event-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.18);
+      color: rgba(255,255,255,.9);
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .date-pill {
+      flex-shrink: 0;
+      padding: 5px 10px;
+      border-radius: 999px;
+      color: #07121d;
+      background: #ffd34d;
+      font-size: 12px;
+      font-weight: 1000;
+      box-shadow: 0 6px 16px rgba(255, 211, 77, .24);
+    }
+    .hero h1 {
+      position: relative;
+      z-index: 1;
+      margin-top: 15px;
+      font-size: 34px;
+      line-height: 1.05;
+      letter-spacing: 1px;
+      font-weight: 1000;
+      text-shadow: 0 6px 18px rgba(0,0,0,.28);
+    }
+    .hero p {
+      position: relative;
+      z-index: 1;
+      margin-top: 8px;
+      max-width: 280px;
+      color: rgba(255,255,255,.82);
+      font-size: 13px;
+      line-height: 1.55;
+      font-weight: 650;
+    }
+    .mini-rule {
+      margin: 14px 2px 12px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.68);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+    .tabs-container {
+      position: sticky;
+      top: calc(env(safe-area-inset-top) + 6px);
+      z-index: 10;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 8px;
+      margin: 10px 0 14px;
+      border-radius: 18px;
+      background: rgba(4, 10, 18, .72);
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .tab-btn {
+      min-height: 42px;
+      border: 0;
+      border-radius: 14px;
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.58);
+      font-size: 15px;
+      font-weight: 1000;
+      cursor: pointer;
+    }
+    .tab-btn.active.red-tab {
+      color: #fff;
+      background: linear-gradient(135deg, #ff554f, #bf111c);
+      box-shadow: 0 8px 20px rgba(237,44,55,.25);
+    }
+    .tab-btn.active.black-tab {
+      color: #fff;
+      background: linear-gradient(135deg, #20242d, #030408);
+      box-shadow: 0 8px 20px rgba(0,0,0,.32);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .score-section { width: 100%; display: flex; flex-direction: column; gap: 14px; }
+    .loading {
+      padding: 26px 16px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      text-align: center;
+      color: rgba(255,255,255,.7);
+      font-size: 14px;
+    }
+    .score-item-card {
+      position: relative;
+      width: 100%;
+      padding: 15px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 14px 34px rgba(0,0,0,.28);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .score-item-card:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      opacity: .95;
+    }
+    .score-item-card.red:before { background: linear-gradient(180deg, #ff554f, #ffd34d); }
+    .score-item-card.black:before { background: linear-gradient(180deg, #7d8498, #080a0f); }
+    .rank-badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 5px 10px;
+      border-radius: 0 22px 0 12px;
+      font-size: 12px;
+      font-weight: 1000;
+      color: #fff;
+      background: rgba(255,85,79,.92);
+    }
+    .rank-badge.black { background: rgba(21, 24, 32, .92); color: rgba(255,255,255,.86); }
+    .score-item-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding-right: 58px;
+    }
+    .score-item-info-row { display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1; }
+    .score-item-cover {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.18);
+      flex-shrink: 0;
+    }
+    .score-item-cover.fallback {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 1000;
+      color: #fff;
+      background: linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.06));
+    }
+    .score-item-name-area { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 5px; }
+    .score-item-name {
+      font-size: 18px;
+      line-height: 1.25;
+      font-weight: 1000;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .score-item-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      color: rgba(255,255,255,.58);
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .meta-tag {
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.09);
+      color: rgba(255,255,255,.66);
+    }
+    .score-item-num-wrap {
+      flex-shrink: 0;
+      min-width: 72px;
+      text-align: right;
+      color: rgba(255,255,255,.72);
+    }
+    .score-avg-val {
+      font-size: 23px;
+      line-height: 1;
+      font-weight: 1000;
+      color: #ffd34d;
+      font-variant-numeric: tabular-nums;
+    }
+    .score-person-count {
+      margin-top: 4px;
+      font-size: 11px;
+      color: rgba(255,255,255,.45);
+    }
+    .waiting-score {
+      font-size: 12px;
+      color: rgba(255,255,255,.34);
+      padding-top: 16px;
+      white-space: nowrap;
+    }
+    .score-stars-container {
+      width: 100%;
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.24);
+      border: 1px solid rgba(255,255,255,.08);
+      cursor: default;
+    }
+    .score-stars-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      color: rgba(255,255,255,.66);
+      font-size: 12px;
+      font-weight: 850;
+    }
+    .score-my-val { color: #ffd34d; font-weight: 1000; }
+    .score-stars-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 13px;
+    }
+    .score-star-btn {
+      font-size: 32px;
+      line-height: 1;
+      color: rgba(255,255,255,.16);
+      user-select: none;
+      cursor: pointer;
+      transition: transform .12s ease, color .12s ease, text-shadow .12s ease;
+    }
+    .score-star-btn.active {
+      color: #ffd34d;
+      text-shadow: 0 0 12px rgba(255,211,77,.85), 0 0 4px rgba(255,255,255,.65);
+    }
+    .score-star-btn:active { transform: scale(.86); }
+    .score-stars-container.submitting { opacity: .56; pointer-events: none; }
+    .action-bottom {
+      position: fixed;
+      left: 50%;
+      right: auto;
+      bottom: calc(env(safe-area-inset-bottom) + 12px);
+      transform: translateX(-50%);
+      width: calc(100% - 28px);
+      max-width: 402px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+    .reveal-btn, .share-result-btn, .btn-share {
+      width: 100%;
+      min-height: 50px;
+      border: 0;
+      border-radius: 999px;
+      color: #06121c;
+      background: linear-gradient(135deg, #ffd34d, #ff8a00);
+      font-size: 16px;
+      font-weight: 1000;
+      cursor: pointer;
+      box-shadow: 0 10px 26px rgba(255, 138, 0, .32);
+      pointer-events: auto;
+    }
+    .share-result-btn { display: none; background: linear-gradient(135deg, #21c36b, #00a1ff); color: #fff; }
+    .reveal-btn:active, .share-result-btn:active, .btn-share:active { transform: scale(.98); }
+    .footer { margin: 22px 0 0; text-align: center; color: rgba(255,255,255,.32); font-size: 12px; }
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 38px;
+      transform: translateX(-50%);
+      z-index: 10050;
+      max-width: calc(100% - 36px);
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.86);
+      border: 1px solid rgba(255,255,255,.12);
+      color: #fff;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      box-shadow: 0 8px 28px rgba(0,0,0,.5);
+    }
+    .toast.show { opacity: 1; }
+    #posterOverlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(0,0,0,.92);
+    }
+    #posterOverlay.active { display: flex; }
+    #posterOverlay img {
+      max-width: 100%;
+      max-height: 75vh;
+      border-radius: 16px;
+      background: #07121d;
+      box-shadow: 0 18px 46px rgba(0,0,0,.55);
+    }
+    .poster-actions {
+      width: 100%;
+      max-width: 360px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .poster-close {
+      width: 100%;
+      min-height: 50px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      color: #fff;
+      background: rgba(255,255,255,.12);
+      font-size: 15px;
+      font-weight: 1000;
+    }
+    .btn-share { min-height: 50px; color: #fff; background: linear-gradient(135deg, #21c36b, #00a1ff); box-shadow: none; }
+    .btn-share:disabled { opacity: .65; pointer-events: none; }
+
+
+    /* =========================
+       V4视觉安全修正：只追加CSS覆盖，不改任何评分JS/CONFIG/SDK逻辑
+       ========================= */
+    body {
+      background: #f4fff5 !important;
+      color: #151a28 !important;
+    }
+    body:before {
+      background:
+        radial-gradient(circle at 8% 10%, rgba(255, 53, 68, .18) 0, transparent 24%),
+        radial-gradient(circle at 86% 6%, rgba(178, 255, 0, .52) 0, transparent 28%),
+        radial-gradient(circle at 20% 72%, rgba(0, 101, 255, .16) 0, transparent 34%),
+        radial-gradient(circle at 84% 72%, rgba(34, 198, 109, .18) 0, transparent 32%),
+        linear-gradient(180deg, #f7fff8 0%, #eaffef 52%, #f7fff8 100%) !important;
+    }
+    body:after {
+      opacity: .42 !important;
+      background-image:
+        linear-gradient(90deg, rgba(18,30,52,.06) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(18,30,52,.06) 1px, transparent 1px),
+        radial-gradient(circle at 8% 10%, rgba(255, 49, 61, .18) 0 58px, transparent 59px),
+        radial-gradient(circle at 92% 9%, rgba(186, 255, 0, .38) 0 70px, transparent 71px),
+        radial-gradient(circle at 96% 45%, rgba(255, 49, 61, .13) 0 64px, transparent 65px),
+        radial-gradient(circle at 20% 100%, rgba(0, 101, 255, .13) 0 92px, transparent 93px) !important;
+      background-size: 44px 44px, 44px 44px, auto, auto, auto, auto !important;
+    }
+    .app {
+      padding: calc(env(safe-area-inset-top) + 8px) 14px calc(env(safe-area-inset-bottom) + 118px) !important;
+    }
+    .hero {
+      min-height: 108px !important;
+      padding: 16px 18px 18px !important;
+      border-radius: 24px !important;
+      background: rgba(255,255,255,.70) !important;
+      border: 2px solid #ff313d !important;
+      box-shadow: 0 14px 30px rgba(255,49,61,.12) !important;
+    }
+    .hero:before {
+      right: -26px !important;
+      top: -38px !important;
+      width: 150px !important;
+      height: 150px !important;
+      opacity: .48 !important;
+      background:
+        radial-gradient(circle at center, transparent 0 38px, rgba(18,30,52,.16) 39px 42px, transparent 43px),
+        repeating-conic-gradient(from 13deg, rgba(18,30,52,.16) 0 10deg, transparent 10deg 20deg) !important;
+    }
+    .event-pill,
+    .hero p,
+    .mini-rule,
+    .score-item-meta,
+    .footer {
+      display: none !important;
+    }
+    .hero-top {
+      justify-content: flex-end !important;
+    }
+    .date-pill {
+      color: #05070c !important;
+      background: #baff00 !important;
+      border: 2px solid #05070c !important;
+      box-shadow: none !important;
+      font-size: 12px !important;
+      padding: 5px 14px !important;
+    }
+    .hero h1 {
+      margin-top: 10px !important;
+      color: #121e34 !important;
+      text-shadow: none !important;
+      font-size: 31px !important;
+      letter-spacing: 0 !important;
+    }
+    .tabs-container {
+      position: sticky !important;
+      top: calc(env(safe-area-inset-top) + 6px) !important;
+      margin: 10px 0 14px !important;
+      padding: 6px !important;
+      border-radius: 17px !important;
+      background: rgba(255,255,255,.82) !important;
+      border: 1px solid rgba(18,30,52,.08) !important;
+      box-shadow: 0 12px 26px rgba(18,30,52,.09) !important;
+    }
+    .tab-btn {
+      min-height: 42px !important;
+      border-radius: 13px !important;
+      background: #f2f5f9 !important;
+      color: #4b5567 !important;
+      box-shadow: none !important;
+    }
+    .tab-btn.active.red-tab {
+      color: #fff !important;
+      background: linear-gradient(135deg, #ff4048, #ff202d) !important;
+      box-shadow: 0 10px 22px rgba(255,49,61,.24) !important;
+    }
+    .tab-btn.active.black-tab {
+      color: #fff !important;
+      background: linear-gradient(135deg, #242936, #05070c) !important;
+      box-shadow: 0 10px 22px rgba(5,7,12,.22) !important;
+      border: 0 !important;
+    }
+    .loading {
+      color: #344056 !important;
+      background: rgba(255,255,255,.78) !important;
+      border: 1px solid rgba(18,30,52,.08) !important;
+    }
+    .score-item-card {
+      border-radius: 24px !important;
+      background: rgba(255,255,255,.82) !important;
+      border: 1px solid rgba(18,30,52,.08) !important;
+      box-shadow: 0 14px 30px rgba(18,30,52,.10) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+    }
+    .score-item-card.red {
+      border-color: rgba(255,49,61,.30) !important;
+      background:
+        radial-gradient(circle at 94% 5%, rgba(255,49,61,.16) 0 58px, transparent 59px),
+        rgba(255,255,255,.84) !important;
+    }
+    .score-item-card.black {
+      border-color: rgba(18,30,52,.20) !important;
+      background:
+        radial-gradient(circle at 94% 5%, rgba(18,30,52,.12) 0 58px, transparent 59px),
+        linear-gradient(135deg, rgba(255,255,255,.86), rgba(245,247,251,.82)) !important;
+    }
+    .score-item-card.red:before { background: linear-gradient(180deg, #ff202d, #ff8a00) !important; }
+    .score-item-card.black:before { background: linear-gradient(180deg, #05070c, #6b7280) !important; }
+    .rank-badge {
+      color: #fff !important;
+      background: #ff313d !important;
+      border-radius: 0 22px 0 12px !important;
+    }
+    .rank-badge.black { background: #161b26 !important; color: #fff !important; }
+    .score-item-header {
+      align-items: center !important;
+    }
+    .score-item-cover {
+      width: 58px !important;
+      height: 58px !important;
+      background: #fff !important;
+      border: 1px solid rgba(18,30,52,.08) !important;
+      box-shadow: 0 5px 14px rgba(18,30,52,.10) !important;
+    }
+    .score-item-cover.fallback {
+      color: #121e34 !important;
+      background: linear-gradient(135deg,#fff,#f4f7fb) !important;
+    }
+    .score-item-name {
+      color: #121e34 !important;
+      font-size: 18px !important;
+    }
+    .score-item-num-wrap,
+    .waiting-score {
+      color: #7b8494 !important;
+    }
+    .score-avg-val {
+      color: #ff313d !important;
+    }
+    .score-person-count {
+      color: #7b8494 !important;
+    }
+    .score-stars-container {
+      background: rgba(255,255,255,.78) !important;
+      border: 1px solid rgba(18,30,52,.08) !important;
+    }
+    .score-stars-title {
+      color: #7b8494 !important;
+    }
+    .score-my-val {
+      color: #ff313d !important;
+    }
+    .score-star-btn {
+      color: #cbd3df !important;
+    }
+    .score-star-btn.active {
+      color: #ff313d !important;
+      text-shadow: 0 0 10px rgba(255,49,61,.35) !important;
+    }
+    .reveal-btn {
+      color: #05070c !important;
+      background: linear-gradient(135deg, #baff00, #ffe600) !important;
+      border: 2px solid rgba(5,7,12,.08) !important;
+      box-shadow: 0 10px 24px rgba(186,255,0,.26) !important;
+    }
+    .share-result-btn,
+    .btn-share {
+      color: #fff !important;
+      background: linear-gradient(135deg, #ff313d, #242936) !important;
+    }
+  
+    /* 投票版新增样式：不改整体视觉，只替换星星打分区为选择按钮 */
+    .event-score-line {
+      margin-top: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #7b8494;
+      font-weight: 850;
+    }
+    .event-score-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border-radius: 999px;
+      padding: 3px 7px;
+      background: rgba(255,49,61,.08);
+      color: #ff313d;
+      font-weight: 1000;
+    }
+    .score-item-card.black .event-score-pill {
+      background: rgba(18,30,52,.08);
+      color: #121e34;
+    }
+    .rating-link-hint {
+      margin-top: 5px;
+      font-size: 11px;
+      color: #9aa3b2;
+      font-weight: 800;
+    }
+    .pick-container {
+      width: 100%;
+      background: rgba(255,255,255,.78) !important;
+      border: 1px solid rgba(18,30,52,.08) !important;
+      padding: 10px 10px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .pick-copy {
+      min-width: 0;
+      color: #7b8494;
+      font-size: 12px;
+      line-height: 1.35;
+      font-weight: 850;
+    }
+    .poll-count-text {
+      color: #ff313d;
+      font-size: 13px;
+      font-weight: 1000;
+      white-space: nowrap;
+    }
+    .score-item-card.black .poll-count-text { color: #121e34; }
+    .select-player-btn {
+      flex: 0 0 auto;
+      border: 0;
+      min-height: 36px;
+      padding: 0 14px;
+      border-radius: 999px;
+      color: #fff;
+      background: linear-gradient(135deg, #ff313d, #ff7a00);
+      font-size: 13px;
+      font-weight: 1000;
+      box-shadow: 0 8px 18px rgba(255,49,61,.22);
+    }
+    .score-item-card.black .select-player-btn {
+      background: linear-gradient(135deg, #121e34, #4d586b);
+      box-shadow: 0 8px 18px rgba(18,30,52,.16);
+    }
+    .select-player-btn.selected {
+      color: #05070c;
+      background: linear-gradient(135deg, #baff00, #ffe600);
+      box-shadow: 0 8px 18px rgba(186,255,0,.20);
+    }
+    .select-player-btn:active { transform: scale(.96); }
+    .score-item-card.selected {
+      box-shadow: 0 14px 34px rgba(255,49,61,.22) !important;
+      border-color: rgba(255,49,61,.72) !important;
+    }
+    .score-item-card.black.selected {
+      box-shadow: 0 14px 34px rgba(18,30,52,.20) !important;
+      border-color: rgba(18,30,52,.42) !important;
+    }
+    .score-item-card.result .rank-badge {
+      background: linear-gradient(135deg,#ff313d,#ff7a00) !important;
+    }
+    .score-item-card.result .rank-badge.black {
+      background: linear-gradient(135deg,#121e34,#4d586b) !important;
+      color: #fff !important;
+    }
+    .result-note {
+      margin: 4px 0 12px;
+      border-radius: 18px;
+      padding: 10px 12px;
+      color: #121e34;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(18,30,52,.08);
+      font-size: 12px;
+      font-weight: 850;
+      line-height: 1.45;
+    }
+
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <div class="hero-top">
+        <div class="event-pill">UNITED 2026 · DAILY</div>
+        <div class="date-pill" id="datePill">比赛日</div>
+      </div>
+      <h1 id="pageTitle">世界杯红黑榜</h1>
+      <p id="pageSubtitle">每天选出最亮眼与最该挨喷的世界杯球员，先盲打，再揭榜。</p>
+    </section>
+
+    <div class="mini-rule" id="ruleText">红榜/黑榜由运营配置评分项 ID：前 5 个进入红榜，后 5 个进入黑榜。你可以只给想打的人打分。</div>
+
+    <div class="tabs-container">
+      <button class="tab-btn red-tab active" id="tab-red" onclick="switchTab('red')">🔥 红榜</button>
+      <button class="tab-btn black-tab" id="tab-black" onclick="switchTab('black')">🕷️ 黑榜</button>
+    </div>
+
+    <section class="score-section" id="scoreSection"></section>
+
+    <div class="action-bottom" id="actionBottom">
+      <button class="reveal-btn" id="revealBtn" onclick="revealLeaderboard()">确认选择，查看结果</button>
+      <button class="share-result-btn" id="shareResultBtn" onclick="generatePoster()">生成海报并发帖</button>
+    </div>
+
+    <footer class="footer">JRs评分系统 · 世界杯红黑榜</footer>
+  </main>
+
+  <canvas id="posterCanvas" style="display:none"></canvas>
+
+  <div id="posterOverlay">
+    <img id="posterPreviewImg" alt="世界杯红黑榜海报">
+    <div class="poster-actions">
+      <button class="btn-share" onclick="sharePoster(this)">📤 一键发帖</button>
+      <button class="poster-close" onclick="closePoster()">关闭</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+
+    /*
+    ============================================================
+    【运营维护区】每天主要只改这里
+
+    1. activityDate：修改当天日期文案
+
+    2. redEventScoreItemIds：填【红榜】的【足球赛事】评分项 ID
+       - 用来读取真实头像、名字、赛事评分和赛事打分人数
+       - outBizType 固定 football_item
+
+    3. blackEventScoreItemIds：填【黑榜】的【足球赛事】评分项 ID
+       - 用来读取真实头像、名字、赛事评分和赛事打分人数
+       - outBizType 固定 football_item
+
+    4. redVoteItemIds：填【红榜】用来记录投票数的【足球通用】二级评分项 ID
+    5. blackVoteItemIds：填【黑榜】用来记录投票数的【足球通用】二级评分项 ID
+
+    规则：
+    - 红榜赛事评分项 ID 和红榜投票基底 ID 一一对应
+    - 黑榜赛事评分项 ID 和黑榜投票基底 ID 一一对应
+    - 每边默认最多 5 个
+    ============================================================
+    */
+    var CONFIG = {
+      activityTitle: "世界杯红黑榜",
+      activityDate: "2026年6月12日",
+      activitySubtitle: "每天选出最亮眼与最该挨喷的世界杯球员，先选择，再揭榜。",
+
+      eventScoreBizType: "football_item",
+      redEventScoreItemIds: "2086749,2086748,2086831,2086747,2086746",
+      blackEventScoreItemIds: "2086830,2086745,2086829,2086744,2086743",
+
+      voteBizType: "common_football_second",
+      redVoteItemIds: "21722,21641,21640,21721,21720",
+      blackVoteItemIds: "21719,21639,21718,21638,21637",
+
+      redCount: 5,
+      blackCount: 5,
+      postTopicId: "148933",
+      postTopicName: "世界杯红黑榜",
+      postForumId: "184",
+      postForumName: "足球话题区"
+    };
+
+    var allPlayersData = [];
+    var currentTab = "red";
+    var showResult = false;
+    var voteSubmitted = false;
+    var selected = { red: "", black: "" };
+    var scoreRefreshInFlight = false;
+    var SCORE_REFRESH_MS = 6500;
+    var toast = document.getElementById("toast");
+
+    function h(s) {
+      return String(s == null ? "" : s).replace(/[&<>"']/g, function(m) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[m] || m;
+      });
+    }
+
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add("show");
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(function() {
+        toast.classList.remove("show");
+      }, 1700);
+    }
+
+    function parseIds(str) {
+      var raw = String(str || "").split(/[，,\n\s]+/);
+      var ids = [];
+      for (var i = 0; i < raw.length; i++) {
+        var id = String(raw[i] || "").trim();
+        if (id) ids.push(id);
+      }
+      var max = Number(CONFIG.redCount || 5) + Number(CONFIG.blackCount || 5);
+      return ids.slice(0, max);
+    }
+
+    function getAllVoteIds() {
+      return parseIds(CONFIG.redVoteItemIds).concat(parseIds(CONFIG.blackVoteItemIds));
+    }
+
+    function getStorageKey() {
+      return "worldcup_red_black_vote_" + String(CONFIG.activityDate || "date") + "_" + getAllVoteIds().join("_");
+    }
+
+    function loadLocalVote() {
+      try {
+        var raw = localStorage.getItem(getStorageKey());
+        if (!raw) return;
+        var obj = JSON.parse(raw);
+        if (obj && obj.red) selected.red = String(obj.red);
+        if (obj && obj.black) selected.black = String(obj.black);
+      } catch (e) {}
+    }
+
+    function saveLocalVote() {
+      try {
+        localStorage.setItem(getStorageKey(), JSON.stringify({ red: selected.red || "", black: selected.black || "", submitted: !!voteSubmitted, time: Date.now() }));
+      } catch (e) {}
+    }
+
+    function hasUserVotedItem(item) {
+      return Number(getVoteDetail(item).userScore || 0) > 0;
+    }
+
+    function getBackendVotedIdByGroup(group) {
+      for (var i = 0; i < allPlayersData.length; i++) {
+        var item = allPlayersData[i];
+        if (item.group === group && hasUserVotedItem(item)) return String(item.voteOutBizNo || "");
+      }
+      return "";
+    }
+
+    function restoreVoteFromBackend() {
+      if (voteSubmitted && selected.red && selected.black) return;
+
+      var redVoteId = getBackendVotedIdByGroup("red");
+      var blackVoteId = getBackendVotedIdByGroup("black");
+
+      if (redVoteId) selected.red = redVoteId;
+      if (blackVoteId) selected.black = blackVoteId;
+
+      if (selected.red || selected.black) saveLocalVote();
+
+      if (selected.red && selected.black && redVoteId && blackVoteId) {
+        voteSubmitted = true;
+        showResult = true;
+        saveLocalVote();
+      }
+    }
+
+    function buildTargetItems() {
+      var redEventIds = parseIds(CONFIG.redEventScoreItemIds);
+      var blackEventIds = parseIds(CONFIG.blackEventScoreItemIds);
+      var redVoteIds = parseIds(CONFIG.redVoteItemIds);
+      var blackVoteIds = parseIds(CONFIG.blackVoteItemIds);
+      var items = [];
+      var i;
+      for (i = 0; i < redEventIds.length; i++) {
+        items.push({
+          eventOutBizType: CONFIG.eventScoreBizType || "football_item",
+          eventOutBizNo: redEventIds[i],
+          voteOutBizType: CONFIG.voteBizType || "common_football_second",
+          voteOutBizNo: redVoteIds[i] || "",
+          group: "red",
+          order: i + 1,
+          eventData: {
+            detail: {
+              name: "评分项 " + redEventIds[i],
+              scoreAvg: 0,
+              scorePersonCount: 0,
+              userScore: 0,
+              infoJson: ""
+            }
+          },
+          voteData: {
+            detail: {
+              name: "投票项 " + (redVoteIds[i] || ""),
+              scoreAvg: 0,
+              scorePersonCount: 0,
+              userScore: 0,
+              infoJson: ""
+            }
+          }
+        });
+      }
+      for (i = 0; i < blackEventIds.length; i++) {
+        items.push({
+          eventOutBizType: CONFIG.eventScoreBizType || "football_item",
+          eventOutBizNo: blackEventIds[i],
+          voteOutBizType: CONFIG.voteBizType || "common_football_second",
+          voteOutBizNo: blackVoteIds[i] || "",
+          group: "black",
+          order: i + 1,
+          eventData: {
+            detail: {
+              name: "评分项 " + blackEventIds[i],
+              scoreAvg: 0,
+              scorePersonCount: 0,
+              userScore: 0,
+              infoJson: ""
+            }
+          },
+          voteData: {
+            detail: {
+              name: "投票项 " + (blackVoteIds[i] || ""),
+              scoreAvg: 0,
+              scorePersonCount: 0,
+              userScore: 0,
+              infoJson: ""
+            }
+          }
+        });
+      }
+      return items;
+    }
+
+    function waitForScoreSDK(timeoutMs) {
+      var start = Date.now();
+      return new Promise(function(resolve) {
+        function check() {
+          if (window.ColorboxAI && window.ColorboxAI.score && window.ColorboxAI.score.getScore) {
+            resolve(true);
+            return;
+          }
+          if (Date.now() - start >= timeoutMs) {
+            resolve(false);
+            return;
+          }
+          setTimeout(check, 120);
+        }
+        check();
+      });
+    }
+
+    function parseInfoJson(detail) {
+      if (!detail || !detail.infoJson) return {};
+      try {
+        return typeof detail.infoJson === "string" ? JSON.parse(detail.infoJson || "{}") : (detail.infoJson || {});
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function extractScoreImage(detail) {
+      if (!detail) return "";
+      var info = parseInfoJson(detail);
+      var candidates = [
+        detail.logo, detail.icon, detail.cover, detail.image, detail.imageUrl, detail.coverUrl,
+        detail.pic, detail.picUrl, detail.avatar, detail.avatarUrl, detail.headImg, detail.headUrl,
+        info.logo, info.icon, info.cover, info.image, info.imageUrl, info.coverUrl,
+        info.pic, info.picUrl, info.avatar, info.avatarUrl, info.headImg, info.headUrl,
+        info.cover_87x122, info.cover_100x100, info.cover_200x200
+      ];
+      for (var j = 0; j < candidates.length; j++) {
+        var url = candidates[j];
+        if (Array.isArray(url)) url = url[0];
+        if (typeof url === "string" && /^https?:\/\//i.test(url.trim())) return url.trim();
+      }
+      return "";
+    }
+
+    function extractScoreName(detail) {
+      if (!detail) return "";
+      var info = parseInfoJson(detail);
+      var candidates = [
+        detail.name, detail.title, detail.bizName, detail.itemName, detail.objectName, detail.subjectName,
+        detail.playerName, detail.nickName, detail.showName,
+        info.name, info.title, info.bizName, info.itemName, info.objectName, info.subjectName,
+        info.playerName, info.nickName, info.showName
+      ];
+      for (var i = 0; i < candidates.length; i++) {
+        var name = candidates[i];
+        if (Array.isArray(name)) name = name[0];
+        if (typeof name === "string") {
+          name = name.trim();
+          if (name && !/^评分项\s*\d+/.test(name)) return name;
+        }
+      }
+      return "";
+    }
+
+    function getEventDetail(item) {
+      return item && item.eventData && item.eventData.detail ? item.eventData.detail : {};
+    }
+
+    function getVoteDetail(item) {
+      return item && item.voteData && item.voteData.detail ? item.voteData.detail : {};
+    }
+
+    function getPlayerName(item) {
+      return extractScoreName(getEventDetail(item)) || ("评分项 " + item.eventOutBizNo);
+    }
+
+    function getPlayerImage(item) {
+      return extractScoreImage(getEventDetail(item));
+    }
+
+    function getEventScoreValue(item) {
+      var detail = getEventDetail(item);
+      var score = typeof detail.scoreAvg === "number" ? detail.scoreAvg : parseFloat(detail.scoreAvg);
+      return Number.isFinite(score) ? score : 0;
+    }
+
+    function getEventVoteCount(item) {
+      return Number(getEventDetail(item).scorePersonCount || 0);
+    }
+
+    function getPollCount(item) {
+      return Number(getVoteDetail(item).scorePersonCount || 0);
+    }
+
+    function getDisplayPollCount(item) {
+      // 投票数直接以后端评分项的 scorePersonCount 为准：
+      // 投过就是投过了，相当于给对应投票基底评分项打了分。
+      return getPollCount(item);
+    }
+
+    function findItemByVoteId(voteId) {
+      for (var i = 0; i < allPlayersData.length; i++) {
+        if (String(allPlayersData[i].voteOutBizNo) === String(voteId)) return allPlayersData[i];
+      }
+      return null;
+    }
+
+    function renderInitialLoading() {
+      document.getElementById("scoreSection").innerHTML = "<div class='loading'>加载评分对象中...</div>";
+    }
+
+    async function fetchSingleEventScore(item) {
+      if (!item || !item.eventOutBizNo || !window.ColorboxAI || !window.ColorboxAI.score) return;
+      try {
+        var res = await window.ColorboxAI.score.getScore({
+          outBizType: item.eventOutBizType,
+          outBizNo: String(item.eventOutBizNo)
+        });
+        if (res && res.code === 1 && res.data && res.data.detail) {
+          item.eventData = res.data;
+          var name = extractScoreName(item.eventData.detail);
+          if (name) item.eventData.detail.name = name;
+        }
+      } catch (err) {
+        console.error("赛事评分请求异常", item.eventOutBizNo, err);
+      }
+    }
+
+    async function fetchSingleVoteScore(item) {
+      if (!item || !item.voteOutBizNo || !window.ColorboxAI || !window.ColorboxAI.score) return;
+      try {
+        var res = await window.ColorboxAI.score.getScore({
+          outBizType: item.voteOutBizType,
+          outBizNo: String(item.voteOutBizNo)
+        });
+        if (res && res.code === 1 && res.data && res.data.detail) {
+          item.voteData = res.data;
+        }
+      } catch (err) {
+        console.error("投票计数请求异常", item.voteOutBizNo, err);
+      }
+    }
+
+    async function fetchAllScoresFromRemote() {
+      var tasks = [];
+      for (var i = 0; i < allPlayersData.length; i++) {
+        tasks.push(fetchSingleEventScore(allPlayersData[i]));
+        tasks.push(fetchSingleVoteScore(allPlayersData[i]));
+      }
+      await Promise.all(tasks);
+      restoreVoteFromBackend();
+      applyResultButtons();
+      renderData();
+    }
+
+    async function refreshVoteCountsOnly(options) {
+      options = options || {};
+      if (!options.force && !showResult) return;
+      if (!window.ColorboxAI || !window.ColorboxAI.score || !window.ColorboxAI.score.getScore) return;
+      if (scoreRefreshInFlight) return;
+      scoreRefreshInFlight = true;
+      try {
+        await Promise.all(allPlayersData.map(function(item) { return fetchSingleVoteScore(item); }));
+        restoreVoteFromBackend();
+        applyResultButtons();
+        renderData();
+      } catch (err) {
+        console.error("实时计票刷新异常", err);
+      } finally {
+        scoreRefreshInFlight = false;
+      }
+    }
+
+    function startResultAutoRefresh() {
+      if (window.__voteAutoRefreshTimer) return;
+      window.__voteAutoRefreshTimer = setInterval(function() {
+        if (!document.hidden && showResult) refreshVoteCountsOnly();
+      }, SCORE_REFRESH_MS);
+    }
+
+    function stopResultAutoRefresh() {
+      if (!window.__voteAutoRefreshTimer) return;
+      clearInterval(window.__voteAutoRefreshTimer);
+      window.__voteAutoRefreshTimer = null;
+    }
+
+    function startScoreSdkRetry() {
+      if (window.__scoreSdkRetryTimer) return;
+      var tries = 0;
+      window.__scoreSdkRetryTimer = setInterval(async function() {
+        tries++;
+        if (window.ColorboxAI && window.ColorboxAI.score && window.ColorboxAI.score.getScore) {
+          clearInterval(window.__scoreSdkRetryTimer);
+          window.__scoreSdkRetryTimer = null;
+          showToast("评分SDK已就绪，正在刷新");
+          await fetchAllScoresFromRemote();
+          return;
+        }
+        if (tries >= 80) {
+          clearInterval(window.__scoreSdkRetryTimer);
+          window.__scoreSdkRetryTimer = null;
+        }
+      }, 500);
+    }
+
+    async function initScores() {
+      document.getElementById("pageTitle").textContent = CONFIG.activityTitle || "世界杯红黑榜";
+      document.getElementById("pageSubtitle").textContent = CONFIG.activitySubtitle || "先选择，再揭榜。";
+      document.getElementById("datePill").textContent = CONFIG.activityDate || "比赛日";
+      document.getElementById("revealBtn").textContent = "确认选择，查看结果";
+      document.getElementById("shareResultBtn").textContent = "生成海报并发帖";
+
+      allPlayersData = buildTargetItems();
+      loadLocalVote();
+      renderInitialLoading();
+
+      if (allPlayersData.length === 0) {
+        document.getElementById("scoreSection").innerHTML = "<div class='loading'>还没有配置赛事评分项 ID</div>";
+        return;
+      }
+
+      applyResultButtons();
+
+      var hasSDK = await waitForScoreSDK(4500);
+      if (!hasSDK) {
+        renderData();
+        showToast("评分SDK加载中，稍后自动刷新");
+        startScoreSdkRetry();
+        return;
+      }
+
+      await fetchAllScoresFromRemote();
+    }
+
+    function applyResultButtons() {
+      if (showResult) {
+        document.getElementById("revealBtn").style.display = "none";
+        document.getElementById("shareResultBtn").style.display = "block";
+        startResultAutoRefresh();
+      } else {
+        document.getElementById("revealBtn").style.display = "block";
+        document.getElementById("shareResultBtn").style.display = "none";
+        stopResultAutoRefresh();
+      }
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      var tabs = document.querySelectorAll(".tab-btn");
+      for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active");
+      document.getElementById("tab-" + tab).classList.add("active");
+      renderData();
+    }
+
+    function getItemsByCurrentTab() {
+      var list = [];
+      for (var i = 0; i < allPlayersData.length; i++) {
+        if (allPlayersData[i].group === currentTab) list.push(allPlayersData[i]);
+      }
+      if (showResult) {
+        list.sort(function(a, b) {
+          var diff = getDisplayPollCount(b) - getDisplayPollCount(a);
+          if (diff !== 0) return diff;
+          return a.order - b.order;
+        });
+      } else {
+        list.sort(function(a, b) { return a.order - b.order; });
+      }
+      return list;
+    }
+
+    function renderData() {
+      var container = document.getElementById("scoreSection");
+      var list = getItemsByCurrentTab();
+      if (!list.length) {
+        container.innerHTML = "<div class='loading'>当前 TAB 暂无候选</div>";
+        return;
+      }
+      var note = "";
+      if (showResult) {
+        note = "<div class='result-note'>已按本活动投票人数排序。点击球员卡片可查看他的赛事评分页。</div>";
+      }
+      container.innerHTML = note;
+      for (var i = 0; i < list.length; i++) {
+        renderScoreCard(list[i], i + 1);
+      }
+    }
+
+    function getRedirectUrl(outBizType, outBizNo) {
+      var detailUrl = "https://offline-download.hupu.com/online/prod/310016/detail.html?outBizType=" + encodeURIComponent(outBizType) + "&outBizNo=" + encodeURIComponent(outBizNo);
+      var nativeSchema = "huputiyu://score/detail?outBizType=" + outBizType + "&outBizNo=" + outBizNo;
+      return "huputiyu://webview/openencodeurl?fullscreen=1&url=" + encodeURIComponent(detailUrl) + "&offlineSupport=0&nativeSchema=" + encodeURIComponent(nativeSchema);
+    }
+
+    function renderScoreCard(item, rankIndex) {
+      var container = document.getElementById("scoreSection");
+      var eventScore = getEventScoreValue(item);
+      var eventCount = getEventVoteCount(item);
+      var pollCount = getDisplayPollCount(item);
+      var coverUrl = getPlayerImage(item);
+      var isSelected = String(selected[item.group]) === String(item.voteOutBizNo);
+      var card = document.createElement("div");
+      card.className = "score-item-card " + item.group + (isSelected ? " selected" : "") + (showResult ? " result" : "");
+      card.id = "score-card-" + item.eventOutBizNo;
+      card.onclick = function(e) {
+        safeNavigate(getRedirectUrl(item.eventOutBizType, item.eventOutBizNo));
+      };
+
+      var coverHtml = coverUrl ? "<img class='score-item-cover' src='" + h(coverUrl) + "' alt='头像'>" : "<div class='score-item-cover fallback'>" + (item.group === "red" ? "红" : "黑") + "</div>";
+      var groupText = showResult ? (item.group === "red" ? "红榜第" : "黑榜第") : (item.group === "red" ? "红榜候选" : "黑榜候选");
+      var rankLabel = showResult ? (groupText + rankIndex) : (groupText + " " + item.order);
+      var rankClass = item.group === "red" ? "rank-badge" : "rank-badge black";
+      var scoreText = eventCount === 0 ? "暂无评分" : eventScore.toFixed(1) + " 分";
+      var selectText = isSelected ? "已选择" : (item.group === "red" ? "选他上红榜" : "选他上黑榜");
+      var pickText = showResult ? "本活动投票" : "点击按钮选择；点卡片查看赛事评分页";
+      var pollHtml = showResult ? "<span class='poll-count-text'>" + pollCount + " 人也投了他</span>" : "";
+      var selectDisabledClass = isSelected ? " selected" : "";
+      var buttonHtml = showResult
+        ? "<button class='select-player-btn" + selectDisabledClass + "' onclick='event.stopPropagation();'>" + (isSelected ? "我的选择" : "查看排名") + "</button>"
+        : "<button class='select-player-btn" + selectDisabledClass + "' onclick=\"selectCandidate(event, '" + h(item.group) + "', '" + h(item.voteOutBizNo) + "')\">" + selectText + "</button>";
+
+      card.innerHTML =
+        "<div class='" + rankClass + "'>" + h(rankLabel) + "</div>" +
+        "<div class='score-item-header'>" +
+          "<div class='score-item-info-row'>" +
+            coverHtml +
+            "<div class='score-item-name-area'>" +
+              "<div class='score-item-name'>" + h(getPlayerName(item)) + "</div>" +
+              "<div class='event-score-line'><span class='event-score-pill'>赛事评分 " + h(scoreText) + "</span><span>" + eventCount + " JRs打分</span></div>" +
+              "<div class='rating-link-hint'>点卡片进入评分页</div>" +
+            "</div>" +
+          "</div>" +
+          "<div class='score-item-num-wrap'><div class='score-avg-val'>" + (showResult ? pollCount : (isSelected ? "✓" : "")) + "</div><div class='score-person-count'>" + (showResult ? "票" : "") + "</div></div>" +
+        "</div>" +
+        "<div class='pick-container'>" +
+          "<div class='pick-copy'>" + h(pickText) + "<br>" + pollHtml + "</div>" +
+          buttonHtml +
+        "</div>";
+      container.appendChild(card);
+    }
+
+    function selectCandidate(event, group, voteOutBizNo) {
+      event.stopPropagation();
+      if (voteSubmitted) {
+        showToast("你已经确认过选择了");
+        return;
+      }
+      if (!voteOutBizNo) {
+        showToast("当前候选缺少投票记录 ID");
+        return;
+      }
+      var backendVotedId = getBackendVotedIdByGroup(group);
+      if (backendVotedId && String(backendVotedId) !== String(voteOutBizNo)) {
+        selected[group] = backendVotedId;
+        saveLocalVote();
+        renderData();
+        showToast(group === "red" ? "你已提交过红榜选择" : "你已提交过黑榜选择");
+        return;
+      }
+      selected[group] = String(voteOutBizNo);
+      renderData();
+      showToast(group === "red" ? "已选择红榜候选" : "已选择黑榜候选");
+    }
+
+    async function submitVoteForItem(item) {
+      if (!item || !item.voteOutBizNo) return { ok: false, message: "缺少投票记录 ID" };
+
+      await fetchSingleVoteScore(item);
+      if (hasUserVotedItem(item)) return { ok: true, already: true };
+
+      var res = null;
+      try {
+        res = await window.ColorboxAI.score.addScore({
+          outBizType: item.voteOutBizType,
+          outBizNo: String(item.voteOutBizNo),
+          score: 10
+        });
+      } catch (err) {
+        console.error("提交投票异常", item.voteOutBizNo, err);
+      }
+
+      // 无论 addScore 返回什么，都再读一次后端状态：避免“后端已记票但 SDK 返回异常/重复评分”导致前端一直卡提交失败。
+      await fetchSingleVoteScore(item);
+      if (res && res.code === 1) return { ok: true, res: res };
+      if (hasUserVotedItem(item)) return { ok: true, already: true };
+
+      return {
+        ok: false,
+        res: res,
+        message: (res && (res.msg || res.message || res.errorMsg)) || "提交失败"
+      };
+    }
+
+    async function revealLeaderboard() {
+      if (!selected.red) {
+        currentTab = "red";
+        switchTab("red");
+        showToast("请先选择一名红榜球员");
+        return;
+      }
+      if (!selected.black) {
+        currentTab = "black";
+        switchTab("black");
+        showToast("请先选择一名黑榜球员");
+        return;
+      }
+      if (voteSubmitted) {
+        showResult = true;
+        applyResultButtons();
+        renderData();
+        return;
+      }
+      if (!window.ColorboxAI || !window.ColorboxAI.score || !window.ColorboxAI.score.addScore || !window.ColorboxAI.score.getScore) {
+        showToast("评分SDK未就绪，请在虎扑App内打开");
+        return;
+      }
+
+      var btn = document.getElementById("revealBtn");
+      var oldText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = "正在提交选择...";
+
+      try {
+        // 先同步一次后端状态，避免用户曾经只成功提交一边时，再次提交造成重复打分。
+        await Promise.all(allPlayersData.map(function(item) { return fetchSingleVoteScore(item); }));
+        restoreVoteFromBackend();
+
+        var backendRedId = getBackendVotedIdByGroup("red");
+        var backendBlackId = getBackendVotedIdByGroup("black");
+        if (backendRedId) selected.red = backendRedId;
+        if (backendBlackId) selected.black = backendBlackId;
+
+        var redItem = findItemByVoteId(selected.red);
+        var blackItem = findItemByVoteId(selected.black);
+        if (!redItem || !blackItem) {
+          showToast("当前候选缺少投票记录 ID");
+          btn.disabled = false;
+          btn.textContent = oldText;
+          renderData();
+          return;
+        }
+
+        var redResult = await submitVoteForItem(redItem);
+        var blackResult = await submitVoteForItem(blackItem);
+
+        await refreshVoteCountsOnly({ force: true });
+        restoreVoteFromBackend();
+
+        if (redResult.ok && blackResult.ok && selected.red && selected.black) {
+          voteSubmitted = true;
+          showResult = true;
+          saveLocalVote();
+          applyResultButtons();
+          renderData();
+          showToast("选择成功，已生成投票排名");
+          return;
+        }
+
+        saveLocalVote();
+        applyResultButtons();
+        renderData();
+        var failSide = !redResult.ok ? "红榜" : "黑榜";
+        showToast(failSide + "提交未完成，请重试");
+        btn.disabled = false;
+        btn.textContent = oldText;
+      } catch (err) {
+        console.error(err);
+        showToast("系统异常，请稍后重试");
+        btn.disabled = false;
+        btn.textContent = oldText;
+      }
+    }
+
+    // =========================
+    // 海报生成 + 一键发帖模块
+    // =========================
+    window.require = window.require || function(name) {
+      if (name === "ali-oss") return window.OSS;
+      if (name === "@hupu/kaleido-fed-sdk") return window.KaleidoOSS;
+      return null;
+    };
+
+    var POSTER_W = 500;
+    var POSTER_H = 900;
+    var POSTER_SCALE = 2;
+
+    function roundRectC(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+
+    function getSelectedPosterData() {
+      return {
+        red: findItemByVoteId(selected.red),
+        black: findItemByVoteId(selected.black)
+      };
+    }
+
+    function loadCanvasImage(url) {
+      return new Promise(function(resolve) {
+        if (!url) { resolve(null); return; }
+        var img = new Image();
+        img.crossOrigin = "anonymous";
+        img.referrerPolicy = "no-referrer";
+        img.onload = function() { resolve(img); };
+        img.onerror = function() { resolve(null); };
+        img.src = url;
+      });
+    }
+
+    function drawAvatar(ctx, img, x, y, size, fallbackText, accent) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
+      ctx.clip();
+      if (img) {
+        var iw = img.naturalWidth || img.width;
+        var ih = img.naturalHeight || img.height;
+        var s = Math.max(size / iw, size / ih);
+        var dw = iw * s;
+        var dh = ih * s;
+        ctx.drawImage(img, x + (size - dw) / 2, y + (size - dh) / 2, dw, dh);
+      } else {
+        var g = ctx.createLinearGradient(x, y, x + size, y + size);
+        g.addColorStop(0, "#fff");
+        g.addColorStop(1, "#e8eef7");
+        ctx.fillStyle = g;
+        ctx.fillRect(x, y, size, size);
+        ctx.fillStyle = accent;
+        ctx.font = "bold 34px -apple-system, BlinkMacSystemFont, PingFang SC, Microsoft YaHei, Arial";
+        ctx.textAlign = "center";
+        ctx.fillText(fallbackText, x + size / 2, y + size / 2 + 12);
+      }
+      ctx.restore();
+      ctx.beginPath();
+      ctx.arc(x + size / 2, y + size / 2, size / 2 - 1, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(255,255,255,.78)";
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    }
+
+    function drawFitText(ctx, text, x, y, maxWidth, font) {
+      text = String(text || "");
+      ctx.font = font;
+      if (ctx.measureText(text).width <= maxWidth) {
+        ctx.fillText(text, x, y);
+        return;
+      }
+      var t = text;
+      while (t.length > 1 && ctx.measureText(t + "…").width > maxWidth) t = t.slice(0, -1);
+      ctx.fillText(t + "…", x, y);
+    }
+
+    function drawPill(ctx, text, x, y, w, h, bg, fg, font) {
+      roundRectC(ctx, x, y, w, h, h / 2);
+      ctx.fillStyle = bg;
+      ctx.fill();
+      ctx.fillStyle = fg;
+      ctx.font = font;
+      ctx.textAlign = "center";
+      ctx.fillText(text, x + w / 2, y + h / 2 + 6);
+    }
+
+    function drawPlayerBlock(ctx, item, img, x, y, w, theme) {
+      var isRed = theme === "red";
+      var accent = isRed ? "#ff313d" : "#0f172a";
+      var accentSoft = isRed ? "rgba(255,49,61,.11)" : "rgba(15,23,42,.10)";
+      var border = isRed ? "rgba(255,49,61,.95)" : "rgba(15,23,42,.72)";
+      var label = isRed ? "红榜选择" : "黑榜选择";
+      var title = isRed ? "我的红榜" : "我的黑榜";
+      var pollCount = getDisplayPollCount(item);
+      var cardH = 260;
+
+      var cardBg = ctx.createLinearGradient(x, y, x + w, y + cardH);
+      cardBg.addColorStop(0, "rgba(255,255,255,.99)");
+      cardBg.addColorStop(1, isRed ? "rgba(255,247,245,.98)" : "rgba(247,250,255,.98)");
+      roundRectC(ctx, x, y, w, cardH, 28);
+      ctx.fillStyle = cardBg;
+      ctx.fill();
+      ctx.strokeStyle = border;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.save();
+      roundRectC(ctx, x, y, w, cardH, 28);
+      ctx.clip();
+      ctx.fillStyle = accentSoft;
+      ctx.beginPath();
+      ctx.arc(x + w - 24, y + 36, 86, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = isRed ? "rgba(255,186,86,.12)" : "rgba(100,116,139,.10)";
+      ctx.beginPath();
+      ctx.arc(x + 42, y + cardH - 20, 74, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      drawPill(ctx, label, x + 22, y + 22, 136, 34, accent, "#fff", "bold 15px -apple-system, BlinkMacSystemFont, PingFang SC, Microsoft YaHei, Arial");
+
+      var avatarX = x + 30;
+      var avatarY = y + 86;
+      var avatarSize = 92;
+      drawAvatar(ctx, img, avatarX, avatarY, avatarSize, isRed ? "红" : "黑", accent);
+
+      ctx.textAlign = "center";
+      ctx.fillStyle = accent;
+      ctx.font = "bold 38px -apple-system, BlinkMacSystemFont, PingFang SC, Microsoft YaHei, Arial";
+      ctx.fillText(getEventScoreValue(item).toFixed(1), avatarX + avatarSize / 2, y + 213);
+      ctx.fillStyle = "#8792a3";
+      ctx.font = "bold 13px -apple-system, BlinkMacSystemFont, PingFang SC, Microsoft YaHei, Arial";
+      ctx.fillText("赛事评分", avatarX + avatarSize / 2, y + 234);
+
+      var infoX = x + 148;
+      var infoW = w - 176;
+      ctx.textAlign = "left";
+      ctx.fillStyle = "#0b1730";
+      drawFitText(ctx, getPlayerName(item), infoX, y + 86, infoW, "bold 30px -apple-system, BlinkMacSystemFont, PingFang SC, Microsoft YaHei, Arial");
+      ctx.fillStyle = accent;
+      ctx.font = "bold 17px -apple-system, BlinkMacSystemFont, PingFang SC, Microsoft YaHei, Arial";
+      ctx.fillText(title, infoX, y + 116);
+
+      function drawMetricRow(labelText, valueText, rowY, valueColor) {
+        roundRectC(ctx, infoX, rowY, infoW, 32, 16);
+        ctx.fillStyle = "rgba(255,255,255,.84)";
+        ctx.fill();
+        ctx.strokeStyle = "rgba(15,23,42,.08)";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        ctx.textAlign = "left";
+        ctx.fillStyle = "#8b95a5";
+        ctx.font = "bold 13px -apple-system, BlinkMacSystemFont, PingFang SC, Microsoft YaHei, Arial";
+        ctx.fillText(labelText, infoX + 16, rowY + 21);
+
+        ctx.textAlign = "right";
+        ctx.fillStyle = valueColor || "#0b1730";
+        ctx.font = "bold 17px -apple-system, BlinkMacSystemFont, PingFang SC, Microsoft YaHei, Arial";
+        ctx.fillText(valueText, infoX + infoW - 16, rowY + 21);
+      }
+
+      drawMetricRow("赛事打分", getEventVoteCount(item) + " JRs", y + 138, "#0b1730");
+      drawMetricRow("本活动投票", pollCount + " 人也投了他", y + 182, accent);
+    }
+
+    function drawPoster(ctx, w, hgt, imgs) {
+      var bg = ctx.createLinearGradient(0, 0, 0, hgt);
+      bg.addColorStop(0, "#071a2b");
+      bg.addColorStop(.52, "#0b1421");
+      bg.addColorStop(1, "#05070c");
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, w, hgt);
+
+      var blobs = [
+        [42, 82, 92, "rgba(28,180,102,.38)"],
+        [444, 78, 96, "rgba(0,96,255,.34)"],
+        [78, hgt - 108, 118, "rgba(237,44,55,.28)"],
+        [426, hgt - 122, 98, "rgba(255,211,77,.25)"],
+        [438, 430, 82, "rgba(255,255,255,.10)"]
+      ];
+      for (var b = 0; b < blobs.length; b++) {
+        ctx.beginPath();
+        ctx.arc(blobs[b][0], blobs[b][1], blobs[b][2], 0, Math.PI * 2);
+        ctx.fillStyle = blobs[b][3];
+        ctx.fill();
+      }
+
+      ctx.textAlign = "center";
+      ctx.fillStyle = "rgba(255,255,255,.66)";
+      ctx.font = "bold 16px -apple-system, BlinkMacSystemFont, PingFang SC, Microsoft YaHei, Arial";
+      ctx.fillText("UNITED 2026 · DAILY RANKING", w / 2, 44);
+
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 40px -apple-system, BlinkMacSystemFont, PingFang SC, Microsoft YaHei, Arial";
+      ctx.fillText(CONFIG.activityTitle || "世界杯红黑榜", w / 2, 94);
+
+      roundRectC(ctx, 154, 118, 192, 36, 18);
+      ctx.fillStyle = "#baff00";
+      ctx.fill();
+      ctx.strokeStyle = "rgba(5,7,12,.72)";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.fillStyle = "#07121d";
+      ctx.font = "bold 17px -apple-system, BlinkMacSystemFont, PingFang SC, Microsoft YaHei, Arial";
+      ctx.fillText(CONFIG.activityDate || "比赛日", w / 2, 142);
+
+      var data = getSelectedPosterData();
+      drawPlayerBlock(ctx, data.red, imgs.red, 34, 182, w - 68, "red");
+      drawPlayerBlock(ctx, data.black, imgs.black, 34, 470, w - 68, "black");
+
+      ctx.textAlign = "center";
+      ctx.fillStyle = "rgba(255,255,255,.88)";
+      ctx.font = "bold 18px -apple-system, BlinkMacSystemFont, PingFang SC, Microsoft YaHei, Arial";
+      ctx.fillText("比赛结束，打开虎扑 · 选出你的世界杯红黑榜", w / 2, hgt - 82);
+
+      roundRectC(ctx, 154, hgt - 58, 192, 34, 17);
+      ctx.fillStyle = "rgba(255,255,255,.15)";
+      ctx.fill();
+      ctx.strokeStyle = "rgba(255,255,255,.12)";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 17px -apple-system, BlinkMacSystemFont, PingFang SC, Microsoft YaHei, Arial";
+      ctx.fillText("虎扑 · 世界杯", w / 2, hgt - 35);
+    }
+
+    async function createPosterCanvas() {
+      var data = getSelectedPosterData();
+      if (!data.red || !data.black) throw new Error("MISSING_SELECTION");
+      var imgs = {
+        red: await loadCanvasImage(getPlayerImage(data.red)),
+        black: await loadCanvasImage(getPlayerImage(data.black))
+      };
+      var canvas = document.createElement("canvas");
+      canvas.width = POSTER_W * POSTER_SCALE;
+      canvas.height = POSTER_H * POSTER_SCALE;
+      var ctx = canvas.getContext("2d");
+      ctx.scale(POSTER_SCALE, POSTER_SCALE);
+      drawPoster(ctx, POSTER_W, POSTER_H, imgs);
+      return canvas;
+    }
+
+    async function generatePoster() {
+      if (!showResult || !selected.red || !selected.black) {
+        showToast("请先确认红榜和黑榜选择");
+        return;
+      }
+      try {
+        showToast("正在生成海报");
+        var canvas = await createPosterCanvas();
+        var dataURL = canvas.toDataURL("image/png", 0.95);
+        document.getElementById("posterPreviewImg").src = dataURL;
+        document.getElementById("posterOverlay").classList.add("active");
+        window.__posterCanvas = canvas;
+      } catch (e) {
+        console.error(e);
+        showToast("海报生成失败，请稍后重试");
+      }
+    }
+
+    function closePoster() {
+      document.getElementById("posterOverlay").classList.remove("active");
+    }
+
+    function dataURLToBlob(dataURL) {
+      var arr = dataURL.split(",");
+      var mime = arr[0].match(/:(.*?);/)[1];
+      var bstr = atob(arr[1]);
+      var n = bstr.length;
+      var u8arr = new Uint8Array(n);
+      while (n--) u8arr[n] = bstr.charCodeAt(n);
+      return new Blob([u8arr], { type: mime });
+    }
+
+    function canvasToBlob(canvas, type, quality) {
+      return new Promise(function(resolve, reject) {
+        if (canvas.toBlob) {
+          canvas.toBlob(function(blob) {
+            if (blob) resolve(blob);
+            else reject(new Error("canvas toBlob failed"));
+          }, type || "image/png", quality || 0.95);
+          return;
+        }
+        try {
+          resolve(dataURLToBlob(canvas.toDataURL(type || "image/png", quality || 0.95)));
+        } catch (e) {
+          reject(e);
+        }
+      });
+    }
+
+    function normalizeUploadUrl(res) {
+      if (!res) return "";
+      var candidates = [];
+      if (typeof res === "string") candidates.push(res);
+      if (typeof res === "object") {
+        candidates.push(
+          res.url, res.ossUrl, res.fileUrl, res.imageUrl, res.downloadUrl,
+          res.data && res.data.url, res.data && res.data.ossUrl, res.data && res.data.fileUrl, res.data && res.data.imageUrl, res.data && res.data.downloadUrl,
+          res.result && res.result.url, res.result && res.result.ossUrl, res.result && res.result.fileUrl, res.result && res.result.imageUrl, res.result && res.result.downloadUrl,
+          res.res && res.res.requestUrls && res.res.requestUrls[0] && res.res.requestUrls[0].split("?")[0]
+        );
+      }
+      for (var i = 0; i < candidates.length; i++) {
+        var url = candidates[i];
+        if (!url || typeof url !== "string") continue;
+        url = url.trim();
+        if (url.indexOf("//") === 0) url = "https:" + url;
+        if (/^https?:\/\//i.test(url)) return url;
+      }
+      return "";
+    }
+
+    function isValidImageUrl(url) {
+      return typeof url === "string" && /^https?:\/\//i.test(url.trim());
+    }
+
+    async function uploadToOSS(blob, filename) {
+      var file = new File([blob], filename, { type: blob.type || "image/png" });
+
+      if (window.ColorboxAI && window.ColorboxAI.oss && window.ColorboxAI.oss.uploadFile) {
+        var upload = window.ColorboxAI.oss.uploadFile;
+        var attempts = [
+          function() { return upload(file, filename); },
+          function() { return upload(file); },
+          function() { return upload({ file: file, filename: filename }); },
+          function() { return upload({ file: file, fileName: filename }); },
+          function() { return upload({ blob: file, filename: filename }); }
+        ];
+        for (var i = 0; i < attempts.length; i++) {
+          try {
+            var url = normalizeUploadUrl(await attempts[i]());
+            if (isValidImageUrl(url)) return url;
+          } catch (e) {}
+        }
+      }
+
+      if (window.ColorboxAI && window.ColorboxAI.uploadFile) {
+        var upload2 = window.ColorboxAI.uploadFile;
+        var attempts2 = [
+          function() { return upload2(file, filename); },
+          function() { return upload2(file); },
+          function() { return upload2({ file: file, filename: filename }); },
+          function() { return upload2({ file: file, fileName: filename }); }
+        ];
+        for (var j = 0; j < attempts2.length; j++) {
+          try {
+            var url2 = normalizeUploadUrl(await attempts2[j]());
+            if (isValidImageUrl(url2)) return url2;
+          } catch (e) {}
+        }
+      }
+
+      if (window.KaleidoOSS) {
+        var attempts3 = [
+          function() { return window.KaleidoOSS.multipartUpload(filename, file); },
+          function() { return window.KaleidoOSS.multipartUpload(file, filename); },
+          function() { return window.KaleidoOSS.uploadFile && window.KaleidoOSS.uploadFile(file, filename); },
+          function() { return window.KaleidoOSS.uploadFile && window.KaleidoOSS.uploadFile({ file: file, filename: filename }); }
+        ];
+        for (var k = 0; k < attempts3.length; k++) {
+          try {
+            var url3 = normalizeUploadUrl(await attempts3[k]());
+            if (isValidImageUrl(url3)) return url3;
+          } catch (e) {}
+        }
+      }
+
+      if (window.parent && window.parent !== window) {
+        try {
+          var dataURL = await new Promise(function(resolve, reject) {
+            var reader = new FileReader();
+            reader.onload = function() { resolve(reader.result); };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+          });
+          var url4 = await new Promise(function(resolve, reject) {
+            var requestId = "oss_" + Date.now() + "_" + Math.random().toString(16).slice(2);
+            var timer = setTimeout(function() { reject(new Error("postMessage upload timeout")); }, 15000);
+            function onMessage(event) {
+              var data = event.data || {};
+              if (data.requestId !== requestId) return;
+              clearTimeout(timer);
+              window.removeEventListener("message", onMessage);
+              var url = normalizeUploadUrl(data) || normalizeUploadUrl(data.data) || normalizeUploadUrl(data.result);
+              if (isValidImageUrl(url)) resolve(url);
+              else reject(new Error(data.error || "postMessage upload failed"));
+            }
+            window.addEventListener("message", onMessage);
+            window.parent.postMessage({ type: "HUPU_OSS_UPLOAD", requestId: requestId, filename: filename, fileName: filename, mimeType: file.type, dataURL: dataURL }, "*");
+          });
+          if (isValidImageUrl(url4)) return url4;
+        } catch (e) {}
+      }
+      throw new Error("OSS_UPLOAD_UNAVAILABLE");
+    }
+
+    function buildPostTitle() {
+      var data = getSelectedPosterData();
+      return "我的世界杯红黑榜：红榜" + getPlayerName(data.red) + "，黑榜" + getPlayerName(data.black);
+    }
+
+    function buildPostContent() {
+      var data = getSelectedPosterData();
+      var red = data.red;
+      var black = data.black;
+      if (!red || !black) return "我选出了今天的世界杯红黑榜。";
+      return "我选出了今天的世界杯红黑榜！\n\n" +
+        "🔥 红榜：" + getPlayerName(red) + "｜赛事评分 " + getEventScoreValue(red).toFixed(1) + "｜" + getEventVoteCount(red) + " JRs打分｜" + getDisplayPollCount(red) + " 人也投了他\n" +
+        "🕷️ 黑榜：" + getPlayerName(black) + "｜赛事评分 " + getEventScoreValue(black).toFixed(1) + "｜" + getEventVoteCount(black) + " JRs打分｜" + getDisplayPollCount(black) + " 人也投了他\n\n" +
+        "你们今天的红黑榜选谁？";
+    }
+
+    function buildInitialValue(imageUrl) {
+      var validImageUrl = isValidImageUrl(imageUrl);
+      var content = buildPostContent();
+      if (!validImageUrl) {
+        content += "\n\n【提示】海报已生成，但当前环境没有拿到可用的 OSS 图片地址。图片需要手动保存后添加。";
+      }
+
+      var forumId = Number(CONFIG.postForumId);
+      var tagId = Number(CONFIG.postTopicId);
+      var tagObj = {
+        id: tagId,
+        name: CONFIG.postTopicName,
+        tagId: tagId,
+        tagName: CONFIG.postTopicName,
+        topicTagId: tagId,
+        topicTagName: CONFIG.postTopicName
+      };
+
+      return {
+        syncPost: true,
+        tagId: tagId,
+        tagName: CONFIG.postTopicName,
+        topicTagId: tagId,
+        topicTagName: CONFIG.postTopicName,
+        topicTag: tagObj,
+        topicTags: [tagObj],
+        tags: [tagObj],
+        tagList: [tagObj],
+        postTags: [tagObj],
+        appJsonV3: {
+          activeTab: "thread",
+          data: {
+            topicId: forumId,
+            topicName: CONFIG.postForumName,
+            forumId: forumId,
+            forumName: CONFIG.postForumName,
+            boardId: forumId,
+            boardName: CONFIG.postForumName,
+            tagId: tagId,
+            tagName: CONFIG.postTopicName,
+            topicTagId: tagId,
+            topicTagName: CONFIG.postTopicName,
+            topicTag: tagObj,
+            topicTags: [tagObj],
+            tags: [tagObj],
+            tagList: [tagObj],
+            postTags: [tagObj],
+            title: buildPostTitle(),
+            imageList: validImageUrl ? [imageUrl] : [],
+            content: content
+          }
+        }
+      };
+    }
+
+    function buildPostUrl(initialValue) {
+      var query = [
+        "topicName=" + encodeURIComponent(CONFIG.postForumName),
+        "topicId=" + encodeURIComponent(CONFIG.postForumId),
+        "forumName=" + encodeURIComponent(CONFIG.postForumName),
+        "forumId=" + encodeURIComponent(CONFIG.postForumId),
+        "boardName=" + encodeURIComponent(CONFIG.postForumName),
+        "boardId=" + encodeURIComponent(CONFIG.postForumId),
+        "tagName=" + encodeURIComponent(CONFIG.postTopicName),
+        "tagId=" + encodeURIComponent(CONFIG.postTopicId),
+        "topicTagName=" + encodeURIComponent(CONFIG.postTopicName),
+        "topicTagId=" + encodeURIComponent(CONFIG.postTopicId),
+        "initialValue=" + encodeURIComponent(JSON.stringify(initialValue))
+      ].join("&");
+      return "huputiyu://bbs/postImg?" + query;
+    }
+
+    function safeNavigate(url, target) {
+      try {
+        if (window.ColorboxAI && window.ColorboxAI.track) window.ColorboxAI.track("h5_post_click", { url: url });
+      } catch (e) {}
+      if (window.ColorboxAI && window.ColorboxAI.navigateTo) return window.ColorboxAI.navigateTo(url);
+      if (window.ColorboxAI && window.ColorboxAI.openUrl) return window.ColorboxAI.openUrl(url);
+      if (target === "_blank") return window.open(url, "_blank");
+      window.location.href = url;
+    }
+
+    async function sharePoster(btn) {
+      var oldText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = "正在生成图片...";
+      var imageUrl = "";
+      var uploadError = "";
+
+      try {
+        var canvas = window.__posterCanvas || await createPosterCanvas();
+        var blob = await canvasToBlob(canvas, "image/png", 0.95);
+        btn.textContent = "正在上传图片...";
+        imageUrl = await uploadToOSS(blob, "worldcup_red_black_vote_" + Date.now() + ".png");
+        if (!isValidImageUrl(imageUrl)) throw new Error("OSS返回值不是可访问图片URL");
+      } catch (e) {
+        uploadError = e && e.message ? e.message : String(e);
+        console.warn("[poster upload failed]", e);
+      }
+
+      var initialValue = buildInitialValue(imageUrl);
+      var url = buildPostUrl(initialValue);
+      btn.disabled = false;
+      btn.textContent = oldText;
+
+      if (isValidImageUrl(imageUrl)) showToast("图片上传成功，正在打开编辑器");
+      else showToast("图片未自动带入：" + (uploadError || "未拿到有效图片URL"));
+
+      setTimeout(function() { safeNavigate(url); }, 260);
+    }
+
+    window.addEventListener("DOMContentLoaded", function() {
+      initScores();
+      document.addEventListener("visibilitychange", function() {
+        if (!document.hidden && showResult) refreshVoteCountsOnly({ force: true });
+      });
+    });
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "immaculate-grid-basketball",
+  "version": "1.0.0",
+  "description": "Immaculate Grid basketball game - single HTML file, no server needed",
+  "scripts": {
+    "build": "node scripts/buildOfflinePlayers.js"
+  },
+  "dependencies": {
+    "nba-api-client": "^1.1.2"
+  }
+}

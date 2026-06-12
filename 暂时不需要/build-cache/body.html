@@ -1,0 +1,166 @@
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <h1 class="header-title">
+        <span class="header-icon">🏀</span>
+        Immaculate Grid
+      </h1>
+      <span class="header-date" id="headerDate"></span>
+      <div class="header-actions">
+        <button class="btn btn-icon" id="btnRules" title="Rules" aria-label="Rules">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </button>
+        <button class="btn btn-icon" id="btnNewGame" title="New Game" aria-label="New Game">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        </button>
+        <button class="btn btn-primary" id="btnShare" disabled>Share</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Game Mode Selector -->
+  <div class="mode-selector">
+    <button class="mode-btn active" data-mode="today">Today's Grid</button>
+    <button class="mode-btn" data-mode="random">Random Grid</button>
+  </div>
+
+  <!-- Main Game Area -->
+  <main class="game-container" id="gameContainer">
+    <!-- Loading State -->
+    <div class="game-loading" id="gameLoading">
+      <div class="spinner"></div>
+      <p>Loading grid...</p>
+    </div>
+
+    <!-- Error State -->
+    <div class="game-error hidden" id="gameError">
+      <p>Failed to load the grid. Make sure the server is running.</p>
+      <button class="btn btn-primary" onclick="location.reload()">Retry</button>
+    </div>
+
+    <!-- Game Board -->
+    <div class="game-board hidden" id="gameBoard">
+      <!-- Grid wrapper -->
+      <div class="grid-wrapper">
+        <!-- Grid will be rendered by JavaScript -->
+        <div class="grid" id="grid"></div>
+      </div>
+
+      <!-- Guesses Remaining -->
+      <div class="guesses-bar" id="guessesBar">
+        <span>Guesses:</span>
+        <span class="guesses-dots" id="guessesDots"></span>
+      </div>
+    </div>
+  </main>
+
+  <!-- Search Modal -->
+  <div class="modal-overlay hidden" id="searchModal">
+    <div class="modal search-modal">
+      <div class="modal-header">
+        <div class="search-input-wrapper">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" class="search-input" id="searchInput" placeholder="Type a player name..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <button class="btn btn-icon search-close" id="searchClose" aria-label="Close">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div class="cell-hint" id="cellHint">Select a player for: <strong></strong></div>
+      </div>
+      <div class="search-results" id="searchResults">
+        <!-- Initial state -->
+        <div class="search-state" id="searchInitial">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <p>Type at least 2 characters to search</p>
+        </div>
+        <!-- Empty state -->
+        <div class="search-state hidden" id="searchEmpty">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <p>No players found. Try a different name.</p>
+        </div>
+        <!-- Loading state -->
+        <div class="search-state hidden" id="searchLoading">
+          <div class="spinner"></div>
+          <p>Searching...</p>
+        </div>
+        <!-- Error state -->
+        <div class="search-state hidden" id="searchError">
+          <p>Search failed. Please try again.</p>
+        </div>
+        <!-- Results list -->
+        <div class="search-results-list hidden" id="searchResultsList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Modal -->
+  <div class="modal-overlay hidden" id="resultsModal">
+    <div class="modal results-modal">
+      <div class="modal-header">
+        <h2>Game Over!</h2>
+        <button class="btn btn-icon" id="resultsClose" aria-label="Close">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="results-content">
+        <div class="results-score" id="resultsScore">0/9</div>
+        <div class="results-rarity" id="resultsRarity">Total Rarity: 0</div>
+        <div class="results-grid" id="resultsGrid"></div>
+        <div class="results-message" id="resultsMessage"></div>
+        <div class="results-actions">
+          <button class="btn btn-primary" id="btnPlayAgain">Play Again</button>
+          <button class="btn btn-secondary" id="btnCopyShare">Copy Share Text</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rules Modal -->
+  <div class="modal-overlay hidden" id="rulesModal">
+    <div class="modal rules-modal">
+      <div class="modal-header">
+        <h2>How to Play</h2>
+        <button class="btn btn-icon" id="rulesClose" aria-label="Close">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="rules-content">
+        <div class="rule-section">
+          <h3>🎯 Goal</h3>
+          <p>Fill the 3×3 grid with NBA players who match <strong>both</strong> the row and column criteria for each cell.</p>
+        </div>
+        <div class="rule-section">
+          <h3>🎮 How to Play</h3>
+          <ol>
+            <li>Click any empty cell to search for a player</li>
+            <li>Type a player's name and select from the results</li>
+            <li>Each guess counts — you have <strong>9 total</strong> (one per cell)</li>
+            <li>A player can only be used <strong>once</strong> per grid</li>
+          </ol>
+        </div>
+        <div class="rule-section">
+          <h3>📊 Scoring</h3>
+          <ul>
+            <li><strong>Correct answers</strong>: X out of 9</li>
+            <li><strong>Rarity score</strong>: Lower percentage = more obscure = better</li>
+            <li>Rarity = how often other players chose that answer (%)</li>
+          </ul>
+        </div>
+        <div class="rule-section">
+          <h3>🏀 Categories</h3>
+          <ul>
+            <li><strong>Teams</strong>: Player played at least 1 game for that franchise</li>
+            <li><strong>Stats</strong>: Player achieved the stat (with that team if paired)</li>
+            <li><strong>Awards</strong>: Player won the award (with that team if paired)</li>
+            <li>Franchise history counts (e.g., Thunder includes SuperSonics)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast hidden" id="toast"></div>
+
+  <!-- Scripts -->

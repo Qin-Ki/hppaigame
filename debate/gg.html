@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>虎扑App 步行街辩论大赛</title>
+<title>无论篮球运动如何发展，它是否终究还是"大个子的游戏"？</title>
 <link rel="preconnect" href="https://activity-static.hoopchina.com.cn/" crossorigin="">
 <link rel="dns-prefetch" href="https://activity-static.hoopchina.com.cn/">
 <link rel="icon" type="image/png" sizes="32x32" href="https://activity-static.hoopchina.com.cn/images/22818-b1k52arc-upload-1660808654276-2.png">
@@ -393,12 +393,12 @@ html, body {
   <!-- 本期辩题卡片 -->
   <div class="topic-card">
     <span class="topic-badge">本期辩题</span>
-    <h2 class="topic-question">最后时刻平分抢到后场篮板，此时主教练该叫暂停吗？</h2>
+    <h2 class="topic-question">无论篮球运动如何发展，它是否终究还是"大个子的游戏"？</h2>
     <div class="faction-ratio" id="factionRatio">
       <div class="faction-ratio-row space-between">
-        <span class="faction-ratio-label pro">应该叫暂停</span>
+        <span class="faction-ratio-label pro">我认为是</span>
         <span class="faction-ratio-vs">支持率对比</span>
-        <span class="faction-ratio-label con">不应该叫暂停</span>
+        <span class="faction-ratio-label con">我认为不是</span>
       </div>
       <div class="faction-ratio-row space-between">
         <span class="faction-ratio-pct pro" id="ratioProPct">50%</span>
@@ -487,7 +487,7 @@ html, body {
 
 <script>
 /* ---- 动态抓取讨论区（newtodo 方式） ---- */
-var topicConfig = { tagId: "148447", tabType: "1", maxPages: 100 };
+var topicConfig = { tagId: "148544", tabType: "1", maxPages: 100 };
 var currentPage = 1, currentCursor = "", isRequesting = false;
 var threadListEl = document.getElementById("threadList");
 var listStatusEl = document.getElementById("listStatus");
@@ -650,19 +650,35 @@ function renderThreads(list) {
     card.className = "thread-card";
     card.style.cursor = "pointer";
 
-    // 判断阵营：API 数据 > 奇偶模拟
+    // 获取封面图URL（用于颜色分析，不显示）
+    var coverImgUrl = "";
+    if (item.picList && item.picList.length > 0) {
+      var firstPic = item.picList[0];
+      coverImgUrl = typeof firstPic === 'object' ? firstPic.url : firstPic;
+    }
+
+    // 判断阵营：API 数据 > 图片颜色分析 > 奇偶模拟
     var side = item.tagName || item.side || '';
+    var useColorDetect = false;
     var factionKey = '';
-    if (!side) {
+    if (!side && coverImgUrl) {
+      useColorDetect = true;
+      factionKey = '';
+    } else if (!side) {
       side = (posIndex % 2 === 1) ? '正方' : '反方';
       factionKey = (side === '正方') ? 'pro' : 'con';
     } else {
       factionKey = (side === '正方' || side === 'pro') ? 'pro' : 'con';
     }
-    // 生成阵营标签
-    var fc = (side === '正方' || side === 'pro') ? 'pro' : 'con';
-    var fl = (side === 'pro') ? '正方' : (side === 'con') ? '反方' : side;
-    var factionBadgeHtml = '<span class="thread-card-faction ' + fc + '">' + fl + '</span>';
+    // 生成阵营标签（颜色分析时先隐藏）
+    var factionBadgeHtml = '';
+    if (useColorDetect) {
+      factionBadgeHtml = '<span class="thread-card-faction" style="display:none"></span>';
+    } else if (side) {
+      var fc = (side === '正方' || side === 'pro') ? 'pro' : 'con';
+      var fl = (side === 'pro') ? '正方' : (side === 'con') ? '反方' : side;
+      factionBadgeHtml = '<span class="thread-card-faction ' + fc + '">' + fl + '</span>';
+    }
 
     card.innerHTML = factionBadgeHtml
       + '<p class="thread-card-text">' + title + '</p>'
@@ -692,6 +708,43 @@ function renderThreads(list) {
     card.dataset.pid = pid;
 
     fragment.appendChild(card);
+
+    // 封面图颜色分析识别阵营（不显示图片，仅用于分析）
+    if (useColorDetect && coverImgUrl) {
+      (function(cardEl, imgUrl) {
+        var img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = function() {
+          var cvs = document.createElement('canvas');
+          cvs.width = cvs.height = 40;
+          var ctx = cvs.getContext('2d');
+          ctx.drawImage(img, 0, 0, 40, 40);
+          try {
+            var d = ctx.getImageData(0, 0, 40, 40).data;
+            var red = 0, blue = 0;
+            for (var i = 0; i < d.length; i += 4) {
+              var r = d[i], g = d[i+1], b = d[i+2];
+              if (r > b + 30 && r > g + 15) red++;
+              if (b > r + 30 && b > g + 15) blue++;
+            }
+            var result = red >= blue ? '正方' : '反方';
+            var resultKey = (result === '正方') ? 'pro' : 'con';
+            var badge = cardEl.querySelector('.thread-card-faction');
+            if (badge) {
+              badge.textContent = result;
+              badge.className = 'thread-card-faction ' + resultKey;
+              badge.style.display = '';
+            }
+            cardEl.dataset.faction = resultKey;
+            window._factionCounts[resultKey]++;
+            updateFactionRatio();
+            updateTabCounts();
+          } catch(e) { /* CORS 受限，忽略 */ }
+        };
+        img.onerror = function() {};
+        img.src = imgUrl;
+      })(card, coverImgUrl);
+    }
 
     posIndex++;
   });
@@ -725,6 +778,10 @@ function renderThreads(list) {
 if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fetchTopicThreads);
 else fetchTopicThreads();
 
+/* ---- 本期辩题卡片点击（话题跳转） ---- */
+document.querySelector('.topic-card').addEventListener('click', function() {
+  try { window.ColorboxAI.track({act:'click', blk:'BMC098', pos:'TC3', label:'本期辩题'}); } catch(ex) {}
+});
 /* ---- 底部发帖按钮点击事件 ---- */
 document.getElementById('btnPostPro').addEventListener('click', function() {
   try { window.ColorboxAI.track({act:'click', blk:'BMC098', pos:'TC1', label:'正方'}); } catch(ex) {}
@@ -744,9 +801,9 @@ var factionCloseBtn = document.getElementById('factionModalClose');
 // 正方 / 反方发帖链接（取自 debate-img）
 var POST_URLS = {};
 (function() {
-  var base = 'huputiyu://bbs/postImg?tagName=' + encodeURIComponent('最后时刻平分抢到后场篮板，此时主教练该叫暂停吗？') + '&tagId=148447&topicName=' + encodeURIComponent('湿乎乎的话题') + '&topicId=177&';
-  var proImg = 'https://i3.hoopchina.com.cn/newsPost/f0a683a3fc71a36d3bd9d656a67ce38e_w_600_h_600_.png';
-  var conImg = 'https://i5.hoopchina.com.cn/newsPost/6136631c336f536125bddfa643464955_w_600_h_600_.png';
+  var base = 'huputiyu://bbs/postImg?tagName=' + encodeURIComponent('无论篮球运动如何发展，它是否终究还是"大个子的游戏"？') + '&tagId=148544&topicName=' + encodeURIComponent('湿乎乎的话题') + '&topicId=177&';
+  var proImg = 'https://i1.hoopchina.com.cn/newsPost/a7c0ae0ccf235e7ff7866350bfce550d_w_600_h_600_.png';
+  var conImg = 'https://i1.hoopchina.com.cn/newsPost/cff9e86374823b2467abcaab232947ab_w_600_h_600_.png';
   POST_URLS.pro = base + 'initialValue=' + encodeURIComponent(JSON.stringify({syncPost:true,appJsonV3:{activeTab:'thread',data:{title:'',imageList:[proImg],content:''}}}));
   POST_URLS.con = base + 'initialValue=' + encodeURIComponent(JSON.stringify({syncPost:true,appJsonV3:{activeTab:'thread',data:{title:'',imageList:[conImg],content:''}}}));
 })();
