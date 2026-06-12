@@ -192,8 +192,9 @@ function genG(sd) {
 const app = express();
 app.use(express.json());
 
-// 提供静态前端文件
+// 提供静态前端文件（webapp client + public 共享资源）
 app.use(express.static(path.join(__dirname, '..', 'client')));
+app.use(express.static(path.join(__dirname, '..', '..', 'public')));
 
 // API: 获取今日 Grid
 app.get('/api/grid/today', (req, res) => {
