@@ -167994,23 +167994,6 @@
     "cname": "贾勒特-阿伦"
   },
   {
-    "team": "POR",
-    "player": "T.J. Leaf",
-    "pos": "PF",
-    "ppg": 1.7,
-    "rpg": 0.7,
-    "apg": 0.1,
-    "spg": 0.3,
-    "bpg": 0.1,
-    "id": "tj_leaf_por_2020s",
-    "baseSlug": "tj_leaf",
-    "era": "2020s",
-    "positions": [
-      "PF"
-    ],
-    "cname": "TJ-利夫"
-  },
-  {
     "team": "MIA",
     "player": "Bam Adebayo",
     "pos": "C",
@@ -173166,24 +173149,6 @@
       "SG"
     ],
     "cname": "阿米尔-科菲"
-  },
-  {
-    "team": "POR",
-    "player": "Jarron Cumberland",
-    "pos": "G/F",
-    "ppg": 0.7,
-    "rpg": 1.0,
-    "apg": 0.3,
-    "spg": 0.0,
-    "bpg": 0.0,
-    "id": "jarron_cumberland_por_2020s",
-    "baseSlug": "jarron_cumberland",
-    "era": "2020s",
-    "positions": [
-      "SG",
-      "SF"
-    ],
-    "cname": "Jarron Cumberland"
   },
   {
     "team": "MIL",
@@ -186520,24 +186485,6 @@
     "cname": "Taze Moore"
   },
   {
-    "team": "POR",
-    "player": "Javonte Cooke",
-    "pos": "G/F",
-    "ppg": 1.2,
-    "rpg": 1.0,
-    "apg": 0.4,
-    "spg": 0.3,
-    "bpg": 0.0,
-    "id": "javonte_cooke_por_2020s",
-    "baseSlug": "javonte_cooke",
-    "era": "2020s",
-    "positions": [
-      "SG",
-      "SF"
-    ],
-    "cname": "Javonte Cooke"
-  },
-  {
     "team": "ORL",
     "player": "Alex Morales",
     "pos": "G",
@@ -191684,22 +191631,5 @@
       "SF"
     ],
     "cname": "Toby Okani"
-  },
-  {
-    "team": "POR",
-    "player": "Jayson Kent",
-    "pos": "G",
-    "ppg": 2.0,
-    "rpg": 1.0,
-    "apg": 0.0,
-    "spg": 0.2,
-    "bpg": 0.2,
-    "id": "jayson_kent_por_2020s",
-    "baseSlug": "jayson_kent",
-    "era": "2020s",
-    "positions": [
-      "SG"
-    ],
-    "cname": "Jayson Kent"
   }
 ]
